@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+  
+html {
+    min-height: 100vh;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
