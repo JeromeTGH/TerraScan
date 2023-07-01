@@ -10,6 +10,10 @@
     align-items: center;
     margin: auto;
 
+    h1 {
+        padding-bottom: 4rem;
+    }
+
     .searchBar {
 
         width: 100%;
@@ -39,4 +43,9 @@
         }
     }
 
+    .message {
+        padding-top: 1rem;
+        color: $errorColor;
+        font-style: italic;
+    }
 }

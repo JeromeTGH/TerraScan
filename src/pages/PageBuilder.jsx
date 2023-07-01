@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../elements/Header';
 import Footer from '../elements/Footer';
 
-import PageAccueil from './PageAccueil/PageAccueil';
+import PageHome from './PageHome/PageHome';
 import Page404 from './Page404/Page404';
 
 const PageBuilder = (props) => {
@@ -16,12 +16,12 @@ const PageBuilder = (props) => {
     // Sélecteur d'affichage
     const renderSwitch = (parametre) => {
         switch(parametre) {
-            case undefined:
-                return <div>[ERROR] Missing parameter "targetPage" in PageBuilder.jsx</div>;
             case '/':
-                return <PageAccueil />;
+                return <PageHome />;
             case '/404':
                 return <Page404 />;
+            case undefined:
+                return <div>[ERROR] Missing parameter "targetPage" in PageBuilder.jsx</div>;
             default:
                 return <div>[ERROR] Unknown page "{parametre}" in PageBuilder.jsx</div>;
         }
