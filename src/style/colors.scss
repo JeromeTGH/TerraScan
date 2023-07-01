@@ -1,8 +1,13 @@
+//
+$bgColor: #141418;
+$fontColor: white;
+$linkColor: gold;
+
 html {
-    background-color: #141418;
-    color: white;
+    background-color: $bgColor;
+    color: $fontColor;
 }
 
 a, .colore {
-    color: gold;
+    color: $linkColor;
 }

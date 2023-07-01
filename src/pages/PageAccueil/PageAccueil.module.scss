@@ -1,0 +1,42 @@
+@import "../../style/colors.scss";
+
+.homepage {
+
+    max-width: 640px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+    .searchBar {
+
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+
+        &>* {
+            background: none;
+            color: $fontColor;
+            border: none;
+            border-bottom: 1px solid $fontColor;
+            font-size: 20px;
+            @media (max-width: 640px) {
+                font-size: 14px;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+        }
+        
+        button {
+            padding: 0.5rem;
+        }
+    }
+
+}
