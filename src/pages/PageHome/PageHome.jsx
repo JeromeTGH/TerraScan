@@ -27,7 +27,7 @@ const PageHome = () => {
         <div className={styles.homepage}>
             <div className={styles.texts}>
                 <h1>Terra Classic Finder</h1>
-                <p>Enter an <span className={styles.highlighted}>Account&nbsp;address</span>, a <span className={styles.highlighted}>Block&nbsp;number</span>, or a <span className={styles.highlighted}>Transaction&nbsp;Hash</span> below</p>
+                <p className='comment'>Enter an <span className={styles.highlighted}>Account&nbsp;address</span>, a <span className={styles.highlighted}>Block&nbsp;number</span>, or a <span className={styles.highlighted}>Transaction&nbsp;hash</span> below</p>
             </div>
             <form className={styles.searchBar}>
                 <input
@@ -39,7 +39,7 @@ const PageHome = () => {
                 />
                 <button onClick={(e) => {handleBtnClick(e)}}><SearchIcon /></button>
             </form>
-            <div className={styles.message}>{errorMessage}</div>
+            <p className={styles.message}>{errorMessage}</p>
         </div>
     );
 };

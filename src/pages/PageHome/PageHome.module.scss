@@ -2,7 +2,7 @@
 @import "../../style/sizes.scss";
 
 .homepage {
-
+    padding: 0 1rem;
     max-width: 640px;
     height: 100vh;
     display: flex;
@@ -18,18 +18,15 @@
             padding-top: 1.6rem;
             font-style: italic;
             color: $secondaryFontColor;
-            font-size: $commentsFontSize;
 
             .highlighted {
                 color: $fontColor;
-                font-weight: 600;
-                font-size: $commentsFontSize;
+                font-weight: 500;
             }
         }
     }
 
     .searchBar {
-        padding: 0 1rem;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -43,7 +40,7 @@
             border-bottom: 1px solid $fontColor;
             font-size: 1.2rem;
             @media (max-width: 640px) {
-                font-size: 14px;
+                font-size: 1.1rem;
             }
         }
 

@@ -1,15 +1,20 @@
 h1 {
     font-size: 2rem;
     @media (max-width: 640px) {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 }
 
-* {
+p {
     font-size: 1rem;
     @media (max-width: 640px) {
         font-size: 0.9rem;
     }
 }
 
-$commentsFontSize: 0.8rem;
+.comment {
+    font-size: 0.9rem;
+    @media (max-width: 640px) {
+        font-size: 0.86rem;
+    }
+}
