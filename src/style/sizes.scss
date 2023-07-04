@@ -1,20 +1,29 @@
+$breakpoint : '600px';
+
 h1 {
     font-size: 2rem;
-    @media (max-width: 640px) {
+    @media (max-width: $breakpoint) {
         font-size: 1.8rem;
     }
 }
 
 p {
     font-size: 1rem;
-    @media (max-width: 640px) {
+    @media (max-width: $breakpoint) {
         font-size: 0.9rem;
     }
 }
 
 .comment {
     font-size: 0.9rem;
-    @media (max-width: 640px) {
+    @media (max-width: $breakpoint) {
         font-size: 0.86rem;
+    }
+}
+
+.homesearch {
+    font-size: 1.2rem;
+    @media (max-width: $breakpoint) {
+        font-size: 1.1rem;
     }
 }

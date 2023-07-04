@@ -1,9 +1,8 @@
 @import "../../style/colors.scss";
-@import "../../style/sizes.scss";
 
 .homepage {
     padding: 0 1rem;
-    max-width: 640px;
+    max-width: 600px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -38,10 +37,6 @@
             color: $fontColor;
             border: none;
             border-bottom: 1px solid $fontColor;
-            font-size: 1.2rem;
-            @media (max-width: 640px) {
-                font-size: 1.1rem;
-            }
         }
 
         input {
