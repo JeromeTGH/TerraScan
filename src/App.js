@@ -1,4 +1,4 @@
-import './style/global.scss';
+import './style/_global.scss';
 import './style/fonts.scss';
 import './style/colors.scss';
 import './style/sizes.scss';

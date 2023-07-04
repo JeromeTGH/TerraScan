@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './PageHome.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
+import { isValidTransactionHash } from '../../application/AppUtils';
 
 const PageHome = () => {
 
@@ -18,9 +19,12 @@ const PageHome = () => {
             return;    
         }
 
+        if(isValidTransactionHash(searchFieldValue)) {
+            setErrorMessage('Identifié : TRANSACTION HASH');    
+        } else {
+            setErrorMessage('No matches found, sorry');
+        }
 
-        console.log("searchFieldValue", searchFieldValue);
-        setErrorMessage('No matches found, sorry');
     }
 
     return (
