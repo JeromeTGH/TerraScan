@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './PageHome.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
-import { isValidTransactionHashFormat, isValidTerraAddressFormat } from '../../application/AppUtils';
+import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
 
 const PageHome = () => {
 
@@ -23,6 +23,8 @@ const PageHome = () => {
             setErrorMessage('Identifié : TERRA ACCOUNT ADDRESS');
         } else if(isValidTerraAddressFormat(searchFieldValue, 'terravaloper1')) {
             setErrorMessage('Identifié : TERRA VALIDATOR ADDRESS');
+        } else if(isValidBlockNumberFormat(searchFieldValue)) {
+            setErrorMessage('Identifié : TERRA BLOCK NUMBER');
         } else {
             setErrorMessage('No matches found, sorry');
         }
