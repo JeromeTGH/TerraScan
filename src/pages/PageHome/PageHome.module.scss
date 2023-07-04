@@ -28,29 +28,44 @@
     .searchBar {
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
 
-        &>* {
-            background: none;
-            color: $fontColor;
-            border: none;
-            border-bottom: 1px solid $fontColor;
-        }
-
-        input {
+        form {
             width: 100%;
-            padding: 0.8rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+
+            &>* {
+                background: none;
+                color: $fontColor;
+                border: none;
+                border-bottom: 1px solid $fontColor;
+            }
+    
+            input {
+                width: 100%;
+                padding: 0.8rem;
+            }
+            
+            button {
+                padding: 0.5rem;
+            }
         }
-        
-        button {
-            padding: 0.5rem;
+
+        .message {
+            color: $errorColor;
+            font-style: italic;
+            padding-top: 1rem;
         }
     }
 
-    .message {
-        color: $errorColor;
+    .cmtbtm {
         font-style: italic;
+        color: $secondaryFontColor;
     }
+
 }
