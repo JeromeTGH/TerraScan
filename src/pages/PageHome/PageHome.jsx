@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './PageHome.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
-import { isValidTransactionHash } from '../../application/AppUtils';
+import { isValidTransactionHashFormat, isValidTerraAddressFormat } from '../../application/AppUtils';
 
 const PageHome = () => {
 
@@ -17,10 +17,12 @@ const PageHome = () => {
         if(searchFieldValue === '') {
             setErrorMessage('No search value entered');
             return;    
-        }
-
-        if(isValidTransactionHash(searchFieldValue)) {
-            setErrorMessage('Identifié : TRANSACTION HASH');    
+        } else if(isValidTransactionHashFormat(searchFieldValue)) {
+            setErrorMessage('Identifié : TRANSACTION HASH');
+        } else if(isValidTerraAddressFormat(searchFieldValue, 'terra1')) {
+            setErrorMessage('Identifié : TERRA ACCOUNT ADDRESS');
+        } else if(isValidTerraAddressFormat(searchFieldValue, 'terravaloper1')) {
+            setErrorMessage('Identifié : TERRA VALIDATOR ADDRESS');
         } else {
             setErrorMessage('No matches found, sorry');
         }
