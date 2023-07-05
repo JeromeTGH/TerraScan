@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './PageHome.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
+
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
+import { chainID, chainName } from '../../application/AppParams';
 
 const PageHome = () => {
 
     const nbsp = '\u00A0';
+    const navigate = useNavigate();
+
     const [ searchFieldValue, setSearchFieldValue ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState(nbsp);
 
@@ -16,19 +21,17 @@ const PageHome = () => {
 
         if(searchFieldValue === '') {
             setErrorMessage('No search value entered');
-            return;    
         } else if(isValidTransactionHashFormat(searchFieldValue)) {
-            setErrorMessage('Identifié : TRANSACTION HASH');
+            navigate('/transaction/' + searchFieldValue);
         } else if(isValidTerraAddressFormat(searchFieldValue, 'terra1')) {
-            setErrorMessage('Identifié : TERRA ACCOUNT ADDRESS');
+            navigate('/account/' + searchFieldValue);
         } else if(isValidTerraAddressFormat(searchFieldValue, 'terravaloper1')) {
-            setErrorMessage('Identifié : TERRA VALIDATOR ADDRESS');
+            navigate('/validator/' + searchFieldValue);
         } else if(isValidBlockNumberFormat(searchFieldValue)) {
-            setErrorMessage('Identifié : TERRA BLOCK NUMBER');
+            navigate('/block/' + searchFieldValue);
         } else {
             setErrorMessage('No matches found, sorry');
         }
-
     }
 
     return (
@@ -44,14 +47,14 @@ const PageHome = () => {
                         placeholder='Search for ...'
                         className='homesearch'
                         autoFocus
-                        onChange={(e) => setSearchFieldValue(e.target.value)}
+                        onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
                         value={searchFieldValue}
                     />
                     <button className='homesearch' onClick={(e) => {handleBtnClick(e)}}><SearchIcon /></button>
                 </form>
                 <p className={styles.message}>{errorMessage}</p>
             </div>
-            <div className={'comment ' + styles.cmtbtm}>Using Terra Classic LCD (colombus-5)</div>
+            <div className={'comment ' + styles.cmtbtm}>Using {chainName} LCD ({chainID})</div>
         </div>
     );
 };
