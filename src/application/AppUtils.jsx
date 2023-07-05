@@ -9,7 +9,7 @@
 export const isValidTransactionHashFormat = (stringToTest) => {
 
     // Teste si la valeur passée ne contient que des caractères hexadécimaux, et fait bien 64 caractères au total
-    if(stringToTest.match(/^[0-9a-fA-F]+$/i) && stringToTest.length === 64)
+    if(stringToTest.toUpperCase().match(/^[0-9A-F]+$/i) && stringToTest.length === 64)
         return true;
     else
         return false;
@@ -39,9 +39,9 @@ export const isValidTerraAddressFormat = (stringToTest, terraAddressHeader) => {
     //  - avec 'xxx', une entête spécifique (0 à plusieurs caractères)
     //  - et 'yyy', 38 caractères obligatoires
 
-    var regex = new RegExp('^' + terraAddressHeader, 'g');      // On va rechercher tout ce qui commence par terra[...]1[...]
+    var regex = new RegExp('^' + terraAddressHeader.toLowerCase(), 'g');      // On va rechercher tout ce qui commence par terra[...]1[...]
 
-    if(stringToTest.match(regex) && stringToTest.length === (terraAddressHeader.length + 38))
+    if(stringToTest.toLowerCase().match(regex) && stringToTest.length === (terraAddressHeader.length + 38))
         return true;
 
     return false;
