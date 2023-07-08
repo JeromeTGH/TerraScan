@@ -1,5 +1,10 @@
 $breakpoint : '600px';
 
+html {
+    // Taille de référence, pour tout le site (ici, 1rem vaudra alors 16px, 2rem 32px, etc...)
+    font-size: 16px;
+}
+
 h1 {
     font-size: 2rem;
     @media (max-width: $breakpoint) {
