@@ -3,8 +3,9 @@ import React from 'react';
 import Header from '../elements/Header';
 import Footer from '../elements/Footer';
 
-import PageHome from './PageHome/PageHome';
-import Page404 from './Page404/Page404';
+import PageHome from '../pages/PageHome/PageHome';
+import PageSearch from '../pages/PageSearch/PageSearch';
+import Page404 from '../pages/Page404/Page404';
 
 const PageBuilder = (props) => {
 
@@ -18,6 +19,8 @@ const PageBuilder = (props) => {
         switch(parametre) {
             case '/':
                 return <PageHome />;
+            case '/search':
+                return <PageSearch />;
             case '/404':
                 return <Page404 />;
             case undefined:
