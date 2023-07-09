@@ -1,6 +1,8 @@
-# Terra Classic application (finder and scan)
+# Terra Scan
 
-Created by [JeromeTGH](https://github.com/JeromeTGH)<br />
-@2023
+**Terra Classic Application (dashboard, finder, and scan)**
 
-Source : https://github.com/JeromeTGH/terra-classic
+GitHub : https://github.com/JeromeTGH/Terra-Scan
+
+@2023<br />
+Created by [JeromeTGH](https://github.com/JeromeTGH)
