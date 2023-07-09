@@ -2,7 +2,7 @@ import './style/_global.scss';
 import './style/fonts.scss';
 import './style/colors.scss';
 import './style/sizes.scss';
-import AppRoutes from './application/AppRoutes';
+import AppRoutes from './pages/Builder/AppRoutes';
 
 function App() {
   return (

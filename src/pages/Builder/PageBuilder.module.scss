@@ -1,0 +1,51 @@
+#site {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: lightcyan;
+}
+
+#sidebar-title {
+    background-color: lightseagreen;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 250px;
+}
+
+#sidebar-content {
+    background-color: transparent;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    max-height: calc(100vh - 50px);
+    width: 260px;
+    overflow-y: scroll;
+}
+
+#sidebar-content-mnu {
+    background-color: lightblue;
+}
+
+#sidebar-content::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+#sidebar-content::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+#sidebar-content:hover::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #AAAAAA;
+    border: 2px solid transparent;
+    border-radius: 20px;
+}
+
+#content {
+    padding-left: 20px;
+    width: calc(100% - 270px);
+}
