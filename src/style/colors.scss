@@ -1,15 +1,40 @@
-//
-$bgColor: #141418;
-$fontColor: white;
-$secondaryFontColor: #C1C1C1;
-$linkColor: gold;
-$errorColor: red;
+// Light Theme Colors
+$lightTheme_bgColor: #F1F1F1;
+$lightTheme_fontColor: #333333;
+$lightTheme_secondaryFontColor: #555555;
+$lightTheme_linkColor: orange;
+$lightTheme_errorColor: red;
 
-html {
-    background-color: $bgColor;
-    color: $fontColor;
+// Dark Theme Colors
+$darkTheme_bgColor: #141418;
+$darkTheme_fontColor: white;
+$darkTheme_secondaryFontColor: #C1C1C1;
+$darkTheme_linkColor: gold;
+$darkTheme_errorColor: red;    
+
+// Current Colors (sombre, initialement, pour ne pas flasher avec un écran blanc, avant "sélection du bon thème")
+:root {
+    --bgColor: #{$darkTheme_bgColor};
+    --fontColor: #{$darkTheme_fontColor};
+    --secondaryFontColor: #{$darkTheme_secondaryFontColor};
+    --linkColor: #{$darkTheme_linkColor};
+    --errorColor: #{$darkTheme_errorColor};
+}
+
+// Switch de couleurs, si changement de thème (vers le thème plus clair)
+[data-theme="light"] {
+    --bgColor: #{$lightTheme_bgColor};
+    --fontColor: #{$lightTheme_fontColor};
+    --secondaryFontColor: #{$lightTheme_secondaryFontColor};
+    --linkColor: #{$lightTheme_linkColor};
+    --errorColor: #{$lightTheme_errorColor};
+}
+
+body {
+    background-color: var(--bgColor);
+    color: var(--fontColor);
 }
 
 a, .colore {
-    color: $linkColor;
+    color: var(--linkColor);
 }

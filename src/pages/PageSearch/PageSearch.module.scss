@@ -1,5 +1,3 @@
-@import "../../style/colors";
-
 .searchpage {
     padding: 0 1rem;
     max-width: 600px;
@@ -16,10 +14,10 @@
         p {
             padding-top: 1.6rem;
             font-style: italic;
-            color: $secondaryFontColor;
+            color: var(--secondaryFontColor);
 
             .highlighted {
-                color: $fontColor;
+                color: var(--fontColor);
                 font-weight: 500;
             }
         }
@@ -41,9 +39,9 @@
 
             &>* {
                 background: none;
-                color: $fontColor;
+                color: --fontColor;
                 border: none;
-                border-bottom: 1px solid $fontColor;
+                border-bottom: 1px solid var(--fontColor);
             }
     
             input {
@@ -57,7 +55,7 @@
         }
 
         .message {
-            color: $errorColor;
+            color: var(--errorColor);
             font-style: italic;
             padding-top: 1rem;
         }
@@ -65,7 +63,7 @@
 
     .cmtbtm {
         font-style: italic;
-        color: $secondaryFontColor;
+        color: var(--secondaryFontColor);
     }
 
 }

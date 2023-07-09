@@ -1,9 +1,11 @@
 import React from 'react';
+import BtnJourNuit from '../../elements/BtnJourNuit';
 
 const PageHome = () => {
+
     return (
         <div>
-            Page Home !
+            <BtnJourNuit />
         </div>
     );
 };
