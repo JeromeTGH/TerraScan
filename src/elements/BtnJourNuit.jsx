@@ -35,7 +35,7 @@ const BtnJourNuit = () => {
     
     return (
         <>
-            <div style={{ transition: "all 0.5s ease"}}>
+            <div style={{ transition: "all 0.5s ease"}} className="pointeur">
                 {currentTheme === "light" ? (
                         <MoonIcon onClick={setDarkTheme} />
                     ) : (

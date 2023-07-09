@@ -14,10 +14,10 @@
         p {
             padding-top: 1.6rem;
             font-style: italic;
-            color: var(--secondaryFontColor);
+            color: var(--secondary-text-color);
 
             .highlighted {
-                color: var(--fontColor);
+                color: var(--primary-text-color);
                 font-weight: 500;
             }
         }
@@ -39,9 +39,9 @@
 
             &>* {
                 background: none;
-                color: --fontColor;
+                color: var(--primary-text-color);
                 border: none;
-                border-bottom: 1px solid var(--fontColor);
+                border-bottom: 1px solid var(--primary-text-color);
             }
     
             input {
@@ -52,10 +52,16 @@
             button {
                 padding: 0.5rem;
             }
+
+            .pgsearch {
+                font-size: 1.2rem;
+                @media (max-width: var(--breakpoint)) {
+                    font-size: 1.1rem;
+                }
+            }
         }
 
         .message {
-            color: var(--errorColor);
             font-style: italic;
             padding-top: 1rem;
         }
@@ -63,7 +69,7 @@
 
     .cmtbtm {
         font-style: italic;
-        color: var(--secondaryFontColor);
+        color: var(--secondary-text-color);
     }
 
 }

@@ -5,6 +5,7 @@ import styles from './PageSearch.module.scss';
 
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
 import { chainID, chainName } from '../../application/AppParams';
+import { SearchIcon } from '../../application/AppIcons';
 
 const PageSearch = () => {
 
@@ -44,14 +45,14 @@ const PageSearch = () => {
                     <input
                         type='search'
                         placeholder='Search for ...'
-                        className='pgsearch'
+                        className={styles.pgsearch}
                         autoFocus
                         onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
                         value={searchFieldValue}
                     />
-                    <button className='pgsearch' onClick={(e) => {handleBtnClick(e)}}>?</button>
+                    <button className={styles.pgsearch} onClick={(e) => {handleBtnClick(e)}}><SearchIcon /></button>
                 </form>
-                <p className={styles.message}>{errorMessage}</p>
+                <p className={"erreur " + styles.message}>{errorMessage}</p>
             </div>
             <div className={'comment ' + styles.cmtbtm}>Using {chainName} LCD ({chainID})</div>
         </div>

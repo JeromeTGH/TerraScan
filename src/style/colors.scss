@@ -1,40 +1,52 @@
 // Light Theme Colors
-$lightTheme_bgColor: #F1F1F1;
-$lightTheme_fontColor: #333333;
+$lightTheme_backgroundColor: #F1F1F1;
+$lightTheme_primaryFontColor: #333333;
 $lightTheme_secondaryFontColor: #555555;
 $lightTheme_linkColor: orange;
 $lightTheme_errorColor: red;
+$lightTheme_successColor: green;
 
 // Dark Theme Colors
-$darkTheme_bgColor: #141418;
-$darkTheme_fontColor: white;
+$darkTheme_backgroundColor: #141418;
+$darkTheme_primaryFontColor: white;
 $darkTheme_secondaryFontColor: #C1C1C1;
 $darkTheme_linkColor: gold;
 $darkTheme_errorColor: red;    
+$darkTheme_successColor: green;
 
 // Current Colors (sombre, initialement, pour ne pas flasher avec un écran blanc, avant "sélection du bon thème")
 :root {
-    --bgColor: #{$darkTheme_bgColor};
-    --fontColor: #{$darkTheme_fontColor};
-    --secondaryFontColor: #{$darkTheme_secondaryFontColor};
-    --linkColor: #{$darkTheme_linkColor};
-    --errorColor: #{$darkTheme_errorColor};
+    --background-color: #{$darkTheme_backgroundColor};
+    --primary-text-color: #{$darkTheme_primaryFontColor};
+    --secondary-text-color: #{$darkTheme_secondaryFontColor};
+    --link-color: #{$darkTheme_linkColor};
+    --error-color: #{$darkTheme_errorColor};
+    --success-color: #{$darkTheme_successColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
 [data-theme="light"] {
-    --bgColor: #{$lightTheme_bgColor};
-    --fontColor: #{$lightTheme_fontColor};
-    --secondaryFontColor: #{$lightTheme_secondaryFontColor};
-    --linkColor: #{$lightTheme_linkColor};
-    --errorColor: #{$lightTheme_errorColor};
+    --background-color: #{$lightTheme_backgroundColor};
+    --primary-text-color: #{$lightTheme_primaryFontColor};
+    --secondary-text-color: #{$lightTheme_secondaryFontColor};
+    --link-color: #{$lightTheme_linkColor};
+    --error-color: #{$lightTheme_errorColor};
+    --success-color: #{$lightTheme_successColor};
 }
 
 body {
-    background-color: var(--bgColor);
-    color: var(--fontColor);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
 }
 
 a, .colore {
-    color: var(--linkColor);
+    color: var(--link-color);
+}
+
+.erreur {
+    color: var(--error-color);
+}
+
+.succes {
+    color: var(--success-color);
 }
