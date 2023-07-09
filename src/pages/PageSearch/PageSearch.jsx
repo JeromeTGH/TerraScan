@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './PageSearch.module.scss';
-import SearchIcon from '@mui/icons-material/Search';
 
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
 import { chainID, chainName } from '../../application/AppParams';
@@ -50,7 +49,7 @@ const PageSearch = () => {
                         onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
                         value={searchFieldValue}
                     />
-                    <button className='pgsearch' onClick={(e) => {handleBtnClick(e)}}><SearchIcon /></button>
+                    <button className='pgsearch' onClick={(e) => {handleBtnClick(e)}}>?</button>
                 </form>
                 <p className={styles.message}>{errorMessage}</p>
             </div>

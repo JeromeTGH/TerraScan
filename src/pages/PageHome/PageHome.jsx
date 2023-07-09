@@ -3,7 +3,7 @@ import React from 'react';
 const PageHome = () => {
     return (
         <div>
-            Page Home
+            Page Home !
         </div>
     );
 };
