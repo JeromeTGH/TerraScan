@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FilledSunIcon, MoonIcon } from '../application/AppIcons';
 
 const BtnJourNuit = () => {
+
+    const [currentTheme, setCurrentTheme] = useState();
 
     const setLightTheme = () => {
         document.querySelector("body").setAttribute("data-theme", "light");
         localStorage.setItem("terrascan-themecolor", "light");
+        setCurrentTheme("light");
     }
     
     const setDarkTheme = () => {
         document.querySelector("body").setAttribute("data-theme", "dark");
         localStorage.setItem("terrascan-themecolor", "dark");
+        setCurrentTheme("dark");
     }
-    
     
     useEffect (() => {
         const selectedTheme = localStorage.getItem("terrascan-themecolor");
@@ -29,17 +33,16 @@ const BtnJourNuit = () => {
         }
     }, [])
     
-    const switchDeTheme = () => {
-        // Passage de dark à light, ou de light à dark, selon l'état précédent
-        if(document.querySelector("body").getAttribute("data-theme") === "dark")
-            setLightTheme();
-        else
-            setDarkTheme();
-    }
-    
     return (
         <>
-            <button onClick={switchDeTheme}>Jour/Nuit</button>
+            <div style={{ transition: "all 0.5s ease"}}>
+                {currentTheme === "light" ? (
+                        <MoonIcon onClick={setDarkTheme} />
+                    ) : (
+                        <FilledSunIcon onClick={setLightTheme} />
+                )
+                }
+            </div>
         </>
     );
 };
