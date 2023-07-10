@@ -47,14 +47,32 @@ $titleHeight: 5rem;
     max-height: calc(100vh - #{$titleHeight});
     width: calc(#{$sidebar-width} + 10px);
     overflow-y: scroll;
+
+    ul {
+        li {
+            
+            a {
+                display: block;
+                padding: 0.5rem 0.75rem;
+                color: var(--primary-text-color-on-fill);
+                
+                span {
+                    transition: transform .25s,-webkit-transform .25s;
+                    display: inline-block;
+                }
+
+                &:hover span {
+                    transform: translateX(10px);
+                }
+            }
+        }
+
+        .sidebar_content_mnu_active {
+            background-color: var(--tertiary-fill);
+        }
+    }
 }
 
-// #sidebar-content-mnu-1 {
-// }
-
-#sidebar-content-mnu-2 {
-    background-color: var(--tertiary-fill);
-}
 
 #sidebar-content::-webkit-scrollbar {
     background-color: transparent;

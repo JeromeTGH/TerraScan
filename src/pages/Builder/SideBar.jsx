@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './SideBar.module.scss';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
     return (
@@ -10,59 +11,17 @@ const SideBar = () => {
                 <p id={styles["sidebar-title-subtext"]}>Terra Classic Scan/Finder</p>
             </div>
             <div id={styles["sidebar-content"]}>
-                <div id={styles["sidebar-content-mnu-1"]}>
-                    1
-                    <br />2
-                    <br />3
-                    <br />4
-                    <br />5
-                    <br />6
-                    <br />7
-                    <br />8
-                    <br />9
-                </div>
-                <div id={styles["sidebar-content-mnu-2"]}>
-                    10
-                    <br />11
-                    <br />12
-                    <br />13
-                    <br />14
-                    <br />15
-                    {/* <br />16
-                    <br />17
-                    <br />18
-                    <br />19
-                    <br />20
-                    <br />21
-                    <br />22
-                    <br />23
-                    <br />24
-                    <br />25
-                    <br />26
-                    <br />27
-                    <br />28
-                    <br />29
-                    <br />30
-                    <br />31
-                    <br />32
-                    <br />33
-                    <br />34
-                    <br />35
-                    <br />36
-                    <br />37
-                    <br />38
-                    <br />39
-                    <br />40
-                    <br />41
-                    <br />42
-                    <br />43
-                    <br />44
-                    <br />45
-                    <br />46
-                    <br />47
-                    <br />48
-                    <br />49 */}
-                </div>
+                <ul>
+                    <li className={styles.sidebar_content_mnu_active}><Link to={"/"}>
+                        <span>1</span>&nbsp;
+                        <span>Home</span>
+                    </Link></li>
+                    <li><Link to={"/"}><span>2</span>&nbsp;<span>Validators</span></Link></li>
+                    <li><Link to={"/"}><span>3</span>&nbsp;<span>Blocks</span></Link></li>
+                    <li><Link to={"/"}><span>4</span>&nbsp;<span>Transactions</span></Link></li>
+                    <li><Link to={"/"}><span>5</span>&nbsp;<span>Staking</span></Link></li>
+                    <li><Link to={"/"}><span>6</span>&nbsp;<span>About</span></Link></li>
+                </ul>
             </div>
         </div>
     );
