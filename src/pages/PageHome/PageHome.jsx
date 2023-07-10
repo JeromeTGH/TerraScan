@@ -1,12 +1,12 @@
 import React from 'react';
-import BtnJourNuit from '../../elements/BtnJourNuit';
+import BtnJourNuit from '../Builder/BtnJourNuit';
 
 const PageHome = () => {
 
     return (
         <div>
             <BtnJourNuit />
-            <br />1
+            1
             <br />2
             <br />3
             <br />4

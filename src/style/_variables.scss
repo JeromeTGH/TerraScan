@@ -1,10 +1,15 @@
 // Light Theme Colors
 $lightTheme_backgroundColor: #F1F1F1;
-$lightTheme_primaryFontColor: #333333;
-$lightTheme_secondaryFontColor: #555555;
+$lightTheme_primaryFill: #EE7C00;
+$lightTheme_secondaryFill: #C46500;
+$lightTheme_tertiaryFill: #502600;
+$lightTheme_primaryFontColor: #303030;
+$lightTheme_secondaryFontColor: #606060;
+$lightTheme_primaryFontColorOnFill: #eee;
 $lightTheme_linkColor: orange;
 $lightTheme_errorColor: red;
 $lightTheme_successColor: green;
+
 
 // Dark Theme Colors
 $darkTheme_backgroundColor: #141418;
@@ -15,5 +20,6 @@ $darkTheme_errorColor: red;
 $darkTheme_successColor: green;
 
 // Largeurs
-$breakpoint: 600px;             // Moment à partir duquel on passe d'un "menu latéral gauche" à un "burger menu"
-$sidebar-width: 250px;          // Largeur du "menu latéral gauche", lorsque visible
+$primary-breakpoint: 1024px;        // Moment à partir duquel on passe d'un "menu latéral gauche" à un "burger menu"
+$secondary-breakpoint: 768px;       // Moment à partir duquel on affiche que des blocs "full width", et on rapetisse un poil les éléments
+$sidebar-width: 250px;              // Largeur du "menu latéral gauche", lorsque visible

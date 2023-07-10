@@ -3,8 +3,12 @@
 // Current Colors (sombre, initialement, pour ne pas flasher avec un écran blanc, avant "sélection du bon thème")
 :root {
     --background-color: #{$darkTheme_backgroundColor};
+        --primary-fill: #{$lightTheme_primaryFill};
+        --secondary-fill: #{$lightTheme_secondaryFill};
+        --tertiary-fill: #{$lightTheme_tertiaryFill};
     --primary-text-color: #{$darkTheme_primaryFontColor};
     --secondary-text-color: #{$darkTheme_secondaryFontColor};
+        --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnFill};
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
