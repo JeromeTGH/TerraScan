@@ -4,6 +4,7 @@ import Header from '../elements/Header';
 import Footer from '../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
+import PageAbout from '../PageAbout/PageAbout';
 import PageSearch from '../PageSearch/PageSearch';
 import Page404 from '../Page404/Page404';
 
@@ -22,6 +23,8 @@ const PageBuilder = (props) => {
         switch(parametre) {
             case '/':
                 return <PageHome />;
+            case '/about':
+                return <PageAbout />;
             case '/search':
                 return <PageSearch />;
             case '/404':

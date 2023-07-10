@@ -7,6 +7,10 @@
 }
 
 #content {
-    padding-left: 20px;
+    padding: 14px 20px;
     width: calc(100% - #{$sidebar-width} - 20px);
+
+    @media (max-width: $primary-breakpoint) {
+        width: 100%;
+    }
 }

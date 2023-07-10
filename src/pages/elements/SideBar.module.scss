@@ -25,14 +25,26 @@ $titleBlocHeight: 6rem;
     text-align: center;
 
     #sidebar-title-text {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
         font-size: $titleSize;
         font-weight: 500;
         width: $sidebar-width;
         height: calc(#{$titleBlocHeight} * 0.7);
+        
+        a {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-text-color-on-fill);
+            width: inherit;
+            height: inherit;
+
+            img {
+                width: calc(#{$titleSize} * 1.2);
+                margin-right: 0.6rem;
+            }
+
+        }
     }
 
     #sidebar-title-subtext {
@@ -118,4 +130,17 @@ $titleBlocHeight: 6rem;
     box-shadow: inset 0 0 10px 10px #AAAAAA;
     border: 2px solid transparent;
     border-radius: 20px;
+}
+
+#sidebar-theme {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    padding-top: 1rem;
+
+    svg {
+        cursor: pointer;
+    }
 }
