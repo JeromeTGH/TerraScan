@@ -1,18 +1,4 @@
-// Light Theme Colors
-$lightTheme_backgroundColor: #F1F1F1;
-$lightTheme_primaryFontColor: #333333;
-$lightTheme_secondaryFontColor: #555555;
-$lightTheme_linkColor: orange;
-$lightTheme_errorColor: red;
-$lightTheme_successColor: green;
-
-// Dark Theme Colors
-$darkTheme_backgroundColor: #141418;
-$darkTheme_primaryFontColor: white;
-$darkTheme_secondaryFontColor: #C1C1C1;
-$darkTheme_linkColor: gold;
-$darkTheme_errorColor: red;    
-$darkTheme_successColor: green;
+@import './variables';
 
 // Current Colors (sombre, initialement, pour ne pas flasher avec un écran blanc, avant "sélection du bon thème")
 :root {
