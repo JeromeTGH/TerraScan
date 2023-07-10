@@ -1,5 +1,5 @@
 import React from 'react';
-import BtnJourNuit from '../Builder/BtnJourNuit';
+import BtnJourNuit from '../elements/BtnJourNuit';
 
 const PageHome = () => {
 

@@ -3,12 +3,12 @@
 // Current Colors (sombre, initialement, pour ne pas flasher avec un écran blanc, avant "sélection du bon thème")
 :root {
     --background-color: #{$darkTheme_backgroundColor};
-        --primary-fill: #{$lightTheme_primaryFill};
-        --secondary-fill: #{$lightTheme_secondaryFill};
-        --tertiary-fill: #{$lightTheme_tertiaryFill};
+        --primary-fill: #{$darkTheme_sidebarPrimaryFill};
+        --secondary-fill: #{$darkTheme_sidebarSecondaryFill};
+        --tertiary-fill: #{$darkTheme_sidebarTertiaryFill};
     --primary-text-color: #{$darkTheme_primaryFontColor};
     --secondary-text-color: #{$darkTheme_secondaryFontColor};
-        --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnFill};
+        --primary-text-color-on-fill: #{$darkTheme_primaryFontColorOnSidebarFill};
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
@@ -17,8 +17,12 @@
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
 [data-theme="light"] {
     --background-color: #{$lightTheme_backgroundColor};
+        --primary-fill: #{$lightTheme_sidebarPrimaryFill};
+        --secondary-fill: #{$lightTheme_sidebarSecondaryFill};
+        --tertiary-fill: #{$lightTheme_sidebarTertiaryFill};
     --primary-text-color: #{$lightTheme_primaryFontColor};
     --secondary-text-color: #{$lightTheme_secondaryFontColor};
+        --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnSidebarFill};
     --link-color: #{$lightTheme_linkColor};
     --error-color: #{$lightTheme_errorColor};
     --success-color: #{$lightTheme_successColor};

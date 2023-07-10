@@ -13,7 +13,7 @@ const SideBar = () => {
                 <p id={styles["sidebar-title-text"]}>TerraScan</p>
                 <p id={styles["sidebar-title-subtext"]}>== Terra Classic Scan/Finder ==</p>
             </div>
-            <div id={styles["sidebar-content"]}>
+            <nav id={styles["sidebar-content"]}>
                 <ul>
                     <li className={styles.sidebar_content_mnu_active}><Link to={"/"}>
                         <span><HomeIcon /></span>
@@ -49,7 +49,7 @@ const SideBar = () => {
                     {chainLCDurl}
 
                 </div>
-            </div>
+            </nav>
         </div>
     );
 };

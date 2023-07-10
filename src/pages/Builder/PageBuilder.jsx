@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../elements/Header';
+import Footer from '../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
 import PageSearch from '../PageSearch/PageSearch';
 import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
-import SideBar from './SideBar';
+import SideBar from '../elements/SideBar';
 
 const PageBuilder = (props) => {
 
