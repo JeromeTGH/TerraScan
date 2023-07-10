@@ -28,7 +28,7 @@ const AppRoutes = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" exact element={<PageBuilder targetPage="/" />}/>
-                <Route path="/about" exact element={<PageBuilder targetPage="/about" />}/>
+                <Route path="/about" exact element={<PageBuilder targetPage="/about" withHeader="no" withFooter="no" />}/>
 
                 <Route path="/search" exact element={<PageBuilder targetPage="/search" withHeader="no" withFooter="no" />}/>
                 <Route path="/404" exact element={<PageBuilder targetPage="/404" />}/>

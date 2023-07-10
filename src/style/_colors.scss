@@ -12,6 +12,7 @@
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
+    // --link-weight: normal;
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -26,6 +27,7 @@
     --link-color: #{$lightTheme_linkColor};
     --error-color: #{$lightTheme_errorColor};
     --success-color: #{$lightTheme_successColor};
+    // --link-weight: bold;
 }
 
 body {
@@ -35,6 +37,7 @@ body {
 
 a, .colore {
     color: var(--link-color);
+    // font-weight: var(--link-weight);
 }
 
 .erreur {
