@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import PageBuilder from './PageBuilder';
+import PageBuilder from './Builder/PageBuilder';
 
 const AppRoutes = () => {
     return (

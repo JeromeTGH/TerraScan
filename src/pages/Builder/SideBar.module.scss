@@ -1,12 +1,12 @@
 @import '../../style/variables';
 
 $titleSize: 2rem;
-$titleHeight: 5rem;
+$titleBlocHeight: 6rem;
 
 #sidebar {
     width: $sidebar-width;
     color: var(--primary-text-color-on-fill);
-    background-color: var(--secondary-fill);
+    background-color: var(--primary-fill);
     
     @media (max-width: $primary-breakpoint) {
         display: none;
@@ -16,25 +16,37 @@ $titleHeight: 5rem;
 #sidebar-title {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-fill);
+    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
-    height: $titleHeight;
+    height: $titleBlocHeight;
     width: $sidebar-width;
+    text-align: center;
 
     #sidebar-title-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         font-size: $titleSize;
         font-weight: 500;
+        width: $sidebar-width;
+        height: calc(#{$titleBlocHeight} * 0.7);
     }
 
     #sidebar-title-subtext {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         font-size: 0.75rem;
         font-weight: 400;
+        width: $sidebar-width;
         letter-spacing: 0.1rem;
         font-style: italic;
+        background-color: var(--secondary-fill);
+        height: calc(#{$titleBlocHeight} * 0.3);
     }
     
 }
@@ -42,23 +54,33 @@ $titleHeight: 5rem;
 #sidebar-content {
     background-color: transparent;
     position: fixed;
-    top: $titleHeight;
+    top: $titleBlocHeight;
     left: 0;
-    max-height: calc(100vh - #{$titleHeight});
+    max-height: calc(100vh - #{$titleBlocHeight});
     width: calc(#{$sidebar-width} + 10px);
     overflow-y: scroll;
 
     ul {
+        border-top: 1px solid var(--primary-text-color-on-fill);
+        border-bottom: 1px solid var(--primary-text-color-on-fill);
+
         li {
-            
             a {
-                display: block;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
                 padding: 0.5rem 0.75rem;
                 color: var(--primary-text-color-on-fill);
+                font-size: 1.1rem;
                 
                 span {
                     transition: transform .25s,-webkit-transform .25s;
-                    display: inline-block;
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        margin-right: 0.4rem;
+                    }
                 }
 
                 &:hover span {
@@ -70,6 +92,17 @@ $titleHeight: 5rem;
         .sidebar_content_mnu_active {
             background-color: var(--tertiary-fill);
         }
+        .sidebar_content_mnu_inactive {
+            background-color: var(--secondary-fill);
+        }
+    }
+
+    .chainInfos {
+        padding-top: 0.75rem;
+        font-style: italic;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 300;
     }
 }
 
