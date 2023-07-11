@@ -10,6 +10,7 @@ import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
 import SideBar from '../_elements/SideBar';
+import AppBar from '../_elements/AppBar';
 
 const PageBuilder = (props) => {
 
@@ -40,6 +41,7 @@ const PageBuilder = (props) => {
     return (
         <div id={styles["site"]}>
             <SideBar />
+            <AppBar />
             <div id={styles["content"]}>
                 <header>{withHeader === "no" ? null : <Header />}</header>
                 <main>{renderSwitch(targetPage)}</main>

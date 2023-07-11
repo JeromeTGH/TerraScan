@@ -1,0 +1,10 @@
+@import '../../style/variables';
+
+#appbar {
+    display: none;                                 // Si largeur du viewport > breakpoint
+    color: var(--primary-text-color-on-fill);
+    background-color: var(--primary-fill);
+    @media (max-width: $primary-breakpoint) {
+        display: block;                              // Si largeur du viewport <= breakpoint
+    }
+}
