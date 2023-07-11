@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from '../elements/Header';
-import Footer from '../elements/Footer';
+import Header from '../_elements/Header';
+import Footer from '../_elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
 import PageAbout from '../PageAbout/PageAbout';
@@ -9,7 +9,7 @@ import PageSearch from '../PageSearch/PageSearch';
 import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
-import SideBar from '../elements/SideBar';
+import SideBar from '../_elements/SideBar';
 
 const PageBuilder = (props) => {
 
