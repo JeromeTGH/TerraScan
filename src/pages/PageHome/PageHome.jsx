@@ -4,6 +4,8 @@ const PageHome = () => {
 
     return (
         <div>
+            <h1>Home</h1>
+            <br />
             1
             <br />2
             <br />3

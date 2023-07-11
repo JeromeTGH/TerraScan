@@ -17,7 +17,7 @@ const SideBar = () => {
                         <span>{appName}</span>
                     </Link>
                 </div>
-                <div id={styles["sidebar-title-subtext"]}>== Terra Classic Scan/Finder ==</div>
+                <div id={styles["sidebar-title-subtext"]}>== A Terra Classic Blockchain analyzer ==</div>
             </div>
             <nav id={styles["sidebar-content"]}>
                 <ul>
