@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FilledSunIcon, MoonIcon } from '../../application/AppIcons';
+import { SunIcon, MoonIcon, FilledSunIcon, FilledMoonIcon } from '../../application/AppIcons';
 
-const BtnJourNuit = () => {
+const BtnJourNuit = (props) => {
 
     const [currentTheme, setCurrentTheme] = useState();
 
@@ -36,9 +36,15 @@ const BtnJourNuit = () => {
     return (
         <>
             {currentTheme === "light" ? (
+                (props.filled || props.filled === "yes" ? 
+                    <FilledMoonIcon onClick={setDarkTheme} /> :
                     <MoonIcon onClick={setDarkTheme} />
+                )
                 ) : (
-                    <FilledSunIcon onClick={setLightTheme} />
+                    (props.filled || props.filled === "yes" ? 
+                    <FilledSunIcon onClick={setLightTheme} /> :
+                    <SunIcon onClick={setLightTheme} />
+                )
                 )
             }
         </>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { chainName, chainID, chainLCDurl} from '../../application/AppParams';
+import { chainName, chainID, chainLCDurl, appName} from '../../application/AppParams';
 
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
@@ -14,7 +14,7 @@ const SideBar = () => {
                 <div id={styles["sidebar-title-text"]}>
                     <Link to="/">
                         <img src='./terra_luna_classic_logo.png' alt="Terra Luna Classic logo" />
-                        <span>TerraScan</span>
+                        <span>{appName}</span>
                     </Link>
                 </div>
                 <div id={styles["sidebar-title-subtext"]}>== Terra Classic Scan/Finder ==</div>
@@ -75,7 +75,7 @@ const SideBar = () => {
                     {chainLCDurl}
                 </div>
                 <div id={styles["sidebar-theme"]}>
-                    Switch theme to →&nbsp;<BtnJourNuit />
+                    Switch theme to →&nbsp;<BtnJourNuit filled="yes" />
                 </div>
             </nav>
         </div>

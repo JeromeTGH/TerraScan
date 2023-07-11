@@ -1,10 +1,49 @@
 @import '../../style/variables';
 
 #appbar {
-    display: none;                                 // Si largeur du viewport > breakpoint
+    display: none;                                  // Si largeur du viewport > breakpoint
     color: var(--primary-text-color-on-fill);
     background-color: var(--primary-fill);
+
     @media (max-width: $primary-breakpoint) {
-        display: block;                              // Si largeur du viewport <= breakpoint
+        display: flex;                              // Si largeur du viewport <= breakpoint
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.4rem 1rem;
+        font-size: 1.6rem;
+    }
+}
+
+#appbar-leftside {
+    a {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        color: var(--primary-text-color-on-fill);
+
+        img {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 0.6rem;
+        }
+    }
+}
+
+#appbar-rightside {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+   
+    a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;        
+    }
+    
+    svg {
+        margin-left: 0.4rem;
+        color: var(--primary-text-color-on-fill);
     }
 }
