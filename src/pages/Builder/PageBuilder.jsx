@@ -12,6 +12,7 @@ import styles from './PageBuilder.module.scss';
 import SideBar from '../_elements/SideBar';
 import AppBar from '../_elements/AppBar';
 
+
 const PageBuilder = (props) => {
 
     // Récupération des paramètres d'appel
@@ -47,7 +48,7 @@ const PageBuilder = (props) => {
                 <main>{renderSwitch(targetPage)}</main>
                 <footer>{withFooter === "no" ? null : <Footer />}</footer>
             </div>
-        </div>
+        </div>        
     );
 };
 

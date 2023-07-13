@@ -1,9 +1,30 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+// import { BrowserRouter, Routes, Route, Navigate, ScrollRestoration } from 'react-router-dom';
 
 import PageBuilder from './Builder/PageBuilder';
 
 const AppRoutes = () => {
+
+    const router = createBrowserRouter(
+        [
+            {
+                path: "/",
+                element: <PageBuilder targetPage="/" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/search",
+                element: <PageBuilder targetPage="/search" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/404",
+                element: <PageBuilder targetPage="/404" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "*",
+                element: <Navigate replace to="404" />}
+        ]
+    )
     
     useEffect (() => {
 
@@ -25,16 +46,18 @@ const AppRoutes = () => {
 
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" exact element={<PageBuilder targetPage="/" withHeader="no" withFooter="no" />}/>
-                <Route path="/about" exact element={<PageBuilder targetPage="/about" withHeader="no" withFooter="no" />}/>
+        // <BrowserRouter>
+        //     <Routes>
+        //         <Route path="/" exact element={<PageBuilder targetPage="/" withHeader="no" withFooter="no" />}/>
+        //         <Route path="/about" exact element={<PageBuilder targetPage="/about" withHeader="no" withFooter="no" />}/>
 
-                <Route path="/search" exact element={<PageBuilder targetPage="/search" withHeader="no" withFooter="no" />}/>
-                <Route path="/404" exact element={<PageBuilder targetPage="/404" withHeader="no" withFooter="no" />}/>
-                <Route path="*" element={<Navigate replace to="404" />} />
-            </Routes>
-        </BrowserRouter>
+        //         <Route path="/search" exact element={<PageBuilder targetPage="/search" withHeader="no" withFooter="no" />}/>
+        //         <Route path="/404" exact element={<PageBuilder targetPage="/404" withHeader="no" withFooter="no" />}/>
+        //         <Route path="*" element={<Navigate replace to="404" />} />
+        //     </Routes>
+        //     <ScrollRestoration />
+        // </BrowserRouter>
+        <RouterProvider router={router} />
     );
 };
 

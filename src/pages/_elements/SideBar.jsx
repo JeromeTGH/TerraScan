@@ -77,7 +77,6 @@ const SideBar = () => {
                 <div id={styles["sidebar-theme"]}>
                     Switch theme to →&nbsp;<BtnJourNuit filled="yes" />
                 </div>
-                <br />
             </nav>
         </div>
     );
