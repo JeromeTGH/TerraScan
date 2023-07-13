@@ -8,6 +8,7 @@
     grid-row-gap: 0;
 
     max-height: 100vh;
+    min-width: 360px;
 
     @media (max-width: $primary-breakpoint) {
         grid-template-rows: $appbar-height calc(100vh - #{$appbar-height});

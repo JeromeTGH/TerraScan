@@ -40,15 +40,27 @@ const PageBuilder = (props) => {
 
     // Affichage
     return (
-        <div id={styles["site"]}>
-            <SideBar />
-            <AppBar />
-            <div id={styles["content"]}>
-                <header>{withHeader === "no" ? null : <Header />}</header>
-                <main>{renderSwitch(targetPage)}</main>
-                <footer>{withFooter === "no" ? null : <Footer />}</footer>
+        <>
+            {/* <Link preventScrollReset={true} />
+            <Form preventScrollReset={true} /> */}
+
+            <div id={styles["site"]}>
+                <SideBar />
+                <AppBar />
+                <div id={styles["content"]}>
+                    <header>{withHeader === "no" ? null : <Header />}</header>
+                    <main>{renderSwitch(targetPage)}</main>
+                    <footer>{withFooter === "no" ? null : <Footer />}</footer>
+                </div>
             </div>
-        </div>        
+
+            {/* <ScrollRestoration
+                getKey={(location, matches) => {
+                    return location.pathname;
+                }}
+            /> */}
+
+        </>
     );
 };
 
