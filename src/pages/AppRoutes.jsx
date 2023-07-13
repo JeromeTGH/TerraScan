@@ -17,6 +17,10 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="/search" withHeader="no" withFooter="no" />
             },
             {
+                path: "/about",
+                element: <PageBuilder targetPage="/about" withHeader="no" withFooter="no" />
+            },
+            {
                 path: "/404",
                 element: <PageBuilder targetPage="/404" withHeader="no" withFooter="no" />
             },
