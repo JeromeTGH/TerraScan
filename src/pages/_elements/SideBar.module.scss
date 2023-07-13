@@ -9,8 +9,11 @@ $titleBlocHeight: 6rem;
     height: 100vh;
     color: var(--primary-text-color-on-fill);
     background-color: var(--primary-fill);
+
     @media (max-width: $primary-breakpoint) {
         display: none;                              // Si largeur du viewport <= breakpoint
+        overflow: hidden;
+        overflow-y: auto;
     }
 }
 
@@ -18,9 +21,6 @@ $titleBlocHeight: 6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
     height: $titleBlocHeight;
     width: $sidebar-width;
     text-align: center;
@@ -56,7 +56,6 @@ $titleBlocHeight: 6rem;
         font-size: 0.7rem;
         font-weight: 400;
         width: $sidebar-width;
-        // letter-spacing: 0.1rem;
         font-style: italic;
         background-color: var(--secondary-fill);
         height: calc(#{$titleBlocHeight} * 0.3);
@@ -66,9 +65,6 @@ $titleBlocHeight: 6rem;
 
 #sidebar-content {
     background-color: transparent;
-    position: fixed;
-    top: $titleBlocHeight;
-    left: 0;
     max-height: calc(100vh - #{$titleBlocHeight});
     width: calc(#{$sidebar-width} + 10px);
     overflow-y: scroll;

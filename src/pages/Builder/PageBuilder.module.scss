@@ -1,30 +1,31 @@
 @import '../../style/variables';
 
 #site {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: $sidebar-width  calc(100% - #{$sidebar-width});
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+
+    max-height: 100vh;
 
     @media (max-width: $primary-breakpoint) {
-        display: grid;
         grid-template-rows: $appbar-height calc(100vh - #{$appbar-height});
         grid-template-columns: 1fr;
-        grid-column-gap: 0;
-        grid-row-gap: 0;
     }
 }
 
 #content {
    
     padding: 0.8rem 1.2rem;
-    width: calc(100% - #{$sidebar-width} - 20px);
 
     display: grid;
     grid-template-rows: min-content auto min-content;
+    overflow: hidden;
+    overflow-y: auto;            
 
     @media (max-width: $primary-breakpoint) {
         width: 100%;
-        overflow: hidden;
-        overflow-y: auto;            
     }
 
     main {

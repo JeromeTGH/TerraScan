@@ -8,10 +8,6 @@
     @media (max-width: $primary-breakpoint) {
         display: block;                             // Si largeur du viewport <= breakpoint
         width: 100%;
-        // position: fixed;
-        // top: 0;
-        // left: 0;
-        // z-index: 9999;
         height: $appbar-height;
     }
 }
