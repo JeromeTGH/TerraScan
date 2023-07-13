@@ -1,7 +1,9 @@
+@import '../../style/variables';
+
 .searchpage {
     padding: 0 1rem;
     max-width: 600px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

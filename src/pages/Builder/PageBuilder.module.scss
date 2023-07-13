@@ -3,19 +3,32 @@
 #site {
     display: flex;
     flex-direction: row;
-    min-height: 100vh;
 
     @media (max-width: $primary-breakpoint) {
-        flex-direction: column;
-        min-height: none;
+        display: grid;
+        grid-template-rows: $appbar-height calc(100vh - #{$appbar-height});
+        grid-template-columns: 1fr;
+        grid-column-gap: 0;
+        grid-row-gap: 0;
     }
 }
 
 #content {
-    padding: 14px 20px;
+   
+    padding: 0.8rem 1.2rem;
     width: calc(100% - #{$sidebar-width} - 20px);
+
+    display: grid;
+    grid-template-rows: min-content auto min-content;
 
     @media (max-width: $primary-breakpoint) {
         width: 100%;
+        overflow: hidden;
+        overflow-y: auto;            
     }
+
+    main {
+        height: 100%;
+    }
+
 }

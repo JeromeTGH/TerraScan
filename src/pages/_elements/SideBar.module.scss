@@ -6,6 +6,7 @@ $titleBlocHeight: 6rem;
 #sidebar {
     display: block;                                 // Si largeur du viewport > breakpoint
     width: $sidebar-width;
+    height: 100vh;
     color: var(--primary-text-color-on-fill);
     background-color: var(--primary-fill);
     @media (max-width: $primary-breakpoint) {

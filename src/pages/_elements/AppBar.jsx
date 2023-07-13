@@ -10,18 +10,20 @@ const AppBar = () => {
 
     return (
         <div id={styles["appbar"]}>
-            <div id={styles["appbar-leftside"]}>
-                <Link to="/">
-                    <img src='./terra_luna_classic_logo.png' alt="Terra Luna Classic logo" />
-                    <span>{appName}</span>
-                </Link>
-            </div>
-            <div id={styles["appbar-rightside"]}>
-                <BurgerMenu />
-                <Link to="/search">
-                    <SearchIcon />
-                </Link>
-                <BtnJourNuit />
+            <div id={styles["appbar-content"]}>
+                <div id={styles["appbar-leftside"]}>
+                    <Link to="/">
+                        <img src='./terra_luna_classic_logo.png' alt="Terra Luna Classic logo" />
+                        <span>{appName}</span>
+                    </Link>
+                </div>
+                <div id={styles["appbar-rightside"]}>
+                    <BurgerMenu />
+                    <Link to="/search">
+                        <SearchIcon />
+                    </Link>
+                    <BtnJourNuit />
+                </div>
             </div>
         </div>
     );

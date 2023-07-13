@@ -6,13 +6,23 @@
     background-color: var(--primary-fill);
 
     @media (max-width: $primary-breakpoint) {
-        display: flex;                              // Si largeur du viewport <= breakpoint
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.4rem 1rem;
-        font-size: 1.6rem;
+        display: block;                             // Si largeur du viewport <= breakpoint
+        width: 100%;
+        // position: fixed;
+        // top: 0;
+        // left: 0;
+        // z-index: 9999;
+        height: $appbar-height;
     }
+}
+
+#appbar-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    font-size: 1.6rem;
 }
 
 #appbar-leftside {
