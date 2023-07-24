@@ -227,3 +227,68 @@ export const DashboardIcon = (props) => {
     </svg>
   );
 }
+
+// Params Icon
+export const ParamsIcon = (props) => {
+  return (
+    <svg
+      viewBox="0 0 512 512"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M368 128h80M64 128h240M368 384h80M64 384h240M208 256h240M64 256h80"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M368 128 A32 32 0 0 1 336 160 A32 32 0 0 1 304 128 A32 32 0 0 1 368 128 z"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M208 256 A32 32 0 0 1 176 288 A32 32 0 0 1 144 256 A32 32 0 0 1 208 256 z"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M368 384 A32 32 0 0 1 336 416 A32 32 0 0 1 304 384 A32 32 0 0 1 368 384 z"
+      />
+    </svg>
+  );
+}
+
+
+// Stack1 Icon
+export const Stack1Icon = (props) => {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M16 5L8 1 0 5l8 4 8-4zM8 2.328L13.345 5 8 7.672 2.655 5 8 2.328zm6.398 4.871L16 8l-8 4-8-4 1.602-.801L8 10.398zm0 3L16 11l-8 4-8-4 1.602-.801L8 13.398z"
+      />
+    </svg>
+  );
+}

@@ -3,7 +3,7 @@ import { formateLeNombre } from '../../application/AppUtils';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import styles from './PageHomeContent.module.scss';
-import { DashboardIcon } from '../../application/AppIcons';
+import { DashboardIcon, ParamsIcon, Stack1Icon } from '../../application/AppIcons';
 import { Dec } from '@terra-money/terra.js';
 
 const PageHomeContent = (props) => {
@@ -34,7 +34,7 @@ const PageHomeContent = (props) => {
     }, [props.infosTotalSupply, props.infosMintingParams])
 
     return (
-        <div>
+        <div className={styles.homepage}>
             <h1><DashboardIcon /><span>Dashboard</span></h1>
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
@@ -42,7 +42,7 @@ const PageHomeContent = (props) => {
             <div className={styles.tbl421}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong>Total Supplies</strong> (latest)</h2>
+                        <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
                         <table>
                             <tbody>
                                 <tr className={styles.coinMajeur}>
@@ -67,7 +67,7 @@ const PageHomeContent = (props) => {
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong>Parameters</strong></h2>
+                        <h2><strong><ParamsIcon /></strong><span><strong>Parameters</strong> (blockchain)</span></h2>
                         <p>Inflation (max) = {maxMintInflation} %</p>
                     </div>
                 </OutlinedBox>
