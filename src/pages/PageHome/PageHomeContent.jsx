@@ -3,6 +3,7 @@ import { formateLeNombre } from '../../application/AppUtils';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import styles from './PageHomeContent.module.scss';
+import { DashboardIcon } from '../../application/AppIcons';
 
 const PageHomeContent = (props) => {
 
@@ -28,7 +29,7 @@ const PageHomeContent = (props) => {
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1><DashboardIcon /><span>Dashboard</span></h1>
             <p className={styles.datetimeupdate}>Last data update : {datetimeDernierUpdate}</p>
             <br />
             <br />
