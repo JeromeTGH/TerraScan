@@ -36,7 +36,7 @@ table {
 }
 
 tr:nth-child(odd) {
-    background-color: #E0E0E0;
+    background-color: var(--even-table-line-fill-color);
 }
 
 td {

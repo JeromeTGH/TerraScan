@@ -3,7 +3,7 @@ import React from 'react';
 const MessageLoading = () => {
     return (
         <>
-            <p>Loading ...</p>
+            <p>Loading blockchain data ...</p>
         </>
     );
 };

@@ -4,12 +4,14 @@ import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import styles from './PageHomeContent.module.scss';
 import { DashboardIcon } from '../../application/AppIcons';
+import { Dec } from '@terra-money/terra.js';
 
 const PageHomeContent = (props) => {
 
     // Variables React
     const [coinsTotalSupply, setCoinsTotalSupply] = useState({});
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
+    const [maxMintInflation, setMaxMintInflation] = useState('...');
 
     useEffect(() => {
 
@@ -19,18 +21,22 @@ const PageHomeContent = (props) => {
 
         // Extraction de la total Supply de chaque coin (USTC, LUNC, ...)
         const tblTotalSupplyParCoin = []
-        props.infosSupply.forEach((element) => {
+        props.infosTotalSupply.forEach((element) => {
             if(tblCorrespondanceValeurs[element.denom])
                 tblTotalSupplyParCoin[tblCorrespondanceValeurs[element.denom]] = formateLeNombre(parseInt(element.amount/1000000), " ");
         })
         setCoinsTotalSupply(tblTotalSupplyParCoin);
-        
-    }, [props.infosSupply])
+
+        // Récupération du pourcentage d'inflation
+        const max_inflation_rate = new Dec(props.infosMintingParams['inflation_max']);
+        setMaxMintInflation(parseFloat(max_inflation_rate.toString()).toFixed(2));
+
+    }, [props.infosTotalSupply, props.infosMintingParams])
 
     return (
         <div>
             <h1><DashboardIcon /><span>Dashboard</span></h1>
-            <p className={styles.datetimeupdate}>Last data update : {datetimeDernierUpdate}</p>
+            <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <br />
             <div className={styles.tbl421}>
@@ -48,15 +54,12 @@ const PageHomeContent = (props) => {
                                     <td>USTC</td>
                                 </tr>
                                 {coinsTotalSupply ? Object.entries(coinsTotalSupply).map(([clef, valeur]) => {
-                                    return <>
-                                        {(clef==='LUNC' || clef==='USTC') ? null :
-                                            <tr className={styles.coinMineur}>
+                                    return (clef==='LUNC' || clef==='USTC') ? null : (
+                                            <tr className={styles.coinMineur} key={clef}>
                                                 <td>{valeur}</td>
                                                 <td>{clef}</td>
-                                            </tr>
-                                        }
-                                    </>
-                                }) : null}
+                                            </tr> 
+                                    )}) : null }
                             </tbody>
                         </table>
 
@@ -64,7 +67,8 @@ const PageHomeContent = (props) => {
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2>Transactions</h2>
+                        <h2><strong>Parameters</strong></h2>
+                        <p>Inflation (max) = {maxMintInflation} %</p>
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>

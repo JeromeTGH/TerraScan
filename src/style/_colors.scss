@@ -14,6 +14,7 @@
     --success-color: #{$darkTheme_successColor};
     // --link-weight: normal;
     --outline-box-color: #{$darkTheme_outlineBoxColor};
+    --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -30,6 +31,7 @@
     --success-color: #{$lightTheme_successColor};
     // --link-weight: bold;
     --outline-box-color: #{$lightTheme_outlineBoxColor};
+    --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
 }
 
 body {
