@@ -9,6 +9,8 @@ $lightTheme_secondaryFontColor: #606060;
 $lightTheme_linkColor: #e67300;
 $lightTheme_errorColor: red;
 $lightTheme_successColor: green;
+$lightTheme_outlineBoxColor: #B0B0B0;
+
 
 
 // Dark Theme Colors
@@ -22,6 +24,7 @@ $darkTheme_secondaryFontColor: #C1C1C1;
 $darkTheme_linkColor: orange;
 $darkTheme_errorColor: red;    
 $darkTheme_successColor: green;
+$darkTheme_outlineBoxColor: #606060;
 
 // Largeurs
 $primary-breakpoint: 1024px;        // Moment à partir duquel on passe d'un "menu latéral gauche" à un "burger menu"
