@@ -69,3 +69,15 @@ export const isValidBlockNumberFormat = (stringToTest) => {
 }
 
 
+// ==========================
+// Fonction "formateLeNombre"
+// ==========================
+/**
+ * 
+ * @param nbre Valeur à traiter
+ * @param sep Séparateur des milliers (virgule, espace, ...)
+ * @returns Valeur formatée
+ */
+export const formateLeNombre = (nbre, sep) => {
+    return nbre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+}
