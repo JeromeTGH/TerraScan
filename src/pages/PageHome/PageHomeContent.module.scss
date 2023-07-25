@@ -1,7 +1,6 @@
 .homepage {
     
     h1 {
-        font-size: 2.4rem;
         svg, span {
             vertical-align: middle
         }
@@ -29,6 +28,7 @@
     h2 {
         text-align: center;
         padding-bottom: 1rem;
+        white-space: nowrap;
         font-weight: normal;
 
         svg, span {
@@ -38,33 +38,52 @@
             margin-right: 0.4rem;
         }
     }
-    
-    table {
-        border-spacing: 0;
+
+    .tblListOfBlocks {
         width: 100%;
+        border-spacing: 0;
+
+        thead tr {
+            background-color: var(--head-table-line-fill-color);
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: var(--even-table-line-fill-color);
+        }
+        
+        td, th {
+            padding: 0.2rem 0.6rem;
+            text-align: left;
+        }
+        
     }
     
-    tr:nth-child(odd) {
-        background-color: var(--even-table-line-fill-color);
+    .tblTotalSupplies {
+        width: 100%;
+        border-spacing: 0;
+
+        tr:nth-child(odd) {
+            background-color: var(--even-table-line-fill-color);
+        }
+        
+        td {
+            padding: 0.1rem 0.2rem;
+        }
+        
+        td:first-child {
+            text-align: right;
+            padding: 0.1rem 0.6rem;
+            white-space: nowrap;
+        }
+        
+        .coinMajeur td {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .coinMineur td {
+            font-size: 0.8rem;
+        }       
     }
-    
-    td {
-        padding: 0.1rem 0.2rem;
-    }
-    
-    td:first-child {
-        text-align: right;
-        padding: 0.1rem 0.6rem;
-        white-space: nowrap;
-    }
-    
-    .coinMajeur td {
-        font-weight: bold;
-        font-size: 1rem;
-    }
-    
-    .coinMineur td {
-        font-size: 0.8rem;
-    }
-    
+
 }

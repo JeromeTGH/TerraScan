@@ -3,8 +3,9 @@ import { formateLeNombre } from '../../application/AppUtils';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import styles from './PageHomeContent.module.scss';
-import { DashboardIcon, ParamsIcon, Stack1Icon, ExchangeIcon, LockIcon } from '../../application/AppIcons';
+import { DashboardIcon, ParamsIcon, Stack1Icon, ChainIcon, LockIcon } from '../../application/AppIcons';
 import { Dec } from '@terra-money/terra.js';
+import { Link } from 'react-router-dom';
 
 const PageHomeContent = (props) => {
 
@@ -42,13 +43,32 @@ const PageHomeContent = (props) => {
             <div className={styles.tbl421}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><ExchangeIcon /></strong><span><strong>Latest Transactions</strong></span></h2>
+                        <h2><strong><ChainIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
+                        <table className={styles.tblListOfBlocks}>
+                            <thead>
+                                <tr>
+                                    <th>Height</th>
+                                    <th>Nb&nbsp;Tx</th>
+                                    <th>Validator</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {props.derniersBlocks ? props.derniersBlocks.map((valeur, clef) => {
+                                    return (
+                                        <tr key={clef}>
+                                            <td><Link to={'/blocks' + valeur[0]}>{valeur[0]}</Link></td>
+                                            <td>{valeur[1]}</td>
+                                            <td>{valeur[2]}</td>
+                                        </tr> 
+                                )}) : <tr><td colSpan="3">Loading ...</td></tr> }
+                            </tbody>
+                        </table>
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
                         <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
-                        <table>
+                        <table className={styles.tblTotalSupplies}>
                             <tbody>
                                 <tr className={styles.coinMajeur}>
                                     <td>{coinsTotalSupply['LUNC'] ? coinsTotalSupply['LUNC'] : "..."}</td>
@@ -64,7 +84,7 @@ const PageHomeContent = (props) => {
                                                 <td>{valeur}</td>
                                                 <td>{clef}</td>
                                             </tr> 
-                                    )}) : null }
+                                )}) : null }
                             </tbody>
                         </table>
 
@@ -77,7 +97,7 @@ const PageHomeContent = (props) => {
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><ParamsIcon /></strong><span><strong>Parameters</strong> (blockchain)</span></h2>
+                        <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
                         <p>Inflation (max mint) = {maxMintInflation} %</p>
                     </div>
                 </OutlinedBox>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LCDClient, Coins } from '@terra-money/terra.js';
 
 import { chainID, chainLCDurl } from '../../application/AppParams';
+import { getLatestBlocks } from './ListOfLatestBlocks';
 
 import MessageLoading from '../_elements/MessageLoading';
 import MessageLCD from '../_elements/MessageLCD';
@@ -13,6 +14,7 @@ const PageHome = () => {
     const [ etatPage, setEtatPage ] = useState('vide');                 // Variable d'état, pour conditionner l'affichage à l'écran
     const [ infosTotalSupply, setInfosTotalSupply ] = useState([]);     // Tableau qui contiendra des infos concernant les total supplies
     const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
+    const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
 
     // Connexion au LCD
     const lcd = new LCDClient({
@@ -22,22 +24,23 @@ const PageHome = () => {
     });
 
 
-    // const chargeInfosTotalSupply = async () => {
-    // }
-
     // Récupération d'infos, au chargement du component
     useEffect(() => {
-        // Chargement des infos concernant la supply
+        // Chargement des infos concernant les total supplies
         lcd.bank.total({'pagination.limit': 9999}).then(res => {
-            // console.log("Réponse LCD", res);
             if(res[0]) {
                 const listeDesCoinsSupply = new Coins(res[0]);
                 setInfosTotalSupply(listeDesCoinsSupply.toData())
 
+                // Chargement des infos concernant les taux d'inflation
                 lcd.mint.parameters({}).then(res => {
                     setInfosMintingParams(res);
                     setEtatPage('ok');
 
+                    getLatestBlocks(5).then((res) => {
+                        // console.log("getLatestBlocks", res);
+                        setDerniersBlocks(res);
+                    });
                 }).catch(err => {
                     setEtatPage(err.message);
                     console.log(err);
@@ -64,6 +67,7 @@ const PageHome = () => {
                 return <PageHomeContent
                     infosTotalSupply={infosTotalSupply}
                     infosMintingParams={infosMintingParams}
+                    derniersBlocks={derniersBlocks}
                 />;
             case 'message':
                 return <MessageLCD message={etatPage} />;
