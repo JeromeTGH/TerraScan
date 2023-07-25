@@ -22,14 +22,16 @@
 
     display: grid;
     grid-template-rows: min-content auto min-content;
-    overflow: hidden;
-    overflow-y: auto;            
+    overflow-x: auto;
+    overflow-y: auto;
 
     @media (max-width: $primary-breakpoint) {
         width: 100%;
     }
 
     main {
+        max-width: 1300px;
+        margin: 0 auto;
         height: 100%;
     }
 

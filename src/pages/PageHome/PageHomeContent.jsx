@@ -3,7 +3,7 @@ import { formateLeNombre } from '../../application/AppUtils';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import styles from './PageHomeContent.module.scss';
-import { DashboardIcon, ParamsIcon, Stack1Icon } from '../../application/AppIcons';
+import { DashboardIcon, ParamsIcon, Stack1Icon, ExchangeIcon, LockIcon } from '../../application/AppIcons';
 import { Dec } from '@terra-money/terra.js';
 
 const PageHomeContent = (props) => {
@@ -42,6 +42,11 @@ const PageHomeContent = (props) => {
             <div className={styles.tbl421}>
                 <OutlinedBox>
                     <div className={styles.content}>
+                        <h2><strong><ExchangeIcon /></strong><span><strong>Latest Transactions</strong></span></h2>
+                    </div>
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
                         <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
                         <table>
                             <tbody>
@@ -67,18 +72,13 @@ const PageHomeContent = (props) => {
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
+                        <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
+                    </div>
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
                         <h2><strong><ParamsIcon /></strong><span><strong>Parameters</strong> (blockchain)</span></h2>
-                        <p>Inflation (max) = {maxMintInflation} %</p>
-                    </div>
-                </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <h2>Transactions</h2>
-                    </div>
-                </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <h2>Transactions</h2>
+                        <p>Inflation (max mint) = {maxMintInflation} %</p>
                     </div>
                 </OutlinedBox>
             </div>
