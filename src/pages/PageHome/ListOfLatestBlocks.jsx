@@ -10,7 +10,6 @@ const ListOfLatestBlocks = () => {
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
 
-
     // Récupération d'infos, au chargement du component
     useEffect(() => {
         getLatestBlocks(10).then((res) => {
@@ -25,7 +24,7 @@ const ListOfLatestBlocks = () => {
         });
     }, [])
 
-    
+    // Affichage
     return (
         <div className={styles.content}>
             <h2><strong><ChainIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
