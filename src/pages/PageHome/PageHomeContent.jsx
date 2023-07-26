@@ -58,7 +58,7 @@ const PageHomeContent = (props) => {
                                         <tr key={clef}>
                                             <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                             <td>{valeur[1]}</td>
-                                            <td>{valeur[2]}</td>
+                                            <td><Link to={'/validators/' + valeur[3]}>{valeur[4]}</Link></td>
                                         </tr> 
                                 )}) : <tr><td colSpan="3">Loading ...</td></tr> }
                             </tbody>

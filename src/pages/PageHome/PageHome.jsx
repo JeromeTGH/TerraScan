@@ -38,8 +38,7 @@ const PageHome = () => {
                     setInfosMintingParams(res);
                     setEtatPage('ok');
 
-                    getLatestBlocks(15).then((res) => {
-                        // console.log("getLatestBlocks", res);
+                    getLatestBlocks(10).then((res) => {
                         if(res['erreur']) {
                             setMsgErreurGetDerniersBlocks(res['erreur']);
                             setDerniersBlocks([]);
