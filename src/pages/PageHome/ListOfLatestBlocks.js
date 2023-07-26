@@ -2,6 +2,22 @@ import { chainID, chainLCDurl } from '../../application/AppParams';
 import { LCDClient } from '@terra-money/terra.js';
 import { bech32 } from 'bech32';
 
+/*
+    Remarques générales
+    ===================
+
+    /!\ L'adresse 'terravalcons' obtenue à partir du 'proposer_address' d'un block donné, n'est pas égal au moindre 'terravalcons' du moindre validateur.
+    
+    Pour retrouver les infos validateurs d'un proposer_address donné, il faut :
+        - récupérer le proposer_address d'un block donné
+        - transformer cela en "block valcons address"
+        - récupérer le validator set du block donné
+        - retrouver la pubkey correspondant au "block valcons address" ci-dessus
+        - récupérer la liste des validateurs
+        - et retrouver les infos validateur (nom, adresse terravaloper, ...) à partir de la pubkey précédemment trouvée
+
+*/
+
 const listOfBlocks = []             // RETURN ==> [[blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]]
 const tblValidators = []            // [[valOperAdr, valPubkey, blockValConsAdr, valName]]
 
@@ -56,7 +72,10 @@ export const getLatestBlocks = async (qte) => {
             ]) - 1;         // Push et récup index-1 dans la foulée
         } else {
             // Block "connu"
-            lastBlockRead_Height = checkBlockIinList[0];
+            lastBlockRead_Height = checkBlockIinList[0][0];
+            lastBlockRead_NbTx = checkBlockIinList[0][1];
+            lastBlockRead_ProposerValConsAdr = checkBlockIinList[0][2];
+            lastBlockRead_indexInTblOfBlocks = listOfBlocks.findIndex(lgTblBlocks => lgTblBlocks[0].includes(lastBlockRead_Height));
         }
     } else
         return { "erreur": "Failed to fetch last block ..." }
@@ -89,13 +108,15 @@ export const getLatestBlocks = async (qte) => {
         return { "erreur": "Failed to fetch validator set of block " + lastBlockRead_Height + " ..." }
 
         
-    // Mise à jour des infos du block précédemment chargé ("dernier block")
-    const indexValWithThisValConsAddress = tblValidators.findIndex(lgTblValidator => lgTblValidator.includes(lastBlockRead_ProposerValConsAdr));
-    if(indexValWithThisValConsAddress >= 0) {
-        // listOfBlocks : array of [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]
-        // tblValidators : array of [valOperAdr, valPubkey, blockValConsAdr, valName]
-        listOfBlocks[lastBlockRead_indexInTblOfBlocks][3] = tblValidators[indexValWithThisValConsAddress][0];
-        listOfBlocks[lastBlockRead_indexInTblOfBlocks][4] = tblValidators[indexValWithThisValConsAddress][3];
+    // Mise à jour des infos du block précédemment chargé ("dernier block"), si listOfBlocks→valOpenAdr = ''
+    if(listOfBlocks[lastBlockRead_indexInTblOfBlocks][3] === '') {
+        const indexValWithThisValConsAddress = tblValidators.findIndex(lgTblValidator => lgTblValidator.includes(lastBlockRead_ProposerValConsAdr));
+        if(indexValWithThisValConsAddress >= 0) {
+            // listOfBlocks : array of [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]
+            // tblValidators : array of [valOperAdr, valPubkey, blockValConsAdr, valName]
+            listOfBlocks[lastBlockRead_indexInTblOfBlocks][3] = tblValidators[indexValWithThisValConsAddress][0];
+            listOfBlocks[lastBlockRead_indexInTblOfBlocks][4] = tblValidators[indexValWithThisValConsAddress][3];
+        }
     }
 
 
