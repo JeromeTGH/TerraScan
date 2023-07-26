@@ -4,6 +4,10 @@ import Header from '../_elements/Header';
 import Footer from '../_elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
+import PageBlock from '../PageBlock/PageBlock';
+import PageBlocks from '../PageBlocks/PageBlocks';
+import PageValidator from '../PageValidator/PageValidator';
+import PageValidators from '../PageValidators/PageValidators';
 import PageAbout from '../PageAbout/PageAbout';
 import PageSearch from '../PageSearch/PageSearch';
 import Page404 from '../Page404/Page404';
@@ -23,13 +27,21 @@ const PageBuilder = (props) => {
     // Sélecteur d'affichage
     const renderSwitch = (parametre) => {
         switch(parametre) {
-            case '/':
+            case 'home':
                 return <PageHome />;
-            case '/about':
+            case 'block':
+                return <PageBlock />;
+            case 'blocks':
+                return <PageBlocks />;
+            case 'validator':
+                return <PageValidator />;
+            case 'validators':
+                return <PageValidators />;
+            case 'about':
                 return <PageAbout />;
-            case '/search':
+            case 'search':
                 return <PageSearch />;
-            case '/404':
+            case '404':
                 return <Page404 />;
             case undefined:
                 return <div>[ERROR] Missing parameter "targetPage" in PageBuilder.jsx</div>;

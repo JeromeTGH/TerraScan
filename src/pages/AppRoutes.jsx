@@ -10,19 +10,33 @@ const AppRoutes = () => {
         [
             {
                 path: "/",
-                element: <PageBuilder targetPage="/" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="home" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/blocks",
+                element: <PageBuilder targetPage="blocks" withHeader="no" withFooter="no" />},
+            {
+                path: "/blocks/:blockNum",
+                element: <PageBuilder targetPage="block" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/validators",
+                element: <PageBuilder targetPage="validators" withHeader="no" withFooter="no" />},
+            {
+                path: "/validators/:valAdr",
+                element: <PageBuilder targetPage="validator" withHeader="no" withFooter="no" />
             },
             {
                 path: "/search",
-                element: <PageBuilder targetPage="/search" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="search" withHeader="no" withFooter="no" />
             },
             {
                 path: "/about",
-                element: <PageBuilder targetPage="/about" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="about" withHeader="no" withFooter="no" />
             },
             {
                 path: "/404",
-                element: <PageBuilder targetPage="/404" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="404" withHeader="no" withFooter="no" />
             },
             {
                 path: "*",
