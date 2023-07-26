@@ -1,0 +1,28 @@
+
+.tblTotalSupplies {
+    width: 100%;
+    border-spacing: 0;
+
+    tr:nth-child(odd) {
+        background-color: var(--even-table-line-fill-color);
+    }
+    
+    td {
+        padding: 0.1rem 0.2rem;
+    }
+    
+    td:first-child {
+        text-align: right;
+        padding: 0.1rem 0.6rem;
+        white-space: nowrap;
+    }
+    
+    .coinMajeur td {
+        font-weight: bold;
+        font-size: 1rem;
+    }
+    
+    .coinMineur td {
+        font-size: 0.8rem;
+    }       
+}

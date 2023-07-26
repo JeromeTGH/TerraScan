@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
-import { DashboardIcon, ParamsIcon, Stack1Icon, LockIcon } from '../../application/AppIcons';
-import ListOfLatestBlocks from './ListOfLatestBlocks';
+import { DashboardIcon, ParamsIcon, LockIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
+import TableOfLatestBlocks from './TableOfLatestBlocks';
+import TableOfTotalSupplies from './TableOfTotalSupplies';
 
 
 const PageHome = () => {
@@ -57,11 +58,13 @@ const PageHome = () => {
             <br />
             <div className={styles.tbl421}>
                 <OutlinedBox>
-                    <ListOfLatestBlocks />
+                    <div className={styles.content}>
+                        <TableOfLatestBlocks />
+                    </div>
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
+                        <TableOfTotalSupplies />
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ListOfLatestBlocks.module.scss';
+import styles from './TableOfLatestBlocks.module.scss';
 import { ChainIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { getLatestBlocks } from './getLatestBlocks';
 
-const ListOfLatestBlocks = () => {
+const TableOfLatestBlocks = () => {
 
     // Variables react
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
@@ -26,7 +26,7 @@ const ListOfLatestBlocks = () => {
 
     // Affichage
     return (
-        <div className={styles.content}>
+        <>
             <h2><strong><ChainIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
@@ -48,8 +48,8 @@ const ListOfLatestBlocks = () => {
                 </tbody>
             </table>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
-        </div>
+        </>
     );
 };
 
-export default ListOfLatestBlocks;
+export default TableOfLatestBlocks;
