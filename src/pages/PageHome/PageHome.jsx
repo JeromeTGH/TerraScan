@@ -1,94 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { LCDClient, Coins } from '@terra-money/terra.js';
+import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
+import { DashboardIcon, ParamsIcon, Stack1Icon, LockIcon } from '../../application/AppIcons';
+import ListOfLatestBlocks from './ListOfLatestBlocks';
+import styles from './PageHome.module.scss';
 
-import { chainID, chainLCDurl } from '../../application/AppParams';
-import { getLatestBlocks } from './ListOfLatestBlocks';
-
-import MessageLoading from '../_elements/MessageLoading';
-import MessageLCD from '../_elements/MessageLCD';
-import PageHomeContent from './PageHomeContent';
 
 const PageHome = () => {
 
     // Variables react
-    const [ etatPage, setEtatPage ] = useState('vide');                 // Variable d'état, pour conditionner l'affichage à l'écran
-    const [ infosTotalSupply, setInfosTotalSupply ] = useState([]);     // Tableau qui contiendra des infos concernant les total supplies
-    const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
-    const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
-    const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
+    // const [ infosTotalSupply, setInfosTotalSupply ] = useState([]);     // Tableau qui contiendra des infos concernant les total supplies
+    // const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
+    const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
 
-    // Connexion au LCD
-    const lcd = new LCDClient({
-        URL: chainLCDurl,
-        chainID: chainID,
-        isClassic: true
-    });
-
-
-    // Récupération d'infos, au chargement du component
     useEffect(() => {
-        // Chargement des infos concernant les total supplies
-        lcd.bank.total({'pagination.limit': 9999}).then(res => {
-            if(res[0]) {
-                const listeDesCoinsSupply = new Coins(res[0]);
-                setInfosTotalSupply(listeDesCoinsSupply.toData())
-
-                // Chargement des infos concernant les taux d'inflation
-                lcd.mint.parameters({}).then(res => {
-                    setInfosMintingParams(res);
-                    setEtatPage('ok');
-
-                    getLatestBlocks(10).then((res) => {
-                        if(res['erreur']) {
-                            setMsgErreurGetDerniersBlocks(res['erreur']);
-                            setDerniersBlocks([]);
-                        }
-                        else {
-                            setDerniersBlocks(res);
-                            setMsgErreurGetDerniersBlocks('');
-                        }
-                    });
-                }).catch(err => {
-                    setEtatPage(err.message);
-                    console.log(err);
-                })
-
-            } else {
-                setInfosTotalSupply(res);
-                setEtatPage('message');
-            }
-        }).catch(err => {
-            setEtatPage(err.message);
-            console.log(err);
-        })
-        // eslint-disable-next-line
+        // Mémorisation de la date/heure de chargement de cette page
+        const maDate = Date.now();
+        setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
     }, [])
 
 
-    // Sélecteur d'affichage
-    const renderSwitch = () => {
-        switch(etatPage) {
-            case 'vide':
-                return <MessageLoading />;
-            case 'ok':
-                return <PageHomeContent
-                    infosTotalSupply={infosTotalSupply}
-                    infosMintingParams={infosMintingParams}
-                    derniersBlocks={derniersBlocks}
-                    msgErreurGetDerniersBlocks={msgErreurGetDerniersBlocks}
-                />;
-            case 'message':
-                return <MessageLCD message={etatPage} />;
-            default:
-                return <MessageLCD message={etatPage} />;
-        }
-    }
+    // // Récupération d'infos, au chargement du component
+    // useEffect(() => {
+    //     // Chargement des infos concernant les total supplies
+    //     lcd.bank.total({'pagination.limit': 9999}).then(res => {
+    //         if(res[0]) {
+    //             const listeDesCoinsSupply = new Coins(res[0]);
+    //             setInfosTotalSupply(listeDesCoinsSupply.toData())
+
+    //             // Chargement des infos concernant les taux d'inflation
+    //             lcd.mint.parameters({}).then(res => {
+    //                 setInfosMintingParams(res);
+    //                 setEtatPage('ok');
+    //             }).catch(err => {
+    //                 setEtatPage(err.message);
+    //                 console.log(err);
+    //             })
+
+    //         } else {
+    //             setInfosTotalSupply(res);
+    //             setEtatPage('message');
+    //         }
+    //     }).catch(err => {
+    //         setEtatPage(err.message);
+    //         console.log(err);
+    //     })
+    //     // eslint-disable-next-line
+    // }, [])
+
 
     // Et affichage de la page, au final
     return (
-        <>
-            {renderSwitch()}
-        </>
+        <div className={styles.homepage}>
+            <h1><DashboardIcon /><span>Dashboard</span></h1>
+            <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
+            <br />
+            <br />
+            <div className={styles.tbl421}>
+                <OutlinedBox>
+                    <ListOfLatestBlocks />
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
+                    </div>
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
+                    </div>
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
+                    </div>
+                </OutlinedBox>
+            </div>
+        </div>
     );
 };
 
