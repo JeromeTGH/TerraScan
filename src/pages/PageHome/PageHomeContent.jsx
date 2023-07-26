@@ -56,13 +56,14 @@ const PageHomeContent = (props) => {
                                 {props.derniersBlocks ? props.derniersBlocks.map((valeur, clef) => {
                                     return (
                                         <tr key={clef}>
-                                            <td><Link to={'/blocks' + valeur[0]}>{valeur[0]}</Link></td>
+                                            <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                             <td>{valeur[1]}</td>
                                             <td>{valeur[2]}</td>
                                         </tr> 
                                 )}) : <tr><td colSpan="3">Loading ...</td></tr> }
                             </tbody>
                         </table>
+                        <div className="erreur">{props.msgErreurGetDerniersBlocks}</div>
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>

@@ -15,6 +15,7 @@ const PageHome = () => {
     const [ infosTotalSupply, setInfosTotalSupply ] = useState([]);     // Tableau qui contiendra des infos concernant les total supplies
     const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
+    const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
 
     // Connexion au LCD
     const lcd = new LCDClient({
@@ -37,9 +38,16 @@ const PageHome = () => {
                     setInfosMintingParams(res);
                     setEtatPage('ok');
 
-                    getLatestBlocks(5).then((res) => {
+                    getLatestBlocks(15).then((res) => {
                         // console.log("getLatestBlocks", res);
-                        setDerniersBlocks(res);
+                        if(res['erreur']) {
+                            setMsgErreurGetDerniersBlocks(res['erreur']);
+                            setDerniersBlocks([]);
+                        }
+                        else {
+                            setDerniersBlocks(res);
+                            setMsgErreurGetDerniersBlocks('');
+                        }
                     });
                 }).catch(err => {
                     setEtatPage(err.message);
@@ -68,6 +76,7 @@ const PageHome = () => {
                     infosTotalSupply={infosTotalSupply}
                     infosMintingParams={infosMintingParams}
                     derniersBlocks={derniersBlocks}
+                    msgErreurGetDerniersBlocks={msgErreurGetDerniersBlocks}
                 />;
             case 'message':
                 return <MessageLCD message={etatPage} />;

@@ -1,7 +1,8 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
 import { LCDClient } from '@terra-money/terra.js';
 
-const listOfBlocks = []
+const listOfBlocks = []             // [blockHeight, blockNbTx, blockProposerTerra1adr, blockProposerName]
+const tblValidators = []            // [valTerra1adr, valPubkey, valValconsAdr, valName]
 
 export const getLatestBlocks = async (qte = 10) => {
 
@@ -21,27 +22,27 @@ export const getLatestBlocks = async (qte = 10) => {
     if(lastBlock) {
         const checkBlockIinList = listOfBlocks.filter(ligne => ligne[0]===lastBlock.block.header.height);
         if(checkBlockIinList.length === 0) {
+            // Block "non connu"
             lastBlockRead_Height = lastBlock.block.header.height;
             lastBlockRead_NbTx = lastBlock.block.data.txs.length;
             lastBlockRead_ProposerAddress = lastBlock.block.header.proposer_address;
             listOfBlocks.push([lastBlockRead_Height, lastBlockRead_NbTx, lastBlockRead_ProposerAddress]);
         } else {
+            // Block "connu"
             lastBlockRead_Height = checkBlockIinList[0];
         }
-        // console.log("lastBlockRead_Height", lastBlockRead_Height);
     } else
         return { "erreur": "Failed to fetch last block ..." }
         
     // Récupération des 'n-1' blocks précédents, si non présents dans le tableau 'listOfBlocks'
     for(let i=(lastBlockRead_Height-1) ; i > (lastBlockRead_Height-qte) ; i--) {
-
         const checkBlockIinList = listOfBlocks.filter(ligne => ligne[0]===i.toString());
         if(checkBlockIinList.length === 0) {
             const blockNumberI = await lcd.tendermint.blockInfo(i).catch(handleError);
             if(blockNumberI) {
                 listOfBlocks.push([blockNumberI.block.header.height, blockNumberI.block.data.txs.length, blockNumberI.block.header.proposer_address]);
             } else
-                return { "erreur": "Failed to fetch a block ..." }
+                return { "erreur": "Failed to fetch previous blocks ..." }
         }
     }
 
