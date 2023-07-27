@@ -44,9 +44,13 @@ const TableOfLatestBlocks = () => {
                                 <td>{valeur[1]}</td>
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[4]}</Link></td>
                             </tr> 
-                    )}) : <tr><td colSpan="3">Loading ...</td></tr> }
+                    )}) : <tr><td colSpan="3">Loading data from blockchain ...</td></tr> }
                 </tbody>
             </table>
+            <div className={styles.comments}>
+                <u>Nb Tx</u> = number of transactions made in a block<br />
+                <u>Validator</u> = proposer (tendermint)
+            </div>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
         </>
     );

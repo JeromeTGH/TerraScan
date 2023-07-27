@@ -26,6 +26,7 @@
     overflow-y: auto;
 
     @media (max-width: $primary-breakpoint) {
+        padding: 0.4rem 0.8rem;
         width: 100%;
     }
 
