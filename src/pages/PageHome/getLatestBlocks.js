@@ -50,7 +50,7 @@ export const getLatestBlocks = async (qte) => {
 
         })
     } else
-        return { "erreur": "Failed to fetch validators list ..." }
+        return { "erreur": "Failed to fetch [validators list] ..." }
 
 
     // Récupération du dernier block
@@ -78,7 +78,7 @@ export const getLatestBlocks = async (qte) => {
             lastBlockRead_indexInTblOfBlocks = listOfBlocks.findIndex(lgTblBlocks => lgTblBlocks[0].includes(lastBlockRead_Height));
         }
     } else
-        return { "erreur": "Failed to fetch last block ..." }
+        return { "erreur": "Failed to fetch [last block] ..." }
 
 
     // Récupération du validator set du "dernier" block lu
@@ -105,7 +105,7 @@ export const getLatestBlocks = async (qte) => {
             }
         }
     } else
-        return { "erreur": "Failed to fetch validator set of block " + lastBlockRead_Height + " ..." }
+        return { "erreur": "Failed to fetch [validator set] of block " + lastBlockRead_Height + " ..." }
 
         
     // Mise à jour des infos du block précédemment chargé ("dernier block"), si listOfBlocks→valOpenAdr = ''
@@ -146,7 +146,7 @@ export const getLatestBlocks = async (qte) => {
                     blockI_valName
                 ]);
             } else
-                return { "erreur": "Failed to fetch a previous block (n°" + i + ") ..." }
+                return { "erreur": "Failed to fetch a [previous block] (n°" + i + ") ..." }
         }
     }
 

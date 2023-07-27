@@ -9,7 +9,6 @@ import TableOfTotalSupplies from './TableOfTotalSupplies';
 const PageHome = () => {
 
     // Variables react
-    // const [ infosTotalSupply, setInfosTotalSupply ] = useState([]);     // Tableau qui contiendra des infos concernant les total supplies
     // const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
 
@@ -18,35 +17,6 @@ const PageHome = () => {
         const maDate = Date.now();
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
     }, [])
-
-
-    // // Récupération d'infos, au chargement du component
-    // useEffect(() => {
-    //     // Chargement des infos concernant les total supplies
-    //     lcd.bank.total({'pagination.limit': 9999}).then(res => {
-    //         if(res[0]) {
-    //             const listeDesCoinsSupply = new Coins(res[0]);
-    //             setInfosTotalSupply(listeDesCoinsSupply.toData())
-
-    //             // Chargement des infos concernant les taux d'inflation
-    //             lcd.mint.parameters({}).then(res => {
-    //                 setInfosMintingParams(res);
-    //                 setEtatPage('ok');
-    //             }).catch(err => {
-    //                 setEtatPage(err.message);
-    //                 console.log(err);
-    //             })
-
-    //         } else {
-    //             setInfosTotalSupply(res);
-    //             setEtatPage('message');
-    //         }
-    //     }).catch(err => {
-    //         setEtatPage(err.message);
-    //         console.log(err);
-    //     })
-    //     // eslint-disable-next-line
-    // }, [])
 
 
     // Et affichage de la page, au final
