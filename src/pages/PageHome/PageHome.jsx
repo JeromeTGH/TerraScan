@@ -5,11 +5,9 @@ import styles from './PageHome.module.scss';
 import TableOfLatestBlocks from './TableOfLatestBlocks';
 import TableOfTotalSupplies from './TableOfTotalSupplies';
 
-
 const PageHome = () => {
 
     // Variables react
-    // const [ infosMintingParams, setInfosMintingParams] = useState();    // Ici les paramètres de mint (inflation, essentiellement)
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
 
     useEffect(() => {
@@ -26,12 +24,7 @@ const PageHome = () => {
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <br />
-            <div className={styles.tbl421}>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <TableOfLatestBlocks />
-                    </div>
-                </OutlinedBox>
+            <div className={styles.tbl13}>
                 <OutlinedBox>
                     <div className={styles.content}>
                         <TableOfTotalSupplies />
@@ -42,11 +35,38 @@ const PageHome = () => {
                         <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
                     </div>
                 </OutlinedBox>
+                {/* <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
+                    </div>
+                </OutlinedBox> */}
+            </div>
+            <div className={styles.tbl22}>
+                <OutlinedBox>
+                    <div className={styles.content}>
+                        <TableOfLatestBlocks />
+                    </div>
+                </OutlinedBox>
+                {/* <OutlinedBox>
+                    <div className={styles.content}>
+                        <TableOfTotalSupplies />
+                    </div>
+                </OutlinedBox>
+                <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
+                    </div>
+                </OutlinedBox> */}
                 <OutlinedBox>
                     <div className={styles.content}>
                         <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
                     </div>
                 </OutlinedBox>
+                {/* <OutlinedBox>
+                    <div className={styles.content}>
+                        <h2><strong><BlocksIcon /></strong><span><strong>Validators</strong></span></h2>
+                    </div>
+                </OutlinedBox> */}
             </div>
         </div>
     );

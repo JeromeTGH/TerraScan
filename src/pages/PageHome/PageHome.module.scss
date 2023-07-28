@@ -14,10 +14,28 @@
         font-style: italic;
     }
     
-    .tbl421 {
+    .tbl13 {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
         column-gap: 1rem;
+        row-gap: 1rem;
+        margin-bottom: 2rem;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .tbl22 {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        column-gap: 1rem;
+        row-gap: 1rem;
+        margin-bottom: 2rem;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
     }
 
     .content {

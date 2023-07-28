@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Stack1Icon } from '../../application/AppIcons';
 import styles from './TableOfTotalSupplies.module.scss';
-import { getTotalSupplies } from './getTotalSupplies';
+import { getTotalSupplies } from '../../sharedFunctions/getTotalSupplies';
 
 const TableOfTotalSupplies = () => {
 
@@ -26,7 +26,7 @@ const TableOfTotalSupplies = () => {
     // Affichage
     return (
         <>
-            <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong></span></h2>
+            <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
             <table className={styles.tblTotalSupplies}>
                     {coinsTotalSupply ? (
                     <tbody>
@@ -47,7 +47,6 @@ const TableOfTotalSupplies = () => {
                         <tbody><tr><td colSpan="2">Loading data from blockchain ...</td></tr></tbody>
                     )}
             </table>
-            <div className={styles.comments}><u>Note</u> : these data evolves over time (here, they are those were loaded at this page loading)</div>
             <div className="erreur">{msgErreurGetTotalSupplies}</div>
         </>
     );
