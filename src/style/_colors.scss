@@ -6,6 +6,7 @@
         --primary-fill: #{$darkTheme_sidebarPrimaryFill};
         --secondary-fill: #{$darkTheme_sidebarSecondaryFill};
         --tertiary-fill: #{$darkTheme_sidebarTertiaryFill};
+        --unprimary-fill: #{$darkTheme_unprimaryFillColor};
     --primary-text-color: #{$darkTheme_primaryFontColor};
     --secondary-text-color: #{$darkTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$darkTheme_primaryFontColorOnSidebarFill};
@@ -24,6 +25,7 @@
         --primary-fill: #{$lightTheme_sidebarPrimaryFill};
         --secondary-fill: #{$lightTheme_sidebarSecondaryFill};
         --tertiary-fill: #{$lightTheme_sidebarTertiaryFill};
+        --unprimary-fill: #{$lightTheme_unprimaryFillColor};
     --primary-text-color: #{$lightTheme_primaryFontColor};
     --secondary-text-color: #{$lightTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnSidebarFill};

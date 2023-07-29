@@ -28,31 +28,26 @@ const PageHome = () => {
             <div className={styles.tbl13}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <SectionTotalSupplies />
+                        <h2><strong><ParamsIcon /></strong><span><strong>Overview</strong></span></h2>
                     </div>
                 </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <SectionStaking />
-                    </div>
-                </OutlinedBox>
-            </div>
-            <div className={styles.tbl22}>
                 <OutlinedBox>
                     <div className={styles.content}>
                         <SectionLatestBlocks />
                     </div>
                 </OutlinedBox>
+            </div>
+            <div className={styles.tbl31}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
+                        <SectionStaking />
                     </div>
                 </OutlinedBox>
-                {/* <OutlinedBox>
+                <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><BlocksIcon /></strong><span><strong>Validators</strong></span></h2>
+                        <SectionTotalSupplies />
                     </div>
-                </OutlinedBox> */}
+                </OutlinedBox>
             </div>
         </div>
     );

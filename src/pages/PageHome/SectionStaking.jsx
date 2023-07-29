@@ -10,21 +10,25 @@ const SectionStaking = () => {
 
             <Chart
                 type="radialBar"
-                // width={300}
+                width={"50%"}
                 // height={300}
                 series={[15]}
                 options={{
                     labels: ['Staked LUNC'],
-                    colors:['#EE7C00'],
+                    colors:['var(--primary-fill)', 'pink'],         // Couleurs de la série et textes labels associés (data-labels)
+                    chart: {
+                        foreColor: 'var(--primary-text-color)'      // Couleur des valeurs (data-values)
+                    },                    
                     plotOptions: {
                         radialBar: {
                             track: {
-                              background: '#DDDDDD'
+                              background: 'var(--unprimary-fill)'   // Couleur de fond de l'anneau, lorsque "non coloré"
                             }
                         }
                     }
                 }}
             />
+
         </>
     );
 };
