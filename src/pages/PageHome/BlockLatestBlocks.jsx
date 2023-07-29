@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from './SectionLatestBlocks.module.scss';
+import styles from './BlockLatestBlocks.module.scss';
 import { ChainIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 
 
-const SectionLatestBlocks = () => {
+const BlockLatestBlocks = () => {
 
     // Variables react
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
@@ -60,4 +60,4 @@ const SectionLatestBlocks = () => {
     );
 };
 
-export default SectionLatestBlocks;
+export default BlockLatestBlocks;

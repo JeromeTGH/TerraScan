@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
-import { DashboardIcon, ParamsIcon } from '../../application/AppIcons';
+import { DashboardIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
-import SectionTotalSupplies from './SectionTotalSupplies';
-import SectionStaking from './SectionStaking';
-import SectionLatestBlocks from './SectionLatestBlocks';
+import BlockTotalSupplies from './BlockTotalSupplies';
+import BlockStaking from './BlockStaking';
+import BlockLatestBlocks from './BlockLatestBlocks';
+import BlockOverview from './BlockOverview';
 
 const PageHome = () => {
 
@@ -28,24 +29,24 @@ const PageHome = () => {
             <div className={styles.tbl13}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><ParamsIcon /></strong><span><strong>Overview</strong></span></h2>
+                        <BlockOverview />
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <SectionLatestBlocks />
+                        <BlockLatestBlocks />
                     </div>
                 </OutlinedBox>
             </div>
             <div className={styles.tbl31}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <SectionStaking />
+                        <BlockStaking />
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <SectionTotalSupplies />
+                        <BlockTotalSupplies />
                     </div>
                 </OutlinedBox>
             </div>

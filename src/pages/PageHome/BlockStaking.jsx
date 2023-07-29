@@ -1,8 +1,9 @@
 import React from 'react';
 import { LockIcon } from '../../application/AppIcons';
 import Chart from 'react-apexcharts';
+// import styles from './BlockStaking.module.scss';
 
-const SectionStaking = () => {
+const BlockStaking = () => {
 
     return (
         <>
@@ -33,4 +34,4 @@ const SectionStaking = () => {
     );
 };
 
-export default SectionStaking;
+export default BlockStaking;
