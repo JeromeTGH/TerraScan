@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
-import { DashboardIcon, ParamsIcon, LockIcon } from '../../application/AppIcons';
+import { DashboardIcon, ParamsIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
-import TableOfLatestBlocks from './TableOfLatestBlocks';
-import TableOfTotalSupplies from './TableOfTotalSupplies';
+import SectionTotalSupplies from './SectionTotalSupplies';
+import SectionStaking from './SectionStaking';
+import SectionLatestBlocks from './SectionLatestBlocks';
 
 const PageHome = () => {
 
@@ -27,36 +28,21 @@ const PageHome = () => {
             <div className={styles.tbl13}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <TableOfTotalSupplies />
+                        <SectionTotalSupplies />
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
+                        <SectionStaking />
                     </div>
                 </OutlinedBox>
-                {/* <OutlinedBox>
-                    <div className={styles.content}>
-                        <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>
-                    </div>
-                </OutlinedBox> */}
             </div>
             <div className={styles.tbl22}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <TableOfLatestBlocks />
+                        <SectionLatestBlocks />
                     </div>
                 </OutlinedBox>
-                {/* <OutlinedBox>
-                    <div className={styles.content}>
-                        <TableOfTotalSupplies />
-                    </div>
-                </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <h2><strong><LockIcon /></strong><span><strong>Staking</strong></span></h2>
-                    </div>
-                </OutlinedBox> */}
                 <OutlinedBox>
                     <div className={styles.content}>
                         <h2><strong><ParamsIcon /></strong><span><strong>Blockchain Parameters</strong></span></h2>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from './TableOfLatestBlocks.module.scss';
+import styles from './SectionLatestBlocks.module.scss';
 import { ChainIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
 
-const TableOfLatestBlocks = () => {
+const SectionLatestBlocks = () => {
 
     // Variables react
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
@@ -56,4 +56,4 @@ const TableOfLatestBlocks = () => {
     );
 };
 
-export default TableOfLatestBlocks;
+export default SectionLatestBlocks;

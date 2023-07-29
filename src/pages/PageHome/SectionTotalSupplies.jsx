@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Stack1Icon } from '../../application/AppIcons';
-import styles from './TableOfTotalSupplies.module.scss';
+import styles from './SectionTotalSupplies.module.scss';
 import { getTotalSupplies } from '../../sharedFunctions/getTotalSupplies';
 
-const TableOfTotalSupplies = () => {
+const SectionTotalSupplies = () => {
 
     // Variables react
     const [coinsTotalSupply, setCoinsTotalSupply] = useState();
@@ -52,4 +52,4 @@ const TableOfTotalSupplies = () => {
     );
 };
 
-export default TableOfTotalSupplies;
+export default SectionTotalSupplies;
