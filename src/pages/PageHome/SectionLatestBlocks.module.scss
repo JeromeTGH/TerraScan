@@ -1,3 +1,5 @@
+@import '../../style/variables';
+
 .tblListOfBlocks {
     width: 100%;
     border-spacing: 0;
@@ -12,12 +14,26 @@
     }
     
     td, th {
-        padding: 0.2rem 0.4rem;
+        padding: 0.2rem 0.2rem;
         text-align: left;
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.9rem;
+        }
     }
 
-    td:last-child a {
+    td:nth-child(2) {
+        text-align: center;
+    }
+
+    td:nth-child(3) a {
         word-break: break-word;
+    }
+
+    td:nth-child(4) {
+        white-space: nowrap;
+        @media (max-width: $primary-breakpoint) {
+            white-space: normal;
+        }
     }
 
 

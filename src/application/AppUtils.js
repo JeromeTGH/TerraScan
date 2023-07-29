@@ -40,7 +40,7 @@ export const isValidTerraAddressFormat = (stringToTest, terraAddressHeader) => {
     //  - avec 'xxx', une entête spécifique (0 à plusieurs caractères)
     //  - et 'yyy', 38 caractères obligatoires
 
-    var regex = new RegExp('^' + terraAddressHeader.toLowerCase(), 'g');      // On va rechercher tout ce qui commence par terra[...]1[...]
+    const regex = new RegExp('^' + terraAddressHeader.toLowerCase(), 'g');      // On va rechercher tout ce qui commence par terra[...]1[...]
     // (nota : on compare les chaînes entre elles, en minuscule ici, qui est le "standard" pour une adresse terra)
 
     if(stringToTest.toLowerCase().match(regex) && stringToTest.length === (terraAddressHeader.length + 38))
@@ -80,4 +80,36 @@ export const isValidBlockNumberFormat = (stringToTest) => {
  */
 export const formateLeNombre = (nbre, sep) => {
     return nbre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+}
+
+
+// =============================
+// Fonction "metEnFormeDateTime"
+// =============================
+/**
+ * 
+ * @param valDateTime Valeur à traiter
+ * @returns Valeur formatée, de type DD/MM/YYYY HH:MN:SS
+ */
+export const metEnFormeDateTime = (valDateTime) => {
+    // Entrée de la date/time à analyser
+    const dateTimeAanalyser = new Date(valDateTime)
+
+    // Récupération des parties qui nous intéresse
+    let yyyy = dateTimeAanalyser.getFullYear();
+    let mm = dateTimeAanalyser.getMonth() + 1;        // Months start at 0 !
+    let dd = dateTimeAanalyser.getDate();
+    let hh = dateTimeAanalyser.getHours();
+    let mn = dateTimeAanalyser.getMinutes();
+    let ss = dateTimeAanalyser.getSeconds();
+    
+    // Ajout d'un zéro devant certains digits, si nécessaire
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    if (hh < 10) hh = '0' + hh;
+    if (mn < 10) mn = '0' + mn;
+    if (ss < 10) ss = '0' + ss;
+    
+    // Retour de la valeur formatée (au format : DD/MM/YYYY HH:MN:SS)
+    return dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn + ':' + ss;
 }

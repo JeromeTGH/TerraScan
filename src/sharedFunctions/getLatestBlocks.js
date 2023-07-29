@@ -18,7 +18,7 @@ import { bech32 } from 'bech32';
 
 */
 
-const listOfBlocks = []             // RETURN ==> [[blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]]
+const listOfBlocks = []             // RETURN ==> [[blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]]
 const tblValidators = []            // [[valOperAdr, valPubkey, blockValConsAdr, valName]]
 
 export const getLatestBlocks = async (qte) => {
@@ -27,6 +27,7 @@ export const getLatestBlocks = async (qte) => {
     let lastBlockRead_NbTx = 0;
     let lastBlockRead_ProposerValConsAdr = 0;
     let lastBlockRead_indexInTblOfBlocks = 0;
+    let lastBlockRead_dateTime = 0;
 
     // Connexion au LCD
     const lcd = new LCDClient({
@@ -62,13 +63,15 @@ export const getLatestBlocks = async (qte) => {
             lastBlockRead_Height = lastBlock.block.header.height;
             lastBlockRead_NbTx = lastBlock.block.data.txs.length;
             lastBlockRead_ProposerValConsAdr = bech32.encode('terravalcons', bech32.toWords(Buffer.from(lastBlock.block.header.proposer_address, 'base64')));
-            // [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]
+            lastBlockRead_dateTime = lastBlock.block.header.time;
+            // [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]
             lastBlockRead_indexInTblOfBlocks = listOfBlocks.push([
                 lastBlockRead_Height,
                 lastBlockRead_NbTx,
                 lastBlockRead_ProposerValConsAdr,
                 '',
-                'Unknown'
+                'Unknown',
+                lastBlockRead_dateTime
             ]) - 1;         // Push et récup index-1 dans la foulée
         } else {
             // Block "connu"
@@ -76,6 +79,7 @@ export const getLatestBlocks = async (qte) => {
             lastBlockRead_NbTx = checkBlockIinList[0][1];
             lastBlockRead_ProposerValConsAdr = checkBlockIinList[0][2];
             lastBlockRead_indexInTblOfBlocks = listOfBlocks.findIndex(lgTblBlocks => lgTblBlocks[0].includes(lastBlockRead_Height));
+            lastBlockRead_dateTime = checkBlockIinList[0][5];
         }
     } else
         return { "erreur": "Failed to fetch [last block] ..." }
@@ -112,7 +116,7 @@ export const getLatestBlocks = async (qte) => {
     if(listOfBlocks[lastBlockRead_indexInTblOfBlocks][3] === '') {
         const indexValWithThisValConsAddress = tblValidators.findIndex(lgTblValidator => lgTblValidator.includes(lastBlockRead_ProposerValConsAdr));
         if(indexValWithThisValConsAddress >= 0) {
-            // listOfBlocks : array of [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]
+            // listOfBlocks : array of [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]
             // tblValidators : array of [valOperAdr, valPubkey, blockValConsAdr, valName]
             listOfBlocks[lastBlockRead_indexInTblOfBlocks][3] = tblValidators[indexValWithThisValConsAddress][0];
             listOfBlocks[lastBlockRead_indexInTblOfBlocks][4] = tblValidators[indexValWithThisValConsAddress][3];
@@ -129,21 +133,23 @@ export const getLatestBlocks = async (qte) => {
                 
                 // Récupération des infos du validateur (nota : on se limite au validatorSet précédent ici, mais il faudrait idéalement creuser plus loin, en cas d'unknown)
                 let blockI_ProposerValConsAdr = bech32.encode('terravalcons', bech32.toWords(Buffer.from(blockNumberI.block.header.proposer_address, 'base64')));
-                let blockI_valOpenAdr = ''
-                let blockI_valName = 'Unknown'
+                let blockI_valOpenAdr = '';
+                let blockI_valName = 'Unknown';
+                let blockI_dateTime = blockNumberI.block.header.time;
                 const nextIndexValWithThisValConsAddress = tblValidators.findIndex(lgTblValidator => lgTblValidator.includes(blockI_ProposerValConsAdr));
                 if(nextIndexValWithThisValConsAddress >= 0) {
                     blockI_valOpenAdr = tblValidators[nextIndexValWithThisValConsAddress][0];
                     blockI_valName = tblValidators[nextIndexValWithThisValConsAddress][3];
                 }
 
-                // [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName]
+                // [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]
                 listOfBlocks.push([
                     blockNumberI.block.header.height,
                     blockNumberI.block.data.txs.length,
                     blockI_ProposerValConsAdr,
                     blockI_valOpenAdr,
-                    blockI_valName
+                    blockI_valName,
+                    blockI_dateTime
                 ]);
             } else
                 return { "erreur": "Failed to fetch a [previous block] (n°" + i + ") ..." }
