@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
-import BlockTotalSupplies from './BlockTotalSupplies';
-import BlockStaking from './BlockStaking';
-import BlockLatestBlocks from './BlockLatestBlocks';
 import BlockOverview from './BlockOverview';
+import BlockLatestBlocks from './BlockLatestBlocks';
+import BlockValidators from './BlockValidators';
+import BlockTotalSupplies from './BlockTotalSupplies';
+
 
 const PageHome = () => {
 
@@ -22,9 +23,8 @@ const PageHome = () => {
     // Et affichage de la page, au final
     return (
         <div className={styles.homepage}>
-            <h1><HomeIcon /><span><strong>Homepage</strong> (dashboard)</span></h1>
+            <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
-            <br />
             <br />
             <div className={styles.tbl13}>
                 <OutlinedBox>
@@ -41,7 +41,7 @@ const PageHome = () => {
             <div className={styles.tbl31}>
                 <OutlinedBox>
                     <div className={styles.content}>
-                        <BlockStaking />
+                        <BlockValidators />
                     </div>
                 </OutlinedBox>
                 <OutlinedBox>

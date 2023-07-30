@@ -126,6 +126,9 @@ export const metEnFormeDateTime = (valDateTime) => {
  */
 export const metEnFormeGrandNombre = (nombre, precision = 2) => {
 
+    if(nombre === undefined)
+        return 'undefined';
+
     const tableauDesUnites = [
         { suffixe: 'T', seuil: 1e12 },
         { suffixe: 'B', seuil: 1e9  },

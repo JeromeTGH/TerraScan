@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { OverviewIcon } from '../../application/AppIcons';
 import { getOverviewInfos } from '../../sharedFunctions/getOverviewInfos';
 import styles from './BlockOverview.module.scss';
+import { metEnFormeGrandNombre } from '../../application/AppUtils';
 
 
 const BlockOverview = () => {
 
     const [overviewInfos, setOverviewInfos] = useState();
     const [msgErreurOverviewInfos, setMsgErreurOverviewInfos] = useState();
+
+    const [stakingRate, setStakingRate] = useState(0);
 
     useEffect(() => {
         getOverviewInfos().then((res) => {
@@ -18,6 +21,8 @@ const BlockOverview = () => {
             else {
                 setMsgErreurOverviewInfos('');
                 setOverviewInfos(res);
+                const pourcentageDeStaking = (res['LuncBonded'] / res['LuncTotalSupply'] * 100).toFixed(1);
+                setStakingRate(pourcentageDeStaking);
             }
         })
     }, [])
@@ -25,12 +30,12 @@ const BlockOverview = () => {
     return (
         <>
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
-            <div>LUNC total supply = <strong>{overviewInfos ? overviewInfos['LuncTotalSupply'] : "..."}</strong> (100%)</div>
-            <div>Staked LUNC = {overviewInfos ? overviewInfos['StakedLunc'] : "..."}</div>
+            <div>LUNC total supply = <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply']) : "..."}</strong> (100%)</div>
+            <div>Staked LUNC = <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded']) : "..."}</strong> ({stakingRate}%)</div>
             <div className={styles.progressbarcontainer}>
                 <div className={styles.progresstext}>Staking&nbsp;rate</div>
                 <div className={styles.progressbar}>
-                    <div className={styles.barre} style={{width: "15%"}}><span>15%</span></div>
+                    <div className={styles.barre} style={{width: stakingRate + "%"}}><span>{stakingRate}%</span></div>
                 </div>
             </div>
             <div className={styles.comments}>
