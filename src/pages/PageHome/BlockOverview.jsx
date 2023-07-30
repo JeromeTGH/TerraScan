@@ -27,8 +27,11 @@ const BlockOverview = () => {
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
             <div>LUNC total supply = <strong>{overviewInfos ? overviewInfos['LuncTotalSupply'] : "..."}</strong> (100%)</div>
             <div>Staked LUNC = {overviewInfos ? overviewInfos['StakedLunc'] : "..."}</div>
-            <div className={styles.progressbar}>
-                <div className={styles.barre} style={{width: "15%"}}>15%</div>
+            <div className={styles.progressbarcontainer}>
+                <div className={styles.progresstext}>Staking&nbsp;rate</div>
+                <div className={styles.progressbar}>
+                    <div className={styles.barre} style={{width: "15%"}}><span>15%</span></div>
+                </div>
             </div>
             <div className={styles.comments}>
                 <br />

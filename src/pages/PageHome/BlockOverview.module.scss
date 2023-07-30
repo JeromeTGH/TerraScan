@@ -3,16 +3,32 @@
     padding-top: 0.4rem;
 }
 
-.progressbar {
-    width: 100%;
-    background-color: var(--unprimary-fill);
-    border: 1px solid var(--outline-box-color);
-}
-  
-.barre {
-    font-size: 0.6rem;
-    width: 0%;
-    text-align: center;
-    color: var(--primary-text-color-on-fill);
-    background-color: var(--primary-fill);
+.progressbarcontainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+
+    .progresstext {
+        padding-right: 1rem;
+    }
+    
+    .progressbar {
+        width: 100%;
+        background-color: var(--unprimary-fill);
+        border: 1px solid var(--outline-box-color);
+        
+        .barre {
+            width: 0%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-text-color-on-fill);
+            background-color: var(--primary-fill);
+            height: 100%;
+
+            span {
+                font-size: 0.6rem;
+            }
+        }
+    }      
 }
