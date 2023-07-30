@@ -36,7 +36,7 @@ const BlockLatestBlocks = () => {
                         <th>Height</th>
                         <th>Nb&nbsp;Tx</th>
                         <th>Validator</th>
-                        <th>DateTime</th>
+                        <th>Date/Time</th>
                     </tr>
                 </thead>
                 <tbody>

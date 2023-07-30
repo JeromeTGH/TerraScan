@@ -1,40 +1,53 @@
+.overviews {
+    font-size: 0.9rem;
+
+    .boxed {
+        background-color: var(--boxed-fill-color);
+        padding: 0.2rem 0;
+    }
+
+    .descThenValue {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .progressbartbl {
+        font-size: 0.8rem;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 100%;
+    
+        .progressbartext {
+            padding-right: 0.4rem;
+        }
+    
+        .progressbarcontent {
+            width: 100%;
+    
+            .progressbar {
+                background-color: var(--unprimary-fill);
+                border: 1px solid var(--outline-box-color);
+                
+                .barre {
+                    width: 0%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--primary-text-color-on-fill);
+                    background-color: var(--primary-fill);
+                    height: 100%;
+        
+                    span {
+                        font-size: 0.6rem;
+                    }
+                }
+            }      
+        }
+    }
+}
+
 .comments {
     font-size: 0.7rem;
     padding-top: 0.4rem;
-}
-
-.descThenValue {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.progressbarcontainer {
-    display: flex;
-    flex-direction: row;
-    font-size: 0.8rem;
-
-    .progresstext {
-        padding-right: 1rem;
-    }
-    
-    .progressbar {
-        width: 100%;
-        background-color: var(--unprimary-fill);
-        border: 1px solid var(--outline-box-color);
-        
-        .barre {
-            width: 0%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-text-color-on-fill);
-            background-color: var(--primary-fill);
-            height: 100%;
-
-            span {
-                font-size: 0.6rem;
-            }
-        }
-    }      
 }

@@ -7,7 +7,10 @@ export const getOverviewInfos = async () => {
     // Tableau à retourner
     const tblAretourner = {
         "LuncTotalSupply": null,
-        "LuncBonded": null
+        "LuncBonded": null,
+        "UnbondingTime": null,
+        "NbMaxValidators": null,
+        "NbBondedValidators": null
     }
 
     // Connexion au LCD
@@ -17,7 +20,7 @@ export const getOverviewInfos = async () => {
         isClassic: true
     });
 
-    // Récupère la "total supply" du LUNC
+    // Récupération de la "total supply" du LUNC
     const rawTotalSupplies = await lcd.bank.total({'pagination.limit': 9999}).catch(handleError);
     if(rawTotalSupplies) {
         const lstTotalSupplies = (new Coins(rawTotalSupplies[0])).toData();
@@ -30,7 +33,7 @@ export const getOverviewInfos = async () => {
     } else
         return { "erreur": "Failed to fetch [total supplies] ..." }
 
-    // Récupère le nombre de LUNC stakés (bonded)
+    // Récupération du nombre de LUNC stakés (bonded)
     const rawStakingPool = await lcd.staking.pool().catch(handleError);
     if(rawStakingPool) {
         const bondedTokens = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
@@ -38,11 +41,23 @@ export const getOverviewInfos = async () => {
     } else
         return { "erreur": "Failed to fetch [staking pool] ..." }
 
+    // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)
+    const rawStakingParameters = await lcd.staking.parameters().catch(handleError);
+    if(rawStakingParameters) {
+        tblAretourner['UnbondingTime'] = rawStakingParameters.unbonding_time / 3600 / 24;       // Transformation nbSecondes --> nbJours
+        tblAretourner['NbMaxValidators'] = rawStakingParameters.max_validators;
+    } else
+        return { "erreur": "Failed to fetch [staking parameters] ..." }
+
+    // Récupération
+    const rawValidators = await lcd.staking.validators({'pagination.limit': 9999, "status": "BOND_STATUS_BONDED"}).catch(handleError);
+    if(rawValidators) {
+        tblAretourner['NbBondedValidators'] = rawValidators[0].length
+    } else
+        return { "erreur": "Failed to fetch [validators] ..." }
 
 
-
-
-    // Retourne tableau à la fin
+    // Renvoie du tableau global/rempli, à la fin
     return tblAretourner;
 }
 

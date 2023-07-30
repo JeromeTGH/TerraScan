@@ -17,6 +17,7 @@
     --outline-box-color: #{$darkTheme_outlineBoxColor};
     --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$darkTheme_headTableLineFillColor};
+    --boxed-fill-color: #{$darkTheme_boxerFillColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -36,6 +37,7 @@
     --outline-box-color: #{$lightTheme_outlineBoxColor};
     --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$lightTheme_headTableLineFillColor};
+    --boxed-fill-color: #{$lightTheme_boxerFillColor};
 }
 
 body {
