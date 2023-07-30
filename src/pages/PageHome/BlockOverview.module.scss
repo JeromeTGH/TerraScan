@@ -3,6 +3,12 @@
     padding-top: 0.4rem;
 }
 
+.descThenValue {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .progressbarcontainer {
     display: flex;
     flex-direction: row;

@@ -124,7 +124,7 @@ export const metEnFormeDateTime = (valDateTime) => {
  * @param precision nombre de chiffres 'n' après la virgule à conserver
  * @returns Valeur formatée avec suffixe (T, B, M, K, ou rien), avec 'n' chiffres après la virgule
  */
-export const metEnFormeGrandNombre = (nombre, precision = 2) => {
+export const metEnFormeGrandNombre = (nombre, precision) => {
 
     if(nombre === undefined)
         return 'undefined';

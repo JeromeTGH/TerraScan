@@ -30,8 +30,15 @@ const BlockOverview = () => {
     return (
         <>
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
-            <div>LUNC total supply = <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply']) : "..."}</strong> (100%)</div>
-            <div>Staked LUNC = <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded']) : "..."}</strong> ({stakingRate}%)</div>
+            <div className={styles.descThenValue}>
+                <div>→&nbsp;<u>LUNC total supply</u> =</div>
+                <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong> (100%)</div>
+            </div>
+            <div className={styles.descThenValue}>
+                <div>→&nbsp;<u>Staked LUNC</u> =</div>
+                <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong> ({stakingRate}%)</div>
+            </div>
+            <br />
             <div className={styles.progressbarcontainer}>
                 <div className={styles.progresstext}>Staking&nbsp;rate</div>
                 <div className={styles.progressbar}>
