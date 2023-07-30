@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockLatestBlocks.module.scss';
-import { ChainIcon } from '../../application/AppIcons';
+import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
 import { metEnFormeDateTime } from '../../application/AppUtils';
@@ -29,7 +29,7 @@ const BlockLatestBlocks = () => {
     // Affichage
     return (
         <>
-            <h2><strong><ChainIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
+            <h2><strong><BlocksIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>

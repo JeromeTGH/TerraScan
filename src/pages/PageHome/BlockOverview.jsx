@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ParamsIcon } from '../../application/AppIcons';
+import { OverviewIcon } from '../../application/AppIcons';
 import { getOverviewInfos } from '../../sharedFunctions/getOverviewInfos';
 import styles from './BlockOverview.module.scss';
+
 
 const BlockOverview = () => {
 
@@ -23,8 +24,12 @@ const BlockOverview = () => {
 
     return (
         <>
-            <h2><strong><ParamsIcon /></strong><span><strong>Overview</strong></span></h2>
-            <div>Lunc total supply = {overviewInfos ? overviewInfos['LuncTotalSupply'] : "..."}</div>
+            <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
+            <div>LUNC total supply = <strong>{overviewInfos ? overviewInfos['LuncTotalSupply'] : "..."}</strong> (100%)</div>
+            <div>Staked LUNC = {overviewInfos ? overviewInfos['StakedLunc'] : "..."}</div>
+            <div className={styles.progressbar}>
+                <div className={styles.barre} style={{width: "15%"}}>15%</div>
+            </div>
             <div className={styles.comments}>
                 <br />
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)

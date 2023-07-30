@@ -2,3 +2,17 @@
     font-size: 0.7rem;
     padding-top: 0.4rem;
 }
+
+.progressbar {
+    width: 100%;
+    background-color: var(--unprimary-fill);
+    border: 1px solid var(--outline-box-color);
+}
+  
+.barre {
+    font-size: 0.6rem;
+    width: 0%;
+    text-align: center;
+    color: var(--primary-text-color-on-fill);
+    background-color: var(--primary-fill);
+}

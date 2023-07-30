@@ -4,7 +4,7 @@ import { chainName, chainID, chainLCDurl, appName} from '../../application/AppPa
 
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, ChainIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon } from '../../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon } from '../../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
@@ -29,13 +29,13 @@ const SideBar = () => {
                     </li>
                     <li>
                         <NavLink to={"/validators"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
-                            <span><BlocksIcon /></span>
+                            <span><CalculatorIcon /></span>
                             <span>Validators</span>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to={"/blocks"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
-                            <span><ChainIcon /></span>
+                            <span><BlocksIcon /></span>
                             <span>Blocks</span>
                         </NavLink>
                     </li>

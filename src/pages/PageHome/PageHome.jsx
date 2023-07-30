@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
-import { DashboardIcon } from '../../application/AppIcons';
+import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockStaking from './BlockStaking';
@@ -22,7 +22,7 @@ const PageHome = () => {
     // Et affichage de la page, au final
     return (
         <div className={styles.homepage}>
-            <h1><DashboardIcon /><span>Dashboard</span></h1>
+            <h1><HomeIcon /><span><strong>Homepage</strong> (dashboard)</span></h1>
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <br />
