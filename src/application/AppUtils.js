@@ -113,3 +113,32 @@ export const metEnFormeDateTime = (valDateTime) => {
     // Retour de la valeur formatée (au format : DD/MM/YYYY HH:MN:SS)
     return dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn + ':' + ss;
 }
+
+
+// =============================
+// Fonction "metEnFormeDateTime"
+// =============================
+/**
+ * 
+ * @param nombre nombre réel (donc positif ou négatif, et pas forcément entier)
+ * @param precision nombre de chiffres 'n' après la virgule à conserver
+ * @returns Valeur formatée avec suffixe (T, B, M, K, ou rien), avec 'n' chiffres après la virgule
+ */
+export const metEnFormeGrandNombre = (nombre, precision = 2) => {
+
+    const tableauDesUnites = [
+        { suffixe: 'T', seuil: 1e12 },
+        { suffixe: 'B', seuil: 1e9  },
+        { suffixe: 'M', seuil: 1e6  },
+        { suffixe: 'K', seuil: 1e3  },
+        { suffixe: '',  seuil: 1    }
+    ];
+  
+    const seuilLePlusGrandPourCeNombre = tableauDesUnites.find((ligne) => Math.abs(nombre) >= ligne.seuil);
+
+    if (seuilLePlusGrandPourCeNombre)
+        return (nombre / seuilLePlusGrandPourCeNombre.seuil).toFixed(precision) + "\u00A0" + seuilLePlusGrandPourCeNombre.suffixe;  // \u00A0 = &nbsp;
+    else  
+        return nombre.toFixed(precision);
+
+}
