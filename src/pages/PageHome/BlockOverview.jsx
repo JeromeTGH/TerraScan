@@ -77,8 +77,26 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Inflation (max)</u> =</div>
-                        <div><strong>...%</strong> <QuestionIcon /></div>
+                        <div>→&nbsp;<u>Inflation (max mint)</u> =</div>
+                        <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Tobin tax ("tax burn")</u> =</div>
+                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Tobin tax split</u> =</div>
+                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>DM split</u> =</div>
+                        <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong> <QuestionIcon /></div>
                     </div>
                 </div>
             </div>
@@ -88,7 +106,8 @@ const BlockOverview = () => {
             <div className={styles.comments}>
                 <br />
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)<br />
-                <u>Nb validators</u> : number of validator, active (status=bonded) vs max (fixed parameter, on the blockchain)
+                <u>Nb validators</u> : number of validator, active (status=bonded) vs max (fixed parameter, on the blockchain)<br />
+                <u>Acronyms</u> : DM=Distribution Module, CP=Community Pool
                 <br />
             </div>
             <div className="erreur">{msgErreurOverviewInfos}</div>

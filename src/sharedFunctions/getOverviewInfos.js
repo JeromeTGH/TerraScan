@@ -10,7 +10,13 @@ export const getOverviewInfos = async () => {
         "LuncBonded": null,
         "UnbondingTime": null,
         "NbMaxValidators": null,
-        "NbBondedValidators": null
+        "NbBondedValidators": null,
+        "InflationMax": null,
+        "TobinTaxMax": null,                // Tobin tax ("Tax burn") ; initially 1.2%, then 0.2%, then 0.5%
+        "TobinTaxSplitToBeBurn": null,              // Split of above tax ("Burn tax AnteHandler") ; typically 80/20,
+        "TobinTaxSplitToDistributionModule": null,  // so 80% to be burn, and 20% to the distribution module
+        "DistributionModuleSplitToStakers": null,           // Split of distribution module ; typically 50/50, so 50% du stakers
+        "DistributionModuleSplitToCommunityPool": null,     // and 50% du community pool
     }
 
     // Connexion au LCD
@@ -49,12 +55,43 @@ export const getOverviewInfos = async () => {
     } else
         return { "erreur": "Failed to fetch [staking parameters] ..." }
 
-    // Récupération
+    // Récupération du nombre total de validateurs ayant un status "bonded"
     const rawValidators = await lcd.staking.validators({'pagination.limit': 9999, "status": "BOND_STATUS_BONDED"}).catch(handleError);
     if(rawValidators) {
         tblAretourner['NbBondedValidators'] = rawValidators[0].length
     } else
         return { "erreur": "Failed to fetch [validators] ..." }
+
+
+    // Récupération du taux d'inflation max
+    const rawMintParameters = await lcd.mint.parameters().catch(handleError);
+    if(rawMintParameters) {
+        const inflationMax = (new Decimal(rawMintParameters.inflation_max)).toFixed(3);
+        tblAretourner['InflationMax'] = inflationMax*100;       // Pour afficher des pourcentages
+    } else
+        return { "erreur": "Failed to fetch [mint parameters] ..." }
+
+    // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
+    const rawTreasuryParameters = await lcd.treasury.parameters().catch(handleError);
+    if(rawTreasuryParameters) {
+        const tobinTaxMax = (new Decimal(rawTreasuryParameters.tax_policy.rate_max)).toFixed(3);
+        const tobinTaxSplitToDistributionModule = (new Decimal(rawTreasuryParameters.burn_tax_split)).toFixed(3);
+        const tobinTaxSplitToBeBurn = 1 - tobinTaxSplitToDistributionModule;
+        tblAretourner['TobinTaxMax'] = tobinTaxMax*100;                                                 // Pour afficher des pourcentages
+        tblAretourner['TobinTaxSplitToBeBurn'] = tobinTaxSplitToBeBurn * 100;                           // Pour afficher des pourcentages
+        tblAretourner['TobinTaxSplitToDistributionModule'] = tobinTaxSplitToDistributionModule * 100;   // Pour afficher des pourcentages
+    } else
+        return { "erreur": "Failed to fetch [treasury parameters] ..." }
+
+    // Récupération des infos concernant le split du "distribution module"
+    const rawDistributionParameters = await lcd.distribution.parameters().catch(handleError);
+    if(rawDistributionParameters) {
+        const distributionModuleSplitToCommunityPool = (new Decimal(rawDistributionParameters.community_tax)).toFixed(3);
+        const distributionModuleSplitToStakers = 1 - distributionModuleSplitToCommunityPool;
+        tblAretourner['DistributionModuleSplitToStakers'] = distributionModuleSplitToStakers * 100;                 // Pour afficher des pourcentages
+        tblAretourner['DistributionModuleSplitToCommunityPool'] = distributionModuleSplitToCommunityPool * 100;     // Pour afficher des pourcentages
+    } else
+        return { "erreur": "Failed to fetch [distribution parameters] ..." }
 
 
     // Renvoie du tableau global/rempli, à la fin
