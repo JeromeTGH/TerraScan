@@ -17,6 +17,8 @@ export const getOverviewInfos = async () => {
         "TobinTaxSplitToDistributionModule": null,  // so 80% to be burn, and 20% to the distribution module
         "DistributionModuleSplitToStakers": null,           // Split of distribution module ; typically 50/50, so 50% du stakers
         "DistributionModuleSplitToCommunityPool": null,     // and 50% du community pool
+        "AmountOfLuncInCP": null,
+        "AmountOfUstcInCP": null,
     }
 
     // Connexion au LCD
@@ -93,6 +95,24 @@ export const getOverviewInfos = async () => {
     } else
         return { "erreur": "Failed to fetch [distribution parameters] ..." }
 
+    // Récupération des infos concernant le "community pool"
+    const rawCommunityPool = await lcd.distribution.communityPool().catch(handleError);
+    if(rawCommunityPool) {
+        const lstCoinsInCP = (new Coins(rawCommunityPool)).toData();
+        const idxLuncInCP = lstCoinsInCP.findIndex(element => element.denom === "uluna");
+        const idxUstcInCP = lstCoinsInCP.findIndex(element => element.denom === "uusd");
+
+        if(idxLuncInCP >= 0) {
+            tblAretourner['AmountOfLuncInCP'] = parseInt(lstCoinsInCP[idxLuncInCP].amount/1000000);
+        } else
+            tblAretourner['AmountOfLuncInCP'] = 0;
+
+        if(idxUstcInCP >= 0) {
+            tblAretourner['AmountOfUstcInCP'] = parseInt(lstCoinsInCP[idxUstcInCP].amount/1000000);
+        } else
+            tblAretourner['AmountOfUstcInCP'] = 0;
+    } else
+        return { "erreur": "Failed to fetch [distribution parameters] ..." }
 
     // Renvoie du tableau global/rempli, à la fin
     return tblAretourner;

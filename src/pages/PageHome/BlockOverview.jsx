@@ -99,6 +99,18 @@ const BlockOverview = () => {
                         <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong> <QuestionIcon /></div>
                     </div>
                 </div>
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Nb LUNC in CP</u> =</div>
+                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['AmountOfLuncInCP'], 3) : "..."} LUNC</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Nb USTC in CP</u> =</div>
+                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['AmountOfUstcInCP'], 3) : "..."} USTC</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
             </div>
 
             <br />
@@ -107,6 +119,7 @@ const BlockOverview = () => {
                 <br />
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)<br />
                 <u>Nb validators</u> : number of validator, active (status=bonded) vs max (fixed parameter, on the blockchain)<br />
+                <u>Nb LUNC/USTC in CP</u> : amount of LUNC/USTC in community pool<br />
                 <u>Acronyms</u> : DM=Distribution Module, CP=Community Pool
                 <br />
             </div>
