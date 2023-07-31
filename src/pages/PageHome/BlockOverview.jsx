@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewIcon, QuestionIcon } from '../../application/AppIcons';
+import { OverviewIcon } from '../../application/AppIcons';
 import { getOverviewInfos } from '../../sharedFunctions/getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
@@ -36,15 +36,15 @@ const BlockOverview = () => {
             <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Last block height</u> =</div>
-                        <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong> <QuestionIcon /></div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Current epoch</u> =</div>
-                        <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong> <QuestionIcon /></div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Next epoch</u> =</div>
-                        <div><strong>~ {overviewInfos ? overviewInfos['DateEstimativeProchaineEpoch'] : "..."}</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? "~ " + overviewInfos['DateEstimativeProchaineEpoch'] : "..."}</strong></div>
                     </div>
                 </div>
                 <br />
@@ -64,19 +64,19 @@ const BlockOverview = () => {
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>LUNC total supply</u> =</div>
-                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong> (100%) <QuestionIcon /></div>                
+                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong> (100%)</div>                
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Staked LUNC</u> =</div>
-                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong> ({stakingRatio}%) <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong> ({stakingRatio}%)</div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Staking unbonding time</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['UnbondingTime'] : "..."} days</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['UnbondingTime'] : "..."} days</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Nb validators (active/max)</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong></div>
                     </div>
                 </div>
                 <br />
@@ -104,19 +104,19 @@ const BlockOverview = () => {
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Inflation (mint)</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Tobin tax ("tax burn")</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Tobin tax split</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>DM split</u> =</div>
-                        <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong> <QuestionIcon /></div>
+                        <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong></div>
                     </div>
                 </div>
                 <br />

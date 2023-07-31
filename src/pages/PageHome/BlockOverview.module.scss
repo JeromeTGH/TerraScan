@@ -1,9 +1,11 @@
+@import '../../style/variables';
+
 .overviews {
     font-size: 0.9rem;
 
     .boxed {
         background-color: var(--boxed-fill-color);
-        padding: 0.2rem 0;
+        padding: 0.2rem 0.2rem;
     }
 
     .descThenValue {
@@ -41,6 +43,9 @@
         
                     span {
                         font-size: 0.6rem;
+                        @media (max-width: $primary-breakpoint) {
+                            font-weight: bold;
+                        }
                     }
                 }
             }      
