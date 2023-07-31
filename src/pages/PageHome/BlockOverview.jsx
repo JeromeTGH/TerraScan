@@ -4,7 +4,6 @@ import { getOverviewInfos } from '../../sharedFunctions/getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 
-
 const BlockOverview = () => {
 
     // const tip1 = "<u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)";
@@ -34,6 +33,34 @@ const BlockOverview = () => {
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
 
             <div className={styles.overviews}>
+            <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Last block height</u> =</div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong> <QuestionIcon /></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Current epoch</u> =</div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong> <QuestionIcon /></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;<u>Next epoch</u> =</div>
+                        <div><strong>~ {overviewInfos ? overviewInfos['DateEstimativeProchaineEpoch'] : "..."}</strong> <QuestionIcon /></div>
+                    </div>
+                </div>
+                <br />
+                <table className={styles.progressbartbl}>
+                    <tbody>
+                        <tr>
+                            <td className={styles.progressbartext}>Current&nbsp;epoch&nbsp;:</td>
+                            <td className={styles.progressbarcontent}>
+                                <div className={styles.progressbar}>
+                                    <div className={styles.barre} style={{width: overviewInfos ? overviewInfos['PourcentageAvancementDansEpoch'] + "%" : "0%"}}><span>{overviewInfos ? overviewInfos['PourcentageAvancementDansEpoch'] : "..."}%</span></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>LUNC total supply</u> =</div>
@@ -43,7 +70,6 @@ const BlockOverview = () => {
                         <div>→&nbsp;<u>Staked LUNC</u> =</div>
                         <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong> ({stakingRatio}%) <QuestionIcon /></div>
                     </div>
-                    {/* <br /> */}
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Staking unbonding time</u> =</div>
                         <div><strong>{overviewInfos ? overviewInfos['UnbondingTime'] : "..."} days</strong> <QuestionIcon /></div>

@@ -21,6 +21,11 @@ export const getOverviewInfos = async () => {
         "AmountOfUstcInCP": null,
         "AmountOfLuncInOP": null,       // Oracle Pool
         "AmountOfUstcInOP": null,
+        "LastBlockHeight": null,
+        "LastBlockEpoch": null,
+        "LastBlockDateTime": null,
+        "PourcentageAvancementDansEpoch": null,
+        "DateEstimativeProchaineEpoch": null
     }
 
     // Connexion au LCD
@@ -135,10 +140,37 @@ export const getOverviewInfos = async () => {
             tblAretourner['AmountOfUstcInOP'] = 0;
     } else
         return { "erreur": "Failed to fetch [oracle pool balance] ..." }
+        
+    // Récupération des infos concernant le dernier block
+    const rawLastBlock = await lcd.tendermint.blockInfo().catch(handleError);
+    if(rawLastBlock) {
+        // Paramètres de calcul
+        const nbBlocksPerEpoch = 100800;        // Sur la base de 100 800 block par epoch
+        const nbSecondsPerBlock = 6;            // Sur la base "moyenne" d'un nouveau bloc toutes les 6 secondes
+
+        // Récupération des données qui nous intéresse ici
+        const lastBlockHeight = rawLastBlock.block.header.height;
+        const lastBlockDateTime = rawLastBlock.block.header.time;
+
+        // Calculs (pour retrouver le n° de l'epoch en cours, le % d'avancement dans celle-ci, et la date de la prochaine)
+        const estimatedCurrentEpoch = parseInt(lastBlockHeight/nbBlocksPerEpoch);
+        const pourcentageAvancementDansEpoch = ((lastBlockHeight % nbBlocksPerEpoch)/nbBlocksPerEpoch*100).toFixed(1);
+        const estimatedNbSecondsLeftUntilNextEpoch = ((estimatedCurrentEpoch+1)*nbBlocksPerEpoch - lastBlockHeight)*nbSecondsPerBlock;
+        const dateTimeLastBlock = new Date(lastBlockDateTime);
+        const estimatedNextEpochStart = new Date(dateTimeLastBlock.getTime() + estimatedNbSecondsLeftUntilNextEpoch*1000);  // *1000 pour conversion sec => millisecondes
+
+        tblAretourner['LastBlockHeight'] = lastBlockHeight;
+        tblAretourner['LastBlockEpoch'] = estimatedCurrentEpoch
+        tblAretourner['PourcentageAvancementDansEpoch'] = pourcentageAvancementDansEpoch;
+        tblAretourner['DateEstimativeProchaineEpoch'] = estimatedNextEpochStart.toLocaleString();
+    } else
+        return { "erreur": "Failed to fetch [last block info] ..." }
 
     // Renvoie du tableau global/rempli, à la fin
     return tblAretourner;
 }
+
+
 
 
 const handleError = (err) => {
