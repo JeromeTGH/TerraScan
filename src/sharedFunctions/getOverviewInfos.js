@@ -17,8 +17,10 @@ export const getOverviewInfos = async () => {
         "TobinTaxSplitToDistributionModule": null,  // so 80% to be burn, and 20% to the distribution module
         "DistributionModuleSplitToStakers": null,           // Split of distribution module ; typically 50/50, so 50% du stakers
         "DistributionModuleSplitToCommunityPool": null,     // and 50% du community pool
-        "AmountOfLuncInCP": null,
+        "AmountOfLuncInCP": null,       // Community Pool
         "AmountOfUstcInCP": null,
+        "AmountOfLuncInOP": null,       // Oracle Pool
+        "AmountOfUstcInOP": null,
     }
 
     // Connexion au LCD
@@ -102,17 +104,37 @@ export const getOverviewInfos = async () => {
         const idxLuncInCP = lstCoinsInCP.findIndex(element => element.denom === "uluna");
         const idxUstcInCP = lstCoinsInCP.findIndex(element => element.denom === "uusd");
 
-        if(idxLuncInCP >= 0) {
+        if(idxLuncInCP >= 0)
             tblAretourner['AmountOfLuncInCP'] = parseInt(lstCoinsInCP[idxLuncInCP].amount/1000000);
-        } else
+        else
             tblAretourner['AmountOfLuncInCP'] = 0;
 
-        if(idxUstcInCP >= 0) {
+        if(idxUstcInCP >= 0)
             tblAretourner['AmountOfUstcInCP'] = parseInt(lstCoinsInCP[idxUstcInCP].amount/1000000);
-        } else
+        else
             tblAretourner['AmountOfUstcInCP'] = 0;
     } else
         return { "erreur": "Failed to fetch [distribution parameters] ..." }
+
+
+    // Récupération des infos concernant le "oracle pool" (adresse = terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f)
+    const rawOraclePool = await lcd.bank.balance("terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f").catch(handleError);
+    if(rawOraclePool) {
+        const lstCoinsInOP = (new Coins(rawOraclePool[0])).toData();
+        const idxLuncInOP = lstCoinsInOP.findIndex(element => element.denom === "uluna");
+        const idxUstcInOP = lstCoinsInOP.findIndex(element => element.denom === "uusd");
+
+        if(idxLuncInOP >= 0)
+            tblAretourner['AmountOfLuncInOP'] = parseInt(lstCoinsInOP[idxLuncInOP].amount/1000000);
+        else
+            tblAretourner['AmountOfLuncInOP'] = 0;
+
+        if(idxUstcInOP >= 0)
+            tblAretourner['AmountOfUstcInOP'] = parseInt(lstCoinsInOP[idxUstcInOP].amount/1000000);
+        else
+            tblAretourner['AmountOfUstcInOP'] = 0;
+    } else
+        return { "erreur": "Failed to fetch [oracle pool balance] ..." }
 
     // Renvoie du tableau global/rempli, à la fin
     return tblAretourner;
