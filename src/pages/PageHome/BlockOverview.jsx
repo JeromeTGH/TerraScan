@@ -77,7 +77,7 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Inflation (max mint)</u> =</div>
+                        <div>→&nbsp;<u>Inflation (mint)</u> =</div>
                         <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong> <QuestionIcon /></div>
                     </div>
                     <div className={styles.descThenValue}>
