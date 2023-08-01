@@ -29,8 +29,8 @@ const BlockValidators = () => {
     return (
         <>
             <h2><strong><CalculatorIcon /></strong><span><strong>Validators</strong> (actives)</span></h2>
-            <div className={styles.tblValidators}>
-                <table>
+            <div>
+                <table className={styles.tblValidators}>
                     <thead>
                         <tr>
                             <th>#</th>
