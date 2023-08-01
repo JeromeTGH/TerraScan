@@ -6,7 +6,7 @@ import { getTotalSupplies } from '../../sharedFunctions/getTotalSupplies';
 const BlockTotalSupplies = () => {
 
     // Variables react
-    const [coinsTotalSupply, setCoinsTotalSupply] = useState();
+    const [ coinsTotalSupply, setCoinsTotalSupply ] = useState();
     const [ msgErreurGetTotalSupplies, setMsgErreurGetTotalSupplies ] = useState();
 
     // À exécuter au démarrage

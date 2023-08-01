@@ -1,4 +1,49 @@
-.valContainer {
-    // max-height: 100vh;
-    overflow-y: auto;
+@import '../../style/variables';
+
+.tblValidators {
+
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
+    
+    thead tr {
+        background-color: var(--head-table-line-fill-color);
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: var(--even-table-line-fill-color);
+    }
+    
+    td, th {
+        padding: 0.2rem 0.2rem;
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.9rem;
+        }
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td:nth-child(1), td:nth-child(3) {
+        text-align: center;
+    }
+
+    td:nth-child(2) a {
+        word-break: break-word;
+    }
+
+    td:nth-child(4), td:nth-child(5) {
+        text-align: right;
+    }
+
+}
+
+.comments {
+    font-size: 0.7rem;
+    padding-top: 0.4rem;
+    text-align: center;
 }
