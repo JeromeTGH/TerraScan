@@ -1,3 +1,5 @@
 .container {
     border: 1px solid var(--outline-box-color);
+    -webkit-box-shadow: 1px 1px 8px 1px var(--outline-box-color); 
+    box-shadow: 1px 1px 8px 1px var(--outline-box-color);
 }

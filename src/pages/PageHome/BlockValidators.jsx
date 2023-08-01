@@ -34,9 +34,9 @@ const BlockValidators = () => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nom</th>
-                            <th>Comm.</th>
-                            <th>Delegator shares</th>
+                            <th>Name</th>
+                            <th>Com.</th>
+                            <th>Staked</th>
                             <th>Voting power</th>
                         </tr>
                     </thead>
@@ -47,7 +47,7 @@ const BlockValidators = () => {
                                 <td>{clef+1}</td>
                                 <td><Link to={"/validators/" + valeur[1]}>{valeur[0]}</Link></td>
                                 <td>{valeur[2]}%</td>
-                                <td>{metEnFormeGrandNombre(valeur[3], 3)}</td>
+                                <td>{metEnFormeGrandNombre(valeur[3], 2)}</td>
                                 {/* \u00A0 = espace insécable */}
                                 <td><strong>{valeur[4]}%</strong></td>
                             </tr>

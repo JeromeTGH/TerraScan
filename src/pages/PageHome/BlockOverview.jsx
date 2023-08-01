@@ -54,7 +54,21 @@ const BlockOverview = () => {
                             <td className={styles.progressbartext}>Current&nbsp;epoch&nbsp;:</td>
                             <td className={styles.progressbarcontent}>
                                 <div className={styles.progressbar}>
-                                    <div className={styles.barre} style={{width: overviewInfos ? overviewInfos['PourcentageAvancementDansEpoch'] + "%" : "0%"}}><span>{overviewInfos ? overviewInfos['PourcentageAvancementDansEpoch'] : "..."}%</span></div>
+                                    {overviewInfos ? 
+                                        (overviewInfos['PourcentageAvancementDansEpoch'] < 15) ? (
+                                            <>
+                                                <div className={styles.barre} style={{width: overviewInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>&nbsp;</span></div>
+                                                <div className={styles.apresbarre}><span>&nbsp;&nbsp;←&nbsp;&nbsp;{overviewInfos['PourcentageAvancementDansEpoch']}%</span></div>
+                                            </>
+                                        ) : (
+                                            <div className={styles.barre} style={{width: overviewInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>{overviewInfos['PourcentageAvancementDansEpoch']}%</span></div>
+                                        )
+                                     : (
+                                        <>
+                                            <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>
+                                            <div className={styles.apresbarre}><span>&nbsp;Loading...</span></div>
+                                        </>
+                                    )}
                                 </div>
                             </td>
                         </tr>
