@@ -4,7 +4,7 @@ import { chainName, chainID, chainLCDurl, appName} from '../../application/AppPa
 
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon } from '../../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
@@ -25,6 +25,12 @@ const SideBar = () => {
                         <NavLink to={"/"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><HomeIcon /></span>
                             <span>Home</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={"/accounts"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                            <span><AccountIcon /></span>
+                            <span>Accounts</span>
                         </NavLink>
                     </li>
                     <li>

@@ -6,6 +6,7 @@ import BlockOverview from './BlockOverview';
 import BlockLatestBlocks from './BlockLatestBlocks';
 import BlockValidators from './BlockValidators';
 import BlockTotalSupplies from './BlockTotalSupplies';
+import BlockAccounts from './BlockAccounts';
 
 
 const PageHome = () => {
@@ -27,16 +28,26 @@ const PageHome = () => {
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <div className={styles.tbl13}>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <BlockOverview />
-                    </div>
-                </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <BlockLatestBlocks />
-                    </div>
-                </OutlinedBox>
+                <div style={{height: "100%"}}>
+                    <OutlinedBox>
+                        <div className={styles.content} style={{height: "100%"}}>
+                            <BlockOverview />
+                        </div>
+                    </OutlinedBox>
+                </div>
+                <div style={{height: "100%"}}>
+                    <OutlinedBox>
+                        <div className={styles.content}>
+                            <BlockLatestBlocks />
+                        </div>
+                    </OutlinedBox>
+                    <br />
+                    <OutlinedBox>
+                        <div className={styles.content}>
+                            <BlockAccounts />
+                        </div>
+                    </OutlinedBox>
+                </div>
             </div>
             <div className={styles.tbl31}>
                 <OutlinedBox>
