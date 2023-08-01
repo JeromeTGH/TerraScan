@@ -29,6 +29,13 @@
         word-break: break-word;
     }
 
+    td:nth-child(4) {
+        white-space: nowrap;
+        @media (max-width: 1200px) {
+            white-space: normal;
+        }
+    }
+
 }
 
 .comments {
