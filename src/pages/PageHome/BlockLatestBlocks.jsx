@@ -3,7 +3,6 @@ import styles from './BlockLatestBlocks.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
-import { metEnFormeDateTime } from '../../application/AppUtils';
 
 
 const BlockLatestBlocks = () => {
@@ -46,7 +45,7 @@ const BlockLatestBlocks = () => {
                                 <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                 <td>{valeur[1]}</td>
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[4]}</Link></td>
-                                <td>{metEnFormeDateTime(valeur[5])}</td>
+                                <td>{valeur[5]}</td>
                             </tr> 
                     )}) : <tr><td colSpan="4">Loading data from blockchain ...</td></tr> }
                 </tbody>

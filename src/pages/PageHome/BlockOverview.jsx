@@ -33,7 +33,7 @@ const BlockOverview = () => {
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
 
             <div className={styles.overviews}>
-            <div className={styles.boxed}>
+                <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Last block height</u> =</div>
                         <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong></div>
@@ -119,10 +119,13 @@ const BlockOverview = () => {
                         <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong></div>
                     </div>
                 </div>
+                <div className={styles.comments}>
+                    <u>Note</u> : DM=Distribution&nbsp;Module / CP=Community&nbsp;Pool
+                </div>
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Amount of coins in "Community Pool"</u> :</div>
+                        <div>→&nbsp;<u>Amount of "major" coins in Community Pool</u> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -133,7 +136,7 @@ const BlockOverview = () => {
                         </div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Amount of coins in "Oracle Pool"</u> :</div>
+                        <div>→&nbsp;<u>Amount of "major" coins in Oracle Pool</u> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -146,12 +149,7 @@ const BlockOverview = () => {
                 </div>
             </div>
             <div className={styles.comments}>
-                <br />
-                <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)<br />
-                <u>Nb validators</u> : number of validator, active (status=bonded) vs max (fixed parameter, on the blockchain)<br />
-                <u>Amount of coins in CP/OP</u> : amount of "majors coins" (i.e. LUNC and USTC) in CommunityPool and OraclePool<br />
-                <u>Acronyms</u> : DM=Distribution Module, CP=Community Pool
-                <br />
+                <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
             </div>
             <div className="erreur">{msgErreurOverviewInfos}</div>
         </>

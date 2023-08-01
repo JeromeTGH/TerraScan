@@ -63,7 +63,7 @@ export const getLatestBlocks = async (qte) => {
             lastBlockRead_Height = lastBlock.block.header.height;
             lastBlockRead_NbTx = lastBlock.block.data.txs.length;
             lastBlockRead_ProposerValConsAdr = bech32.encode('terravalcons', bech32.toWords(Buffer.from(lastBlock.block.header.proposer_address, 'base64')));
-            lastBlockRead_dateTime = lastBlock.block.header.time;
+            lastBlockRead_dateTime = (new Date(lastBlock.block.header.time)).toLocaleString();
             // [blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]
             lastBlockRead_indexInTblOfBlocks = listOfBlocks.push([
                 lastBlockRead_Height,
@@ -135,7 +135,7 @@ export const getLatestBlocks = async (qte) => {
                 let blockI_ProposerValConsAdr = bech32.encode('terravalcons', bech32.toWords(Buffer.from(blockNumberI.block.header.proposer_address, 'base64')));
                 let blockI_valOpenAdr = '';
                 let blockI_valName = 'Unknown';
-                let blockI_dateTime = blockNumberI.block.header.time;
+                let blockI_dateTime = (new Date(blockNumberI.block.header.time)).toLocaleString();
                 const nextIndexValWithThisValConsAddress = tblValidators.findIndex(lgTblValidator => lgTblValidator.includes(blockI_ProposerValConsAdr));
                 if(nextIndexValWithThisValConsAddress >= 0) {
                     blockI_valOpenAdr = tblValidators[nextIndexValWithThisValConsAddress][0];
