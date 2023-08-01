@@ -29,14 +29,6 @@
         word-break: break-word;
     }
 
-    td:nth-child(4) {
-        white-space: nowrap;
-        @media (max-width: $primary-breakpoint) {
-            white-space: normal;
-        }
-    }
-
-
 }
 
 .comments {

@@ -26,7 +26,7 @@ const BlockTotalSupplies = () => {
     // Affichage
     return (
         <>
-            <h2><strong><Stack1Icon /></strong><span><strong>Total Supplies</strong> (latest)</span></h2>
+            <h2 className={styles.totalSupplyH2}><strong><Stack1Icon /></strong><span><strong>Total&nbsp;Supplies</strong> (latest)</span></h2>
             <table className={styles.tblTotalSupplies}>
                     {coinsTotalSupply ? (
                     <tbody>

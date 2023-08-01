@@ -126,10 +126,18 @@ const BlockOverview = () => {
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Tobin tax split</u> =</div>
+                        <div></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div></div>
                         <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>DM split</u> =</div>
+                        <div>→&nbsp;<u>Distribution Module split</u> =</div>
+                        <div></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div></div>
                         <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong></div>
                     </div>
                 </div>

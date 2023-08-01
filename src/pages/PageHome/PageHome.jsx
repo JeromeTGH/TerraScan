@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import OutlinedBox from '../../sharedComponents/OutlinedBox/OutlinedBox';
 import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
 import BlockOverview from './BlockOverview';
@@ -27,39 +26,22 @@ const PageHome = () => {
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
-            <div className={styles.tbl13}>
-                <div style={{height: "100%"}}>
-                    <OutlinedBox>
-                        <div className={styles.content} style={{height: "100%"}}>
-                            <BlockOverview />
-                        </div>
-                    </OutlinedBox>
+            <div className={styles.tblHome}>
+                <div className={"boxContainer " + styles.overviewBlock}>
+                    <BlockOverview />
                 </div>
-                <div style={{height: "100%"}}>
-                    <OutlinedBox>
-                        <div className={styles.content}>
-                            <BlockLatestBlocks />
-                        </div>
-                    </OutlinedBox>
-                    <br />
-                    <OutlinedBox>
-                        <div className={styles.content}>
-                            <BlockAccounts />
-                        </div>
-                    </OutlinedBox>
+                <div className={"boxContainer " + styles.blocksBlock}>
+                    <BlockLatestBlocks />
                 </div>
-            </div>
-            <div className={styles.tbl31}>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <BlockValidators />
-                    </div>
-                </OutlinedBox>
-                <OutlinedBox>
-                    <div className={styles.content}>
-                        <BlockTotalSupplies />
-                    </div>
-                </OutlinedBox>
+                <div className={"boxContainer " + styles.accountsBlock}>
+                    <BlockAccounts />
+                </div>
+                <div className={"boxContainer " + styles.validatorsBlock}>
+                    <BlockValidators />
+                </div>
+                <div className={"boxContainer " + styles.suppliesBlock}>
+                    <BlockTotalSupplies />
+                </div>
             </div>
         </div>
     );

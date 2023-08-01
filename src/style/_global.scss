@@ -31,3 +31,11 @@ input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+
+.boxContainer {
+    border: 1px solid var(--outline-box-color);
+    -webkit-box-shadow: 1px 1px 8px 1px var(--outline-box-color); 
+    box-shadow: 1px 1px 8px 1px var(--outline-box-color);
+    padding: 0.4rem 0.6rem;
+}
