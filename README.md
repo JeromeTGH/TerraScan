@@ -4,7 +4,7 @@
 GitHub : https://github.com/JeromeTGH/Terra-Scan
 
 ## Notes (Terra.js)
-Installed packages :
+Installed packages (specifics ones) :
 - npm install @terra-money/terra.js
 - npm install node-polyfill-webpack-plugin
 - npm install react-app-rewired
@@ -17,4 +17,4 @@ Modifications :
 ## About
 
 @2023<br />
-Created by [JeromeTGH](https://github.com/JeromeTGH)
+Created by [Jérôme TOMSKI](https://github.com/JeromeTGH)
