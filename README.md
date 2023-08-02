@@ -17,4 +17,5 @@ Modifications :
 ## About
 
 @2023<br />
-Created by [Jérôme TOMSKI](https://github.com/JeromeTGH)
+Created by Jérôme TOMSKI<br />
+Links : [Twitter](https://twitter.com/jerometomski) / [GitHub](https://github.com/JeromeTGH)
