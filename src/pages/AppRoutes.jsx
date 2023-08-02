@@ -13,6 +13,13 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="home" withHeader="no" withFooter="no" />
             },
             {
+                path: "/accounts",
+                element: <PageBuilder targetPage="accounts" withHeader="no" withFooter="no" />},
+            {
+                path: "/accounts/:cptNum",
+                element: <PageBuilder targetPage="account" withHeader="no" withFooter="no" />
+            },
+            {
                 path: "/blocks",
                 element: <PageBuilder targetPage="blocks" withHeader="no" withFooter="no" />},
             {
@@ -20,11 +27,26 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="block" withHeader="no" withFooter="no" />
             },
             {
+                path: "/transactions",
+                element: <PageBuilder targetPage="transactions" withHeader="no" withFooter="no" />},
+            {
+                path: "/transactions/:txHash",
+                element: <PageBuilder targetPage="transaction" withHeader="no" withFooter="no" />
+            },
+            {
                 path: "/validators",
                 element: <PageBuilder targetPage="validators" withHeader="no" withFooter="no" />},
             {
                 path: "/validators/:valAdr",
                 element: <PageBuilder targetPage="validator" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/governance",
+                element: <PageBuilder targetPage="governance" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/staking",
+                element: <PageBuilder targetPage="staking" withHeader="no" withFooter="no" />
             },
             {
                 path: "/search",
