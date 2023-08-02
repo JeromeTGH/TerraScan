@@ -11,7 +11,7 @@ const BlockOverview = () => {
     const [overviewInfos, setOverviewInfos] = useState();
     const [msgErreurOverviewInfos, setMsgErreurOverviewInfos] = useState();
 
-    const [stakingRatio, setStakingRatio] = useState(0);
+    const [stakingRatio, setStakingRatio] = useState(-1);
 
     useEffect(() => {
         getOverviewInfos().then((res) => {
@@ -78,11 +78,14 @@ const BlockOverview = () => {
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>LUNC total supply</u> =</div>
-                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong> (100%)</div>                
+                        <div>
+                            <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong>
+                            <span>{overviewInfos ?  " (100%)" : ""}</span>
+                        </div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Staked LUNC</u> =</div>
-                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong> ({stakingRatio}%)</div>
+                        <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong>{stakingRatio === -1 ? "" : " (" + stakingRatio + "%)"}</div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<u>Staking unbonding time</u> =</div>
@@ -100,7 +103,14 @@ const BlockOverview = () => {
                             <td className={styles.progressbartext}>Staking&nbsp;ratio&nbsp;:</td>
                             <td className={styles.progressbarcontent}>
                                 <div className={styles.progressbar}>
-                                    <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>{stakingRatio}%</span></div>
+                                    {stakingRatio && stakingRatio !== -1 ? (
+                                        <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>{stakingRatio + "%"}</span></div>
+                                    ) : (
+                                        <>
+                                            <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>
+                                            <div className={styles.apresbarre}><span>&nbsp;Loading...</span></div>
+                                        </>
+                                    )}
                                 </div>
                             </td>
                         </tr>
@@ -108,7 +118,14 @@ const BlockOverview = () => {
                             <td className={styles.progressbartext}>Validators&nbsp;:</td>
                             <td className={styles.progressbarcontent}>
                                 <div className={styles.progressbar}>
-                                <div className={styles.barre} style={{width: overviewInfos ? (overviewInfos['NbBondedValidators']/overviewInfos['NbMaxValidators']*100) + "%" : "0%" }}><span>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</span></div>
+                                    {overviewInfos ? (
+                                        <div className={styles.barre} style={{width: (overviewInfos['NbBondedValidators']/overviewInfos['NbMaxValidators']*100) + "%"}}><span>{overviewInfos['NbBondedValidators'] + "/" + overviewInfos['NbMaxValidators']}</span></div>
+                                    ) : (
+                                        <>
+                                            <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>
+                                            <div className={styles.apresbarre}><span>&nbsp;Loading...</span></div>
+                                        </>
+                                    )}
                                 </div>
                             </td>
                         </tr>

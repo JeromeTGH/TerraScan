@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
+import BlockSearch from './BlockSearch';
 import BlockOverview from './BlockOverview';
 import BlockLatestBlocks from './BlockLatestBlocks';
 import BlockValidators from './BlockValidators';
@@ -27,6 +28,9 @@ const PageHome = () => {
             <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <div className={styles.tblHome}>
+                <div className={"boxContainer " + styles.searchBlock}>
+                    <BlockSearch />
+                </div>
                 <div className={"boxContainer " + styles.overviewBlock}>
                     <BlockOverview />
                 </div>

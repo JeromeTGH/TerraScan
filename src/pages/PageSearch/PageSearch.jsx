@@ -22,13 +22,13 @@ const PageSearch = () => {
         if(searchFieldValue === '') {
             setErrorMessage('No search value entered');
         } else if(isValidTransactionHashFormat(searchFieldValue)) {
-            navigate('/transaction/' + searchFieldValue);
+            navigate('/transactions/' + searchFieldValue);
         } else if(isValidTerraAddressFormat(searchFieldValue, 'terra1')) {
-            navigate('/account/' + searchFieldValue);
+            navigate('/accounts/' + searchFieldValue);
         } else if(isValidTerraAddressFormat(searchFieldValue, 'terravaloper1')) {
-            navigate('/validator/' + searchFieldValue);
+            navigate('/validators/' + searchFieldValue);
         } else if(isValidBlockNumberFormat(searchFieldValue)) {
-            navigate('/block/' + searchFieldValue);
+            navigate('/blocks/' + searchFieldValue);
         } else {
             setErrorMessage('No matches found, sorry');
         }
