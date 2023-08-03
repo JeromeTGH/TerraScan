@@ -39,3 +39,19 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     box-shadow: 1px 1px 8px 1px var(--outline-box-color);
     padding: 0.4rem 0.6rem;
 }
+
+h1 {
+    font-weight: 300;
+
+    svg, span {
+        vertical-align: middle
+    }
+    svg {
+        margin-right: 0.6rem;
+    }
+}
+
+.datetimeupdate {
+    font-size: 0.7rem;
+    font-style: italic;
+}

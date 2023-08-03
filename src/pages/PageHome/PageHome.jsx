@@ -23,11 +23,11 @@ const PageHome = () => {
 
     // Et affichage de la page, au final
     return (
-        <div className={styles.homepage}>
+        <>
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
-            <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
+            <p className="datetimeupdate">→ Last data update : {datetimeDernierUpdate}</p>
             <br />
-            <div className={styles.tblHome}>
+            <div className={styles.blocksHomepage}>
                 <div className={"boxContainer " + styles.searchBlock}>
                     <BlockSearch />
                 </div>
@@ -47,7 +47,7 @@ const PageHome = () => {
                     <BlockTotalSupplies />
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
