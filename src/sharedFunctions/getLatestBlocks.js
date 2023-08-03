@@ -18,11 +18,12 @@ import { bech32 } from 'bech32';
 
 */
 
-const listOfBlocks = []             // RETURN ==> [[blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]]
-const tblValidators = []            // [[valOperAdr, valPubkey, blockValConsAdr, valName]]
 
 export const getLatestBlocks = async (qte) => {
-
+    
+    const listOfBlocks = []             // RETURN ==> [[blockHeight, blockNbTx, blockValConsAdr, valOperAdr, valName, blockDateTime]]
+    const tblValidators = []            // [[valOperAdr, valPubkey, blockValConsAdr, valName]]
+    
     let lastBlockRead_Height = 0;
     let lastBlockRead_NbTx = 0;
     let lastBlockRead_ProposerValConsAdr = 0;

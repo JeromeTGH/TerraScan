@@ -1,0 +1,50 @@
+@import '../../style/variables';
+
+.otherAssetsBlock {
+    grid-area: otherassets;
+}
+
+.tblAssets {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    display: block;
+    height: 280px;
+    overflow-y: scroll;
+
+    td:nth-child(1) {
+        width: 100%;
+    }
+    
+    thead tr {
+        background-color: var(--head-table-line-fill-color);
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: var(--even-table-line-fill-color);
+    }
+    
+    td, th {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.9rem;
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.8rem;
+        }
+    }
+
+    th:first-child {
+        text-align: left;
+    }
+
+    td:nth-child(2), td:nth-child(3) {
+        text-align: right;
+    }
+
+}
+
+.comments {
+    font-size: 0.7rem;
+    padding-top: 0.4rem;
+    text-align: center;
+}

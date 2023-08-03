@@ -2,19 +2,20 @@ import { chainID, chainLCDurl } from '../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
 
-const accountInfos = {
-    'availableLUNCs': 0,            // Nombre de LUNC disponibles (sur le compte, et non stakés, donc)
-    'availableUSTCs': 0,            //    (idem, pour les USTC)
-    'stakedLUNCs': 0,               // Montant total des LUNC stakés
-    'pendingLUNCrewards': 0,        // Montant total des rewards en attente (pour le LUNC)
-    'pendingUSTCrewards': 0,        //    (idem, pour les USTC)
-    'unbondingLUNC': 0,             // Montant total des LUNC en attente d'unbonding (suite à de l'undelegation)
-    'totalLUNC': 0,                 // Montant total des LUNC pour ce compte (i.e. la somme des LUNC libres + stakés + rewards + unbonding)
-    'totalUSTC': 0,                 //    (idem, pour les USTC)
-}
 
 export const getAccountInfos = async (accountAddress) => {
-
+    
+    const accountInfos = {
+        'availableLUNCs': 0,            // Nombre de LUNC disponibles (sur le compte, et non stakés, donc)
+        'availableUSTCs': 0,            //    (idem, pour les USTC)
+        'stakedLUNCs': 0,               // Montant total des LUNC stakés
+        'pendingLUNCrewards': 0,        // Montant total des rewards en attente (pour le LUNC)
+        'pendingUSTCrewards': 0,        //    (idem, pour les USTC)
+        'unbondingLUNC': 0,             // Montant total des LUNC en attente d'unbonding (suite à de l'undelegation)
+        'totalLUNC': 0,                 // Montant total des LUNC pour ce compte (i.e. la somme des LUNC libres + stakés + rewards + unbonding)
+        'totalUSTC': 0,                 //    (idem, pour les USTC)
+    }
+    
     // Variables
     let amountOfLuncStaked = 0;
     let amountOfLuncUnbonding = 0;
@@ -77,6 +78,7 @@ export const getAccountInfos = async (accountAddress) => {
     } else
         return { "erreur": "Failed to fetch [rewards infos] ..." }
 
+
     // Récupération du montant total des undelegations, pour ce compte
     const rawUndelegations = await lcd.staking.unbondingDelegations(accountAddress).catch(handleError);
     if(rawUndelegations) {
@@ -88,6 +90,7 @@ export const getAccountInfos = async (accountAddress) => {
         accountInfos['unbondingLUNC'] = amountOfLuncUnbonding;
     } else
         return { "erreur": "Failed to fetch [unbonding infos] ..." }
+
 
     // Calcul de la sommes des LUNC de ce compte (libres + stakés + rewards + unbonding)
     accountInfos['totalLUNC'] = accountInfos['availableLUNCs'] + accountInfos['stakedLUNCs'] + accountInfos['pendingLUNCrewards'] + accountInfos['unbondingLUNC'];

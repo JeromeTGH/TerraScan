@@ -27,7 +27,7 @@ const BlockBalances = (props) => {
     // Affichage
     return (
         <>
-            <div className={"boxContainer " + styles.luncBalanceBlock}>
+            <div className={"boxContainer " + styles.balancesBlock}>
                 <h2><strong><BlocksIcon /></strong><span>Balance of <strong>LUNC</strong></span></h2>
                 <table className={styles.tblBalance}>
                     <tbody>
@@ -48,7 +48,7 @@ const BlockBalances = (props) => {
                             <td>LUNC</td>
                         </tr>
                         <tr>
-                            <td>→&nbsp;Rewards&nbsp;=</td>
+                            <td>→&nbsp;Pending&nbsp;rewards&nbsp;=</td>
                             <td>
                                 <strong>{balancesInfos ? formateLeNombre(parseInt(balancesInfos['pendingLUNCrewards']), "\u00a0") : "..."}</strong>
                                 <span>{balancesInfos ? "," + (balancesInfos['pendingLUNCrewards']%1).toFixed(6).replace('0.', '') : "..."}</span>
@@ -63,11 +63,9 @@ const BlockBalances = (props) => {
                             </td>
                             <td>LUNC</td>
                         </tr>
+                        <tr><td colSpan="3"><hr /></td></tr>
                         <tr>
-                            <td colSpan="3">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>→&nbsp;<strong>Total&nbsp;LUNC</strong>&nbsp;=</td>
+                            <td>&nbsp;<strong>Total&nbsp;LUNC</strong>&nbsp;=</td>
                             <td>
                                 <strong>{balancesInfos ? formateLeNombre(parseInt(balancesInfos['totalLUNC']), "\u00a0") : "..."}</strong>
                                 <span>{balancesInfos ? "," + (balancesInfos['totalLUNC']%1).toFixed(6).replace('0.', '') : "..."}</span>
@@ -77,9 +75,7 @@ const BlockBalances = (props) => {
                     </tbody>
                 </table>
                 <br />
-                <div className="erreur">{msgErreurBalancesInfos}</div>
-            </div>
-            <div className={"boxContainer " + styles.ustcBalanceBlock}>
+                <br />
                 <h2><strong><CoinsIcon /></strong><span>Balance of <strong>USTC</strong></span></h2>
                 <table className={styles.tblBalance}>
                     <tbody>
@@ -92,30 +88,14 @@ const BlockBalances = (props) => {
                             <td>USTC</td>
                         </tr>
                         <tr>
-                            <td>→&nbsp;Staked&nbsp;=</td>
-                            <td>
-                                <span>impossible</span>
-                            </td>
-                            <td>USTC</td>
-                        </tr>
-                        <tr>
-                            <td>→&nbsp;Rewards&nbsp;=</td>
+                            <td>→&nbsp;Pending&nbsp;rewards&nbsp;=</td>
                             <td>
                                 <strong>{balancesInfos ? formateLeNombre(parseInt(balancesInfos['pendingUSTCrewards']), "\u00a0") : "..."}</strong>
                                 <span>{balancesInfos ? "," + (balancesInfos['pendingUSTCrewards']%1).toFixed(6).replace('0.', '') : "..."}</span>
                             </td>
                             <td>USTC</td>
                         </tr>
-                        <tr>
-                            <td>→&nbsp;Unbonding&nbsp;=</td>
-                            <td>
-                                <span>not concerned</span>
-                            </td>
-                            <td>USTC</td>
-                        </tr>
-                        <tr>
-                            <td colSpan="3">&nbsp;</td>
-                        </tr>
+                        <tr><td colSpan="3"><hr /></td></tr>
                         <tr>
                             <td>→&nbsp;<strong>Total&nbsp;USTC</strong>&nbsp;=</td>
                             <td>

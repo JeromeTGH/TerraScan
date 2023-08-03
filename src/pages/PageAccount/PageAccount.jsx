@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import styles from './PageAccount.module.scss';
 import BlockBalances from './BlockBalances';
 import BlockDelegations from './BlockDelegations';
+import BlockOtherAssets from './BlockOtherAssets';
 
 const PageAccount = () => {
 
@@ -14,10 +15,11 @@ const PageAccount = () => {
     return (
         <div>
             <h1><AccountIcon /><span><strong>Account</strong></span></h1>
-            <p>→ Address : <strong>{cptNum}</strong></p>
+            <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
             <br />
             <div className={styles.blocksAccountPage}>
                 <BlockBalances accountAddress={cptNum} />
+                <BlockOtherAssets accountAddress={cptNum} />
                 <BlockDelegations accountAddress={cptNum} />
             </div>
         </div>
