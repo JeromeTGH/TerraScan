@@ -332,3 +332,46 @@ export const AccountIcon = (props) => {
     </svg>
   );
 }
+
+
+// Coins Icon
+export const CoinsIcon = (props) => {
+  return (
+    <svg
+      viewBox="0 0 21 21"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <g
+        fill="none"
+        fillRule="evenodd"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M18.5 11.5v3c0 1.3-3.134 3-7 3s-7-1.7-7-3V12" />
+        <path d="M4.794 12.259c.865 1.148 3.54 2.225 6.706 2.225 3.866 0 7-1.606 7-2.986 0-.775-.987-1.624-2.536-2.22" />
+        <path d="M15.5 6.5v3c0 1.3-3.134 3-7 3s-7-1.7-7-3v-3" />
+        <path d="M8.5 9.484c3.866 0 7-1.606 7-2.986 0-1.381-3.134-2.998-7-2.998s-7 1.617-7 2.998c0 1.38 3.134 2.986 7 2.986z" />
+      </g>
+    </svg>
+  );
+}
+
+
+// Delegation Icon
+export const DelegationIcon = (props) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M16 2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5m0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3 6h-2c0-1.2-.75-2.28-1.87-2.7L8.97 11H1v11h6v-1.44l7 1.94 8-2.5v-1c0-1.66-1.34-3-3-3M5 20H3v-7h2v7m8.97.41L7 18.5V13h1.61l5.82 2.17c.34.13.57.46.57.83 0 0-2-.05-2.3-.15l-2.38-.79-.63 1.9 2.38.79c.51.17 1.04.25 1.58.25H19c.39 0 .74.24.9.57l-5.93 1.84z" />
+    </svg>
+  );
+}
