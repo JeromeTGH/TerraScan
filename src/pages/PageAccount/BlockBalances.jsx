@@ -67,7 +67,7 @@ const BlockBalances = (props) => {
                             <td colSpan="3">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>→&nbsp;<strong>Total&nbsp;LUNC&nbsp;=</strong></td>
+                            <td>→&nbsp;<strong>Total&nbsp;LUNC</strong>&nbsp;=</td>
                             <td>
                                 <strong>{balancesInfos ? formateLeNombre(parseInt(balancesInfos['totalLUNC']), "\u00a0") : "..."}</strong>
                                 <span>{balancesInfos ? "," + (balancesInfos['totalLUNC']%1).toFixed(6).replace('0.', '') : "..."}</span>
@@ -117,7 +117,7 @@ const BlockBalances = (props) => {
                             <td colSpan="3">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>→&nbsp;<strong>Total&nbsp;USTC&nbsp;=</strong></td>
+                            <td>→&nbsp;<strong>Total&nbsp;USTC</strong>&nbsp;=</td>
                             <td>
                                 <strong>{balancesInfos ? formateLeNombre(parseInt(balancesInfos['totalUSTC']), "\u00a0") : "..."}</strong>
                                 <span>{balancesInfos ? "," + (balancesInfos['totalUSTC']%1).toFixed(6).replace('0.', '') : "..."}</span>

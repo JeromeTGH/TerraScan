@@ -2,11 +2,11 @@
 .blocksAccountPage {
 
     display: grid;
-    grid-template-columns: 32% 32% 32%;
+    grid-template-columns: 35% auto 35%;
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
-        "luncBalance delegations delegations"
-        "ustcBalance delegations delegations";
+        "luncBalance . ustcBalance"
+        "delegations delegations delegations";
     column-gap: 1rem;
     row-gap: 1rem;
 
