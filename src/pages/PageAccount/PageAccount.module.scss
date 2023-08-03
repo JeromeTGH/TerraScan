@@ -5,16 +5,9 @@
     grid-template-columns: 48% 48%;
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
-        "general delegations";
+        "luncBalance delegations"
+        "ustcBalance delegations";
     column-gap: 1rem;
     row-gap: 1rem;
-    
-    .generalBlock {
-        grid-area: general;
-    }
-    
-    .delegationsBlock {
-        grid-area: delegations;
-    }
 
 }

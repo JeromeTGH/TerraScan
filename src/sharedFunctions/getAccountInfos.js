@@ -7,8 +7,10 @@ const accountInfos = {
     'availableUSTCs': 0,            //    (idem, pour les USTC)
     'stakedLUNCs': 0,               // Montant total des LUNC stakés
     'pendingLUNCrewards': 0,        // Montant total des rewards en attente (pour le LUNC)
+    'pendingUSTCrewards': 0,        //    (idem, pour les USTC)
     'unbondingLUNC': 0,             // Montant total des LUNC en attente d'unbonding (suite à de l'undelegation)
     'totalLUNC': 0,                 // Montant total des LUNC pour ce compte (i.e. la somme des LUNC libres + stakés + rewards + unbonding)
+    'totalUSTC': 0,                 //    (idem, pour les USTC)
 }
 
 export const getAccountInfos = async (accountAddress) => {
@@ -63,10 +65,15 @@ export const getAccountInfos = async (accountAddress) => {
     if(rawDelegatorRewards) {
         const lstRewardsPerCoin = (new Coins(rawDelegatorRewards.total)).toData();
         const idxLuncReward = lstRewardsPerCoin.findIndex(element => element.denom === "uluna");
+        const idxUstcReward = lstRewardsPerCoin.findIndex(element => element.denom === "uusd");
         if(idxLuncReward >= 0)
             accountInfos['pendingLUNCrewards'] = lstRewardsPerCoin[idxLuncReward].amount/1000000;
         else
             accountInfos['pendingLUNCrewards'] = 0;
+        if(idxUstcReward >= 0)
+            accountInfos['pendingUSTCrewards'] = lstRewardsPerCoin[idxUstcReward].amount/1000000;
+        else
+            accountInfos['pendingUSTCrewards'] = 0;
     } else
         return { "erreur": "Failed to fetch [rewards infos] ..." }
 
@@ -84,6 +91,7 @@ export const getAccountInfos = async (accountAddress) => {
 
     // Calcul de la sommes des LUNC de ce compte (libres + stakés + rewards + unbonding)
     accountInfos['totalLUNC'] = accountInfos['availableLUNCs'] + accountInfos['stakedLUNCs'] + accountInfos['pendingLUNCrewards'] + accountInfos['unbondingLUNC'];
+    accountInfos['totalUSTC'] = accountInfos['availableUSTCs'] + accountInfos['pendingUSTCrewards'];
 
     // Envoi des infos en retour
     return accountInfos;
