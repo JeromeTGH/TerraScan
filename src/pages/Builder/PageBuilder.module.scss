@@ -1,6 +1,6 @@
 @import '../../style/variables';
 
-#site {
+.site {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: $sidebar-width  calc(100% - #{$sidebar-width});
@@ -15,7 +15,7 @@
     }
 }
 
-#content {
+.content {
    
     padding: 0.8rem 1.2rem;
 

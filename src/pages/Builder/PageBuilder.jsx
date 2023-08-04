@@ -22,6 +22,7 @@ import styles from './PageBuilder.module.scss';
 import SideBar from '../_elements/SideBar';
 import AppBar from '../_elements/AppBar';
 
+import { AppScrollToTop } from '../../application/AppScrollToTop'
 
 const PageBuilder = (props) => {
 
@@ -71,25 +72,16 @@ const PageBuilder = (props) => {
     // Affichage
     return (
         <>
-            {/* <Link preventScrollReset={true} />
-            <Form preventScrollReset={true} /> */}
-
-            <div id={styles["site"]}>
+            <div className={styles.site}>
                 <SideBar />
                 <AppBar />
-                <div id={styles["content"]}>
+                <div id="pageContent" className={styles.content}>
                     <header>{withHeader === "no" ? null : <Header />}</header>
                     <main>{renderSwitch(targetPage)}</main>
                     <footer>{withFooter === "no" ? null : <Footer />}</footer>
                 </div>
             </div>
-
-            {/* <ScrollRestoration
-                getKey={(location, matches) => {
-                    return location.pathname;
-                }}
-            /> */}
-
+            <AppScrollToTop />
         </>
     );
 };
