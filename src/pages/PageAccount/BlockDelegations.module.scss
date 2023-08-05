@@ -1,3 +1,4 @@
+@import '../../style/variables';
 
 .delegationsBlock {
     grid-area: delegations;
@@ -8,17 +9,34 @@
     border-spacing: 0;
     border-collapse: collapse;
 
-    // td {
-    // }
+    thead tr {
+        background-color: var(--head-table-line-fill-color);
+    }
 
-    // td:nth-child(2) {
-    //     text-align: right;
-    //     padding-right: 0.4rem;
-    // }
+    tbody tr:nth-child(odd) {
+        background-color: var(--even-table-line-fill-color);
+    }
+    
+    td, th {
+        padding: 0.2rem 0.2rem;
+        font-size: 0.9rem;
+        .smallPart { font-size: 0.7rem; }
 
-    // td:nth-child(3) {
-    //     text-align: left;
-    //     width: 1%;
-    //     white-space: nowrap;
-    // }
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.8rem;
+            .smallPart { font-size: 0.4rem; }
+        }
+
+
+    }
+
+    td:nth-child(1) {
+        word-break: break-all;
+    }
+
+    td:nth-child(2), td:nth-child(3), td:nth-child(4) {
+        text-align: right;
+    }
+
+
 }
