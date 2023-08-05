@@ -32,10 +32,13 @@ const BlockTransactions = (props) => {
             <table className={styles.tblTransactions}>
                 <thead>
                     <tr>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
+                        <th>Hash</th>
+                        <th>Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Fee</th>
+                        <th>Date/Time</th>
                     </tr>
                 </thead>
                 {tableOfTransactions ? 
@@ -54,10 +57,10 @@ const BlockTransactions = (props) => {
                                 })}
                             </tbody>
                         ) : (
-                            <tbody><tr><td colSpan="4">No transaction.</td></tr></tbody>
+                            <tbody><tr><td colSpan="7">No transaction.</td></tr></tbody>
                         )
                     : (
-                        <tbody><tr><td colSpan="4">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="7">Loading data from blockchain ...</td></tr></tbody>
                     )}
             </table>
             <br />

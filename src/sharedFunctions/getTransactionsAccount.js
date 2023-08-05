@@ -17,16 +17,17 @@ export const getTransactionsAccount = async (accountAddress) => {
 
 
     // Recherche de transactions, pour un compte donné
-    // const rawTransactions = await lcd.tx.search({"events.tx.height": "13973270"}).catch(handleError);
-    const rawTransactions = await lcd.tx.search({"events": ["tx.height=13973270"]}).catch(handleError);
-    // const rawTransactions = await lcd.tx.search({"events" : [{"tx.height": "13973270"}]}).catch(handleError);
-    // const rawTransactions = await lcd.tx.search({"events" : ["tx.height=13973270"]}).catch(handleError);
+    // const rawTransactions = await lcd.tx.search({"events.tx.height": "13975534"}).catch(handleError);
+    // const rawTransactions = await lcd.tx.search({"events": [{"transfer.recipient": accountAddress}]}).catch(handleError);
+    const rawTransactions = await lcd.tx.search({"events": ["tx.height=13975534"]}).catch(handleError);
+    // const rawTransactions = await lcd.tx.search({"events" : [{"tx.height": "13975534"}]}).catch(handleError);
+    // const rawTransactions = await lcd.tx.search({"events" : ["tx.height=13975534"]}).catch(handleError);
             
     
-            // Réponse ?! "Please specify tx.height event with strict equality. Thank you for understanding."
 
     if(rawTransactions) {
         // Envoi des infos en retour
+        console.log("rawTransactions", rawTransactions);
         return tblTransactions;
     } else
         return { "erreur": "Failed to fetch [transactions] ..." };
