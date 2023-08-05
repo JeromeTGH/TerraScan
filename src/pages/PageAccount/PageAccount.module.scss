@@ -10,7 +10,8 @@
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
         "balances . otherassets"
-        "delegations delegations delegations";
+        "delegations delegations delegations"
+        "transactions transactions transactions";
     column-gap: 1rem;
     row-gap: 1rem;
 
@@ -19,21 +20,24 @@
             grid-template-areas:
                 "balances"
                 "otherassets"
-                "delegations";
+                "delegations"
+                "transactions";
 
         @media (max-width: 1024px) {
             grid-template-columns: 420px auto 420px;
             grid-template-rows: auto;
             grid-template-areas:
                 "balances . otherassets"
-                "delegations delegations delegations";
+                "delegations delegations delegations"
+                "transactions transactions transactions";
 
             @media (max-width: 910px) {
                 grid-template-columns: 100%;
                 grid-template-areas:
                     "balances"
                     "otherassets"
-                    "delegations";
+                    "delegations"
+                    "transactions";
 
                 @media (max-width: 600px) {
                     font-size: 0.9rem;
