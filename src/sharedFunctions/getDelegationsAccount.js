@@ -1,6 +1,5 @@
 import { chainID, chainLCDurl } from '../application/AppParams';
-import { Coins, LCDClient } from '@terra-money/terra.js';
-import Decimal from 'decimal.js';
+import { LCDClient } from '@terra-money/terra.js';
 
 
 export const getDelegationsAccount = async (accountAddress) => {
@@ -33,6 +32,30 @@ export const getDelegationsAccount = async (accountAddress) => {
         });
     } else
         return { "erreur": "Failed to fetch [delegations infos] ..." }
+
+
+    // Récupération de la liste de tous les validateurs (pour récupérer leur nom et leur statut, en fait)
+    const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
+    if(rawValidators) {
+        tblDelegations.forEach(element => {
+            const idxValidator = rawValidators[0].findIndex(val => val.operator_address === element[0]);
+            if(idxValidator > -1) {
+                element[1] = rawValidators[0][idxValidator].description.moniker;
+                const bondedState = rawValidators[0][idxValidator].status;
+                const jailedState = rawValidators[0][idxValidator].jailed;
+
+                if(jailedState)
+                    element[2] = 'Jailed';
+                else
+                    if(bondedState === "BOND_STATUS_BONDED")
+                        element[2] = 'Active';
+                    else
+                        element[2] = 'Inactive';
+            }
+        })
+
+    } else
+        return { "erreur": "Failed to fetch [validators list] ..." }
 
 
     // Calcul des % d'allocation de lunc (sur chaque validateur, par rapport au montant total stacké)

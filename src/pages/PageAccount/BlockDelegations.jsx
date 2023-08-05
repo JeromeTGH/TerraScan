@@ -3,6 +3,7 @@ import styles from './BlockDelegations.module.scss';
 import { DelegationIcon } from '../../application/AppIcons';
 import { getDelegationsAccount } from '../../sharedFunctions/getDelegationsAccount';
 import { formateLeNombre } from '../../application/AppUtils';
+import { Link } from 'react-router-dom';
 
 const BlockDelegations = (props) => {
     
@@ -42,8 +43,8 @@ const BlockDelegations = (props) => {
                             <tbody>
                                 {tableOfDelegations.map((valeur, clef) => {
                                     return <tr key={clef}>
-                                        <td>{valeur[0]}</td>
-                                        <td>{valeur[2]}</td>
+                                        <td><Link to={"/validators/" + valeur[0]}>{valeur[1]}</Link></td>
+                                        <td className={valeur[2] === "Jailed" ? "erreur" : "succes"}>{valeur[2]}</td>
                                         <td>
                                             <strong>{formateLeNombre(parseInt(valeur[3]), "\u00a0")}</strong>
                                             <span className={styles.smallPart}>{"," + (valeur[3]%1).toFixed(6).replace('0.', '')}</span>
