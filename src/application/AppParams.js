@@ -32,3 +32,10 @@ export const tblCorrespondanceValeurs = {
     "uthb": "THTC",
     "utwd": "TWTC"
 }
+
+// Tableau de correspondance Adresse/Désignation de compte
+export const tblCorrespondanceCompte = {
+    "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu": "Burn wallet",
+    "terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f": "Oracle pool",              // Nota : noté en dur, dans la section "overview" de la "homepage"
+    "terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe": "Binance wallet"
+}
