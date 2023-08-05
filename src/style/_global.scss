@@ -51,6 +51,20 @@ h1 {
     }
 }
 
+h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+    font-weight: normal;
+
+    svg, span {
+        vertical-align: middle;
+    }
+    svg {
+        margin-right: 0.4rem;
+    }
+}
+
 .datetimeupdate {
     font-size: 0.7rem;
     font-style: italic;

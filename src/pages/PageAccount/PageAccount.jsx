@@ -17,8 +17,8 @@ const PageAccount = () => {
 
     // Affichage
     return (
-        <div>
-            <h1><AccountIcon /><span><strong>{cptDesignation}</strong></span></h1>
+        <>
+            <h1><span><AccountIcon /><strong>{cptDesignation}</strong></span></h1>
             <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
             <br />
             <div className={styles.blocksAccountPage}>
@@ -26,7 +26,7 @@ const PageAccount = () => {
                 <BlockOtherAssets accountAddress={cptNum} />
                 <BlockDelegations accountAddress={cptNum} />
             </div>
-        </div>
+        </>
     );
 };
 
