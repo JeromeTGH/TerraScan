@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockLatestBlocks.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
-import { getLatestBlocks } from './getLatestBlocks';
+import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
 
 
 const BlockLatestBlocks = () => {

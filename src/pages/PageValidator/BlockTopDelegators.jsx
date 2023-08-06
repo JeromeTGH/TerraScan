@@ -30,17 +30,17 @@ const BlockTopDelegators = (props) => {
         <>
             <div className={"boxContainer " + styles.otherTopDelegatorsBlock}>
                 <h2><strong><AccountIcon /></strong><span>Top delegators (stakers)</span></h2>
-                <table className={styles.tblTopDelegators}>
-                    <thead>
-                        <tr>
-                            <th>Staker address</th>
-                            <th>Nb&nbsp;LUNC</th>
-                            <th>%</th>
-                        </tr>
-                    </thead>
                     {tblOfTopDelegators ? 
                         tblOfTopDelegators.length > 0 ? (
-                            <tbody>
+                            <table className={styles.tblTopDelegators}>
+                            <thead>
+                                <tr>
+                                    <th>Staker address</th>
+                                    <th>Nb&nbsp;LUNC</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                                    <tbody>
                                 {tblOfTopDelegators.map((valeur, clef) => {
                                     return <tr key={clef}>
                                         <td><Link to={"/accounts/" + valeur[0]}>{valeur[0]}</Link></td>
@@ -49,18 +49,19 @@ const BlockTopDelegators = (props) => {
                                     </tr>
                                 })}
                             </tbody>
+                            </table>
                         ) : (
-                            <tbody><tr><td colSpan="3">No delegator.</td></tr></tbody>
+                            <p>No delegator.</p>
                         )
                     : (
-                        <tbody><tr><td colSpan="3">Loading data from blockchain ...</td></tr></tbody>
+                        <p>Loading data from blockchain ...</p>
                     )}
-                </table>
                 <div className="erreur">{msgErreurTblOfTopDelegators}</div>
                 {tblOfTopDelegators ?
                     <div className={styles.comments}>
                         <u>Note</u> : only a maximum of {tblOfTopDelegators.length} delegators are presented here
-                    </div> : null}
+                    </div>
+                : null}
             </div>
         </>
     );

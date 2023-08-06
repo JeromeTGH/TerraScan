@@ -52,7 +52,6 @@ const BlockValDetails = (props) => {
                             <td>
                                 {formateLeNombre(parseInt(tableValDetails['nb_lunc_staked']), " ")},
                                 <span className={styles.smallPart}>{(tableValDetails['nb_lunc_staked']%1).toFixed(6).replace('0.', '')}</span>
-                                <span> LUNC</span>
                             </td>
                         </tr>
                         <tr>
@@ -60,7 +59,6 @@ const BlockValDetails = (props) => {
                             <td>
                                 {formateLeNombre(parseInt(tableValDetails['nb_lunc_self_bonded']), " ")},
                                 <span className={styles.smallPart}>{(tableValDetails['nb_lunc_self_bonded']%1).toFixed(6).replace('0.', '')}</span>
-                                <span> LUNC</span>
                             </td>
                         </tr>
                         <tr>
