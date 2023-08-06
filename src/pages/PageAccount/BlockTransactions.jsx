@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockTransactions.module.scss';
 import { ExchangeIcon } from '../../application/AppIcons';
-import { getTransactionsAccount } from '../../sharedFunctions/getTransactionsAccount';
+import { getTransactionsAccount } from './getTransactionsAccount';
 import { formateLeNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 

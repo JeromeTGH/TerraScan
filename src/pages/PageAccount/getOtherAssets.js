@@ -1,4 +1,4 @@
-import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../application/AppParams';
+import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 
 export const getOtherAssets = async (accountAddress) => {

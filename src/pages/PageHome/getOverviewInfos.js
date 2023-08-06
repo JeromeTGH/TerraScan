@@ -1,4 +1,4 @@
-import { chainID, chainLCDurl } from '../application/AppParams';
+import { chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockOtherAssets.module.scss';
 import { StackedCoinsIcon } from '../../application/AppIcons';
-import { getOtherAssets } from '../../sharedFunctions/getOtherAssets';
+import { getOtherAssets } from './getOtherAssets';
 
 const BlockOtherAssets = (props) => {
 

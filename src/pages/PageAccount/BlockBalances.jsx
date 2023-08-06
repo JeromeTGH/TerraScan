@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAccountInfos } from '../../sharedFunctions/getAccountInfos';
+import { getAccountInfos } from './getAccountInfos';
 import { CoinsIcon, BlocksIcon } from '../../application/AppIcons';
 import styles from './BlockBalances.module.scss';
 import { formateLeNombre } from '../../application/AppUtils';

@@ -1,6 +1,6 @@
 import { Coins, LCDClient } from '@terra-money/terra.js';
-import { formateLeNombre } from '../application/AppUtils';
-import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../application/AppParams';
+import { formateLeNombre } from '../../application/AppUtils';
+import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 
 export const getTotalSupplies = async (qte) => {
 

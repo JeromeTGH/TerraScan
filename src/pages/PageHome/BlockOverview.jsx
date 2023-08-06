@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { OverviewIcon } from '../../application/AppIcons';
-import { getOverviewInfos } from '../../sharedFunctions/getOverviewInfos';
+import { getOverviewInfos } from './getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 

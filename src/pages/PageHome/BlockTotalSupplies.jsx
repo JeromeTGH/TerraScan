@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Stack1Icon } from '../../application/AppIcons';
 import styles from './BlockTotalSupplies.module.scss';
-import { getTotalSupplies } from '../../sharedFunctions/getTotalSupplies';
+import { getTotalSupplies } from './getTotalSupplies';
 
 const BlockTotalSupplies = () => {
 

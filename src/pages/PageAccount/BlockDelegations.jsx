@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockDelegations.module.scss';
 import { DelegationIcon } from '../../application/AppIcons';
-import { getDelegationsAccount } from '../../sharedFunctions/getDelegationsAccount';
+import { getDelegationsAccount } from './getDelegationsAccount';
 import { formateLeNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 
