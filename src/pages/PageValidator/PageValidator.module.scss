@@ -6,12 +6,12 @@
 .blocksValidatorPage {
 
     display: grid;
-    grid-template-columns: 420px auto 420px;
+    grid-template-columns: 49% 49%;
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
-        "infos infos infos"
-        "delegations delegations delegations"
-        "transactions transactions transactions";
+        "infos infos"
+        "details delegations"
+        "transactions transactions";
     column-gap: 1rem;
     row-gap: 1rem;
 
@@ -19,23 +19,23 @@
         grid-template-columns: 100%;
             grid-template-areas:
                 "infos"
-                "otherassets"
+                "details"
                 "delegations"
                 "transactions";
 
         @media (max-width: 1024px) {
-            grid-template-columns: 420px auto 420px;
+            grid-template-columns: 49% 49%;
             grid-template-rows: auto;
             grid-template-areas:
-                "infos infos infos"
-                "delegations delegations delegations"
-                "transactions transactions transactions";
+                "infos infos"
+                "details delegations"
+                "transactions transactions";
 
             @media (max-width: 910px) {
                 grid-template-columns: 100%;
                 grid-template-areas:
                     "infos"
-                    "otherassets"
+                    "details"
                     "delegations"
                     "transactions";
 

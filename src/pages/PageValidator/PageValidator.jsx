@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
 import BlockValInfos from './BlockValInfos';
+import BlockValDetails from './BlockValDetails';
 
 const PageValidator = () => {
 
@@ -16,6 +17,7 @@ const PageValidator = () => {
             <br />
             <div className={styles.blocksValidatorPage}>
                 <BlockValInfos valAddress={valAdr} />
+                <BlockValDetails valAddress={valAdr} />
             </div>
         </>
     );

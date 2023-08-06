@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockValInfos.module.scss';
 import { getValInfos } from './getValInfos';
-// import { HomeIcon } from '../../application/AppIcons';
 
 const BlockValInfos = (props) => {
     
@@ -33,19 +32,23 @@ const BlockValInfos = (props) => {
                     <tbody>
                         <tr>
                             <td>Website :</td>
-                            <td><a href={tableValInfos['website']} target='_blank' rel='noopener noreferrer'>{tableValInfos['website']}</a></td>
+                            <td><a className={styles.website} href={tableValInfos['website']} target='_blank' rel='noopener noreferrer'>{tableValInfos['website']}</a></td>
                         </tr>
                         <tr>
                             <td>Email :</td>
-                            <td>{tableValInfos['email']}</td>
+                            <td><span  className={styles.email}>{tableValInfos['email']}</span></td>
                         </tr>
                         <tr>
-                            <td>Détail :</td>
+                            <td>Comments :</td>
                             <td>{tableValInfos['details']}</td>
                         </tr>
                         <tr>
                             <td>Status :</td>
-                            <td>{tableValInfos['activeOrNot'] ? "Bonded" : "Unbonded"} / {tableValInfos['jailedOrNot'] ? "Jailed" : "Active"}</td>
+                            <td>
+                                <span>{tableValInfos['activeOrNot'] ? "Bonded" : "Unbonded"}</span>
+                                <span> / </span>
+                                <span className={tableValInfos['jailedOrNot'] ? "erreur" : "succes"}><strong>{tableValInfos['jailedOrNot'] ? "Jailed" : "Active"}</strong></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

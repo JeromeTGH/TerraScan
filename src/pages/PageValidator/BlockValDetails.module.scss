@@ -1,20 +1,10 @@
 @import '../../style/variables';
 
-.infosBlock {
-    grid-area: infos;
+.detailsBlock {
+    grid-area: details;
 }
 
-.h2Infos {
-    text-align: left;
-    font-weight: bold;
-    white-space: wrap;
-}
-
-.website, .email {
-    word-break: break-all;
-}
-
-.tblInfos {
+.tblDetails {
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
@@ -22,9 +12,11 @@
     td, th {
         padding: 0.2rem 0.2rem;
         font-size: 0.9rem;
+        .smallPart { font-size: 0.7rem; }
 
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;
+            .smallPart { font-size: 0.4rem; }
         }
     }
 
@@ -32,5 +24,11 @@
         white-space: nowrap;
         font-weight: bold;
     }
+
+    td:nth-child(2), td:nth-child(3) {
+        text-align: right;
+        word-break: break-all;
+    }
+
 
 }
