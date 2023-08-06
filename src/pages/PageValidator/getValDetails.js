@@ -53,7 +53,7 @@ export const getValDetails = async (valAddress) => {
     if(rawDelegation) {
         valDetails['nb_lunc_self_bonded'] = (new Decimal(rawDelegation.shares)/1000000).toFixed(6);
     } else
-        return { "erreur": "Failed to fetch [account delegation] ..." }
+        return { "erreur": "Failed to fetch [account delegation] ... (jailed validator ?!)" }
 
 
     // Récupère le nombre total de delegators qu'il a
@@ -62,8 +62,6 @@ export const getValDetails = async (valAddress) => {
         valDetails['nb_delegators'] = rawDelegations[0].length;
     } else
         return { "erreur": "Failed to fetch [delegations] ..." }
-
-
 
     
     // Calcul de pourcentages

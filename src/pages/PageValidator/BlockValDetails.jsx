@@ -76,8 +76,6 @@ const BlockValDetails = (props) => {
                             <td>Max change per day (com.) :</td>
                             <td>{tableValDetails['max_change_commission_rate']}%</td>
                         </tr>
-
-
                         <tr><td colSpan='2'>&nbsp;</td></tr>
                         <tr>
                             <td>Operator address :</td>

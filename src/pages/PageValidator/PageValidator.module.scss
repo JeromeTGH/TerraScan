@@ -10,8 +10,7 @@
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
         "infos infos"
-        "details delegations"
-        "transactions transactions";
+        "details topdelegators";
     column-gap: 1rem;
     row-gap: 1rem;
 
@@ -20,31 +19,21 @@
             grid-template-areas:
                 "infos"
                 "details"
-                "delegations"
-                "transactions";
+                "topdelegators";
 
         @media (max-width: 1024px) {
             grid-template-columns: 49% 49%;
             grid-template-rows: auto;
             grid-template-areas:
                 "infos infos"
-                "details delegations"
-                "transactions transactions";
+                "details topdelegators";
 
-            @media (max-width: 910px) {
+            @media (max-width: 800px) {
                 grid-template-columns: 100%;
                 grid-template-areas:
                     "infos"
                     "details"
-                    "delegations"
-                    "transactions";
-
-                @media (max-width: 600px) {
-                    font-size: 0.9rem;
-                    @media (max-width: 420px) {
-                        font-size: 0.74rem;
-                    }
-                }
+                    "topdelegators";
             }
         }
     }

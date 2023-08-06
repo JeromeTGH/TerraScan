@@ -4,6 +4,7 @@ import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
 import BlockValInfos from './BlockValInfos';
 import BlockValDetails from './BlockValDetails';
+import BlockTopDelegators from './BlockTopDelegators';
 
 const PageValidator = () => {
 
@@ -18,6 +19,7 @@ const PageValidator = () => {
             <div className={styles.blocksValidatorPage}>
                 <BlockValInfos valAddress={valAdr} />
                 <BlockValDetails valAddress={valAdr} />
+                <BlockTopDelegators valAddress={valAdr} />
             </div>
         </>
     );
