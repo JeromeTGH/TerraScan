@@ -25,7 +25,7 @@ const BlockValInfos = (props) => {
     // Affichage
     return (
         <div className={"boxContainer " + styles.infosBlock}>
-            {tableValInfos && tableValInfos['moniker'] ? <h2 className={styles.h2Infos}>{tableValInfos['moniker']}</h2> : null}
+            {tableValInfos && tableValInfos['moniker'] ? <p className={"h2like " + styles.h2Infos}>{tableValInfos['moniker']}</p> : null}
             {tableValInfos ? 
                 tableValInfos['moniker'] ? 
                 <table className={styles.tblInfos}>
