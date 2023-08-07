@@ -1,0 +1,14 @@
+
+
+.blocksBlockPage {
+
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
+        "detail"
+        "transactions";
+    column-gap: 1rem;
+    row-gap: 1rem;
+
+}
