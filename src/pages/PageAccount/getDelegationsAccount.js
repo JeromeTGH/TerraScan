@@ -63,7 +63,8 @@ export const getDelegationsAccount = async (accountAddress) => {
         element[4] = (element[3] / totalDelegatedLunc * 100).toFixed(2);
     })
 
-
+    // Triage par nombre de LUNC stakés
+    tblDelegations.sort(function(a, b) { return b[3] - a[3]; })
 
     // Envoi des infos en retour
     return tblDelegations;

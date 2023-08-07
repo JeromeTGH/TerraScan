@@ -3,6 +3,7 @@ import styles from './BlockTopDelegators.module.scss';
 import { AccountIcon } from '../../application/AppIcons';
 import { getValDelegators } from './getValDelegators';
 import { Link } from 'react-router-dom';
+import { formateLeNombre } from '../../application/AppUtils';
 
 
 const BlockTopDelegators = (props) => {
@@ -44,7 +45,10 @@ const BlockTopDelegators = (props) => {
                                 {tblOfTopDelegators.map((valeur, clef) => {
                                     return <tr key={clef}>
                                         <td><Link to={"/accounts/" + valeur[0]}>{valeur[0]}</Link></td>
-                                        <td>{valeur[1]}</td>
+                                        <td>
+                                            {formateLeNombre(parseInt(valeur[1]), " ")},
+                                            <span className={styles.smallPart}>{(valeur[1]%1).toFixed(6).replace('0.', '')}</span>
+                                        </td>
                                         <td>{valeur[2]}</td>
                                     </tr>
                                 })}
