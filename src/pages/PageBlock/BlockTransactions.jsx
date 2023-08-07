@@ -10,7 +10,7 @@ const BlockTransactions = (props) => {
 
     // // Chargement au démarrage
     // useEffect(() => {
-    //     getValInfos(props.valAddress).then((res) => {
+    //     getValInfos(props.blockNumber).then((res) => {
     //         if(res['erreur']) {
     //             setMsgErreurTableValInfos(res['erreur']);
     //             setTableValInfos({});
