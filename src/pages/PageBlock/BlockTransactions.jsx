@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockTransactions.module.scss';
 import { getTransactions } from './getTransactions';
 import { Link } from 'react-router-dom';
+import { metEnFormeDateTime } from '../../application/AppUtils';
 
 const BlockTransactions = (props) => {
 
@@ -35,6 +36,7 @@ const BlockTransactions = (props) => {
                             <th>Tx Type</th>
                             <th>From</th>
                             <th>To</th>
+                            <th>Date/Time</th>
                         </tr>
                     </thead>
                             <tbody>
@@ -75,6 +77,7 @@ const BlockTransactions = (props) => {
                                         ? "--" : null
                                     }                                  
                                 </td>
+                                <td>{metEnFormeDateTime(valeur[7])}</td>
                             </tr>
                         })}
                     </tbody>

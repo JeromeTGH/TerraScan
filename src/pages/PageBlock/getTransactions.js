@@ -27,20 +27,14 @@ export const getTransactions = async (blockNumber) => {
                 '--',                   // "From" (dans les cas où çà s'applique, dirons nous !)
                 '--',                   // "To" (dans les cas où çà s'applique, dirons nous !)
                 '',                     // Validator's moniker (if there is one, in Msg)
+                ''                      // Date/Time de cette transaction
             ])
         })
     } else
         return { "erreur": "Failed to fetch [block infos] ..." }
     
 
-    // Récupération des infos sur une transaction donnée ****** TEST
-    // const rawTxInfo = await lcd.tx.txInfo("43AC51F14195A8C0167AAAFE911FDBC78D27FDC4294D602B5ADF986BF0E80AFF").catch(handleError);    
-    // if(rawTxInfo) {
-    //     console.log("rawTxInfo", rawTxInfo);
-    // } else
-    //     return { "erreur": "Failed to fetch [transaction infos] ..." }
-
-
+    // Récupération des infos de chaque transaction de ce block
     for(let i=0 ; i<transactionsInfos.length ; i++) {
         const rawTxInfo = await lcd.tx.txInfo(transactionsInfos[i][0]).catch(handleError);
         if(rawTxInfo) {
@@ -74,10 +68,13 @@ export const getTransactions = async (blockNumber) => {
             }
             else
                 transactionsInfos[i][3] = 'Multiple (' + nbMessages + ' messages)';
+
+            transactionsInfos[i][7] = rawTxInfo.timestamp;
         } else
             return { "erreur": "Failed to fetch [transaction infos] ..." } 
     }
 
+    
     // Parcours de tous les "from", à la recherche des adresses de type "terravaloper1..." (car il s'agit de validateur, et donc, il faut récupérer leur "moniker" aussi)
     for(let i=0 ; i<transactionsInfos.length ; i++) {
         if(isValidTerraAddressFormat(transactionsInfos[i][4], 'terravaloper1')) {
@@ -96,7 +93,6 @@ export const getTransactions = async (blockNumber) => {
         }
 
     }
-
 
 
     // Envoi des infos en retour
