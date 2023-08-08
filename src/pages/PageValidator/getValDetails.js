@@ -18,6 +18,7 @@ export const getValDetails = async (valAddress) => {
     }
 
     // Variables
+    let bFoundValidator = false;
     let totalDelegatorShares = 0;
     
     // Connexion au LCD
@@ -40,13 +41,18 @@ export const getValDetails = async (valAddress) => {
                 valDetails['max_commission_rate'] = (new Decimal(validateur.commission.commission_rates.max_rate)*100).toFixed(0);
                 valDetails['max_change_commission_rate'] = (new Decimal(validateur.commission.commission_rates.max_change_rate)*100).toFixed(0);
                 valDetails['nb_lunc_staked'] = (new Decimal(validateur.delegator_shares)/1000000).toFixed(6);
-                valDetails['adresse_compte_validateur'] = AccAddress.fromValAddress(valAddress)
+                valDetails['adresse_compte_validateur'] = AccAddress.fromValAddress(valAddress);
+                bFoundValidator = true;
             }
-
         })
     } else
         return { "erreur": "Failed to fetch [validators list] ..." }
 
+
+    // Arrêt de ce code, si jamais le validateur "n'existe plus"
+    if(!bFoundValidator)
+        return { "erreur": "Nothing found about this validator, sorry" }
+    
 
     // Récupère le total de LUNC délégués, par le validateur lui-même
     const rawDelegation = await lcd.staking.delegation(valDetails['adresse_compte_validateur'], valAddress).catch(handleError);
