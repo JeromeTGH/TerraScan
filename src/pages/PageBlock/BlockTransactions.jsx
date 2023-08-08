@@ -31,18 +31,14 @@ const BlockTransactions = (props) => {
                     <thead>
                         <tr>
                             <th>Tx Hash</th>
+                            <th>Tx Type</th>
                         </tr>
                     </thead>
                             <tbody>
                         {tableBlockTransactions.map((valeur, clef) => {
                             return <tr key={clef}>
                                 <td><Link to={"/transactions/" + valeur[0]}>{valeur[0]}</Link></td>
-                                {/* 
-                                <td>
-                                    {formateLeNombre(parseInt(valeur[1]), " ")},
-                                    <span className={styles.smallPart}>{(valeur[1]%1).toFixed(6).replace('0.', '')}</span>
-                                </td>
-                                <td>{valeur[2]}</td> */}
+                                <td>{valeur[2]}</td>
                             </tr>
                         })}
                     </tbody>
