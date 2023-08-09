@@ -62,7 +62,8 @@ const AppRoutes = () => {
             },
             {
                 path: "*",
-                element: <Navigate replace to="404" />}
+                element: <Navigate replace to="404" />
+            }
         ]
     )
     

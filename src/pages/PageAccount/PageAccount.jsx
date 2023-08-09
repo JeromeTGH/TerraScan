@@ -55,7 +55,7 @@ const PageAccount = () => {
         <>
             <h1><span><AccountIcon /><strong>{cptDesignation}</strong></span></h1>
             <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
-            {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This account is that of : <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link></p> : null}
+            {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This account is that of this validator : <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link></p> : null}
             <br />
             <div className={styles.blocksAccountPage}>
                 <BlockBalances accountAddress={cptNum} />
