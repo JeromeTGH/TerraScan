@@ -48,7 +48,7 @@ export const getTransactions = async (blockNumber) => {
                 const tx = new Tx(rawTxInfo.tx);
                 const msg = tx.body.body.messages[0];
 
-                if(tx.body.body.messages[0] instanceof MsgSend) {
+                if(rawTxInfo.tx.body.messages[0] instanceof MsgSend) {
                     transactionsInfos[i][3] = 'MsgSend';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].from_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].to_address;
