@@ -41,7 +41,7 @@ const PageAccounts = () => {
                 <form>
                     <input
                         type='search'
-                        placeholder='Search for ...'
+                        placeholder='Enter a "terra1..." address here'
                         onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
                         value={searchFieldValue}
                     />

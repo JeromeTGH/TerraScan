@@ -37,7 +37,7 @@ const PageTransactions = () => {
             Enter the hash of the transaction you are looking for below.<br />
             <br />
             <u>Note</u> :<br />
-            - a Terra Classic transaction hash (Tx Hash) <strong>is a string of 64 hexadecimal characters</strong><br />
+            - a Terra Classic transaction hash (Tx Hash) <strong>consists of a string of 64 hexadecimal characters</strong><br />
             - this search module only searches for <strong>exact matches</strong>
             </p>
             <br />
@@ -45,7 +45,7 @@ const PageTransactions = () => {
                 <form>
                     <input
                         type='search'
-                        placeholder='Search for ...'
+                        placeholder='Enter a "Transaction Hash" here'
                         onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
                         value={searchFieldValue}
                     />

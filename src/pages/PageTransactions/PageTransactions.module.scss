@@ -3,6 +3,9 @@
 .h2blocks {
     text-align: left;
     border-bottom: 1px solid var(--outline-box-color);
+    @media (max-width: $secondary-breakpoint) {
+        font-size: 1.3rem;
+    }
 }
 
 .note {
@@ -31,7 +34,7 @@
             border: none;
 
             font-size: 1.2rem;
-            @media (max-width: var(--breakpoint)) {
+            @media (max-width: $secondary-breakpoint) {
                 font-size: 1.1rem;
             }
         }

@@ -1,7 +1,7 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
 import { LCDClient, AccAddress, hashToHex,
     MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool,
-    MsgMultiSend, MsgSend, MsgTransfer, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward,
+    MsgMultiSend, MsgSend, MsgTransfer, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgExecAuthorized,
     MsgWithdrawValidatorCommission, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSwap} from '@terra-money/terra.js';
 import { isValidTerraAddressFormat } from '../../application/AppUtils';
 
@@ -90,6 +90,8 @@ export const getTransactions = async (blockNumber) => {
                     transactionsInfos[i][5] = AccAddress.fromValAddress(rawTxInfo.tx.body.messages[0].validator_address);
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgDeposit) {
                     transactionsInfos[i][3] = 'Deposit';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgExecAuthorized) {
+                    transactionsInfos[i][3] = 'Exec Authorized';
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgExecuteContract) {
                     transactionsInfos[i][3] = 'Execute Contract';
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgFundCommunityPool) {
@@ -106,6 +108,7 @@ export const getTransactions = async (blockNumber) => {
                     transactionsInfos[i][3] = 'Swap';
                 } else {
                     transactionsInfos[i][3] = 'MsgNotCoded';
+                    // console.log(rawTxInfo.tx.body.messages[0]);
                 }
             }
             else

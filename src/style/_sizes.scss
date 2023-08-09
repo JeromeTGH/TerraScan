@@ -2,6 +2,8 @@
 
 :root {
     font-size: 16px;            // Taille de référence, pour tout le site (ici, 1rem vaudra alors 16px, 2rem 32px, etc...)
+    --primary-breakpoint: #{$primary-breakpoint};
+    --secondary-breakpoint: #{$secondary-breakpoint};
 }
 
 html {

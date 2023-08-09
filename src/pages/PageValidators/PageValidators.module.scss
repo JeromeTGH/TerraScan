@@ -31,8 +31,8 @@
             border: none;
 
             font-size: 1.2rem;
-            @media (max-width: var(--breakpoint)) {
-                font-size: 1.1rem;
+            @media (max-width: $secondary-breakpoint) {
+                font-size: 1rem;
             }
         }
 
