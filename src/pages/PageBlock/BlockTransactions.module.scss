@@ -20,15 +20,13 @@
     td, th {
         padding: 0.2rem 0.4rem;
         font-size: 0.9rem;
-        // .smallPart { font-size: 0.7rem; }
 
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;
-            // .smallPart { font-size: 0.4rem; }
         }
     }
 
-    td:nth-child(1), td:nth-child(3), td:nth-child(4), td:nth-child(5) {
+    td:nth-child(1), td:nth-child(3), td:nth-child(4) {
         text-align: left;
         word-break: break-all;
     }

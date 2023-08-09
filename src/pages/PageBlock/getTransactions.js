@@ -1,5 +1,8 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
-import { LCDClient, MsgBeginRedelegate, MsgDelegate, MsgSend, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, hashToHex } from '@terra-money/terra.js';
+import { LCDClient, AccAddress,
+    MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool,
+    MsgMultiSend, MsgSend, MsgTransfer, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission,
+    hashToHex } from '@terra-money/terra.js';
 import { isValidTerraAddressFormat } from '../../application/AppUtils';
 
 
@@ -45,29 +48,43 @@ export const getTransactions = async (blockNumber) => {
                 transactionsInfos[i][3] = 'Error';
             else if(nbMessages === 1) {
                 if(rawTxInfo.tx.body.messages[0] instanceof MsgSend) {
-                    transactionsInfos[i][3] = 'MsgSend';
+                    transactionsInfos[i][3] = 'Send';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].from_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].to_address;
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgDelegate) {
-                    transactionsInfos[i][3] = 'MsgDelegate';
+                    transactionsInfos[i][3] = 'Delegate';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].delegator_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].validator_address;
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgUndelegate) {
-                    transactionsInfos[i][3] = 'MsgUndelegate';
+                    transactionsInfos[i][3] = 'Undelegate';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].validator_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].delegator_address;
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgBeginRedelegate) {
-                    transactionsInfos[i][3] = 'MsgBeginRedelegate';
+                    transactionsInfos[i][3] = 'Begin Redelegate';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].delegator_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].validator_dst_address; // from "validator_src_address", en fait
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgVote) {
-                    transactionsInfos[i][3] = 'MsgVote';
+                    transactionsInfos[i][3] = 'Vote';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].voter;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].proposal_id.toString();
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgWithdrawDelegatorReward) {
-                    transactionsInfos[i][3] = 'MsgWithdrawDelegatorReward';
+                    transactionsInfos[i][3] = 'Withdraw Delegator Reward';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].validator_address;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].delegator_address;
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgWithdrawValidatorCommission) {
+                    transactionsInfos[i][3] = 'Withdraw Validator Commission';
+                    transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].validator_address;
+                    transactionsInfos[i][5] = AccAddress.fromValAddress(rawTxInfo.tx.body.messages[0].validator_address);
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgDeposit) {
+                    transactionsInfos[i][3] = 'Deposit';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgExecuteContract) {
+                    transactionsInfos[i][3] = 'Execute Contract';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgFundCommunityPool) {
+                    transactionsInfos[i][3] = 'Fund Community Pool';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgMultiSend) {
+                    transactionsInfos[i][3] = 'MultiSend';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgTransfer) {
+                    transactionsInfos[i][3] = 'Transfer';
                 } else {
                     transactionsInfos[i][3] = 'MsgNotCoded';
                 }

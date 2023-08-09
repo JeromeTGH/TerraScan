@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockTransactions.module.scss';
 import { getTransactions } from './getTransactions';
 import { Link } from 'react-router-dom';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { ExchangeIcon } from '../../application/AppIcons';
+
 
 const BlockTransactions = (props) => {
 
@@ -26,61 +27,65 @@ const BlockTransactions = (props) => {
     
     return (
         <div className={"boxContainer " + styles.transactionsBlock}>
+            <h2><ExchangeIcon /><span>Transactions</span></h2>
             {tableBlockTransactions ? 
                 tableBlockTransactions.length > 0 ? 
                     <table className={styles.tblTransactions}>
-                    <thead>
-                        <tr>
-                            <th>Tx Hash</th>
-                            <th>Code</th>
-                            <th>Tx Type</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Date/Time</th>
-                        </tr>
-                    </thead>
-                            <tbody>
-                        {tableBlockTransactions.map((valeur, clef) => {
-                            return <tr key={clef}>
-                                <td><Link to={"/transactions/" + valeur[0]}>{valeur[0]}</Link></td>
-                                <td>{valeur[1] === 0 ? <span className='succes'>OK</span> : <span className='erreur'>FAILURE</span>}</td>
-                                <td>{valeur[3]}</td>
-                                <td>
-                                    {valeur[3] === 'MsgSend' ? <Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link> : null}
-                                    {valeur[3] === 'MsgDelegate' ? <Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link> : null}
-                                    {valeur[3] === 'MsgUndelegate' ? <Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link> : null}
-                                    {valeur[3] === 'MsgBeginRedelegate' ? <Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link> : null}
-                                    {valeur[3] === 'MsgVote' ? <Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link> : null}
-                                    {valeur[3] === 'MsgWithdrawDelegatorReward' ? <Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link> : null}
-                                    {valeur[3] !== 'MsgSend'
-                                        && valeur[3] !== 'MsgDelegate'
-                                        && valeur[3] !== 'MsgUndelegate'
-                                        && valeur[3] !== 'MsgBeginRedelegate'
-                                        && valeur[3] !== 'MsgVote'
-                                        && valeur[3] !== 'MsgWithdrawDelegatorReward'
-                                        ? "--" : null
-                                    }
-                                </td>
-                                <td>
-                                    {valeur[3] === 'MsgSend' ? <Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link> : null}
-                                    {valeur[3] === 'MsgDelegate' ? <Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link> : null}
-                                    {valeur[3] === 'MsgUndelegate' ? <Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link> : null}
-                                    {valeur[3] === 'MsgBeginRedelegate' ? <Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link> : null}
-                                    {valeur[3] === 'MsgVote' ? <Link to={"/proposals/" + valeur[5]}>Proposal #{valeur[5]}</Link> : null}
-                                    {valeur[3] === 'MsgWithdrawDelegatorReward' ? <Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link> : null}
-                                    {valeur[3] !== 'MsgSend'
-                                        && valeur[3] !== 'MsgDelegate'
-                                        && valeur[3] !== 'MsgUndelegate'
-                                        && valeur[3] !== 'MsgBeginRedelegate'
-                                        && valeur[3] !== 'MsgVote'
-                                        && valeur[3] !== 'MsgWithdrawDelegatorReward'
-                                        ? "--" : null
-                                    }                                  
-                                </td>
-                                <td>{metEnFormeDateTime(valeur[7])}</td>
+                        <thead>
+                            <tr>
+                                <th>Hash</th>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
                             </tr>
-                        })}
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            {tableBlockTransactions.map((valeur, clef) => {
+                                return <tr key={clef}>
+                                    <td><Link to={"/transactions/" + valeur[0]}>{valeur[0]}</Link></td>
+                                    <td>
+                                        {valeur[3]}<br />
+                                        {valeur[1] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}
+                                    </td>
+                                    <td>
+                                        {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                        {valeur[3] === 'Delegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                        {valeur[3] === 'Undelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                        {valeur[3] === 'Begin Redelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                        {valeur[3] === 'Vote' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                        {valeur[3] === 'Withdraw Delegator Reward' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                        {valeur[3] === 'Withdraw Validator Commission' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                        {valeur[3] !== 'Send'
+                                            && valeur[3] !== 'Delegate'
+                                            && valeur[3] !== 'Undelegate'
+                                            && valeur[3] !== 'Begin Redelegate'
+                                            && valeur[3] !== 'Vote'
+                                            && valeur[3] !== 'Withdraw Delegator Reward'
+                                            && valeur[3] !== 'Withdraw Validator Commission'
+                                            ? "--" : null
+                                        }
+                                    </td>
+                                    <td>
+                                        {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                        {valeur[3] === 'Delegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
+                                        {valeur[3] === 'Undelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                        {valeur[3] === 'Begin Redelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
+                                        {valeur[3] === 'Vote' ? <><span>Proposal : </span><Link to={"/proposals/" + valeur[5]}>#{valeur[5]}</Link></> : null}
+                                        {valeur[3] === 'Withdraw Delegator Reward' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                        {valeur[3] === 'Withdraw Validator Commission' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                        {valeur[3] !== 'Send'
+                                            && valeur[3] !== 'Delegate'
+                                            && valeur[3] !== 'Undelegate'
+                                            && valeur[3] !== 'Begin Redelegate'
+                                            && valeur[3] !== 'Vote'
+                                            && valeur[3] !== 'Withdraw Delegator Reward'
+                                            && valeur[3] !== 'Withdraw Validator Commission'
+                                            ? "--" : null
+                                        }                                  
+                                    </td>
+                                </tr>
+                            })}
+                        </tbody>
                     </table>
                 : <p>No transaction.</p>
                 : <p>Loading data from blockchain ...</p>
