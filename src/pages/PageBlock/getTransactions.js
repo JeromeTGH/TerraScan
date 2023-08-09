@@ -30,7 +30,7 @@ export const getTransactions = async (blockNumber) => {
                 '--',                   // "From" (dans les cas où çà s'applique, dirons nous !)
                 '--',                   // "To" (dans les cas où çà s'applique, dirons nous !)
                 '',                     // Validator's moniker (if there is one, in Msg)
-                ''                      // Date/Time de cette transaction
+                ''                      // Info source vote, si validateur (son numéro de compte "terra1...")
             ])
         })
     } else
@@ -67,6 +67,19 @@ export const getTransactions = async (blockNumber) => {
                     transactionsInfos[i][3] = 'Vote';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].voter;
                     transactionsInfos[i][5] = rawTxInfo.tx.body.messages[0].proposal_id.toString();
+
+                    const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
+                    if(rawValidators) {
+                        for(let j=0 ; j < rawValidators[0].length ; j++) {
+                            if(AccAddress.fromValAddress(rawValidators[0][j].operator_address) === rawTxInfo.tx.body.messages[0].voter) {
+                                transactionsInfos[i][4] = rawValidators[0][j].operator_address;
+                                transactionsInfos[i][6] = rawValidators[0][j].description.moniker;
+                                transactionsInfos[i][7] = rawTxInfo.tx.body.messages[0].voter;
+                            }
+                        }
+                    } else
+                        return { "erreur": "Failed to fetch [validators] ..." }
+
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgWithdrawDelegatorReward) {
                     transactionsInfos[i][3] = 'Withdraw Delegator Reward';
                     transactionsInfos[i][4] = rawTxInfo.tx.body.messages[0].validator_address;
@@ -92,7 +105,6 @@ export const getTransactions = async (blockNumber) => {
             else
                 transactionsInfos[i][3] = 'Multiple (' + nbMessages + ' messages)';
 
-            transactionsInfos[i][7] = rawTxInfo.timestamp;
         } else
             return { "erreur": "Failed to fetch [transaction infos] ..." } 
     }
@@ -100,21 +112,23 @@ export const getTransactions = async (blockNumber) => {
     
     // Parcours de tous les "from", à la recherche des adresses de type "terravaloper1..." (car il s'agit de validateur, et donc, il faut récupérer leur "moniker" aussi)
     for(let i=0 ; i<transactionsInfos.length ; i++) {
-        if(isValidTerraAddressFormat(transactionsInfos[i][4], 'terravaloper1')) {
-            const rawValidators = await lcd.staking.validator(transactionsInfos[i][4]).catch(handleError);
-            if(rawValidators)
-                transactionsInfos[i][6] = rawValidators.description.moniker;
-            else
-                return { "erreur": "Failed to fetch [validators] ..." } 
+        if(transactionsInfos[i][6] === '') {
+            if(isValidTerraAddressFormat(transactionsInfos[i][4], 'terravaloper1')) {
+                const rawValidator = await lcd.staking.validator(transactionsInfos[i][4]).catch(handleError);
+                if(rawValidator)
+                    transactionsInfos[i][6] = rawValidator.description.moniker;
+                else
+                    return { "erreur": "Failed to fetch [validator] ..." } 
+            }
+            if(isValidTerraAddressFormat(transactionsInfos[i][5], 'terravaloper1')) {
+                const rawValidator = await lcd.staking.validator(transactionsInfos[i][5]).catch(handleError);
+                if(rawValidator)
+                    transactionsInfos[i][6] = rawValidator.description.moniker;
+                else
+                    return { "erreur": "Failed to fetch [validator] ..." } 
+            }
+    
         }
-        if(isValidTerraAddressFormat(transactionsInfos[i][5], 'terravaloper1')) {
-            const rawValidators = await lcd.staking.validator(transactionsInfos[i][5]).catch(handleError);
-            if(rawValidators)
-                transactionsInfos[i][6] = rawValidators.description.moniker;
-            else
-                return { "erreur": "Failed to fetch [validators] ..." } 
-        }
-
     }
 
 

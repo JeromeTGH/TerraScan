@@ -52,7 +52,16 @@ const BlockTransactions = (props) => {
                                         {valeur[3] === 'Delegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
                                         {valeur[3] === 'Undelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
                                         {valeur[3] === 'Begin Redelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
-                                        {valeur[3] === 'Vote' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                        {valeur[3] === 'Vote' ?
+                                            valeur[6] === '' ?
+                                                <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></>
+                                            :
+                                                <>
+                                                    <span>Validator : </span>
+                                                    <Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link>
+                                                    {valeur[7] !== '' ? <><br /><span>(through his account <Link to={"/accounts/" + valeur[7]}>{valeur[7]}</Link>)</span></> : null}
+                                                </>
+                                        : null}
                                         {valeur[3] === 'Withdraw Delegator Reward' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
                                         {valeur[3] === 'Withdraw Validator Commission' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
                                         {valeur[3] !== 'Send'

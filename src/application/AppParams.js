@@ -4,8 +4,8 @@ export const appName        = 'TerraScan';
 // Terra Classic blockchain ("mainnet" of classic)
 export const chainName      = 'Terra Classic';
 export const chainID        = 'columbus-5';
-//export const chainLCDurl    = 'https://lcd.terraclassic.community';           // Slow
-export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';
+export const chainLCDurl    = 'https://lcd.terraclassic.community';
+// export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';    // Faster
 
 // Tableau de correspondance Coin/Désignation
 export const tblCorrespondanceValeurs = {
