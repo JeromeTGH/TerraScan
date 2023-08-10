@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MsgDelegate = (props) => {
+const MsgUndelegate = (props) => {
     return (
         <>
             <tr>
@@ -26,4 +26,4 @@ const MsgDelegate = (props) => {
     );
 };
 
-export default MsgDelegate;
+export default MsgUndelegate;

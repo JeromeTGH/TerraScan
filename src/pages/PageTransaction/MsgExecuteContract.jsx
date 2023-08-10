@@ -5,15 +5,15 @@ const MsgExecuteContract = (props) => {
     return (
         <>
             <tr>
-                <td>Contract : </td>
+                <td>Contract :</td>
                 <td><Link to={"/accounts/" + props.txMessage['Contract']}>{props.txMessage['Contract']}</Link></td>
             </tr>
             <tr>
-                <td>Sender : </td>
+                <td>Sender :</td>
                 <td><Link to={"/accounts/" + props.txMessage['Sender']}>{props.txMessage['Sender']}</Link></td>
             </tr>
             <tr>
-                <td>Coins : </td>
+                <td>Coins :</td>
                 <td>{props.txMessage['Coins']}</td>
             </tr>
             <tr>

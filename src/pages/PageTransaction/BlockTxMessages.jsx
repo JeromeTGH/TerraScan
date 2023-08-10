@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './BlockTxMessages.module.scss';
 import { MessageIcon } from '../../application/AppIcons';
 import MsgSend from './MsgSend';
+import MsgVote from './MsgVote';
+import MsgDelegate from './MsgDelegate';
+import MsgUndelegate from './MsgUndelegate';
+import MsgExecuteContract from './MsgExecuteContract';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
-import MsgVote from './MsgVote';
 import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
 import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
-import MsgExecuteContract from './MsgExecuteContract';
-import MsgDelegate from './MsgDelegate';
 
 const BlockTxMessages = (props) => {
 
@@ -26,6 +27,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgWithdrawValidatorCommission' ? <MsgWithdrawValidatorCommission txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgExecuteContract' ? <MsgExecuteContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgDelegate' ? <MsgDelegate txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgUndelegate' ? <MsgUndelegate txMessage={props.txMessage} /> : null}
 
 
                     

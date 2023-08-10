@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgDelegate, MsgExecuteContract, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgDelegate, MsgExecuteContract, MsgSend, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -169,6 +169,18 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['withdrawRewards'] = rewards;
             }
 
+            if(message instanceof MsgUndelegate) {
+                msgStructRet['MsgType'] = 'MsgUndelegate';
+                msgStructRet['MsgDesc'] = 'Undelegate';
+                msgStructRet['DelegatorAddress'] = message.delegator_address;
+                msgStructRet['ValidatorAddress'] = message.validator_address;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
+                msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
+
+                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                rewards = formatGluedAmountsAndCoins(rewards);
+                msgStructRet['withdrawRewards'] = rewards;
+            }
 
 
 
@@ -254,7 +266,7 @@ const findValidatorInfosIfThisIsHisAccount = async (lcd, cptAddress) => {
 }
 
 const findInTblLogEvents = (tblLogEvents, firstWordToSearch, secondWordToSearch) => {
-    let retour = "";
+    let retour = '';
 
     for(let i=0 ; i < tblLogEvents.length ; i++)
         if(tblLogEvents[i].type === firstWordToSearch)
@@ -262,7 +274,10 @@ const findInTblLogEvents = (tblLogEvents, firstWordToSearch, secondWordToSearch)
                 if(tblLogEvents[i].attributes[j].key === secondWordToSearch)
                     retour = tblLogEvents[i].attributes[j].value;
 
-    return retour.replace('"', '').split(',');
+    if(retour === '')
+        return []
+    else
+        return retour.replace('"', '').split(',');
 }
 
 const formatGluedAmountsAndCoins = (tblGluedAmountsAndCoins) => {
