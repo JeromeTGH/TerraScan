@@ -22,7 +22,7 @@ const BlockTxInfos = (props) => {
                         <td><Link to={"/blocks/" + props.txInfos['blockHeight']}>{props.txInfos['blockHeight']}</Link></td>
                     </tr>
                     <tr>
-                        <td>Nb of messages inside :</td>
+                        <td>Nb of operations inside :</td>
                         <td>{props.txInfos['nbMessages']}</td>
                     </tr>
                     <tr>

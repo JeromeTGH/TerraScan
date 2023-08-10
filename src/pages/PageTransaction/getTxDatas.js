@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins, LCDClient } from '@terra-money/terra.js';
+import { Coins, LCDClient, MsgSend } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -61,22 +61,44 @@ export const getTxDatas = async (txHash) => {
         // ====== Nb Messages
         txInfos["nbMessages"] = rawTxInfo.tx.body.messages.length;
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
-            txMessages.push([i]);
+
+            const message = rawTxInfo.tx.body.messages[i];
+            console.log("message", message);
+
+            const msgStructRet = {
+                'MsgType': null,            // Type de message (MsgSend, MsgDelegate, ...)
+                'MsgDesc': null,            // Type de message (Send, Delegate, ...)
+                'FromAddress': null,        // Provenant de cette adresse
+                'ToAddress': null,          // Allant vers cette adresse
+                'Amount': null,             // Montant ([qté + nom de la devise])
+            }
+            
+            if(message instanceof MsgSend) {
+                msgStructRet['MsgType'] = 'MsgSend';
+                msgStructRet['MsgDesc'] = 'Send';
+                msgStructRet['FromAddress'] = message.from_address;
+                msgStructRet['ToAddress'] = message.to_address;
+                msgStructRet["Amount"] = amountToArray(message.amount);
+            }
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            txMessages.push(msgStructRet);
         }
 
 
 
-
-
-
-
-
-
-
-
-
-
-        console.log("rawTxInfo", rawTxInfo);
+        // console.log("rawTxInfo", rawTxInfo);
 
     } else
         return { "erreur": "Failed to fetch [tx infos] ..." } 
@@ -89,4 +111,22 @@ export const getTxDatas = async (txHash) => {
 
 const handleError = (err) => {
     console.log("ERREUR", err);
+}
+
+
+const amountToArray = (messageAmount) => {
+    const dataMsgAmount = (new Coins(messageAmount)).toData();
+    const tblAmounts = [];
+    
+    if(dataMsgAmount.length > 0) {
+        for(let i=0 ; i < dataMsgAmount.length ; i++) {
+            const msgAmount = (dataMsgAmount[i].amount/1000000).toFixed(6);
+            const msgCoin = tblCorrespondanceValeurs[dataMsgAmount[i].denom] ? tblCorrespondanceValeurs[dataMsgAmount[i].denom] : dataMsgAmount[i].denom;
+            tblAmounts.push(msgAmount + "\u00a0" + msgCoin);
+        }
+    } else {
+        tblAmounts.push("---");
+    }
+
+    return tblAmounts;
 }
