@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgDelegate, MsgExecuteContract, MsgSend, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgBeginRedelegate, MsgDelegate, MsgExecuteContract, MsgSend, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -182,6 +182,20 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['withdrawRewards'] = rewards;
             }
 
+            if(message instanceof MsgBeginRedelegate) {
+                msgStructRet['MsgType'] = 'MsgBeginRedelegate';
+                msgStructRet['MsgDesc'] = 'Begin Redelegate';
+                msgStructRet['DelegatorAddress'] = message.delegator_address;
+                msgStructRet['SrcValidatorAddress'] = message.validator_src_address;
+                msgStructRet['SrcValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_src_address);
+                msgStructRet['DstValidatorAddress'] = message.validator_dst_address;
+                msgStructRet['DstValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_dst_address);
+                msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
+
+                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                rewards = formatGluedAmountsAndCoins(rewards);
+                msgStructRet['withdrawRewards'] = rewards;
+            }
 
 
 

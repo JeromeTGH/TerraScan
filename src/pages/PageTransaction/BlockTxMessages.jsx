@@ -5,6 +5,7 @@ import MsgSend from './MsgSend';
 import MsgVote from './MsgVote';
 import MsgDelegate from './MsgDelegate';
 import MsgUndelegate from './MsgUndelegate';
+import MsgBeginRedelegate from './MsgBeginRedelegate';
 import MsgExecuteContract from './MsgExecuteContract';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
@@ -28,6 +29,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgExecuteContract' ? <MsgExecuteContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgDelegate' ? <MsgDelegate txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUndelegate' ? <MsgUndelegate txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgBeginRedelegate' ? <MsgBeginRedelegate txMessage={props.txMessage} /> : null}
 
 
                     
