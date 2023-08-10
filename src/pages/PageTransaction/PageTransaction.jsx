@@ -12,7 +12,7 @@ const PageTransaction = () => {
     const { txHash } = useParams();
 
     // Variables React
-    const [txDatas, setTxDatas] = useState();
+    const [txDatas, setTxDatas] = useState([]);
     const [msgErreurTxDatas, setMsgErreurTxDatas] = useState();
 
     // Chargement au démarrage
@@ -36,12 +36,14 @@ const PageTransaction = () => {
             <p className={styles.txHash}>→ TxHash : <strong>{txHash}</strong></p>
             <br />
             {txDatas ?
-                <div>
-                    <BlockTxInfos txInfos={txDatas['txInfos']} txHash={txHash} />
-                    {txDatas['txMessages'].map((message, index) => {
-                        return <BlockTxMessages txMessage={message} key={index} idxElement={index+1} nbElements={txDatas['txMessages'].length} txHash={txHash} />
-                    })}
-                </div>
+                txDatas['txMessages'] ?
+                    <div>
+                        <BlockTxInfos txInfos={txDatas['txInfos']} txHash={txHash} />
+                        {txDatas['txMessages'].map((message, index) => {
+                            return <BlockTxMessages txMessage={message} key={index} idxElement={index+1} nbElements={txDatas['txMessages'].length} txHash={txHash} />
+                        })}
+                    </div>
+                    : null
                 : <p>Loading data from blockchain ...</p>
             }
             <div className="erreur">{msgErreurTxDatas}</div>

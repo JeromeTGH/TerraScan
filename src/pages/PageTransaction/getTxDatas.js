@@ -11,8 +11,7 @@ export const getTxDatas = async (txHash) => {
         'gas_used': null,               // Gas utilisés
         'gas_wanted': null,             // Gas demandés
         'datetime': null,               // Date et heure de la transaction
-        'feesAmount': null,             // Montant des fees
-        'feesCoin': null,               // Devise des fees (LUNC, USTC, ...)
+        'feesAmountAndCoin': [],        // Montant des fees et précision devise (LUNC, USTC, ...)
         'nbMessages': null              // Nombre de messages, à l'intérieur de cette transaction
     }
 
@@ -49,14 +48,15 @@ export const getTxDatas = async (txHash) => {
 
         // ====== Fees
         const fees = (new Coins(rawTxInfo.tx.auth_info.fee.amount)).toData();
-        if(fees.length === 1) {
-            txInfos["feesAmount"] = (fees[0].amount/1000000).toFixed(6);
-            txInfos["feesCoin"] = tblCorrespondanceValeurs[fees[0].denom] ? tblCorrespondanceValeurs[fees[0].denom] : "(unknown coin)";
+        if(fees.length > 0) {
+            for(let i=0 ; i < fees.length ; i++) {
+                const feesAmount = (fees[i].amount/1000000).toFixed(6);
+                const feesCoin = tblCorrespondanceValeurs[fees[i].denom] ? tblCorrespondanceValeurs[fees[i].denom] : fees[i].denom;
+                txInfos["feesAmountAndCoin"].push(feesAmount + "\u00a0" + feesCoin);
+            }
         } else {
-            txInfos["feesAmount"] = "---";
-            txInfos["feesCoin"] = "";
+            txInfos["feesAmountAndCoin"].push("---");
         }
-
 
         // ====== Nb Messages
         txInfos["nbMessages"] = rawTxInfo.tx.body.messages.length;
