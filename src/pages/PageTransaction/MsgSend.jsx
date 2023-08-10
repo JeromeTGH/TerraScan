@@ -10,11 +10,11 @@ const MsgSend = (props) => {
             </tr>
             <tr>
                 <td>From : </td>
-                <td>account <Link to={props.txMessage['FromAddress']}>{props.txMessage['FromAddress']}</Link></td>
+                <td>account <Link to={"/accounts/" + props.txMessage['FromAddress']}>{props.txMessage['FromAddress']}</Link></td>
             </tr>
             <tr>
                 <td>To : </td>
-                <td>account <Link to={props.txMessage['ToAddress']}>{props.txMessage['ToAddress']}</Link></td>
+                <td>account <Link to={"/accounts/" + props.txMessage['ToAddress']}>{props.txMessage['ToAddress']}</Link></td>
             </tr>
         </>
     );

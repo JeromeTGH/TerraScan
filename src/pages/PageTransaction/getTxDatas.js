@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins, LCDClient, MsgSend } from '@terra-money/terra.js';
+import { Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -66,11 +66,16 @@ export const getTxDatas = async (txHash) => {
             console.log("message", message);
 
             const msgStructRet = {
-                'MsgType': null,            // Type de message (MsgSend, MsgDelegate, ...)
-                'MsgDesc': null,            // Type de message (Send, Delegate, ...)
-                'FromAddress': null,        // Provenant de cette adresse
-                'ToAddress': null,          // Allant vers cette adresse
-                'Amount': null,             // Montant ([qté + nom de la devise])
+                'MsgType': null,                // Type de message (MsgSend, MsgDelegate, ...)
+                'MsgDesc': '(not coded yet)',   // Sera remplacé par "Send", "Delegate", ..., selon le type de message
+                'FromAddress': null,            // Provenant de cette adresse
+                'ToAddress': null,              // Allant vers cette adresse
+                'Amount': null,                 // Montant ([qté + nom de la devise])
+                'Feeder': null,                 // Feeder
+                'ValidatorAddress': null,       // Adresse "terravaloper1..." du validateur en question
+                'ValidatorMoniker': null,       // Nom du validateur
+                'ExchangeRates': null,          // Exchange rates
+                'Hash': null,                   // Hash value
             }
             
             if(message instanceof MsgSend) {
@@ -78,12 +83,27 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['MsgDesc'] = 'Send';
                 msgStructRet['FromAddress'] = message.from_address;
                 msgStructRet['ToAddress'] = message.to_address;
-                msgStructRet["Amount"] = amountToArray(message.amount);
+                msgStructRet["Amount"] = coinsListToFormatedText(message.amount);
             }
             
+            if(message instanceof MsgAggregateExchangeRateVote) {
+                msgStructRet['MsgType'] = 'MsgAggregateExchangeRateVote';
+                msgStructRet['MsgDesc'] = 'Aggregate Exchange Rate Vote';
+                msgStructRet['Feeder'] = message.feeder;
+                msgStructRet['Salt'] = message.salt;
+                msgStructRet["ExchangeRates"] = exchangeRatesToFormatedText(message.exchange_rates);
+                msgStructRet['ValidatorAddress'] = message.validator;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator);
+            }
 
-
-
+            if(message instanceof MsgAggregateExchangeRatePrevote) {
+                msgStructRet['MsgType'] = 'MsgAggregateExchangeRatePrevote';
+                msgStructRet['MsgDesc'] = 'Aggregate Exchange Rate Prevote';
+                msgStructRet['Feeder'] = message.feeder;
+                msgStructRet['Hash'] = message.hash;
+                msgStructRet['ValidatorAddress'] = message.validator;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator);
+            }
 
 
 
@@ -95,10 +115,6 @@ export const getTxDatas = async (txHash) => {
 
             txMessages.push(msgStructRet);
         }
-
-
-
-        // console.log("rawTxInfo", rawTxInfo);
 
     } else
         return { "erreur": "Failed to fetch [tx infos] ..." } 
@@ -114,19 +130,49 @@ const handleError = (err) => {
 }
 
 
-const amountToArray = (messageAmount) => {
-    const dataMsgAmount = (new Coins(messageAmount)).toData();
-    const tblAmounts = [];
+const coinsListToFormatedText = (coinsList) => {
+    const dataCoinsList = (new Coins(coinsList)).toData();
+    let retour = "";
     
-    if(dataMsgAmount.length > 0) {
-        for(let i=0 ; i < dataMsgAmount.length ; i++) {
-            const msgAmount = (dataMsgAmount[i].amount/1000000).toFixed(6);
-            const msgCoin = tblCorrespondanceValeurs[dataMsgAmount[i].denom] ? tblCorrespondanceValeurs[dataMsgAmount[i].denom] : dataMsgAmount[i].denom;
-            tblAmounts.push(msgAmount + "\u00a0" + msgCoin);
+    if(dataCoinsList.length > 0) {
+        for(let i=0 ; i < dataCoinsList.length ; i++) {
+            const msgAmount = (dataCoinsList[i].amount/1000000).toFixed(6);
+            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
+            if(retour !== "")
+                retour += ", ";
+            retour += (msgAmount + "\u00a0" + msgCoin);
         }
     } else {
-        tblAmounts.push("---");
+        retour = "---";
     }
 
-    return tblAmounts;
+    return retour;
+}
+
+const exchangeRatesToFormatedText = (coinsList) => {
+    const dataCoinsList = (new Coins(coinsList)).toData();
+    let retour = "";
+    
+    if(dataCoinsList.length > 0) {
+        for(let i=0 ; i < dataCoinsList.length ; i++) {
+            const msgAmount = dataCoinsList[i].amount;
+            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
+            if(retour !== "")
+                retour += ", ";
+            retour += (msgAmount + "\u00a0" + msgCoin);
+        }
+    } else {
+        retour = "---";
+    }
+
+    return retour;
+}
+
+const getValidatorMoniker = async (lcd, valAddress) => {
+    // Récupération des infos de ce validateur
+    const rawValInfos = await lcd.staking.validator(valAddress).catch(handleError);
+    if(rawValInfos)
+        return rawValInfos.description.moniker;
+    else
+        return 'unknown';
 }

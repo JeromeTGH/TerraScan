@@ -57,15 +57,15 @@ h2 {
     white-space: nowrap;
     font-weight: normal;
 
+}
+h2, .h2like {
+    margin-bottom: 1rem;
     svg, span {
         vertical-align: middle;
     }
     svg {
         margin-right: 0.4rem;
     }
-}
-.h2like {
-    margin-bottom: 1rem;
 }
 
 .datetimeupdate {

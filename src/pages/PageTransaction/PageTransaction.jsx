@@ -35,8 +35,8 @@ const PageTransaction = () => {
             <h1><span><ExchangeIcon /><strong>Transaction</strong></span></h1>
             <p className={styles.txHash}>→ TxHash : <strong>{txHash}</strong></p>
             <br />
-            {txDatas ?
-                txDatas['txMessages'] ?
+            {txDatas && txDatas['txInfos'] ?
+                txDatas['txInfos']['datetime'] ?
                     <div>
                         <BlockTxInfos txInfos={txDatas['txInfos']} txHash={txHash} />
                         {txDatas['txMessages'].map((message, index) => {
