@@ -26,7 +26,7 @@ export const getValDelegators = async (valAddress) => {
     if(rawDelegations) {
         // nbStakers = rawDelegations[0].length;
         rawDelegations[0].forEach(element => {
-            const amountOfLUNCstaked = parseFloat((new Decimal(element.shares)/1000000).toFixed(6));
+            const amountOfLUNCstaked = parseFloat((new Decimal(element.balance.amount)/1000000).toFixed(6));
             valDelegators.push([element.delegator_address, amountOfLUNCstaked, 0]);
             totalOfStakedLUNC += amountOfLUNCstaked;
         })

@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend, MsgVote } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -76,6 +76,9 @@ export const getTxDatas = async (txHash) => {
                 'ValidatorMoniker': null,       // Nom du validateur
                 'ExchangeRates': null,          // Exchange rates
                 'Hash': null,                   // Hash value
+                'VoteChoice': null,             // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
+                'ProposalID': null,             // Numéro de proposition à voter
+                'VoterAddress': null,           // Adresse "terra1" du votant
             }
             
             if(message instanceof MsgSend) {
@@ -105,7 +108,18 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator);
             }
 
-
+            if(message instanceof MsgVote) {
+                msgStructRet['MsgType'] = 'MsgVote';
+                msgStructRet['MsgDesc'] = 'Vote';
+                msgStructRet['VoteChoice'] = message.option;
+                msgStructRet['ProposalID'] = message.proposal_id;
+                msgStructRet['VoterAddress'] = message.voter;
+                const possibleValidator = await findValidatorInfosIfThisIsHisAccount(lcd, message.voter);
+                if(possibleValidator) {
+                    msgStructRet['ValidatorAddress'] = possibleValidator[0];
+                    msgStructRet['ValidatorMoniker'] = possibleValidator[1];
+                }
+            }
 
 
 
@@ -175,4 +189,15 @@ const getValidatorMoniker = async (lcd, valAddress) => {
         return rawValInfos.description.moniker;
     else
         return 'unknown';
+}
+
+const findValidatorInfosIfThisIsHisAccount = async (lcd, cptAddress) => {
+    // Récupération de la liste de tous les validateurs, et recherche de correspondance à l'intérieur
+    const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
+    if(rawValidators) {
+        for(let i=0 ; i<rawValidators[0].length ; i++)
+            if(AccAddress.fromValAddress(rawValidators[0][i].operator_address) === cptAddress)
+                return([rawValidators[0][i].operator_address, rawValidators[0][i].description.moniker]);
+    } else
+        return [];
 }
