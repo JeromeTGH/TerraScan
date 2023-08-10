@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgExecuteContract, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgDelegate, MsgExecuteContract, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -63,7 +63,7 @@ export const getTxDatas = async (txHash) => {
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
             const message = rawTxInfo.tx.body.messages[i];
-            const logs = rawTxInfo.logs[i];
+            // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
                 'MsgType': null,                // Type de message (MsgSend, MsgDelegate, ...)
@@ -79,7 +79,8 @@ export const getTxDatas = async (txHash) => {
                 'VoteChoice': null,             // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
                 'ProposalID': null,             // Numéro de proposition à voter
                 'VoterAddress': null,           // Adresse "terra1" du votant
-                'logsEvents': null,             // EventsLogs d'un message donné
+                'withdrawRewards': null,        // Récompenses retirées (staker)
+                'withdrawCommissions': null,    // Commissions retirées (validateur)
             }
             
             if(message instanceof MsgSend) {
@@ -87,7 +88,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['MsgDesc'] = 'Send';
                 msgStructRet['FromAddress'] = message.from_address;
                 msgStructRet['ToAddress'] = message.to_address;
-                msgStructRet["Amount"] = coinsListToFormatedText(message.amount);
+                msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
             }
             
             if(message instanceof MsgAggregateExchangeRateVote) {
@@ -129,9 +130,9 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
 
-                let rewards = findInTblLogEvents(logs.events, "withdraw_rewards", "amount");
+                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
                 rewards = formatGluedAmountsAndCoins(rewards);
-                msgStructRet['logsEvents'] = rewards;
+                msgStructRet['withdrawRewards'] = rewards;
             }
 
             if(message instanceof MsgWithdrawValidatorCommission) {
@@ -141,10 +142,9 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.validator_address);
 
-                console.log("logs.events", logs.events);
-                let commission = findInTblLogEvents(logs.events, "withdraw_commission", "amount");
+                let commission = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_commission", "amount");
                 commission = formatGluedAmountsAndCoins(commission);
-                msgStructRet['logsEvents'] = commission;
+                msgStructRet['withdrawCommissions'] = commission;
             }
 
             if(message instanceof MsgExecuteContract) {
@@ -156,6 +156,18 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ExecuteMsg'] = message.execute_msg;
             }
 
+            if(message instanceof MsgDelegate) {
+                msgStructRet['MsgType'] = 'MsgDelegate';
+                msgStructRet['MsgDesc'] = 'Delegate';
+                msgStructRet['DelegatorAddress'] = message.delegator_address;
+                msgStructRet['ValidatorAddress'] = message.validator_address;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
+                msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
+
+                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                rewards = formatGluedAmountsAndCoins(rewards);
+                msgStructRet['withdrawRewards'] = rewards;
+            }
 
 
 
