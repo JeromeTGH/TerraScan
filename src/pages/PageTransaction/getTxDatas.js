@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend, MsgVote } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -63,7 +63,7 @@ export const getTxDatas = async (txHash) => {
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
             const message = rawTxInfo.tx.body.messages[i];
-            console.log("message", message);
+            const logs = rawTxInfo.logs[i];
 
             const msgStructRet = {
                 'MsgType': null,                // Type de message (MsgSend, MsgDelegate, ...)
@@ -79,8 +79,11 @@ export const getTxDatas = async (txHash) => {
                 'VoteChoice': null,             // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
                 'ProposalID': null,             // Numéro de proposition à voter
                 'VoterAddress': null,           // Adresse "terra1" du votant
+                'logs': null,                   // Logs d'un message donné
             }
             
+            msgStructRet['logs'] = JSON.stringify(logs);
+
             if(message instanceof MsgSend) {
                 msgStructRet['MsgType'] = 'MsgSend';
                 msgStructRet['MsgDesc'] = 'Send';
@@ -121,11 +124,32 @@ export const getTxDatas = async (txHash) => {
                 }
             }
 
+            if(message instanceof MsgWithdrawDelegatorReward) {
+                msgStructRet['MsgType'] = 'MsgWithdrawDelegatorReward';
+                msgStructRet['MsgDesc'] = 'Withdraw Delegator Reward';
+                msgStructRet['DelegatorAddress'] = message.delegator_address;
+                msgStructRet['ValidatorAddress'] = message.validator_address;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
+            }
+
+            if(message instanceof MsgWithdrawValidatorCommission) {
+                msgStructRet['MsgType'] = 'MsgWithdrawValidatorCommission';
+                msgStructRet['MsgDesc'] = 'Withdraw Validator Commission';
+                msgStructRet['ValidatorAddress'] = message.validator_address;
+                msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
+                msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.validator_address);
+            }
 
 
 
 
 
+
+
+
+
+
+            console.log("rawTxInfo", rawTxInfo);
 
             txMessages.push(msgStructRet);
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { chainName, chainID, chainLCDurl, appName} from '../../application/AppParams';
+import { chainID, chainLCDurl, appName} from '../../application/AppParams';
 
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
@@ -76,12 +76,14 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                 </ul>
-                <div className={styles.chainInfos}>
-                    {chainName} ({chainID})<br />
-                    {chainLCDurl}
-                </div>
                 <div id={styles["sidebar-theme"]}>
                     Switch theme to →&nbsp;<BtnJourNuit filled="yes" />
+                </div>
+                <br />
+                <br />
+                <div className={styles.chainInfos}>
+                    &nbsp;==&gt; Network : <strong>{chainID}</strong><br />
+                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong>
                 </div>
             </nav>
         </div>

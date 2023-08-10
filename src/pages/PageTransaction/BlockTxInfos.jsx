@@ -39,7 +39,7 @@ const BlockTxInfos = (props) => {
                         </td>
                     </tr>
                     <tr>
-                        <td>Tx status (code) :</td>
+                        <td>Tx code (status) :</td>
                         <td>{props.txInfos['errCode']} {props.txInfos['errCode'] === '0' ? <span className="succes">(successful)</span> : <span>(failed)</span>}</td>
                     </tr>
                     {props.txInfos['errCode'] !== '0' ?

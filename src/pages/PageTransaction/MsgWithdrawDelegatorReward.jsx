@@ -1,0 +1,19 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const MsgWithdrawDelegatorReward = (props) => {
+    return (
+        <>
+            <tr>
+                <td>From : </td>
+                <td>validator <Link to={"/validators/" + props.txMessage['ValidatorAddress']}>{props.txMessage['ValidatorMoniker']}</Link></td>
+            </tr>
+            <tr>
+                <td>To : </td>
+                <td>account <Link to={"/accounts/" + props.txMessage['DelegatorAddress']}>{props.txMessage['DelegatorAddress']}</Link></td>
+            </tr>
+        </>
+    );
+};
+
+export default MsgWithdrawDelegatorReward;

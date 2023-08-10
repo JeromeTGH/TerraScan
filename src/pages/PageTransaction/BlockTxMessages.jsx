@@ -5,6 +5,8 @@ import MsgSend from './MsgSend';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
 import MsgVote from './MsgVote';
+import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
+import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
 
 const BlockTxMessages = (props) => {
 
@@ -18,9 +20,11 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgAggregateExchangeRateVote' ? <MsgAggregateExchangeRateVote txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgAggregateExchangeRatePrevote' ? <MsgAggregateExchangeRatePrevote txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgVote' ? <MsgVote txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgWithdrawDelegatorReward' ? <MsgWithdrawDelegatorReward txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgWithdrawValidatorCommission' ? <MsgWithdrawValidatorCommission txMessage={props.txMessage} /> : null}
 
 
-
+                    
 
 
                 </tbody>
