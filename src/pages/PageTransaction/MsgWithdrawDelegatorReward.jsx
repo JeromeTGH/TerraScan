@@ -12,6 +12,12 @@ const MsgWithdrawDelegatorReward = (props) => {
                 <td>To : </td>
                 <td>account <Link to={"/accounts/" + props.txMessage['DelegatorAddress']}>{props.txMessage['DelegatorAddress']}</Link></td>
             </tr>
+            <tr>
+                <td>Withdraw rewards : </td>
+                <td>{props.txMessage['logsEvents'].map((element, index) => {
+                    return <span key={index}>{element}<br /></span>
+                })}</td>
+            </tr>
         </>
     );
 };

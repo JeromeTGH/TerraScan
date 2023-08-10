@@ -16,6 +16,12 @@
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;
         }
+
+        pre {
+            white-space: pre-wrap;
+            padding-top: 0.15rem;
+        }
+
     }
 
     td:nth-child(1) {

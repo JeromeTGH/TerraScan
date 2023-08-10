@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgExecuteContract, MsgSend, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -79,11 +79,9 @@ export const getTxDatas = async (txHash) => {
                 'VoteChoice': null,             // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
                 'ProposalID': null,             // Numéro de proposition à voter
                 'VoterAddress': null,           // Adresse "terra1" du votant
-                'logs': null,                   // Logs d'un message donné
+                'logsEvents': null,             // EventsLogs d'un message donné
             }
             
-            msgStructRet['logs'] = JSON.stringify(logs);
-
             if(message instanceof MsgSend) {
                 msgStructRet['MsgType'] = 'MsgSend';
                 msgStructRet['MsgDesc'] = 'Send';
@@ -130,6 +128,10 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['DelegatorAddress'] = message.delegator_address;
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
+
+                let rewards = findInTblLogEvents(logs.events, "withdraw_rewards", "amount");
+                rewards = formatGluedAmountsAndCoins(rewards);
+                msgStructRet['logsEvents'] = rewards;
             }
 
             if(message instanceof MsgWithdrawValidatorCommission) {
@@ -138,6 +140,20 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.validator_address);
+
+                console.log("logs.events", logs.events);
+                let commission = findInTblLogEvents(logs.events, "withdraw_commission", "amount");
+                commission = formatGluedAmountsAndCoins(commission);
+                msgStructRet['logsEvents'] = commission;
+            }
+
+            if(message instanceof MsgExecuteContract) {
+                msgStructRet['MsgType'] = 'MsgExecuteContract';
+                msgStructRet['MsgDesc'] = 'Execute Contract';
+                msgStructRet['Contract'] = message.contract;
+                msgStructRet['Sender'] = message.sender;
+                msgStructRet['Coins'] = coinsListToFormatedText(message.coins);
+                msgStructRet['ExecuteMsg'] = message.execute_msg;
             }
 
 
@@ -148,8 +164,7 @@ export const getTxDatas = async (txHash) => {
 
 
 
-
-            console.log("rawTxInfo", rawTxInfo);
+            console.log("message", message);
 
             txMessages.push(msgStructRet);
         }
@@ -224,4 +239,29 @@ const findValidatorInfosIfThisIsHisAccount = async (lcd, cptAddress) => {
                 return([rawValidators[0][i].operator_address, rawValidators[0][i].description.moniker]);
     } else
         return [];
+}
+
+const findInTblLogEvents = (tblLogEvents, firstWordToSearch, secondWordToSearch) => {
+    let retour = "";
+
+    for(let i=0 ; i < tblLogEvents.length ; i++)
+        if(tblLogEvents[i].type === firstWordToSearch)
+            for(let j=0 ; j < tblLogEvents[i].attributes.length ; j++)
+                if(tblLogEvents[i].attributes[j].key === secondWordToSearch)
+                    retour = tblLogEvents[i].attributes[j].value;
+
+    return retour.replace('"', '').split(',');
+}
+
+const formatGluedAmountsAndCoins = (tblGluedAmountsAndCoins) => {
+    let retour = [];
+
+    for(let i=0 ; i < tblGluedAmountsAndCoins.length ; i++) {
+        const alphaPos = tblGluedAmountsAndCoins[i].search(/[a-z]/g);
+        const valeur = (parseInt(tblGluedAmountsAndCoins[i].substring(0, alphaPos)) / 1000000).toFixed(6);
+        const devise = tblCorrespondanceValeurs[tblGluedAmountsAndCoins[i].substring(alphaPos)] ? tblCorrespondanceValeurs[tblGluedAmountsAndCoins[i].substring(alphaPos)] : tblGluedAmountsAndCoins[i].substring(alphaPos);
+        retour.push(valeur + " " + devise);
+    }
+
+    return retour;
 }
