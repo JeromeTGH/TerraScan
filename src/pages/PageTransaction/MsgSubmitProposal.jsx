@@ -6,7 +6,7 @@ const MsgSubmitProposal = (props) => {
         <>
             <tr>
                 <td>Proposal ID :</td>
-                <td>{props.txMessage['ProposalID']}</td>
+                <td><Link to={"/proposals/" + props.txMessage['ProposalID']}>#{props.txMessage['ProposalID']}</Link></td>
             </tr>
             <tr>
                 <td>Initial deposit :</td>

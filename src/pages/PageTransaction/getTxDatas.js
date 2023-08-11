@@ -1,6 +1,6 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
-         MsgBeginRedelegate, MsgDelegate, MsgExecuteContract, MsgSend, MsgSubmitProposal,
+         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgSend, MsgSubmitProposal,
          MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
@@ -199,7 +199,6 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['withdrawRewards'] = rewards;
             }
 
-
             if(message instanceof MsgSubmitProposal) {
                 msgStructRet['MsgType'] = 'MsgSubmitProposal';
                 msgStructRet['MsgDesc'] = 'Submit Proposal';
@@ -209,6 +208,20 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ContentDescription'] = message.content.description;
                 msgStructRet['ProposalID'] = findInTblLogEvents(rawTxInfo.logs[i].events, "proposal_deposit", "proposal_id")[0];
             }
+
+            if(message instanceof MsgDeposit) {
+                msgStructRet['MsgType'] = 'MsgDeposit';
+                msgStructRet['MsgDesc'] = 'Deposit';
+                msgStructRet['Depositor'] = message.depositor;
+                msgStructRet['ProposalID'] = message.proposal_id;
+                msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
+            }
+
+
+
+
+
+
 
 
 

@@ -164,7 +164,7 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>"Major coins" in Community Pool</u> :</div>
+                        <div>→&nbsp;<u>LUNC/USTC in Community Pool</u> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -175,7 +175,7 @@ const BlockOverview = () => {
                         </div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>"Major coins" in Oracle Pool</u> :</div>
+                        <div>→&nbsp;<u>LUNC/USTC in Oracle Pool</u> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
