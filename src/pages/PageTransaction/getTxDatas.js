@@ -65,7 +65,8 @@ export const getTxDatas = async (txHash) => {
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
             const message = rawTxInfo.tx.body.messages[i];
-             const logs = rawTxInfo.logs[i]; console.log("logs", logs);
+            // console.log("message", message);
+            // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
                 'MsgType': null,                        // Type de message (MsgSend, MsgDelegate, ...)
@@ -250,18 +251,6 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['Grantee'] = message.grantee;
                 msgStructRet['Msgs'] = message.msgs;
             }
-
-
-            
-
-
-
-
-
-
-
-
-            console.log("message", message);
 
             txMessages.push(msgStructRet);
         }
