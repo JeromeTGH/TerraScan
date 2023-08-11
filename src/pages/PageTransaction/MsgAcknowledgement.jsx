@@ -10,7 +10,8 @@ const MsgAcknowledgement = (props) => {
             </tr>
             <tr>
                 <td>Packet :</td>
-                <td><pre>{JSON.stringify(props.txMessage['Packet'], null, 2)}</pre></td>
+                <td><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(props.txMessage['Packet']))), null, 2)}</pre></td>
+                {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
             </tr>
             <tr>
                 <td>Proof Acked :</td>
@@ -18,7 +19,8 @@ const MsgAcknowledgement = (props) => {
             </tr>
             <tr>
                 <td>Proof Height :</td>
-                <td><pre>{JSON.stringify(props.txMessage['ProofHeight'], null, 2)}</pre></td>
+                <td><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(props.txMessage['ProofHeight']))), null, 2)}</pre></td>
+                {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
             </tr>
             <tr>
                 <td>Acknowledgement :</td>

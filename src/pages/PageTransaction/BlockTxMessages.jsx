@@ -7,6 +7,7 @@ import MsgDeposit from './MsgDeposit';
 import MsgDelegate from './MsgDelegate';
 import MsgUndelegate from './MsgUndelegate';
 import MsgUpdateClient from './MsgUpdateClient';
+import MsgExecAuthorized from './MsgExecAuthorized';
 import MsgSubmitProposal from './MsgSubmitProposal';
 import MsgBeginRedelegate from './MsgBeginRedelegate';
 import MsgAcknowledgement from './MsgAcknowledgement';
@@ -40,10 +41,9 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgFundCommunityPool' ? <MsgFundCommunityPool txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUpdateClient' ? <MsgUpdateClient txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgAcknowledgement' ? <MsgAcknowledgement txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExecAuthorized txMessage={props.txMessage} /> : null}
 
 
-                    
-                    
 
                 </tbody>
             </table>

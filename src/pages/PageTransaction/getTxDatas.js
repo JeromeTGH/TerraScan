@@ -1,6 +1,6 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
-         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool, MsgSend, MsgSubmitProposal,
+         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgSend, MsgSubmitProposal,
          MsgUndelegate, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
@@ -244,7 +244,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ProofHeight'] = message.proof_height;
             }
 
-
+            if(message instanceof MsgExecAuthorized) {
+                msgStructRet['MsgType'] = 'MsgExecAuthorized';
+                msgStructRet['MsgDesc'] = 'Exec Authorized';
+                msgStructRet['Grantee'] = message.grantee;
+                msgStructRet['Msgs'] = message.msgs;
+            }
 
 
             
