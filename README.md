@@ -8,6 +8,7 @@ Installed packages (specifics ones) :
 - npm install @terra-money/terra.js
 - npm install node-polyfill-webpack-plugin
 - npm install react-app-rewired
+- npm install react-apexcharts apexcharts
 
 Modifications :
 - replace "react-scripts" by "react-app-rewired", in package.json
