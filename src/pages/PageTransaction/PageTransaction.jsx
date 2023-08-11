@@ -44,7 +44,7 @@ const PageTransaction = () => {
                         })}
                     </div>
                     : null
-                : <p>Loading data from blockchain ...</p>
+                : <div className="boxContainer"><p>Loading data from blockchain ...</p></div>
             }
             <div className="erreur">{msgErreurTxDatas}</div>
         </>

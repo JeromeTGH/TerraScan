@@ -1,5 +1,7 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgBeginRedelegate, MsgDelegate, MsgExecuteContract, MsgSend, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
+         MsgBeginRedelegate, MsgDelegate, MsgExecuteContract, MsgSend, MsgSubmitProposal,
+         MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -63,24 +65,24 @@ export const getTxDatas = async (txHash) => {
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
             const message = rawTxInfo.tx.body.messages[i];
-            // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
+             const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
-                'MsgType': null,                // Type de message (MsgSend, MsgDelegate, ...)
-                'MsgDesc': '(not coded yet)',   // Sera remplacé par "Send", "Delegate", ..., selon le type de message
-                'FromAddress': null,            // Provenant de cette adresse
-                'ToAddress': null,              // Allant vers cette adresse
-                'Amount': null,                 // Montant ([qté + nom de la devise])
-                'Feeder': null,                 // Feeder
-                'ValidatorAddress': null,       // Adresse "terravaloper1..." du validateur en question
-                'ValidatorMoniker': null,       // Nom du validateur
-                'ExchangeRates': null,          // Exchange rates
-                'Hash': null,                   // Hash value
-                'VoteChoice': null,             // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
-                'ProposalID': null,             // Numéro de proposition à voter
-                'VoterAddress': null,           // Adresse "terra1" du votant
-                'withdrawRewards': null,        // Récompenses retirées (staker)
-                'withdrawCommissions': null,    // Commissions retirées (validateur)
+                'MsgType': null,                        // Type de message (MsgSend, MsgDelegate, ...)
+                'MsgDesc': '(not implemented yet)',     // Sera remplacé par "Send", "Delegate", ..., selon le type de message
+                'FromAddress': null,                    // Provenant de cette adresse
+                'ToAddress': null,                      // Allant vers cette adresse
+                'Amount': null,                         // Montant ([qté + nom de la devise])
+                'Feeder': null,                         // Feeder
+                'ValidatorAddress': null,               // Adresse "terravaloper1..." du validateur en question
+                'ValidatorMoniker': null,               // Nom du validateur
+                'ExchangeRates': null,                  // Exchange rates
+                'Hash': null,                           // Hash value
+                'VoteChoice': null,                     // Choix de vote (YES, ABSTAIN, NO, NO WITH VETO)
+                'ProposalID': null,                     // Numéro de proposition à voter
+                'VoterAddress': null,                   // Adresse "terra1" du votant
+                'withdrawRewards': null,                // Récompenses retirées (staker)
+                'withdrawCommissions': null,            // Commissions retirées (validateur)
             }
             
             if(message instanceof MsgSend) {
@@ -197,6 +199,16 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['withdrawRewards'] = rewards;
             }
 
+
+            if(message instanceof MsgSubmitProposal) {
+                msgStructRet['MsgType'] = 'MsgSubmitProposal';
+                msgStructRet['MsgDesc'] = 'Submit Proposal';
+                msgStructRet['Proposer'] = message.proposer;
+                msgStructRet['InitialDeposit'] = coinsListToFormatedText(message.initial_deposit);
+                msgStructRet['ContentTitle'] = message.content.title;
+                msgStructRet['ContentDescription'] = message.content.description;
+                msgStructRet['ProposalID'] = findInTblLogEvents(rawTxInfo.logs[i].events, "proposal_deposit", "proposal_id")[0];
+            }
 
 
 

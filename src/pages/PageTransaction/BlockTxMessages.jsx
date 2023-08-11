@@ -11,6 +11,7 @@ import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
 import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
 import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
+import MsgSubmitProposal from './MsgSubmitProposal';
 
 const BlockTxMessages = (props) => {
 
@@ -30,6 +31,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgDelegate' ? <MsgDelegate txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUndelegate' ? <MsgUndelegate txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgBeginRedelegate' ? <MsgBeginRedelegate txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgSubmitProposal' ? <MsgSubmitProposal txMessage={props.txMessage} /> : null}
 
 
                     
