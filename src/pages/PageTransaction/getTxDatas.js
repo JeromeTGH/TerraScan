@@ -1,6 +1,6 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
-         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgSend, MsgSubmitProposal,
+         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool, MsgSend, MsgSubmitProposal,
          MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
@@ -83,6 +83,7 @@ export const getTxDatas = async (txHash) => {
                 'VoterAddress': null,                   // Adresse "terra1" du votant
                 'withdrawRewards': null,                // Récompenses retirées (staker)
                 'withdrawCommissions': null,            // Commissions retirées (validateur)
+                // Etc... (remplissage non nécessaire ici, en fait)
             }
             
             if(message instanceof MsgSend) {
@@ -217,8 +218,15 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
             }
 
+            if(message instanceof MsgFundCommunityPool) {
+                msgStructRet['MsgType'] = 'MsgFundCommunityPool';
+                msgStructRet['MsgDesc'] = 'Fund Community Pool';
+                msgStructRet['Depositor'] = message.depositor;
+                msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
+                msgStructRet['Recipient'] = findInTblLogEvents(rawTxInfo.logs[i].events, "transfer", "recipient")[0];
+            }
 
-
+            
 
 
 
@@ -241,11 +249,17 @@ export const getTxDatas = async (txHash) => {
 }
 
 
+// ===========================
+// Log les éventuelles erreurs
+// ===========================
 const handleError = (err) => {
     console.log("ERREUR", err);
 }
 
 
+// ======================================================================
+// Créé un STRING avec montant+devise, séparé de virgules si multidevises
+// ======================================================================
 const coinsListToFormatedText = (coinsList) => {
     const dataCoinsList = (new Coins(coinsList)).toData();
     let retour = "";
@@ -265,6 +279,10 @@ const coinsListToFormatedText = (coinsList) => {
     return retour;
 }
 
+
+// ==============================
+// Extrait les infos ExchangeRate
+// ==============================
 const exchangeRatesToFormatedText = (coinsList) => {
     const dataCoinsList = (new Coins(coinsList)).toData();
     let retour = "";
@@ -284,8 +302,11 @@ const exchangeRatesToFormatedText = (coinsList) => {
     return retour;
 }
 
+
+// ==========================================================================================
+// Récupère le 'moniker' (surnom) d'un validateur, à partir de son adresse "terravaloper1..."
+// ==========================================================================================
 const getValidatorMoniker = async (lcd, valAddress) => {
-    // Récupération des infos de ce validateur
     const rawValInfos = await lcd.staking.validator(valAddress).catch(handleError);
     if(rawValInfos)
         return rawValInfos.description.moniker;
@@ -293,8 +314,10 @@ const getValidatorMoniker = async (lcd, valAddress) => {
         return 'unknown';
 }
 
+// ==========================================================================================================
+// Récupère le "moniker" et l'adresse "terravaloper1..." d'un validateur, à partir de son adresse "terra1..."
+// ==========================================================================================================
 const findValidatorInfosIfThisIsHisAccount = async (lcd, cptAddress) => {
-    // Récupération de la liste de tous les validateurs, et recherche de correspondance à l'intérieur
     const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
     if(rawValidators) {
         for(let i=0 ; i<rawValidators[0].length ; i++)
@@ -304,6 +327,10 @@ const findValidatorInfosIfThisIsHisAccount = async (lcd, cptAddress) => {
         return [];
 }
 
+
+// ==================================================================================
+// Extrait des infos particulières dans l'event communiqué, à 2 niveaux de profondeur
+// ==================================================================================
 const findInTblLogEvents = (tblLogEvents, firstWordToSearch, secondWordToSearch) => {
     let retour = '';
 
@@ -319,6 +346,10 @@ const findInTblLogEvents = (tblLogEvents, firstWordToSearch, secondWordToSearch)
         return retour.replace('"', '').split(',');
 }
 
+
+// ============================================================================================================
+// Remet en forme un tableau du style ["2uusd", "1415156uluna", ...] en ["0.000002 USTC", "1.415156 LUNC", ...]
+// ============================================================================================================
 const formatGluedAmountsAndCoins = (tblGluedAmountsAndCoins) => {
     let retour = [];
 

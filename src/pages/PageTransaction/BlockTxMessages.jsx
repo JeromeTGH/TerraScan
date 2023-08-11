@@ -9,6 +9,7 @@ import MsgUndelegate from './MsgUndelegate';
 import MsgSubmitProposal from './MsgSubmitProposal';
 import MsgBeginRedelegate from './MsgBeginRedelegate';
 import MsgExecuteContract from './MsgExecuteContract';
+import MsgFundCommunityPool from './MsgFundCommunityPool';
 import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
@@ -34,6 +35,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgBeginRedelegate' ? <MsgBeginRedelegate txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgSubmitProposal' ? <MsgSubmitProposal txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgDeposit' ? <MsgDeposit txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgFundCommunityPool' ? <MsgFundCommunityPool txMessage={props.txMessage} /> : null}
 
 
                     
