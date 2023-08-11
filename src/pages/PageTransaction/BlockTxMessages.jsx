@@ -6,8 +6,10 @@ import MsgVote from './MsgVote';
 import MsgDeposit from './MsgDeposit';
 import MsgDelegate from './MsgDelegate';
 import MsgUndelegate from './MsgUndelegate';
+import MsgUpdateClient from './MsgUpdateClient';
 import MsgSubmitProposal from './MsgSubmitProposal';
 import MsgBeginRedelegate from './MsgBeginRedelegate';
+import MsgAcknowledgement from './MsgAcknowledgement';
 import MsgExecuteContract from './MsgExecuteContract';
 import MsgFundCommunityPool from './MsgFundCommunityPool';
 import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
@@ -36,10 +38,12 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgSubmitProposal' ? <MsgSubmitProposal txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgDeposit' ? <MsgDeposit txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgFundCommunityPool' ? <MsgFundCommunityPool txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgUpdateClient' ? <MsgUpdateClient txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgAcknowledgement' ? <MsgAcknowledgement txMessage={props.txMessage} /> : null}
 
 
                     
-
+                    
 
                 </tbody>
             </table>

@@ -1,7 +1,7 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
+import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
          MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool, MsgSend, MsgSubmitProposal,
-         MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+         MsgUndelegate, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -225,6 +225,27 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
                 msgStructRet['Recipient'] = findInTblLogEvents(rawTxInfo.logs[i].events, "transfer", "recipient")[0];
             }
+
+            if(message instanceof MsgUpdateClient) {
+                msgStructRet['MsgType'] = 'MsgUpdateClient';
+                msgStructRet['MsgDesc'] = 'Update Client';
+                msgStructRet['Signer'] = message.signer;
+                msgStructRet['ClientID'] = message.client_id;
+                msgStructRet['Header'] = message.header;
+            }
+            
+            if(message instanceof MsgAcknowledgement) {
+                msgStructRet['MsgType'] = 'MsgAcknowledgement';
+                msgStructRet['MsgDesc'] = 'Acknowledgement';
+                msgStructRet['Signer'] = message.signer;
+                msgStructRet['Acknowledgement'] = message.acknowledgement;
+                msgStructRet['ProofAcked'] = message.proof_acked;
+                msgStructRet['Packet'] = message.packet;
+                msgStructRet['ProofHeight'] = message.proof_height;
+            }
+
+
+
 
             
 
