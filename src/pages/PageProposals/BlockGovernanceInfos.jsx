@@ -34,34 +34,34 @@ const BlockGovernanceInfos = () => {
                 <table className={styles.tblInfos}>
                     <tbody>
                         <tr>
-                            <td><strong>Min deposit of coins</strong>, to allow vote start :</td>
+                            <td><strong>Min deposit of coins</strong> (to allow vote start)&nbsp;:</td>
                             <td>{tableGovernanceInfos['nbMinDepositLunc']}</td>
                         </tr>
                         <tr>
-                            <td><strong>Max deposit period</strong>, to allow vote start :</td>
+                            <td><strong>Max deposit period</strong> (to allow vote start)&nbsp;:</td>
                             <td>{tableGovernanceInfos['nbJoursMaxDeposit']} days</td>
                         </tr>
                         <tr>
-                            <td><strong>Maximum voting time</strong>, for each proposal :</td>
+                            <td><strong>Maximum voting time</strong> (for each proposal)&nbsp;:</td>
                             <td>{tableGovernanceInfos['nbJoursMaxPourVoter']} days</td>
                         </tr>
                         <tr>
                             <td colSpan='2'>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><strong>Quorum</strong> (min % min of voters, to be valid) :</td>
+                            <td><strong>Quorum</strong> (min % min of voters, to be valid)&nbsp;:</td>
                             <td>{tableGovernanceInfos['quorum']} %</td>
                         </tr>
                         <tr>
-                            <td><strong>Acceptance threshold</strong> (min % of votes, to adopt a proposal) :</td>
+                            <td><strong>Acceptance threshold</strong> (min % of votes, to adopt a proposal)&nbsp;:</td>
                             <td>{tableGovernanceInfos['seuilDacceptation']} %</td>
                         </tr>
                         <tr>
-                            <td><strong>Refusal threshold</strong> (min % of votes, to reject a proposal and return deposit) :</td>
+                            <td><strong>Refusal threshold</strong> (min % of votes, to reject a proposal and return deposit)&nbsp;:</td>
                             <td>{tableGovernanceInfos['seuilDeRefus']} %</td>
                         </tr>
                         <tr>
-                            <td><strong>Veto threshold</strong> (min % of votes, to reject a proposal and keep deposit) :</td>
+                            <td><strong>Veto threshold</strong> (min % of votes, to reject a proposal and keep deposit)&nbsp;:</td>
                             <td>{tableGovernanceInfos['seuilDeVeto']} %</td>
                         </tr>
                     </tbody>

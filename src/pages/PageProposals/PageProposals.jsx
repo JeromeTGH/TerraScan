@@ -2,6 +2,7 @@ import React from 'react';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposals.module.scss';
 import BlockGovernanceInfos from './BlockGovernanceInfos';
+import BlockProposals from './BlockProposals';
 
 const PageProposals = () => {
     return (
@@ -10,6 +11,7 @@ const PageProposals = () => {
             <br />
             <div className={styles.blocksProposalPage}>
                 <BlockGovernanceInfos />
+                <BlockProposals />
             </div>
         </>
     );
