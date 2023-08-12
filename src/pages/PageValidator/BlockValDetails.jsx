@@ -86,7 +86,7 @@ const BlockValDetails = (props) => {
                     </tbody>
                 </table>
                 : null
-                : <p>Loading data from blockchain ...</p>
+                : <p>Loading data from blockchain (lcd) ...</p>
             }
             <div className="erreur">{msgErreurTableValDetails}</div>
         </div>

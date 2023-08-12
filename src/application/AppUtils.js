@@ -30,11 +30,14 @@ export const isValidTransactionHashFormat = (stringToTest) => {
 export const isValidTerraAddressFormat = (stringToTest, terraAddressHeader) => {
 
     // Différents formats possibles :
-    //  - adresse au format "terra1" (44 caractères au total)               <--- adresse de compte "standard"
+    //  - adresse au format "terra1" (44 caractères au total)               <--- adresse de compte standard ("account")
     //  - adresse au format "terrapub1" (47 caractères au total)
-    //  - adresse au format "terravaloper1" (51 caractères au total)        <--- adresse d'un validateur
+    //  - adresse au format "terravaloper1" (51 caractères au total)        <--- adresse d'un validateur ("validator")
     //  - adresse au format "terravaloperpub1" (54 caractères au total)
     //  - adresse au format "terravalcons1" (51 caractères au total)
+    // AJOUT :
+    //  - adresse au format "terra1" (64 caractères au total)               <--- adresse de contrat ("contract")
+    
 
     // Les adresses Terra Classic sont donc au format terra[xxx]1[yyy]
     //  - avec 'xxx', une entête spécifique (0 à plusieurs caractères)

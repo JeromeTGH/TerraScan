@@ -1,0 +1,30 @@
+@import '../../style/variables';
+
+.blockInfos {
+    grid-area: infos;
+}
+
+.tblInfos {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    
+    td, th {
+        padding: 0.2rem 0.2rem;
+        font-size: 0.9rem;
+
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.8rem;
+        }
+    }
+
+    td:nth-child(1) {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    td:nth-child(2) {
+        word-break: break-all;
+    }
+
+}

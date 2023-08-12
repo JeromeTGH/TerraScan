@@ -129,7 +129,7 @@ const PageStaking = () => {
                         />
                     </div>
                 </>
-            : msgErreur ? <p className="erreur">{msgErreur}</p> : <p>Loading data from blockchain ...</p>}
+            : msgErreur ? <p className="erreur">{msgErreur}</p> : <p>Loading data from blockchain (lcd) ...</p>}
             
         </>
     );

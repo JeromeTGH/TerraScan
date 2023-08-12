@@ -58,7 +58,7 @@ const BlockTopDelegators = (props) => {
                             <p>No delegator.</p>
                         )
                     : (
-                        <p>Loading data from blockchain ...</p>
+                        <p>Loading data from blockchain (lcd) ...</p>
                     )}
                 <div className="erreur">{msgErreurTblOfTopDelegators}</div>
                 {tblOfTopDelegators ?

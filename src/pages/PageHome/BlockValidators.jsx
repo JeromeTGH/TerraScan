@@ -54,7 +54,7 @@ const BlockValidators = () => {
                         })}
                     </tbody>
                     ) : (
-                        <tbody><tr><td colSpan="5">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="5">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
                 </table>
             </div>

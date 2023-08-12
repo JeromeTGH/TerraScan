@@ -57,7 +57,7 @@ const BlockDelegations = (props) => {
                             <tbody><tr><td colSpan="4">No delegation.</td></tr></tbody>
                         )
                     : (
-                        <tbody><tr><td colSpan="4">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="4">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
             </table>
             <br />

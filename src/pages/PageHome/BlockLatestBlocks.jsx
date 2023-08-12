@@ -47,7 +47,7 @@ const BlockLatestBlocks = () => {
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[4]}</Link></td>
                                 <td>{valeur[5]}</td>
                             </tr> 
-                    )}) : <tr><td colSpan="4">Loading data from blockchain ...</td></tr> }
+                    )}) : <tr><td colSpan="4">Loading data from blockchain (lcd) ...</td></tr> }
                 </tbody>
             </table>
             <div className={styles.comments}>

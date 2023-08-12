@@ -51,7 +51,7 @@ const BlockOtherAssets = (props) => {
                             <tbody><tr><td colSpan="3">No asset.</td></tr></tbody>
                         )
                     : (
-                        <tbody><tr><td colSpan="3">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="3">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
                 </table>
                 <div className="erreur">{msgErreurTblOfAssets}</div>

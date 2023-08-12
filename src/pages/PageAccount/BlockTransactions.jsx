@@ -60,7 +60,7 @@ const BlockTransactions = (props) => {
                             <tbody><tr><td colSpan="7">No transaction.</td></tr></tbody>
                         )
                     : (
-                        <tbody><tr><td colSpan="7">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="7">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
             </table>
             <br />

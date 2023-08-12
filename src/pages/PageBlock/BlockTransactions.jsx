@@ -97,7 +97,7 @@ const BlockTransactions = (props) => {
                         </tbody>
                     </table>
                 : (msgErreurTableBlockTransactions === '' ? <p>No transaction.</p> : null)
-                : <p>Loading data from blockchain ...</p>
+                : <p>Loading data from blockchain (lcd) ...</p>
             }
             <div className="erreur">{msgErreurTableBlockTransactions}</div>
         </div>

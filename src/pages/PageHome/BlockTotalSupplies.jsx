@@ -44,7 +44,7 @@ const BlockTotalSupplies = () => {
                         }) : <tr><td colSpan="2">No minor coin ?!</td></tr>}
                     </tbody>
                     ) : (
-                        <tbody><tr><td colSpan="2">Loading data from blockchain ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="2">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
             </table>
             <div className="erreur">{msgErreurGetTotalSupplies}</div>
