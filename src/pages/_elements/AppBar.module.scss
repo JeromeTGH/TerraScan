@@ -4,6 +4,7 @@
     display: none;                                  // Si largeur du viewport > breakpoint
     color: var(--primary-text-color-on-fill);
     background-color: var(--primary-fill);
+    z-index: 10;
 
     @media (max-width: $primary-breakpoint) {
         display: block;                             // Si largeur du viewport <= breakpoint
