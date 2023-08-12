@@ -12,10 +12,11 @@ import PageTransaction from '../PageTransaction/PageTransaction';
 import PageTransactions from '../PageTransactions/PageTransactions';
 import PageValidator from '../PageValidator/PageValidator';
 import PageValidators from '../PageValidators/PageValidators';
-import PageAbout from '../PageAbout/PageAbout';
-import PageGovernance from '../PageGovernance/PageGovernance';
+import PageProposals from '../PageProposals/PageProposals';
+import PageProposal from '../PageProposal/PageProposal';
 import PageStaking from '../PageStaking/PageStaking';
 import PageSearch from '../PageSearch/PageSearch';
+import PageAbout from '../PageAbout/PageAbout';
 import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
@@ -54,8 +55,10 @@ const PageBuilder = (props) => {
                 return <PageValidators />;
             case 'about':
                 return <PageAbout />;
-            case 'governance':
-                return <PageGovernance />;
+            case 'proposal':
+                return <PageProposal />;
+            case 'proposals':
+                return <PageProposals />;
             case 'staking':
                 return <PageStaking />;
             case 'search':

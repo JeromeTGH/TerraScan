@@ -41,8 +41,12 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="validator" withHeader="no" withFooter="no" />
             },
             {
-                path: "/governance",
-                element: <PageBuilder targetPage="governance" withHeader="no" withFooter="no" />
+                path: "/proposals",
+                element: <PageBuilder targetPage="proposals" withHeader="no" withFooter="no" />
+            },
+            {
+                path: "/proposals/:propID",
+                element: <PageBuilder targetPage="proposal" withHeader="no" withFooter="no" />
             },
             {
                 path: "/staking",

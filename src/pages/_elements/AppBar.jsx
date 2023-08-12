@@ -62,7 +62,7 @@ const AppBar = () => {
                             <span><ExchangeIcon /></span>
                             <span>Transactions</span>
                         </Link></li>
-                        <li><Link to="/governance" onClick={() => hiddenMenuCloseClick()}>
+                        <li><Link to="/proposals" onClick={() => hiddenMenuCloseClick()}>
                             <span><VoteIcon /></span>
                             <span>Governance</span>
                         </Link></li>
