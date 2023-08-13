@@ -27,14 +27,14 @@ const PageProposals = () => {
                 setMsgErreurGovernanceInfos('');
                 setTableGovernanceInfos(res);
 
-                getProposals().then((res) => {
-                    if(res['erreur']) {
-                        setMsgErreurProposals(res['erreur']);
+                getProposals(res).then((res2) => {
+                    if(res2['erreur']) {
+                        setMsgErreurProposals(res2['erreur']);
                         setTableProposals({});
                     }
                     else {
                         setMsgErreurProposals('');
-                        setTableProposals(res);
+                        setTableProposals(res2);
                     }
                 })
             }
@@ -62,7 +62,7 @@ const PageProposals = () => {
                     tableProposals && (tableProposals.length > 0) ?
                         <BlockProposals tblProposals={tableProposals} tblGovernanceInfos={tableGovernanceInfos} />
                         :
-                        <div className="boxContainer">Loading data from blockchain (lcd) ...</div>
+                        <div className="boxContainer">Loading data from blockchain (lcd), please wait ...</div>
                 }
             </div>
         </>

@@ -80,6 +80,20 @@ const BlockProposals = (props) => {
                                             <td>Total deposit :</td>
                                             <td>{coinsListToFormatedText(element.total_deposit)}</td>
                                         </tr>
+                                        {element.statutVote ? <tr>
+                                                <td>Vote status :</td>
+                                                <td>
+                                                    <div>{element.noteOnVoting}</div>
+                                                    <div className={styles.supportBar}>
+                                                        <div style={{ width: element.pourcentageOfYes + "%"}} className='barVoteYes'>&nbsp;</div>
+                                                        <div style={{ width: element.pourcentageOfAbstain + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                        <div style={{ width: element.pourcentageOfNo + "%"}} className='barVoteNo'>&nbsp;</div>
+                                                        <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                                                    </div>
+                                                    <div><strong>→ {element.statutVote}</strong></div>
+                                                </td>
+                                            </tr> : null
+                                        }
                                     </tbody>
                                 </table>
                             </div>

@@ -29,12 +29,15 @@ const SideBar = () => {
             if(rawNodeInfos) {
                 if(rawNodeInfos.application_version && rawNodeInfos.application_version.cosmos_sdk_version)
                     setCosmosSDKversion(rawNodeInfos.application_version.cosmos_sdk_version);
-                else
+                else {
                     console.log('ERROR : Failed to fetch [cosmos_sdk_version in node_info] ...');
+                    setCosmosSDKversion("(not found)");
+                }
             } else
                 console.log('ERROR : Failed to fetch [node infos] ...');
         }).catch(err => {
             console.log(err);
+            setCosmosSDKversion("(node_info error)");
         })
     }, [])
 

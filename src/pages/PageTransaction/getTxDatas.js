@@ -65,6 +65,7 @@ export const getTxDatas = async (txHash) => {
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
             const message = rawTxInfo.tx.body.messages[i];
+            // console.log("rawTxInfo", rawTxInfo);
             // console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 

@@ -9,6 +9,8 @@ const PageProposal = () => {
     // Récupération de l'adresse du validateur, éventuellement passé en argument
     const { propID } = useParams();         // Ne rien mettre revient à demander à voir le "latest" (le dernier)
 
+
+    // Affichage
     return (
         <>
             <h1><span><VoteIcon /><strong>Proposal</strong> #{propID}</span></h1>
