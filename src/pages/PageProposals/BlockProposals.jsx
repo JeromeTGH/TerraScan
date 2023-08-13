@@ -1,43 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './BlockProposals.module.scss';
-import { getProposals } from './getProposals';
 import { Link } from 'react-router-dom';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { Coins } from '@terra-money/terra.js';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 
-const BlockProposals = () => {
+const BlockProposals = (props) => {
 
     // Variables React
-    const [filtre, setFiltre] = useState(0);
-    const [tableProposals, setTableProposals] = useState();
-    const [msgErreurTableProposals, setMsgErreurTableProposals] = useState();
+    const [filtre, setFiltre] = useState(2);        // 2 = par défaut, on affiche les votes en cours
 
     // Fonction de sélection de filtre
     const handleClick = (val) => {
-        setFiltre(val);
-    }
-
-    // Exécution au chargement de la page, et à chaque changement de filtre
-    useEffect(() => {
         // Valeur de "filtre" et statut associé :
         // 0 => all
         // 1 => PROPOSAL_STATUS_VOTING_PERIOD
         // 2 => PROPOSAL_STATUS_DEPOSIT_PERIOD
         // 3 => PROPOSAL_STATUS_PASSED
         // 4 => PROPOSAL_STATUS_REJECTED
-
-        getProposals().then((res) => {
-            if(res['erreur']) {
-                setMsgErreurTableProposals(res['erreur']);
-                setTableProposals({});
-            }
-            else {
-                setMsgErreurTableProposals('');
-                setTableProposals(res);
-            }
-        })
-    }, [filtre])
+        setFiltre(val);
+    }
 
     // Affichage
     return (
@@ -45,62 +27,57 @@ const BlockProposals = () => {
             <table className={styles.tblFilters}>
                 <tbody>
                     <tr>
-                        <td className={filtre === 0 ? styles.selectedFilter : null} onClick={() => handleClick(0)}>Show all proposals<br />↓</td>
-                        <td className={filtre === 2 ? styles.selectedFilter : null} onClick={() => handleClick(2)}>Show votes in progress<br />↓</td>
-                        <td className={filtre === 1 ? styles.selectedFilter : null} onClick={() => handleClick(1)}>Show pending deposits<br />↓</td>
-                        <td className={filtre === 3 ? styles.selectedFilter : null} onClick={() => handleClick(3)}>Show adopted proposals<br />↓</td>
-                        <td className={filtre === 4 ? styles.selectedFilter : null} onClick={() => handleClick(4)}>Show rejected proposals<br />↓</td>
+                        <td className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClick(0)}>Show ALL proposals<br />↓</td>
+                        <td className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClick(2)}>Show VOTES in progress<br />↓</td>
+                        <td className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClick(1)}>Show PENDING deposits<br />↓</td>
+                        <td className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClick(3)}>Show ADOPTED proposals<br />↓</td>
+                        <td className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClick(4)}>Show REJECTED proposals<br />↓</td>
                     </tr>
                 </tbody>
             </table>
             <div>
-                {msgErreurTableProposals ?
-                    <div className="erreur boxContainer">{msgErreurTableProposals}</div>
-                    :
-                    tableProposals && (tableProposals.length > 0) ?
-                        tableProposals.map((element, index) => {
-                            return (
-                                ((filtre === 0) || element.status === filtre) ?
-                                    <div className={"boxContainer " + styles.proposalBox} key={index}>
-                                    <table className={styles.tblProposals}>
-                                        <tbody>
+                {props.tblProposals.map((element, index) => {
+                    return (
+                        ((filtre === 0) || element.status === filtre) ?
+                            <div className={"boxContainer " + styles.proposalBox} key={index}>
+                                <table className={styles.tblProposals}>
+                                    <tbody>
+                                        <tr>
+                                            <td>Proposal ID :</td>
+                                            <td><Link to={"/proposals/"+element.id}>#{element.id} (see details)</Link></td>
+                                        </tr>
+                                        {element.status !== 1 ? <>
                                             <tr>
-                                                <td>Proposal ID :</td>
-                                                <td><Link to={"/proposals/"+element.id}>#{element.id}</Link></td>
-                                            </tr>
-                                            {element.status !== 1 ? <>
-                                                <tr>
-                                                    <td>Voting start time :</td>
-                                                    <td>{metEnFormeDateTime(element.voting_start_time)}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Voting end time :</td>
-                                                    <td>{metEnFormeDateTime(element.voting_end_time)}</td>
-                                                </tr>
-                                            </> : null}
-                                            <tr>
-                                                <td>Title :</td>
-                                                <td>{element.content.title}</td>
+                                                <td>Voting start time :</td>
+                                                <td>{metEnFormeDateTime(element.voting_start_time)}</td>
                                             </tr>
                                             <tr>
-                                                <td>Description :</td>
-                                                <td>{element.content.description}</td>
+                                                <td>Voting end time :</td>
+                                                <td>{metEnFormeDateTime(element.voting_end_time)}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Status :</td>
-                                                <td>{proposalStatus[element.status]}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total deposit :</td>
-                                                <td>{coinsListToFormatedText(element.total_deposit)}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            : null)})
-                        :
-                        <p className="boxContainer">Loading data from blockchain (lcd) ...</p>
-                }
+                                        </> : null}
+                                        <tr>
+                                            <td>Title :</td>
+                                            <td>{element.content.title}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Description :</td>
+                                            <td>{element.content.description}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status :</td>
+                                            <td>{proposalStatus[element.status]}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total deposit :</td>
+                                            <td>{coinsListToFormatedText(element.total_deposit)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        : null
+                    )
+                })}
             </div>
         </div>
     );
