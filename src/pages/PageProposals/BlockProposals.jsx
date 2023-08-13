@@ -8,7 +8,8 @@ import { tblCorrespondanceValeurs } from '../../application/AppParams';
 const BlockProposals = (props) => {
 
     // Variables React
-    const [filtre, setFiltre] = useState(2);        // 2 = par défaut, on affiche les votes en cours
+    const [filtre, setFiltre] = useState(2);                // 2 = par défaut, on affiche les votes en cours
+    const nbCaracteresMaxAffichesPourDescription = 500;
 
     // Fonction de sélection de filtre
     const handleClick = (val) => {
@@ -62,7 +63,7 @@ const BlockProposals = (props) => {
                                         </tr>
                                         <tr>
                                             <td>Description :</td>
-                                            <td>{element.content.description}</td>
+                                            <td>{element.content.description.length > nbCaracteresMaxAffichesPourDescription ? element.content.description.substring(0, nbCaracteresMaxAffichesPourDescription) + " [......]" : element.content.description}</td>
                                         </tr>
                                         <tr>
                                             <td>Status :</td>

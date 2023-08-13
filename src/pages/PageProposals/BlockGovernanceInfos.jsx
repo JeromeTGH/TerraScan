@@ -5,8 +5,8 @@ import { BlocksIcon } from '../../application/AppIcons';
 const BlockGovernanceInfos = (props) => {
 
     // Variables react
-    const txtShow = "(click here to show)";
-    const txtHide = "(click here to hide)";
+    const txtShow = "(click here to show rules)";
+    const txtHide = "(click here to hide rules)";
     const [txtBtnShowHide, setTxtBtnShowHide] = useState(txtShow);
     const [classeShowHidePourTbl, setClasseShowHidePourTbl] = useState("tblHide");
 
