@@ -10,7 +10,7 @@ import BlockBalances from './BlockBalances';
 import BlockDelegations from './BlockDelegations';
 import BlockOtherAssets from './BlockOtherAssets';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
-// import BlockTransactions from './BlockTransactions';
+import BlockTransactions from './BlockTransactions';
 
 const PageAccount = () => {
 
@@ -61,7 +61,7 @@ const PageAccount = () => {
                 <BlockBalances accountAddress={cptNum} />
                 <BlockOtherAssets accountAddress={cptNum} />
                 <BlockDelegations accountAddress={cptNum} />
-                {/* <BlockTransactions accountAddress={cptNum} /> */}
+                <BlockTransactions accountAddress={cptNum} />
             </div>
         </>
     );

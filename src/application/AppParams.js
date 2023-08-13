@@ -5,7 +5,7 @@ export const appName        = 'TerraScan';
 export const chainName      = 'Terra Classic';
 export const chainID        = 'columbus-5';
 export const chainLCDurl    = 'https://lcd.terraclassic.community';
-// export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';    // Faster
+// export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';
 
 // Tableau de correspondance Coin/Désignation
 export const tblCorrespondanceValeurs = {

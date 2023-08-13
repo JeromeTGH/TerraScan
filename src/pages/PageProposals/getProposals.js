@@ -36,8 +36,6 @@ export const getProposals = async (governanceInfos) => {
 
 
     // Ajout de champs "tally", pour les votes en cours
-    console.log("tblProposals", tblProposals);
-
     for(let i=0 ; i<tblProposals.length ; i++) {
         if(tblProposals[i].status === 2) {              // 2 = vote en cours
             const rawTally = await lcd.gov.tally(tblProposals[i].id).catch(handleError);
