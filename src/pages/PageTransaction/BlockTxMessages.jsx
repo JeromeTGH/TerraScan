@@ -13,6 +13,7 @@ import MsgBeginRedelegate from './MsgBeginRedelegate';
 import MsgAcknowledgement from './MsgAcknowledgement';
 import MsgExecuteContract from './MsgExecuteContract';
 import MsgFundCommunityPool from './MsgFundCommunityPool';
+import MsgInstantiateContract from './MsgInstantiateContract';
 import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
@@ -42,9 +43,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgUpdateClient' ? <MsgUpdateClient txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgAcknowledgement' ? <MsgAcknowledgement txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExecAuthorized txMessage={props.txMessage} /> : null}
-
-
-
+                    {props.txMessage['MsgType'] === 'MsgInstantiateContract' ? <MsgInstantiateContract txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

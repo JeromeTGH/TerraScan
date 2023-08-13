@@ -1,6 +1,6 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
-         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgSend, MsgSubmitProposal,
+         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgInstantiateContract, MsgSend, MsgSubmitProposal,
          MsgUndelegate, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
@@ -251,6 +251,17 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['MsgDesc'] = 'Exec Authorized';
                 msgStructRet['Grantee'] = message.grantee;
                 msgStructRet['Msgs'] = message.msgs;
+            }
+
+            if(message instanceof MsgInstantiateContract) {
+                msgStructRet['MsgType'] = 'MsgInstantiateContract';
+                msgStructRet['MsgDesc'] = 'Instantiate Contract';
+                msgStructRet['Admin'] = message.admin;
+                msgStructRet['CodeID'] = message.code_id;
+                msgStructRet['InitCoins'] = coinsListToFormatedText(message.init_coins);
+                msgStructRet['InitMsg'] = message.init_msg;
+                msgStructRet['Label'] = message.label;
+                msgStructRet['Sender'] = message.sender;
             }
 
             txMessages.push(msgStructRet);
