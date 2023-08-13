@@ -2,25 +2,43 @@
 
 .blockInfos {
     grid-area: infos;
-}
 
-.tblInfos {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-    
-    td, th {
-        padding: 0.2rem 0.2rem;
-        font-size: 0.9rem;
+    .enteteShowHide {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
 
-        @media (max-width: $primary-breakpoint) {
+        .ztblHide {
+            margin-bottom: 0;
+        }
+
+        button {
+            border: none;
             font-size: 0.8rem;
+            background-color: transparent;
+            margin-left: 0.8rem;
         }
     }
+
+    .tblInfos {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+        
+        td, th {
+            padding: 0.2rem 0.2rem;
+            font-size: 0.9rem;
     
-    td:nth-child(2) {
-        white-space: nowrap;
-        vertical-align: top;
-    }
+            @media (max-width: $primary-breakpoint) {
+                font-size: 0.8rem;
+            }
+        }
+        
+        td:nth-child(2) {
+            white-space: nowrap;
+            vertical-align: top;
+        }
+    }    
 
 }

@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './BlockGovernanceInfos.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 
 const BlockGovernanceInfos = (props) => {
 
+    // Variables react
+    const txtShow = "(click here to show)";
+    const txtHide = "(click here to hide)";
+    const [txtBtnShowHide, setTxtBtnShowHide] = useState(txtShow);
+    const [classeShowHidePourTbl, setClasseShowHidePourTbl] = useState("tblHide");
+
+    // Fonction toggle, sur bouton show/hide
+    const handleClickOnShowHideBtn = () => {
+        if(txtBtnShowHide === txtShow) {
+            // Affichage du tableau
+            setClasseShowHidePourTbl("tblShow");
+            setTxtBtnShowHide(txtHide);
+        } else {
+            // Effacement du tableau
+            setClasseShowHidePourTbl("tblHide");
+            setTxtBtnShowHide(txtShow);
+        }
+    }
+
     // Affichage
     return (
         <div className={"boxContainer " + styles.blockInfos}>
-            <p className="h2like"><strong><BlocksIcon /><span>Rules</span></strong><span> (global)</span></p>
-            <table className={styles.tblInfos}>
+            <div className={styles.enteteShowHide}>
+                <div className={"h2like nomargin"}><strong><BlocksIcon /><span>Rules</span></strong></div>
+                <div><button className="colore" onClick={() => handleClickOnShowHideBtn()}>{txtBtnShowHide}</button></div>
+            </div>
+            <table className={styles.tblInfos + ' ' + classeShowHidePourTbl}>
                 <tbody>
                     <tr>
                         <td><strong>Min deposit of coins</strong> (to allow vote start)&nbsp;:</td>
