@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import styles from './BlockProposals.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { Coins } from '@terra-money/terra.js';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 
 const BlockProposals = (props) => {
 
+    const navigate = useNavigate();
+
     // Variables React
-    const [filtre, setFiltre] = useState(2);                // 2 = par défaut, on affiche les votes en cours
+    const [filtre, setFiltre] = useState(2);                // choix "2" par défaut, pour afficher les votes en cours au démarrage
     const nbCaracteresMaxAffichesPourDescription = 500;
 
     // Fonction de sélection de filtre
-    const handleClick = (val) => {
+    const handleClickOnFilter = (val) => {
         // Valeur de "filtre" et statut associé :
         // 0 => all
         // 1 => PROPOSAL_STATUS_VOTING_PERIOD
@@ -22,17 +24,22 @@ const BlockProposals = (props) => {
         setFiltre(val);
     }
 
+    // Fonction de navigation, pour voir le détail d'une proposition donnée
+    const handleClickOnProposal = (propID) => {
+        navigate('/proposals/' + propID);
+    }
+
     // Affichage
     return (
         <div className={styles.blockProposals}>
             <table className={styles.tblFilters}>
                 <tbody>
                     <tr>
-                        <td className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClick(0)}>Show ALL proposals<br />↓</td>
-                        <td className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClick(2)}>Show VOTES in progress<br />↓</td>
-                        <td className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClick(1)}>Show PENDING deposits<br />↓</td>
-                        <td className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClick(3)}>Show ADOPTED proposals<br />↓</td>
-                        <td className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClick(4)}>Show REJECTED proposals<br />↓</td>
+                        <td className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}>Show ALL proposals<br />↓</td>
+                        <td className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}>Show VOTES in progress<br />↓</td>
+                        <td className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}>Show PENDING deposits<br />↓</td>
+                        <td className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(3)}>Show ADOPTED proposals<br />↓</td>
+                        <td className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</td>
                     </tr>
                 </tbody>
             </table>
@@ -40,7 +47,7 @@ const BlockProposals = (props) => {
                 {props.tblProposals.map((element, index) => {
                     return (
                         ((filtre === 0) || element.status === filtre) ?
-                            <div className={"boxContainer " + styles.proposalBox} key={index}>
+                            <div className={"boxContainer " + styles.proposalBox} key={index} onClick={() => handleClickOnProposal(element.id)}>
                                 <table className={styles.tblProposals}>
                                     <tbody>
                                         <tr>
@@ -59,7 +66,7 @@ const BlockProposals = (props) => {
                                         </> : null}
                                         <tr>
                                             <td>Title :</td>
-                                            <td>{element.content.title}</td>
+                                            <td><strong>{element.content.title}</strong></td>
                                         </tr>
                                         <tr>
                                             <td>Description :</td>
@@ -67,7 +74,7 @@ const BlockProposals = (props) => {
                                         </tr>
                                         <tr>
                                             <td>Status :</td>
-                                            <td>{proposalStatus[element.status]}</td>
+                                            <td><u>{proposalStatus[element.status]}</u></td>
                                         </tr>
                                         <tr>
                                             <td>Total deposit :</td>
@@ -90,7 +97,7 @@ const proposalStatus = {
     0: "???",                                       // PROPOSAL_STATUS_UNSPECIFIED
     1: "Waiting enough deposit (deposit period)",   // PROPOSAL_STATUS_DEPOSIT_PERIOD
     2: "Voting (voting period)",                    // PROPOSAL_STATUS_VOTING_PERIOD
-    3: "Passed !",                                  // PROPOSAL_STATUS_PASSED
+    3: "Passed",                                    // PROPOSAL_STATUS_PASSED
     4: "Rejected",                                  // PROPOSAL_STATUS_REJECTED
     // 5: "PROPOSAL_STATUS_FAILED"
 }
