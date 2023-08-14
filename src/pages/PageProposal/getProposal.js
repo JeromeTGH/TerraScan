@@ -1,7 +1,6 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
-import { AccAddress, LCDClient } from '@terra-money/terra.js';
+import { AccAddress, Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
-
 
 export const getProposal = async (propID) => {
 
@@ -46,7 +45,7 @@ export const getProposal = async (propID) => {
             proposalInfos['finalVotesNoWithVeto'] = parseFloat(rawProposal.final_tally_result.no_with_veto.toString())*100;
         proposalInfos['status'] = rawProposal.status;
         proposalInfos['submitDatetime'] = rawProposal.submit_time;
-        proposalInfos['totalDeposit'] = rawProposal.total_deposit;
+        proposalInfos['totalDeposit'] = returnLUNCfromCoinList(rawProposal.total_deposit);
         proposalInfos['votingStartTime'] = rawProposal.voting_start_time;
         proposalInfos['votingEndTime'] = rawProposal.voting_end_time;
     } else
@@ -92,6 +91,24 @@ export const getProposal = async (propID) => {
         }
     } else
         return { "erreur": "Failed to fetch [validators] ..." }
+
+
+    // Si un vote est en attente d'un dépôt suffisant (status = 1), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === 1) {
+
+        // Récupération des infos concernant les dépôts (qté de LUNC nécessaire pour lancer le vote)
+        const rawDepositParameters = await lcd.gov.depositParameters().catch(handleError);
+        if(rawDepositParameters) {
+            proposalInfos['nbMinDepositLunc'] = returnLUNCfromCoinList(rawDepositParameters.min_deposit);
+        } else
+            return { "erreur": "Failed to fetch [deposit parameters] ..." }
+
+        const ratioDepot = parseFloat((proposalInfos['totalDeposit'] / proposalInfos['nbMinDepositLunc']).toFixed(4));  // 4 pour pourcentage avec 2 chiffres après la virgule
+        if(ratioDepot >= 1)
+            proposalInfos['pourcentageDeLuncFournisSurRequis'] = 100;
+        else
+            proposalInfos['pourcentageDeLuncFournisSurRequis'] = (ratioDepot * 100);
+    }
 
 
     // Si un vote est en cours (status = 2), alors on récupère d'autres infos particulières
@@ -141,7 +158,7 @@ export const getProposal = async (propID) => {
                 proposalInfos['pourcentageOfVoters'] = proposalInfos['nbVotersLunc'] / proposalInfos['nbStakedLunc'] * 100;
 
 
-            const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['seuilDuQuorum'] + "% needed)" :
+            const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['pourcentageOfVoters'].toFixed(2) + "% have voted, but " + proposalInfos['seuilDuQuorum'] + "% of voters is required)" :
                                     proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilDeVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "%)" :
                                     proposalInfos['pourcentageOfYes'] < proposalInfos['seuilDacceptation'] ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "%)" :
                                                                                                              "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "%)";
@@ -178,66 +195,6 @@ export const getProposal = async (propID) => {
                 proposalInfos['statutVote'] = "Proposal REJECTED";
         
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Traitement des dates de vote
-    if(rawProposal.voting_end_time > Date.now()) {
-        proposalInfos['totalVotesYes'] = proposalInfos['finalVotesYes'];
-        proposalInfos['totalVotesAbstain'] = proposalInfos['finalVotesAbstain'];
-        proposalInfos['totalVotesNo'] = proposalInfos['finalVotesNo'];
-        proposalInfos['totalVotesNoWithVeto'] = proposalInfos['finalVotesNoWithVeto'];
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // // Récupération des infos concernant les dépôts (qté de LUNC nécessaire pour lancer le vote, et durée max de deposit)
-    // const rawDepositParameters = await lcd.gov.depositParameters().catch(handleError);
-    // if(rawDepositParameters) {
-    //     governanceInfos['nbMinDepositLunc'] = coinsListToFormatedText(rawDepositParameters.min_deposit);
-    //     governanceInfos['nbJoursMaxDeposit'] = rawDepositParameters.max_deposit_period / 3600 / 24;
-    // } else
-    //     return { "erreur": "Failed to fetch [deposit parameters] ..." }
-
-
-    // // Récupération des infos concernant la durée maximal d'un vote
-    // const rawVotingParameters = await lcd.gov.votingParameters().catch(handleError);
-    // if(rawVotingParameters) {
-    //     governanceInfos['nbJoursMaxPourVoter'] = rawVotingParameters.voting_period / 3600 / 24;
-    // } else
-    //     return { "erreur": "Failed to fetch [voting parameters] ..." }
-
-        
-    // // Règles de validation de vote
-    // const rawTallyParameters = await lcd.gov.tallyParameters().catch(handleError);
-    // if(rawTallyParameters) {
-    //     const valQuorum = parseFloat(rawTallyParameters.quorum.toString())*100;                     // * 100 pour avoir ça en pourcentage
-    //     const valThreshold = parseFloat(rawTallyParameters.threshold.toString())*100;
-    //     const valVetoThreshold = parseFloat(rawTallyParameters.veto_threshold.toString())*100;
-    //     governanceInfos['quorum'] = valQuorum;
-    //     governanceInfos['seuilDacceptation'] = valThreshold;
-    //     governanceInfos['seuilDeRefus'] = 100 - valThreshold;
-    //     governanceInfos['seuilDeVeto'] = valVetoThreshold;
-    // } else
-    //     return { "erreur": "Failed to fetch [tally parameters] ..." }
     
 
     // Envoi des infos en retour
@@ -253,24 +210,16 @@ const handleError = (err) => {
 }
 
 
-// // ======================================================================
-// // Créé un STRING avec montant+devise, séparé de virgules si multidevises
-// // ======================================================================
-// const coinsListToFormatedText = (coinsList) => {
-//     const dataCoinsList = (new Coins(coinsList)).toData();
-//     let retour = "";
-    
-//     if(dataCoinsList.length > 0) {
-//         for(let i=0 ; i < dataCoinsList.length ; i++) {
-//             const msgAmount = formateLeNombre(dataCoinsList[i].amount/1000000, ' ');
-//             const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
-//             if(retour !== "")
-//                 retour += ", ";
-//             retour += (msgAmount + "\u00a0" + msgCoin);
-//         }
-//     } else {
-//         retour = "---";
-//     }
+// ======================================================================
+// Retourne le nombre de 'uluna' d'une liste de coins, passée en argument
+// ======================================================================
+const returnLUNCfromCoinList = (coinsList) => {
+    const dataCoinsList = (new Coins(coinsList)).toData();
 
-//     return retour;
-// }
+    const idxLunc = dataCoinsList.findIndex(element => element.denom === "uluna");
+
+    if(idxLunc > -1) {
+        return parseInt(dataCoinsList[idxLunc].amount/1000000);
+    } else
+        return 0;
+}

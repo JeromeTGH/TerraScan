@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 
 
 const PageProposal = () => {
@@ -69,11 +69,52 @@ const PageProposal = () => {
                             <h2 className={styles.h2titles}><strong>Proposal : </strong>{proposalInfos['contentTitle']}</h2>
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </div>
+                        {proposalInfos['status'] === 1 ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>Votes</strong> (pending for enough deposits)</h2>
+                                <table className={styles.tblInfos}>
+                                    <tbody>
+                                        <tr>
+                                            <td>Proposal ID :</td>
+                                            <td>{propID}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amount of LUNC required :</td>
+                                            <td>{formateLeNombre(proposalInfos['nbMinDepositLunc'], '\u00a0')} LUNC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amount of LUNC deposited :</td>
+                                            <td>{formateLeNombre(proposalInfos['totalDeposit'], '\u00a0')} LUNC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ratio LUNC deposited/required :</td>
+                                            <td>{proposalInfos['pourcentageDeLuncFournisSurRequis']}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Progress :</td>
+                                            <td>
+                                                <div className={styles.supportBar}>
+                                                    <div style={{ width: proposalInfos['pourcentageDeLuncFournisSurRequis'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deposit end time :</td>
+                                            <td>{metEnFormeDateTime(proposalInfos['depositEndTime'])}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        : null}
                         {proposalInfos['status'] === 2 ?
                             <div className="boxContainer">
                                 <h2 className={styles.h2titles}><strong>Votes</strong> (in progress)</h2>
                                 <table className={styles.tblInfos}>
                                     <tbody>
+                                        <tr>
+                                            <td>Proposal ID :</td>
+                                            <td>{propID}</td>
+                                        </tr>
                                         <tr>
                                             <td>Voting start time :</td>
                                             <td>{metEnFormeDateTime(proposalInfos['votingStartTime'])}</td>
@@ -142,6 +183,10 @@ const PageProposal = () => {
                                 <h2 className={styles.h2titles}><strong>Votes</strong> (voting complete)</h2>
                                 <table className={styles.tblInfos}>
                                     <tbody>
+                                        <tr>
+                                            <td>Proposal ID :</td>
+                                            <td>{propID}</td>
+                                        </tr>
                                         <tr>
                                             <td>Voting start time :</td>
                                             <td>{metEnFormeDateTime(proposalInfos['votingStartTime'])}</td>
