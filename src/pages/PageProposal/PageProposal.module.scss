@@ -2,14 +2,24 @@
 
 .blocksProposalInfos {
     padding-top: 0.4rem;
+    display: grid;
+    row-gap: 1.2rem;
 
-    .headInfos {
-        padding-bottom: 1rem;
+    .h2titles {
+        text-align: left;
+        border-bottom: 1px solid var(--outline-box-color);
+        word-break: break-all;
+        white-space: pre-wrap;
+    }
 
-        p {
-            font-size: 0.8rem;
-            font-style: italic;    
-        }
+    .contentDescription {
+        word-break: break-all;
+        white-space: pre-wrap;
+    }
+
+    .headInfos p {
+        font-size: 0.8rem;
+        font-style: italic;    
     }
 
     .tblInfos {
@@ -26,10 +36,20 @@
             }
         }
         
-        // td:nth-child(2) {
-        //     white-space: nowrap;
-        //     vertical-align: top;
-        // }
+        td:nth-child(1) {
+            width: 1%;
+            white-space: nowrap;
+            font-weight: bold;
+            vertical-align: top;
+        }
+
+        .supportBar {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            border: 1px solid var(--outline-box-color);
+            font-size: 0.4rem;
+        }
     }
 
 }

@@ -110,7 +110,7 @@ const proposalStatus = {
     // -1: "UNRECOGNIZED"
     0: "???",                                       // PROPOSAL_STATUS_UNSPECIFIED
     1: "Waiting enough deposit (deposit period)",   // PROPOSAL_STATUS_DEPOSIT_PERIOD
-    2: "Voting (voting period)",                    // PROPOSAL_STATUS_VOTING_PERIOD
+    2: "Voting in progress",                        // PROPOSAL_STATUS_VOTING_PERIOD
     3: "Passed",                                    // PROPOSAL_STATUS_PASSED
     4: "Rejected",                                  // PROPOSAL_STATUS_REJECTED
     // 5: "PROPOSAL_STATUS_FAILED"

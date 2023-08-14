@@ -1,5 +1,6 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
 import { AccAddress, LCDClient } from '@terra-money/terra.js';
+import Decimal from 'decimal.js';
 
 
 export const getProposal = async (propID) => {
@@ -8,10 +9,6 @@ export const getProposal = async (propID) => {
         'contentTitle': null,           // Titre de la proposition
         'contentDescription': null,     // Description de la proposition
         'depositEndTime': null,         // Date et heure de fin, pour apporter suffisamment de dépôt (1M de LUNC, actuellement), pour qu'une proposition soit soumise au vote
-        'totalVotesYes': null,          // Total des votes "oui" (en cours, si période de vote non échue, ou final, si terme échu)
-        'totalVotesAbstain': null,      // Idem pour votes "abstention"
-        'totalVotesNo': null,           // Idem pour votes "non"
-        'totalVotesNoWithVeto': null,   // Idem pour votes "non avec véto"
         'status': null,                 // 1=PROPOSAL_STATUS_DEPOSIT_PERIOD, 2=PROPOSAL_STATUS_VOTING_PERIOD, 3=PROPOSAL_STATUS_PASSED, 4=PROPOSAL_STATUS_REJECTED
         'submitDatetime': null,         // Date et heure de la création de la proposition
         'totalDeposit': null,           // Quantité de LUNC déposés (pour rappel, en ce moment, il faut 1M de LUNC pour qu'une proposition puisse passer au vote)
@@ -20,6 +17,12 @@ export const getProposal = async (propID) => {
         'proposerAddress': null,        // Adresse "terra1..." du proposer
         'proposerValAddress': null,     // Adresse "terravaloper1..." du validateur, si c'est lui le proposer
         'proposerValMoniker': null,     // Surnom du validateur, si c'est lui le proposer
+        'nbStakedLunc': null,           // Nombre de LUNC stakés (montant en "uluna", ici)
+        'seuilDuQuorum': null,          // Seuil d'atteinte du quorum (nbre de participant minimum à avoir, pour qu'un vote soit valide)
+        'seuilDacceptation': null,      // Seuil de votes YES à avoir, pour qu'une proposition soit adoptée
+        'seuilDeRefus': null,           // Seuil de votes NO + NO_WITH_VETO à partir duquel une proposition est rejetée
+        'seuilDeVeto': null,            // Seuil de votes NO_WITH_VETO à partir duquel une proposition reçoit un veto (non remboursement du dépôt, dans ce cas)
+        // Etc... (inutile de vraiment lister quoi que ce soit ici, en fait)
     }
 
    
@@ -37,10 +40,10 @@ export const getProposal = async (propID) => {
         proposalInfos['contentTitle'] = rawProposal.content.title;
         proposalInfos['contentDescription'] = rawProposal.content.description;
         proposalInfos['depositEndTime'] = rawProposal.deposit_end_time;
-            proposalInfos['finalVotesYes'] = rawProposal.final_tally_result.yes;
-            proposalInfos['finalVotesAbstain'] = rawProposal.final_tally_result.abstain;
-            proposalInfos['finalVotesNo'] = rawProposal.final_tally_result.no;
-            proposalInfos['finalVotesNoWithVeto'] = rawProposal.final_tally_result.no_with_veto;
+            proposalInfos['finalVotesYes'] = parseFloat(rawProposal.final_tally_result.yes.toString())*100;
+            proposalInfos['finalVotesAbstain'] = parseFloat(rawProposal.final_tally_result.abstain.toString())*100;
+            proposalInfos['finalVotesNo'] = parseFloat(rawProposal.final_tally_result.no.toString())*100;
+            proposalInfos['finalVotesNoWithVeto'] = parseFloat(rawProposal.final_tally_result.no_with_veto.toString())*100;
         proposalInfos['status'] = rawProposal.status;
         proposalInfos['submitDatetime'] = rawProposal.submit_time;
         proposalInfos['totalDeposit'] = rawProposal.total_deposit;
@@ -89,6 +92,98 @@ export const getProposal = async (propID) => {
         }
     } else
         return { "erreur": "Failed to fetch [validators] ..." }
+
+
+    // Si un vote est en cours (status = 2), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === 2) {
+
+        // Récupération du nombre total de LUNC stakés, en ce moment
+        const rawStakingPool = await lcd.staking.pool().catch(handleError);
+        if(rawStakingPool) {
+            proposalInfos['nbStakedLunc'] = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
+        } else
+            return { "erreur": "Failed to fetch [staking pool] ..." }
+
+
+        // Récupération des règles de vote
+        const rawTallyParameters = await lcd.gov.tallyParameters().catch(handleError);
+        if(rawTallyParameters) {
+            const valQuorum = parseFloat(rawTallyParameters.quorum.toString())*100;                     // * 100 pour avoir ça en pourcentage
+            const valThreshold = parseFloat(rawTallyParameters.threshold.toString())*100;
+            const valVetoThreshold = parseFloat(rawTallyParameters.veto_threshold.toString())*100;
+            proposalInfos['seuilDuQuorum'] = valQuorum;
+            proposalInfos['seuilDacceptation'] = valThreshold;
+            proposalInfos['seuilDeRefus'] = 100 - valThreshold;
+            proposalInfos['seuilDeVeto'] = valVetoThreshold;
+        } else
+            return { "erreur": "Failed to fetch [tally parameters] ..." }
+
+
+        // Récupération des tally de ce vote en cours
+        const rawTally = await lcd.gov.tally(propID).catch(handleError)
+        if(rawTally) {
+
+            proposalInfos['nbVotesYesLunc'] = parseInt(rawTally.yes.toString());
+            proposalInfos['nbVotesAbstainLunc'] = parseInt(rawTally.abstain.toString());
+            proposalInfos['nbVotesNoLunc'] = parseInt(rawTally.no.toString());
+            proposalInfos['nbVotesNowithvetoLunc'] = parseInt(rawTally.no_with_veto.toString());
+                proposalInfos['nbVotersLunc'] = proposalInfos['nbVotesYesLunc'] + proposalInfos['nbVotesAbstainLunc'] + proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+
+            proposalInfos['sommesDesVotesNON'] = proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+            proposalInfos['pourcentageOfYESvsNOs'] = proposalInfos['nbVotesYesLunc'] / (proposalInfos['nbVotesYesLunc'] + proposalInfos['sommesDesVotesNON']) * 100;
+            proposalInfos['pourcentageOfNOsvsYES'] = 100 - proposalInfos['pourcentageOfYESvsNOs'];
+
+
+            proposalInfos['pourcentageOfYes'] = proposalInfos['nbVotesYesLunc'] / proposalInfos['nbStakedLunc'] * 100;
+            proposalInfos['pourcentageOfAbstain'] = proposalInfos['nbVotesAbstainLunc'] / proposalInfos['nbStakedLunc'] * 100;
+            proposalInfos['pourcentageOfNo'] = proposalInfos['nbVotesNoLunc'] / proposalInfos['nbStakedLunc'] * 100;
+            proposalInfos['pourcentageOfNoWithVeto'] = proposalInfos['nbVotesNowithvetoLunc'] / proposalInfos['nbStakedLunc'] * 100;
+                proposalInfos['pourcentageOfVoters'] = proposalInfos['nbVotersLunc'] / proposalInfos['nbStakedLunc'] * 100;
+
+
+            const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['seuilDuQuorum'] + "% needed)" :
+                                    proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilDeVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "%)" :
+                                    proposalInfos['pourcentageOfYes'] < proposalInfos['seuilDacceptation'] ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "%)" :
+                                                                                                             "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "%)";
+
+            proposalInfos['statutVote'] = statutVote;
+
+        } else
+            return { "erreur": "Failed to fetch [tally] ..." }
+
+    }
+
+    // Si un vote est en finis (status = 3 si adopté, ou 4 si rejeté), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
+
+        // Calculs
+            proposalInfos['nbVotesYesLunc'] = proposalInfos['finalVotesYes'];
+            proposalInfos['nbVotesAbstainLunc'] = proposalInfos['finalVotesAbstain'];
+            proposalInfos['nbVotesNoLunc'] = proposalInfos['finalVotesNo'];
+            proposalInfos['nbVotesNowithvetoLunc'] = proposalInfos['finalVotesNoWithVeto'];
+                proposalInfos['nbVotersLunc'] = proposalInfos['nbVotesYesLunc'] + proposalInfos['nbVotesAbstainLunc'] + proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+
+            proposalInfos['sommesDesVotesNON'] = proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+            proposalInfos['pourcentageOfYESvsNOs'] = proposalInfos['nbVotesYesLunc'] / (proposalInfos['nbVotesYesLunc'] + proposalInfos['sommesDesVotesNON']) * 100;
+            proposalInfos['pourcentageOfNOsvsYES'] = 100 - proposalInfos['pourcentageOfYESvsNOs'];
+
+            proposalInfos['pourcentageOfYes'] = proposalInfos['nbVotesYesLunc'] / proposalInfos['nbVotersLunc'] * 100;
+            proposalInfos['pourcentageOfAbstain'] = proposalInfos['nbVotesAbstainLunc'] / proposalInfos['nbVotersLunc'] * 100;
+            proposalInfos['pourcentageOfNo'] = proposalInfos['nbVotesNoLunc'] / proposalInfos['nbVotersLunc'] * 100;
+            proposalInfos['pourcentageOfNoWithVeto'] = proposalInfos['nbVotesNowithvetoLunc'] / proposalInfos['nbVotersLunc'] * 100;
+
+            if(proposalInfos['status'] === 3)
+                proposalInfos['statutVote'] = "Proposal ADOPTED";
+            else
+                proposalInfos['statutVote'] = "Proposal REJECTED";
+        
+    }
+
+
+
+
+
+
 
 
 
