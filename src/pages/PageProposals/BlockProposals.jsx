@@ -17,8 +17,8 @@ const BlockProposals = (props) => {
     const handleClickOnFilter = (val) => {
         // Valeur de "filtre" et statut associé :
         // 0 => all
-        // 1 => PROPOSAL_STATUS_VOTING_PERIOD
-        // 2 => PROPOSAL_STATUS_DEPOSIT_PERIOD
+        // 1 => PROPOSAL_STATUS_DEPOSIT_PERIOD
+        // 2 => PROPOSAL_STATUS_VOTING_PERIOD
         // 3 => PROPOSAL_STATUS_PASSED
         // 4 => PROPOSAL_STATUS_REJECTED
         setFiltre(val);

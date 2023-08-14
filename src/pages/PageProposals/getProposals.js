@@ -29,7 +29,7 @@ export const getProposals = async (governanceInfos) => {
     const rawStakingPool = await lcd.staking.pool().catch(handleError);
     if(rawStakingPool) {
         const bondedTokens = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
-        // nbLuncStaked = parseInt(bondedTokens/1000000);
+        // nbLuncStaked = parseInt(bondedTokens/1000000);       // On garde les uluna ici, pour plus de précision
         nbLuncStaked = bondedTokens;
     } else
         return { "erreur": "Failed to fetch [staking pool] ..." }

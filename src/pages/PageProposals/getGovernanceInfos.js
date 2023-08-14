@@ -1,7 +1,6 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import { formateLeNombre } from '../../application/AppUtils';
-// import { bech32 } from 'bech32';
 
 
 export const getGovernanceInfos = async () => {

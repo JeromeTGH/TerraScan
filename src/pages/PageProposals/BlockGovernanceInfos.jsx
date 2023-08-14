@@ -33,34 +33,34 @@ const BlockGovernanceInfos = (props) => {
             <table className={styles.tblInfos + ' ' + classeShowHidePourTbl}>
                 <tbody>
                     <tr>
-                        <td><strong>Min deposit of coins</strong> (to allow vote start)&nbsp;:</td>
+                        <td><strong>Min deposit of coins</strong><span className={styles.notes}>(to allow vote start)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['nbMinDepositLunc']}</td>
                     </tr>
                     <tr>
-                        <td><strong>Max deposit period</strong> (to allow vote start)&nbsp;:</td>
+                        <td><strong>Max deposit period</strong><span className={styles.notes}>(to allow vote start)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['nbJoursMaxDeposit']} days</td>
                     </tr>
                     <tr>
-                        <td><strong>Maximum voting time</strong> (for each proposal)&nbsp;:</td>
+                        <td><strong>Maximum voting time</strong><span className={styles.notes}>(for each proposal)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['nbJoursMaxPourVoter']} days</td>
                     </tr>
                     <tr>
                         <td colSpan='2'>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Quorum</strong> (min % min of voters, to be valid)&nbsp;:</td>
+                        <td><strong>Quorum</strong><span className={styles.notes}>(min % min of voters, to be valid)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['quorum']} %</td>
                     </tr>
                     <tr>
-                        <td><strong>Acceptance threshold</strong> (min % of votes, to adopt a proposal)&nbsp;:</td>
+                        <td><strong>Acceptance threshold</strong><span className={styles.notes}>(min % of votes, to adopt a proposal)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['seuilDacceptation']} %</td>
                     </tr>
                     <tr>
-                        <td><strong>Refusal threshold</strong> (min % of votes, to reject a proposal and return deposit)&nbsp;:</td>
+                        <td><strong>Refusal threshold</strong><span className={styles.notes}>(min % of votes, to reject a proposal and return deposit)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['seuilDeRefus']} %</td>
                     </tr>
                     <tr>
-                        <td><strong>Veto threshold</strong> (min % of votes, to reject a proposal and keep deposit)&nbsp;:</td>
+                        <td><strong>Veto threshold</strong><span className={styles.notes}>(min % of votes, to reject a proposal and keep deposit)&nbsp;:</span></td>
                         <td>{props.tblGovernanceInfos['seuilDeVeto']} %</td>
                     </tr>
                 </tbody>
