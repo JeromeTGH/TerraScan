@@ -1,22 +1,14 @@
 @import '../../style/variables';
 
-.otherAssetsBlock {
-    grid-area: otherassets;
+.delegationsBlock {
+    grid-area: undelegations;
 }
 
-.tblAssets {
+.tblDelegations {
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
 
-    display: block;
-    height: 280px;
-    overflow-y: scroll;
-
-    td:nth-child(1) {
-        width: 100%;
-    }
-    
     thead tr {
         background-color: var(--head-table-line-fill-color);
     }
@@ -26,23 +18,25 @@
     }
     
     td, th {
-        padding: 0.2rem 0.4rem;
+        padding: 0.2rem 0.2rem;
         font-size: 0.9rem;
+        .smallPart { font-size: 0.7rem; }
         text-align: right;
+
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;
+            .smallPart { font-size: 0.4rem; }
         }
     }
 
-    th:first-child, td:first-child {
+    td:nth-child(1) {
+        word-break: break-all;
+        text-align: left;
+    }
+
+    th:nth-child(1) {
         text-align: left;
     }
 
 
-}
-
-.comments {
-    font-size: 0.7rem;
-    padding-top: 0.4rem;
-    text-align: center;
 }

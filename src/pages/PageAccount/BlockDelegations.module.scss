@@ -20,23 +20,22 @@
     td, th {
         padding: 0.2rem 0.2rem;
         font-size: 0.9rem;
+        text-align: right;
         .smallPart { font-size: 0.7rem; }
 
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;
             .smallPart { font-size: 0.4rem; }
         }
-
-
     }
 
     td:nth-child(1) {
         word-break: break-all;
+        text-align: left;
     }
 
-    td:nth-child(2), td:nth-child(3), td:nth-child(4) {
-        text-align: right;
+    th:nth-child(1) {
+        text-align: left;
     }
-
 
 }
