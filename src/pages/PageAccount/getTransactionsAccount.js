@@ -17,12 +17,15 @@ export const getTransactionsAccount = async (accountAddress) => {
 
 
     // Recherche de transactions, pour un compte donné
-    const params = new URLSearchParams();
-    params.append("pagination.limit", "9999");
-    params.append("events", "bank.account='terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd'");         // Search test by event => failed
-    // params.toString() ===> pagination.limit=9999&events=bank.account%3D%27terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd%27
+    const rawTransactions = await lcd.tx.search({
+        events: [
+            // { key: 'tx.height', value: '14100312' }                                          // Test #1 : works
+            // { key: 'submit_proposal.proposal_id', value: 11695 }                             // Test #2 : works
+            { key: 'bank.account', value: 'terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd' }      // Test #3 : does not work
+        ],
+        'pagination.limit': '9999'
+      }).catch(handleError);
 
-    const rawTransactions = await lcd.tx.search(params).catch(handleError);
 
     if(rawTransactions) {
         // Envoi des infos en retour
@@ -53,5 +56,6 @@ export const getTransactionsAccount = async (accountAddress) => {
 
 
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    // console.log("ERREUR", err);
+    console.log(err.response.data.message);
 }

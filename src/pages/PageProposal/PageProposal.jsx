@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
@@ -42,23 +42,34 @@ const PageProposal = () => {
                     proposalInfos && proposalInfos['contentDescription'] ?
                     <>
                         <div className={styles.headInfos}>
-                            <p>Date creation : {metEnFormeDateTime(proposalInfos['submitDatetime'])}</p>
-                            <p>Created by : <span className='colore'>(not implemented yet)</span></p>
-                            <p>Status : <span className='colore'>{proposalInfos['statusText']}</span></p>
+                            <p><u>Date creation</u> : {metEnFormeDateTime(proposalInfos['submitDatetime'])}</p>
+                            <p><u>Created by</u> : {
+                                proposalInfos['proposerValAddress'] ?
+                                    <>
+                                        <Link to={"/validators/" + proposalInfos['proposerValAddress']}>{proposalInfos['proposerValMoniker']}</Link>
+                                        <br/><span>(through his account </span>
+                                        <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link>
+                                        <span>)</span>
+                                    </>
+                                :
+                                    <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link>
+                                }
+                            </p>
+                            <p><u>Status</u> : <span><strong>{proposalInfos['statusText']}</strong></span></p>
                         </div>
                         <p className="h2like"><strong>{proposalInfos['contentTitle']}</strong></p>
                         <p style={{whiteSpace: "pre-wrap"}}>{proposalInfos['contentDescription']}</p>
                         <br />
-                        <hr />
-                        <p>=====&gt; Building ...</p>
                         {/* <table className={styles.tblInfos}>
                             <tbody>
-                                <tr>
-                                    <td>Description</td>
-                                    <td>{proposalInfos['contentDescription']}</td>
-                                </tr>
+                            <tr>
+                            <td>Description</td>
+                            <td>{proposalInfos['contentDescription']}</td>
+                            </tr>
                             </tbody>
                         </table> */}
+                        <hr />
+                        <p>=====&gt; Not finished ...</p>
                     </>
                         :
                         <div>Loading data from blockchain (lcd) ...</div>

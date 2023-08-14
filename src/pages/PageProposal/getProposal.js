@@ -1,5 +1,5 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
-import { LCDClient } from '@terra-money/terra.js';
+import { AccAddress, LCDClient } from '@terra-money/terra.js';
 
 
 export const getProposal = async (propID) => {
@@ -17,6 +17,9 @@ export const getProposal = async (propID) => {
         'totalDeposit': null,           // Quantité de LUNC déposés (pour rappel, en ce moment, il faut 1M de LUNC pour qu'une proposition puisse passer au vote)
         'votingStartTime': null,        // Date/heure de début de la phase de vote (si le dépôt a été suffisant, pour que le vote soit lancé)
         'votingEndTime': null,          // Date/heure de fin de la phase de vote (si le dépôt a été suffisant, pour que le vote soit lancé)
+        'proposerAddress': null,        // Adresse "terra1..." du proposer
+        'proposerValAddress': null,     // Adresse "terravaloper1..." du validateur, si c'est lui le proposer
+        'proposerValMoniker': null,     // Surnom du validateur, si c'est lui le proposer
     }
 
    
@@ -43,14 +46,11 @@ export const getProposal = async (propID) => {
         proposalInfos['totalDeposit'] = rawProposal.total_deposit;
         proposalInfos['votingStartTime'] = rawProposal.voting_start_time;
         proposalInfos['votingEndTime'] = rawProposal.voting_end_time;
-
-
-        console.log("rawProposal", rawProposal);
     } else
         return { "erreur": "Failed to fetch [proposal] ..." }
 
 
-    // Ajout d'un "status texte"
+    // Ajout d'un "status texte", pour que ce soit plus parlant
     switch(proposalInfos['status']) {
         case 1:     // 1 = PROPOSAL_STATUS_DEPOSIT_PERIOD
             proposalInfos['statusText'] = 'waiting for enough deposits';
@@ -68,6 +68,30 @@ export const getProposal = async (propID) => {
             proposalInfos['statusText'] = '(unknonw status)';
             break;
     }
+
+
+    // Recherche de l'auteur de la proposition
+    const rawProposer = await lcd.gov.proposer(propID).catch(handleError);
+    if(rawProposer) {
+        proposalInfos['proposerAddress'] = rawProposer;
+    } else
+        return { "erreur": "Failed to fetch [proposer] ..." }
+
+
+    // Scan de toute la liste des validateurs, pour voir si cette adresse ne correspondrait pas à l'un d'entre eux
+    const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
+    if(rawValidators) {
+        for(let i=0 ; i<rawValidators[0].length ; i++) {
+            if(AccAddress.fromValAddress(rawValidators[0][i].operator_address) === proposalInfos['proposerAddress']) {
+                proposalInfos['proposerValAddress'] = rawValidators[0][i].operator_address;
+                proposalInfos['proposerValMoniker'] = rawValidators[0][i].description.moniker;
+            }
+        }
+    } else
+        return { "erreur": "Failed to fetch [validators] ..." }
+
+
+
 
 
 
