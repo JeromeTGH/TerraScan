@@ -11,7 +11,7 @@ import BlockDelegations from './BlockDelegations';
 import BlockOtherAssets from './BlockOtherAssets';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import BlockUndelegations from './BlockUndelegations';
-// import BlockTransactions from './BlockTransactions';
+import BlockTransactions from './BlockTransactions';
 
 const PageAccount = () => {
 
@@ -23,6 +23,9 @@ const PageAccount = () => {
 
     // Récupération des infos validateur, si c'est "son compte"
     const [infosValidateur, setInfosValidateur] = useState(null);
+
+
+    // Exécution au démarrage, et à chaque changement de cptNum
     useEffect(() => {
 
         // Changement du "title" de la page web
@@ -66,7 +69,7 @@ const PageAccount = () => {
                 <BlockOtherAssets accountAddress={cptNum} />
                 <BlockDelegations accountAddress={cptNum} />
                 <BlockUndelegations accountAddress={cptNum} />
-                {/* <BlockTransactions accountAddress={cptNum} /> */}
+                <BlockTransactions accountAddress={cptNum} />
             </div>
         </>
     );

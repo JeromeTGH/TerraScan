@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockTransactions.module.scss';
 import { ExchangeIcon } from '../../application/AppIcons';
 import { getTransactionsAccount } from './getTransactionsAccount';
-import { formateLeNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 
 const BlockTransactions = (props) => {
@@ -23,22 +22,19 @@ const BlockTransactions = (props) => {
                 setTableOfTransactions(res);
             }
         })
-    }, [props])
+    }, [props.accountAddress])
 
     // Affichage
     return (
         <div className={"boxContainer " + styles.transactionsBlock}>
-            <h2><ExchangeIcon /><span>Transactions</span></h2>
+            <h2><ExchangeIcon /><span>Latest Transactions</span></h2>
             <table className={styles.tblTransactions}>
                 <thead>
                     <tr>
-                        <th>Hash</th>
-                        <th>Type</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Amount</th>
-                        <th>Fee</th>
-                        <th>Date/Time</th>
+                        <th>DateTime</th>
+                        <th>TxHash</th>
+                        <th>Operation</th>
+                        <th>Height</th>
                     </tr>
                 </thead>
                 {tableOfTransactions ? 
@@ -46,13 +42,10 @@ const BlockTransactions = (props) => {
                             <tbody>
                                 {tableOfTransactions.map((valeur, clef) => {
                                     return <tr key={clef}>
-                                        <td><Link to={"/validators/" + valeur[0]}>{valeur[1]}</Link></td>
-                                        <td className={valeur[2] === "Jailed" ? "erreur" : "succes"}>{valeur[2]}</td>
-                                        <td>
-                                            <strong>{formateLeNombre(parseInt(valeur[3]), "\u00a0")}</strong>
-                                            <span className={styles.smallPart}>{"," + (valeur[3]%1).toFixed(6).replace('0.', '')}</span>
-                                        </td>
-                                        <td><span className={styles.percentage}>{valeur[4] + "\u00a0%"}</span></td>
+                                        <td>{valeur[0]}</td>
+                                        <td><Link to={"/transactions/" + valeur[1]}>{valeur[1].substring(0,8) + "..." + valeur[1].slice(-8)}</Link></td>
+                                        <td><span>{valeur[3]}</span><br />{valeur[4] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}</td>
+                                        <td><Link to={"/blocks/" + valeur[2]}>{valeur[2]}</Link></td>
                                     </tr>
                                 })}
                             </tbody>
@@ -63,6 +56,7 @@ const BlockTransactions = (props) => {
                         <tbody><tr><td colSpan="7">Loading data from blockchain (lcd) ...</td></tr></tbody>
                     )}
             </table>
+            <div className={styles.comments}><u>Note</u> : only the last 100 transactions are displayed here (max)</div>
             <br />
             <div className="erreur">{msgErreurGettingTransactions}</div>
         </div>
