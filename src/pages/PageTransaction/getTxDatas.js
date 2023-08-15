@@ -66,7 +66,7 @@ export const getTxDatas = async (txHash) => {
 
             // console.log("rawTxInfo", rawTxInfo);
             const message = rawTxInfo.tx.body.messages[i];
-            console.log("message", message);
+            // console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
@@ -135,9 +135,13 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
 
-                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
-                rewards = formatGluedAmountsAndCoins(rewards);
-                msgStructRet['withdrawRewards'] = rewards;
+                if(rawTxInfo.logs[i] !== undefined) {
+                    let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                    rewards = formatGluedAmountsAndCoins(rewards);
+                    msgStructRet['withdrawRewards'] = rewards;
+                } else
+                    msgStructRet['withdrawRewards'] = ['(undefined)'];
+
             }
 
             if(message instanceof MsgWithdrawValidatorCommission) {
@@ -147,9 +151,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.validator_address);
 
-                let commission = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_commission", "amount");
-                commission = formatGluedAmountsAndCoins(commission);
-                msgStructRet['withdrawCommissions'] = commission;
+                if(rawTxInfo.logs[i] !== undefined) {
+                    let commission = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_commission", "amount");
+                    commission = formatGluedAmountsAndCoins(commission);
+                    msgStructRet['withdrawCommissions'] = commission;
+                } else
+                    msgStructRet['withdrawCommissions'] = ['(undefined)'];
             }
 
             if(message instanceof MsgExecuteContract) {
@@ -169,9 +176,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
 
-                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
-                rewards = formatGluedAmountsAndCoins(rewards);
-                msgStructRet['withdrawRewards'] = rewards;
+                if(rawTxInfo.logs[i] !== undefined) {
+                    let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                    rewards = formatGluedAmountsAndCoins(rewards);
+                    msgStructRet['withdrawRewards'] = rewards;
+                } else
+                    msgStructRet['withdrawRewards'] = ['(undefined)'];
             }
 
             if(message instanceof MsgUndelegate) {
@@ -182,9 +192,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
 
-                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
-                rewards = formatGluedAmountsAndCoins(rewards);
-                msgStructRet['withdrawRewards'] = rewards;
+                if(rawTxInfo.logs[i] !== undefined) {
+                    let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                    rewards = formatGluedAmountsAndCoins(rewards);
+                    msgStructRet['withdrawRewards'] = rewards;
+                } else
+                    msgStructRet['withdrawRewards'] = ['(undefined)'];
             }
 
             if(message instanceof MsgBeginRedelegate) {
@@ -197,9 +210,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['DstValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_dst_address);
                 msgStructRet['Amount'] = (message.amount.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.amount.denom] ? tblCorrespondanceValeurs[message.amount.denom] : message.amount.denom);
 
-                let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
-                rewards = formatGluedAmountsAndCoins(rewards);
-                msgStructRet['withdrawRewards'] = rewards;
+                if(rawTxInfo.logs[i] !== undefined) {
+                    let rewards = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_rewards", "amount");
+                    rewards = formatGluedAmountsAndCoins(rewards);
+                    msgStructRet['withdrawRewards'] = rewards;
+                } else
+                    msgStructRet['withdrawRewards'] = ['(undefined)'];
             }
 
             if(message instanceof MsgSubmitProposal) {
@@ -209,7 +225,11 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['InitialDeposit'] = coinsListToFormatedText(message.initial_deposit);
                 msgStructRet['ContentTitle'] = message.content.title;
                 msgStructRet['ContentDescription'] = message.content.description;
-                msgStructRet['ProposalID'] = findInTblLogEvents(rawTxInfo.logs[i].events, "proposal_deposit", "proposal_id")[0];
+
+                if(rawTxInfo.logs[i] !== undefined) {
+                    msgStructRet['ProposalID'] = findInTblLogEvents(rawTxInfo.logs[i].events, "proposal_deposit", "proposal_id")[0];
+                } else
+                    msgStructRet['ProposalID'] = '(undefined)';
             }
 
             if(message instanceof MsgDeposit) {
@@ -225,7 +245,10 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['MsgDesc'] = 'Fund Community Pool';
                 msgStructRet['Depositor'] = message.depositor;
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
-                msgStructRet['Recipient'] = findInTblLogEvents(rawTxInfo.logs[i].events, "transfer", "recipient")[0];
+                if(rawTxInfo.logs[i] !== undefined) {
+                    msgStructRet['Recipient'] = findInTblLogEvents(rawTxInfo.logs[i].events, "transfer", "recipient")[0];
+                } else
+                    msgStructRet['Recipient'] = '(undefined)';
             }
 
             if(message instanceof MsgUpdateClient) {
