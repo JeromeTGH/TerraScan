@@ -1,7 +1,7 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
          MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgInstantiateContract, MsgSend, MsgSubmitProposal,
-         MsgUndelegate, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
+         MsgUndelegate, MsgUnjail, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
 export const getTxDatas = async (txHash) => {
@@ -64,9 +64,9 @@ export const getTxDatas = async (txHash) => {
         txInfos["nbMessages"] = rawTxInfo.tx.body.messages.length;
         for(let i=0 ; i < txInfos["nbMessages"] ; i++) {
 
-            const message = rawTxInfo.tx.body.messages[i];
             // console.log("rawTxInfo", rawTxInfo);
-            // console.log("message", message);
+            const message = rawTxInfo.tx.body.messages[i];
+            console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
@@ -262,6 +262,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['InitMsg'] = message.init_msg;
                 msgStructRet['Label'] = message.label;
                 msgStructRet['Sender'] = message.sender;
+            }
+
+            if(message instanceof MsgUnjail) {
+                msgStructRet['MsgType'] = 'MsgUnjail';
+                msgStructRet['MsgDesc'] = 'Unjail';
+                msgStructRet['Address'] = message.address === undefined ? "(undefined)" : message.address;
             }
 
             txMessages.push(msgStructRet);

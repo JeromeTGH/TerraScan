@@ -3,6 +3,7 @@ import styles from './BlockTxMessages.module.scss';
 import { MessageIcon } from '../../application/AppIcons';
 import MsgSend from './MsgSend';
 import MsgVote from './MsgVote';
+import MsgUnjail from './MsgUnjail';
 import MsgDeposit from './MsgDeposit';
 import MsgDelegate from './MsgDelegate';
 import MsgUndelegate from './MsgUndelegate';
@@ -44,6 +45,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgAcknowledgement' ? <MsgAcknowledgement txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExecAuthorized txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgInstantiateContract' ? <MsgInstantiateContract txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgUnjail' ? <MsgUnjail txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>
