@@ -3,7 +3,7 @@ import { CalculatorIcon, LockIcon, PieChartIcon } from '../../application/AppIco
 import styles from './PageStaking.module.scss';
 import Chart from 'react-apexcharts';
 
-import { chainID, chainLCDurl } from '../../application/AppParams';
+import { appName, chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import { formateLeNombre } from '../../application/AppUtils';
 import Decimal from 'decimal.js';
@@ -18,6 +18,9 @@ const PageStaking = () => {
 
     // Récupération des infos supply/staking, au démarrage
     useEffect(() => {
+
+        // Changement du "title" de la page web
+        document.title = 'Staking - ' + appName;
 
         // Connexion au LCD
         const lcd = new LCDClient({

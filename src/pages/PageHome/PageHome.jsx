@@ -7,6 +7,7 @@ import BlockLatestBlocks from './BlockLatestBlocks';
 import BlockValidators from './BlockValidators';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
+import { appName } from '../../application/AppParams';
 
 
 const PageHome = () => {
@@ -15,6 +16,9 @@ const PageHome = () => {
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
 
     useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Home - ' + appName;
+
         // Mémorisation de la date/heure de chargement de cette page
         const maDate = Date.now();
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());

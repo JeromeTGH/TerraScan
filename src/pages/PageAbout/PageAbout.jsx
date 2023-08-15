@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import packageJson from '../../../package.json';
+import { appName } from '../../application/AppParams';
 
 const PageAbout = () => {
+
+    useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'About - ' + appName;
+    }, [])
+
     return (
         <div>
             <h1>About</h1>

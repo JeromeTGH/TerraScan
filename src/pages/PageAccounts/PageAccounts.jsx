@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AccountIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageAccounts.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidTerraAddressFormat } from '../../application/AppUtils';
+import { appName } from '../../application/AppParams';
 
 const PageAccounts = () => {
 
@@ -23,6 +24,11 @@ const PageAccounts = () => {
             setErrorMessage('→ Account not found, sorry');
         }
     }
+
+    useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Accounts - ' + appName;
+    }, [])
 
     return (
         <>

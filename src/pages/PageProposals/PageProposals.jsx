@@ -5,6 +5,7 @@ import BlockGovernanceInfos from './BlockGovernanceInfos';
 import BlockProposals from './BlockProposals';
 import { getGovernanceInfos } from './getGovernanceInfos';
 import { getProposals } from './getProposals';
+import { appName } from '../../application/AppParams';
 
 const PageProposals = () => {
 
@@ -18,6 +19,10 @@ const PageProposals = () => {
 
     // Chargement au démarrage
     useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Proposals - ' + appName;
+
+        // Récupération de toutes les propositions
         getGovernanceInfos().then((res) => {
             if(res['erreur']) {
                 setMsgErreurGovernanceInfos(res['erreur']);

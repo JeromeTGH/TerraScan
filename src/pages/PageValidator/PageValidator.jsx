@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
 import BlockValInfos from './BlockValInfos';
 import BlockValDetails from './BlockValDetails';
 import BlockTopDelegators from './BlockTopDelegators';
+import { appName } from '../../application/AppParams';
 
 const PageValidator = () => {
 
     // Récupération de l'adresse du validateur, éventuellement passé en argument
     const { valAdr } = useParams();         // Ne rien mettre revient à demander à voir le "latest" (le dernier)
+
+    // Changement du "title" de la page web
+    useEffect(() => {
+        document.title = 'Validator "' + valAdr + '" - ' + appName;
+    }, [valAdr])
+    
 
     return (
         <>

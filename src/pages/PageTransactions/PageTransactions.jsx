@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ExchangeIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageTransactions.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { isValidTransactionHashFormat } from '../../application/AppUtils';
+import { appName } from '../../application/AppParams';
 // import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
 
 const PageTransactions = () => {
@@ -12,6 +13,11 @@ const PageTransactions = () => {
     // Variables react
     const [ searchFieldValue, setSearchFieldValue ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState("");
+
+    useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Transactions - ' + appName;
+    }, [])
 
     // Routine de recherche
     const handleBtnClick = (e) => {

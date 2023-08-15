@@ -4,6 +4,7 @@ import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
+import { appName } from '../../application/AppParams';
 
 
 const PageProposal = () => {
@@ -18,6 +19,10 @@ const PageProposal = () => {
 
     // Chargement au démarrage
     useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Proposal #' + propID + ' - ' + appName;
+
+        // Récupération de la proposition ciblée
         getProposal(propID).then((res) => {
             if(res['erreur']) {
                 setMsgErreur(res['erreur']);

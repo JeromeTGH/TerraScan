@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { chainID, chainLCDurl } from '../../application/AppParams';
+import { appName, chainID, chainLCDurl } from '../../application/AppParams';
 import { AccAddress, LCDClient } from '@terra-money/terra.js';
 
 import { AccountIcon } from '../../application/AppIcons';
@@ -24,6 +24,9 @@ const PageAccount = () => {
     // Récupération des infos validateur, si c'est "son compte"
     const [infosValidateur, setInfosValidateur] = useState(null);
     useEffect(() => {
+
+        // Changement du "title" de la page web
+        document.title = 'Account "' + cptNum + '" - ' + appName;
 
         // Connexion au LCD
         const lcd = new LCDClient({

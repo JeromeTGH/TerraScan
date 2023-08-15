@@ -4,6 +4,7 @@ import styles from './PageBlocks.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidBlockNumberFormat } from '../../application/AppUtils';
 import { getLatestBlocks } from '../../sharedFunctions/getLatestBlocks';
+import { appName } from '../../application/AppParams';
 
 const PageBlocks = () => {
 
@@ -17,6 +18,11 @@ const PageBlocks = () => {
 
     // Récupération d'infos, au chargement du component
     useEffect(() => {
+
+        // Changement du "title" de la page web
+        document.title = 'Blocks - ' + appName;
+
+        // Récupération des 10 derniers blocks
         getLatestBlocks(10).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetDerniersBlocks(res['erreur']);

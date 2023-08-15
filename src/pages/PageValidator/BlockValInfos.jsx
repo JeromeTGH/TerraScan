@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockValInfos.module.scss';
 import { getValInfos } from './getValInfos';
+import { appName } from '../../application/AppParams';
 
 const BlockValInfos = (props) => {
     
@@ -18,6 +19,10 @@ const BlockValInfos = (props) => {
             else {
                 setMsgErreurTableValInfos('');
                 setTableValInfos(res);
+
+                // Changement du "title" de la page web
+                if(res['moniker'])
+                    document.title = 'Validator "' + res['moniker'] + '" - ' + appName;
             }
         })
     }, [props])

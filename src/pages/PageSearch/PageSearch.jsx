@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './PageSearch.module.scss';
 
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
-import { chainID, chainName } from '../../application/AppParams';
+import { appName, chainID, chainName } from '../../application/AppParams';
 import { SearchIcon } from '../../application/AppIcons';
 
 const PageSearch = () => {
@@ -14,6 +14,11 @@ const PageSearch = () => {
 
     const [ searchFieldValue, setSearchFieldValue ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState(nbsp);
+
+    useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Search - ' + appName;
+    }, [])
 
     const handleBtnClick = (e) => {
         e.preventDefault();

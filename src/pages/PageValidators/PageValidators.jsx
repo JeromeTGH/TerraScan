@@ -4,6 +4,7 @@ import styles from './PageValidators.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidTerraAddressFormat, metEnFormeGrandNombre } from '../../application/AppUtils';
 import { getValidators } from '../../sharedFunctions/getValidators';
+import { appName } from '../../application/AppParams';
 
 const PageValidators = () => {
 
@@ -17,6 +18,10 @@ const PageValidators = () => {
 
     // À exécuter au démarrage
     useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Validators - ' + appName;
+
+        // Récupération de tous les validateurs
         getValidators().then((res) => {
             if(res['erreur']) {
                 setTblOfValidators();

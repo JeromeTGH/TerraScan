@@ -5,6 +5,7 @@ import styles from './PageTransaction.module.scss';
 import BlockTxInfos from './BlockTxInfos';
 import BlockTxMessages from './BlockTxMessages';
 import { getTxDatas } from './getTxDatas';
+import { appName } from '../../application/AppParams';
 
 const PageTransaction = () => {
 
@@ -17,6 +18,10 @@ const PageTransaction = () => {
 
     // Chargement au démarrage
     useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Transaction #' + txHash + ' - ' + appName;
+
+        // Récupération de la transaction ciblée
         getTxDatas(txHash).then((res) => {
             if(res['erreur']) {
                 setMsgErreurTxDatas(res['erreur']);
