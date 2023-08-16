@@ -11,7 +11,7 @@ const BlockProposals = (props) => {
 
     // Variables React
     const [filtre, setFiltre] = useState(2);                // choix "2" par défaut, pour afficher les votes en cours au démarrage
-    const nbCaracteresMaxAffichesPourDescription = 500;
+    // const nbCaracteresMaxAffichesPourDescription = 500;
 
     // Fonction de sélection de filtre
     const handleClickOnFilter = (val) => {
@@ -68,10 +68,10 @@ const BlockProposals = (props) => {
                                             <td>Title :</td>
                                             <td><strong>{element.content.title}</strong></td>
                                         </tr>
-                                        <tr>
+                                        {/* <tr>
                                             <td>Description :</td>
                                             <td>{element.content.description.length > nbCaracteresMaxAffichesPourDescription ? element.content.description.substring(0, nbCaracteresMaxAffichesPourDescription) + " [......]" : element.content.description}</td>
-                                        </tr>
+                                        </tr> */}
                                         <tr>
                                             <td>Status :</td>
                                             <td><u>{proposalStatus[element.status]}</u></td>
