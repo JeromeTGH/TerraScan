@@ -55,7 +55,7 @@ const BlockLatestBlocksV2 = () => {
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
                                 <td>{metEnFormeDateTime(valeur[4])}</td>
                             </tr> 
-                    )}) : <tr><td colSpan="4">Loading data from blockchain (lcd) ...</td></tr> }
+                    )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
                 </tbody>
             </table>
             <div className={styles.comments}>

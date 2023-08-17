@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { chainID, chainLCDurl, appName} from '../application/AppParams';
+import { chainID, chainLCDurl, appName, FCDurl} from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../application/AppIcons';
@@ -84,7 +84,8 @@ const SideBar = () => {
                 <br />
                 <div className={styles.chainInfos}>
                     &nbsp;==&gt; Network : <strong>{chainID}</strong><br />
-                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong>
+                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong><br />
+                    &nbsp;==&gt; FCD : <strong>{FCDurl.replace('https://', '')}</strong>
                 </div>
             </nav>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import packageJson from '../../../package.json';
-import { appName } from '../../application/AppParams';
+import { FCDurl, appName, chainID, chainLCDurl } from '../../application/AppParams';
 
 const PageAbout = () => {
 
@@ -19,6 +19,10 @@ const PageAbout = () => {
             <p><u>Licence</u> : <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noreferrer noopener">Creative Commons "BY-NC-ND 4.0"</a></p>
             <br />
             <p>Version = {packageJson.version}</p>
+            <br />
+            <p><u>Network</u> : {chainID}</p>
+            <p><u>LCD</u> : {chainLCDurl.replace('https://', '')}</p>
+            <p><u>FCD</u> : {FCDurl.replace('https://', '')}</p>
             <br />
             <p>Created by <a href="https://twitter.com/jerometomski" target="_blank" rel="noreferrer noopener">Jerome TOMSKI</a>, @2023</p>
             <br />
