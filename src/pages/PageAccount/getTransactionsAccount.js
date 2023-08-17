@@ -1,3 +1,4 @@
+import { FCDurl } from "../../application/AppParams";
 import { metEnFormeDateTime } from "../../application/AppUtils";
 import { FCDclient } from "../../fcd/FCDclient";
 
@@ -8,7 +9,6 @@ export const getTransactionsAccount = async (accountAddress) => {
     const tblTransactions = [];
     
     // Instanciation FCD
-    const FCDurl = 'https://terra-classic-fcd.publicnode.com';
     const fcd = new FCDclient(FCDurl);
 
     // Préparation de la requête

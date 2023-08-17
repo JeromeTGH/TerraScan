@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Header from '../_elements/Header';
-import Footer from '../_elements/Footer';
+import Header from '../../elements/Header';
+import Footer from '../../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
 import PageAccount from '../PageAccount/PageAccount';
 import PageAccounts from '../PageAccounts/PageAccounts';
 import PageBlock from '../PageBlock/PageBlock';
-import PageBlocks from '../PageBlocks/PageBlocks';
+import PageBlocksV2 from '../PageBlocks/PageBlocksV2';
 import PageTransaction from '../PageTransaction/PageTransaction';
 import PageTransactions from '../PageTransactions/PageTransactions';
 import PageValidator from '../PageValidator/PageValidator';
@@ -24,6 +24,7 @@ import SideBar from '../../elements/SideBar';
 import AppBar from '../../elements/AppBar';
 
 import { AppScrollToTop } from '../../application/AppScrollToTop'
+
 
 const PageBuilder = (props) => {
 
@@ -44,7 +45,7 @@ const PageBuilder = (props) => {
             case 'block':
                 return <PageBlock />;
             case 'blocks':
-                return <PageBlocks />;
+                return <PageBlocksV2 />;
             case 'transaction':
                 return <PageTransaction />;
             case 'transactions':

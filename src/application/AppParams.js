@@ -6,6 +6,7 @@ export const chainName      = 'Terra Classic';
 export const chainID        = 'columbus-5';
 export const chainLCDurl    = 'https://lcd.terraclassic.community';
 // export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';
+export const FCDurl = 'https://terra-classic-fcd.publicnode.com';
 
 // Tableau de correspondance Coin/Désignation
 export const tblCorrespondanceValeurs = {

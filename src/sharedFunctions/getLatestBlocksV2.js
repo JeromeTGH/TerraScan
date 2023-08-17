@@ -1,4 +1,5 @@
 import { tblBlocks } from "../application/AppData";
+import { FCDurl } from "../application/AppParams";
 import { FCDclient } from "../fcd/FCDclient";
 import { BlockInfo } from "../fcd/classes/BlockInfo";
 
@@ -8,9 +9,7 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
     // Variables
     let last_block_height = -1;
 
-
     // Instanciation d'une classe de requetage FCD
-    const FCDurl = 'https://terra-classic-fcd.publicnode.com';
     const fcd = new FCDclient(FCDurl);
 
 
