@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { chainID, chainLCDurl, appName} from '../../application/AppParams';
+import { chainID, chainLCDurl, appName} from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {

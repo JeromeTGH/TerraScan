@@ -3,7 +3,7 @@ import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
 import BlockSearch from './BlockSearch';
 import BlockOverview from './BlockOverview';
-import BlockLatestBlocks from './BlockLatestBlocks';
+import BlockLatestBlocksV2 from './BlockLatestBlocksV2';
 import BlockValidators from './BlockValidators';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
@@ -39,7 +39,7 @@ const PageHome = () => {
                     <BlockOverview />
                 </div>
                 <div className={"boxContainer " + styles.blocksBlock}>
-                    <BlockLatestBlocks />
+                    <BlockLatestBlocksV2 />
                 </div>
                 <div className={"boxContainer " + styles.accountsBlock}>
                     <BlockAccounts />

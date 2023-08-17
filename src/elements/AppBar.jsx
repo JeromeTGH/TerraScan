@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './AppBar.module.scss';
-import { appName } from '../../application/AppParams';
-import { BlocksIcon, BurgerMenu, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../../application/AppIcons';
+import { appName } from '../application/AppParams';
+import { BlocksIcon, BurgerMenu, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../application/AppIcons';
 import { Link } from 'react-router-dom';
 import BtnJourNuit from './BtnJourNuit';
 

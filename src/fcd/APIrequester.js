@@ -10,8 +10,9 @@ export class APIrequester {
         })
     }
     
-    async get (endpoint, params) {
-        return await this.axios.get(endpoint, {params}).then(res => res.data);
+    get (endpoint, params) {
+        return this.axios.get(endpoint, {params});
     }
+
 
 }

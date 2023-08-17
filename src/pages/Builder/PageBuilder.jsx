@@ -20,8 +20,8 @@ import PageAbout from '../PageAbout/PageAbout';
 import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
-import SideBar from '../_elements/SideBar';
-import AppBar from '../_elements/AppBar';
+import SideBar from '../../elements/SideBar';
+import AppBar from '../../elements/AppBar';
 
 import { AppScrollToTop } from '../../application/AppScrollToTop'
 

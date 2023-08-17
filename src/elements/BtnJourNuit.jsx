@@ -1,6 +1,6 @@
 import React from 'react';
-import { SunIcon, MoonIcon, FilledSunIcon, FilledMoonIcon } from '../../application/AppIcons';
-import { AppContext } from '../../application/AppContext';
+import { SunIcon, MoonIcon, FilledSunIcon, FilledMoonIcon } from '../application/AppIcons';
+import { AppContext } from '../application/AppContext';
 
 const BtnJourNuit = (props) => {
 
