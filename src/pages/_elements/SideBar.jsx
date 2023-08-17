@@ -1,46 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { chainID, chainLCDurl, appName} from '../../application/AppParams';
-import { LCDClient } from '@terra-money/terra.js';
-
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
-
-    // Variables react
-    const [cosmosSDKversion, setCosmosSDKversion] = useState("");
-
-
-    // Exécution au démarrage
-    useEffect(() => {
-
-        // Connexion au LCD
-        const lcd = new LCDClient({
-            URL: chainLCDurl,
-            chainID: chainID,
-            isClassic: true
-        });
-
-        // Récupération du node_info
-        lcd.tendermint.nodeInfo().then(rawNodeInfos => {
-            if(rawNodeInfos) {
-                if(rawNodeInfos.application_version && rawNodeInfos.application_version.cosmos_sdk_version)
-                    setCosmosSDKversion(rawNodeInfos.application_version.cosmos_sdk_version);
-                else {
-                    console.log('ERROR : Failed to fetch [cosmos_sdk_version in node_info] ...');
-                    setCosmosSDKversion("(not found)");
-                }
-            } else
-                console.log('ERROR : Failed to fetch [node infos] ...');
-        }).catch(err => {
-            console.log(err);
-            setCosmosSDKversion("(node_info error)");
-        })
-    }, [])
-
 
     // Affichage
     return (
@@ -118,8 +84,7 @@ const SideBar = () => {
                 <br />
                 <div className={styles.chainInfos}>
                     &nbsp;==&gt; Network : <strong>{chainID}</strong><br />
-                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong><br />
-                    &nbsp;==&gt; Cosmos SDK : <strong>{cosmosSDKversion}</strong>
+                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong>
                 </div>
             </nav>
         </div>

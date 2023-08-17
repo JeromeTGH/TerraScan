@@ -35,15 +35,15 @@ const BlockOverview = () => {
             <div className={styles.overviews}>
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Last block height</u> =</div>
+                        <div>→&nbsp;Last block height :</div>
                         <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Current epoch</u> =</div>
+                        <div>→&nbsp;Current epoch :</div>
                         <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Next epoch</u> =</div>
+                        <div>→&nbsp;Next epoch :</div>
                         <div><strong>{overviewInfos ? "~ " + overviewInfos['DateEstimativeProchaineEpoch'] : "..."}</strong></div>
                     </div>
                 </div>
@@ -77,22 +77,22 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>LUNC total supply</u> =</div>
+                        <div>→&nbsp;LUNC total supply :</div>
                         <div>
                             <strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncTotalSupply'], 3) : "..."}</strong>
                             <span>{overviewInfos ?  " (100%)" : ""}</span>
                         </div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Staked LUNC</u> =</div>
+                        <div>→&nbsp;Staked LUNC :</div>
                         <div><strong>{overviewInfos ? metEnFormeGrandNombre(overviewInfos['LuncBonded'], 3) : "..."}</strong>{stakingRatio === -1 ? "" : " (" + stakingRatio + "%)"}</div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Staking unbonding time</u> =</div>
+                        <div>→&nbsp;Staking unbonding time :</div>
                         <div><strong>{overviewInfos ? overviewInfos['UnbondingTime'] : "..."} days</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Nb validators (active/max)</u> =</div>
+                        <div>→&nbsp;Nb validators (active/max) :</div>
                         <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong></div>
                     </div>
                 </div>
@@ -134,15 +134,15 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Inflation (mint)</u> =</div>
+                        <div>→&nbsp;Inflation (mint) :</div>
                         <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Tobin tax ("tax burn")</u> =</div>
+                        <div>→&nbsp;Tobin tax ("tax burn") :</div>
                         <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Tobin tax split</u> =</div>
+                        <div>→&nbsp;Tobin tax split :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -150,7 +150,7 @@ const BlockOverview = () => {
                         <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>Distribution Module split</u> =</div>
+                        <div>→&nbsp;Distribution Module split :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -164,7 +164,7 @@ const BlockOverview = () => {
                 <br />
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>LUNC/USTC in Community Pool</u> :</div>
+                        <div>→&nbsp;LUNC/USTC in Community Pool :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -175,7 +175,7 @@ const BlockOverview = () => {
                         </div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<u>LUNC/USTC in Oracle Pool</u> :</div>
+                        <div>→&nbsp;LUNC/USTC in Oracle Pool :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>

@@ -53,7 +53,7 @@ const BlockTransactions = (props) => {
                             <tbody><tr><td colSpan="7">No transaction.</td></tr></tbody>
                         )
                     : (
-                        <tbody><tr><td colSpan="7">Loading data from blockchain (lcd) ...</td></tr></tbody>
+                        <tbody><tr><td colSpan="7">Loading data from blockchain (fcd), please wait ...</td></tr></tbody>
                     )}
             </table>
             <div className={styles.comments}><u>Note</u> : only the last 100 transactions are displayed here (max)</div>

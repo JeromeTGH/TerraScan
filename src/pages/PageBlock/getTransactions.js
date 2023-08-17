@@ -2,7 +2,7 @@ import { chainID, chainLCDurl } from '../../application/AppParams';
 import { LCDClient, AccAddress, hashToHex,
     MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecuteContract, MsgFundCommunityPool,
     MsgMultiSend, MsgSend, MsgTransfer, MsgUndelegate, MsgVote, MsgWithdrawDelegatorReward, MsgExecAuthorized,
-    MsgWithdrawValidatorCommission, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSwap} from '@terra-money/terra.js';
+    MsgWithdrawValidatorCommission, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote, MsgSwap, MsgUnjail} from '@terra-money/terra.js';
 import { isValidTerraAddressFormat } from '../../application/AppUtils';
 
 
@@ -106,6 +106,8 @@ export const getTransactions = async (blockNumber) => {
                     transactionsInfos[i][3] = 'Aggregate Exchange Rate Vote';
                 } else if(rawTxInfo.tx.body.messages[0] instanceof MsgSwap) {
                     transactionsInfos[i][3] = 'Swap';
+                } else if(rawTxInfo.tx.body.messages[0] instanceof MsgUnjail) {
+                    transactionsInfos[i][3] = 'Unjail';
                 } else {
                     transactionsInfos[i][3] = 'MsgNotCoded';
                     // console.log(rawTxInfo.tx.body.messages[0]);
