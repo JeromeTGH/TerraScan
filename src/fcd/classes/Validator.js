@@ -7,9 +7,9 @@ export class Validator {
         this.commission = {
             // update_time: objetAvecVariables.commission.update_time,
             commission_rates: {
-                max_change_rate: parseFloat(objetAvecVariables.commission.commission_rates.max_change_rate),
-                max_rate: parseFloat(objetAvecVariables.commission.commission_rates.max_rate),
-                actual_rate: parseFloat(objetAvecVariables.commission.commission_rates.rate)
+                max_change_rate: parseFloat((objetAvecVariables.commission.commission_rates.max_change_rate*100).toFixed(2)),
+                max_rate: parseFloat((objetAvecVariables.commission.commission_rates.max_rate*100).toFixed(2)),
+                actual_rate: parseFloat((objetAvecVariables.commission.commission_rates.rate*100).toFixed(2))
             }
         }
         // this.consensus_pubkey = {

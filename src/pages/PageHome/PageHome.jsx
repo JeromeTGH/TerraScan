@@ -4,7 +4,7 @@ import styles from './PageHome.module.scss';
 import BlockSearch from './BlockSearch';
 import BlockOverview from './BlockOverview';
 import BlockLatestBlocksV2 from './BlockLatestBlocksV2';
-import BlockValidators from './BlockValidators';
+import BlockValidatorsV2 from './BlockValidatorsV2';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
@@ -45,7 +45,7 @@ const PageHome = () => {
                     <BlockAccounts />
                 </div>
                 <div className={"boxContainer " + styles.validatorsBlock}>
-                    <BlockValidators />
+                    <BlockValidatorsV2 />
                 </div>
                 <div className={"boxContainer " + styles.suppliesBlock}>
                     <BlockTotalSupplies />

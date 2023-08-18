@@ -13,8 +13,7 @@ export const tblBlocks = {};
 //      tblValidators["valoper"] = {
 //          commission_max_change_rate, commission_max_rate, commission_actual_rate,
 //          description_details, description_moniker, description_security_contact, description_website,
-//          operator_address, accAddress,
-//          status, delegator_shares
+//          valaccount_address, status, delegator_shares, shares_on_total_shares_ratio
 //      }
 export const tblValidators = {};
 
