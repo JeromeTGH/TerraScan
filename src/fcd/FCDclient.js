@@ -1,5 +1,6 @@
 import { APIrequester } from "./APIrequester";
 import { AccountAPI } from "./api/AccountAPI";
+import { StakingAPI } from "./api/StakingAPI";
 import { TendermintAPI } from "./api/TendermintAPI";
 
 export class FCDclient {
@@ -9,6 +10,7 @@ export class FCDclient {
 
         this.account = new AccountAPI(this.apiRequester);
         this.tendermint = new TendermintAPI(this.apiRequester);
+        this.staking = new StakingAPI(this.apiRequester);
     }
 
 }
