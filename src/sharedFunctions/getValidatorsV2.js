@@ -1,5 +1,4 @@
 import { tblValidators } from "../application/AppData";
-import { FCDurl } from "../application/AppParams";
 import { FCDclient } from "../fcd/FCDclient";
 import { Validator } from "../fcd/classes/Validator";
 
@@ -13,7 +12,8 @@ export const loadValidatorsList = async () => {
         let total_shares = 0;
 
         // Instanciation d'une classe de requetage FCD
-        const fcd = new FCDclient(FCDurl);
+        const fcd = FCDclient.getSingleton();
+        // const fcd = new FCDclient(FCDurl);
 
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
         const rawValidatorList = await fcd.staking.askForValidatorsList().catch(handleError);
@@ -34,7 +34,7 @@ export const loadValidatorsList = async () => {
                     'description_moniker':  validatorInfo.description.moniker,
                     'description_security_contact':  validatorInfo.description.security_contact,
                     'description_website':  validatorInfo.description.website,
-                    'terra1account_address': validatorInfo.terra1account_address,
+                    'terra1_account_address': validatorInfo.terra1_account_address,
                     'status': validatorInfo.status,
                     'delegator_shares': validatorInfo.delegator_shares,
                     'shares_on_total_shares_ratio': 0

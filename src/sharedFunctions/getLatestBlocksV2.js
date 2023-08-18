@@ -1,5 +1,4 @@
 import { tblBlocks } from "../application/AppData";
-import { FCDurl } from "../application/AppParams";
 import { FCDclient } from "../fcd/FCDclient";
 import { BlockInfo } from "../fcd/classes/BlockInfo";
 
@@ -10,7 +9,7 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
     let last_block_height = -1;
 
     // Instanciation d'une classe de requetage FCD
-    const fcd = new FCDclient(FCDurl);
+    const fcd = FCDclient.getSingleton();
 
 
     // Récupération du numéro de dernier block

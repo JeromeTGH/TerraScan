@@ -33,7 +33,7 @@ export class Validator {
 
 
         // AJOUT : adresse "terra1..." associée au compte validateur "terravaloper1..."
-        this.terra1account_address = bech32.encode('terra', bech32.decode(objetAvecVariables.operator_address).words);
+        this.terra1_account_address = bech32.encode('terra', bech32.decode(objetAvecVariables.operator_address).words);
 
     }
 

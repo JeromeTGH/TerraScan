@@ -1,4 +1,3 @@
-import { FCDurl } from "../../application/AppParams";
 import { metEnFormeDateTime } from "../../application/AppUtils";
 import { FCDclient } from "../../fcd/FCDclient";
 
@@ -9,7 +8,7 @@ export const getTransactionsAccount = async (accountAddress) => {
     const tblTransactions = [];
     
     // Instanciation FCD
-    const fcd = new FCDclient(FCDurl);
+    const fcd = FCDclient.getSingleton();
 
     // Préparation de la requête
     const params = new URLSearchParams();
