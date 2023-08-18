@@ -11,7 +11,6 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
     // Instanciation d'une classe de requetage FCD
     const fcd = FCDclient.getSingleton();
 
-
     // Récupération du numéro de dernier block
     const rawLatestBlockInfo = await fcd.tendermint.askForBlockInfo().catch(handleError);
     if(rawLatestBlockInfo) {
@@ -31,10 +30,10 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
                 const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);    
                 // tblBlocks["height"] = { nb_tx, validator_moniker, validator_address, datetime }
                 tblBlocks[i.toString()] = {
-                    "nb_tx": blockInfo.txs.length,
-                    "validator_moniker": blockInfo.proposer.moniker,
-                    "validator_address": blockInfo.proposer.operatorAddress,
-                    "datetime": blockInfo.timestamp
+                    'nb_tx': blockInfo.txs.length,
+                    'validator_moniker': blockInfo.proposer.moniker,
+                    'validator_address': blockInfo.proposer.operatorAddress,
+                    'datetime': blockInfo.timestamp
                 }
             } else
                 return { "erreur": "Failed to fetch [block " +  + "] ..." }

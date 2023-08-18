@@ -6,12 +6,12 @@ import Footer from '../../elements/Footer';
 import PageHome from '../PageHome/PageHome';
 import PageAccount from '../PageAccount/PageAccount';
 import PageAccounts from '../PageAccounts/PageAccounts';
-import PageBlock from '../PageBlock/PageBlock';
+import PageBlockV2 from '../PageBlock/PageBlockV2';
 import PageBlocksV2 from '../PageBlocks/PageBlocksV2';
 import PageTransaction from '../PageTransaction/PageTransaction';
 import PageTransactions from '../PageTransactions/PageTransactions';
 import PageValidator from '../PageValidator/PageValidator';
-import PageValidators from '../PageValidators/PageValidators';
+import PageValidatorsV2 from '../PageValidators/PageValidatorsV2';
 import PageProposals from '../PageProposals/PageProposals';
 import PageProposal from '../PageProposal/PageProposal';
 import PageStaking from '../PageStaking/PageStaking';
@@ -43,7 +43,7 @@ const PageBuilder = (props) => {
             case 'accounts':
                 return <PageAccounts />;
             case 'block':
-                return <PageBlock />;
+                return <PageBlockV2 />;
             case 'blocks':
                 return <PageBlocksV2 />;
             case 'transaction':
@@ -53,7 +53,7 @@ const PageBuilder = (props) => {
             case 'validator':
                 return <PageValidator />;
             case 'validators':
-                return <PageValidators />;
+                return <PageValidatorsV2 />;
             case 'about':
                 return <PageAbout />;
             case 'proposal':

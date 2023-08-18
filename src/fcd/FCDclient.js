@@ -8,7 +8,7 @@ export class FCDclient {
     _instance = null;
 
     // Constructeur
-    constructor (FCDurl = 'https://terra-classic-fcd.publicnode.com') {
+    constructor (FCDurl) {
 
         if(FCDclient._instance) {
             return FCDclient._instance;
@@ -21,15 +21,16 @@ export class FCDclient {
             this.staking = new StakingAPI(this.apiRequester);
 
             FCDclient._instance = this;
+            console.log('Instance FCD créée.');
         }
     }
 
     // Singleton (pour avoir une unique instance de cette classe)
-    static getSingleton() {
+    static getSingleton(FCDurl = 'https://terra-classic-fcd.publicnode.com') {
         if(FCDclient._instance)
             return FCDclient._instance;
         else
-            return new FCDclient();
+            return new FCDclient(FCDurl);
     }
 
 }

@@ -13,7 +13,6 @@ export const loadValidatorsList = async () => {
 
         // Instanciation d'une classe de requetage FCD
         const fcd = FCDclient.getSingleton();
-        // const fcd = new FCDclient(FCDurl);
 
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
         const rawValidatorList = await fcd.staking.askForValidatorsList().catch(handleError);
