@@ -7,9 +7,9 @@ export class Validator {
         this.commission = {
             // update_time: objetAvecVariables.commission.update_time,
             commission_rates: {
-                max_change_rate: parseFloat((objetAvecVariables.commission.commission_rates.max_change_rate*100).toFixed(2)),
-                max_rate: parseFloat((objetAvecVariables.commission.commission_rates.max_rate*100).toFixed(2)),
-                actual_rate: parseFloat((objetAvecVariables.commission.commission_rates.rate*100).toFixed(2))
+                max_change_pourcentage: parseFloat((objetAvecVariables.commission.commission_rates.max_change_rate*100).toFixed(2)),
+                max_pourcentage: parseFloat((objetAvecVariables.commission.commission_rates.max_rate*100).toFixed(2)),
+                actual_pourcentage: parseFloat((objetAvecVariables.commission.commission_rates.rate*100).toFixed(2))
             }
         }
         // this.consensus_pubkey = {
@@ -33,7 +33,7 @@ export class Validator {
 
 
         // AJOUT : adresse "terra1..." associée au compte validateur "terravaloper1..."
-        this.accAddress = bech32.encode('terra', bech32.decode(objetAvecVariables.operator_address).words);
+        this.terra1account_address = bech32.encode('terra', bech32.decode(objetAvecVariables.operator_address).words);
 
     }
 

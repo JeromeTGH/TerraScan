@@ -22,19 +22,19 @@ export const loadValidatorsList = async () => {
                 const validatorInfo = new Validator(validator);
                 // Structure :
                 //      tblValidators["valoper"] = {
-                //          commission_max_change_rate, commission_max_rate, commission_actual_rate,
+                //          commission_max_change_pourcentage, commission_max_pourcentage, commission_actual_pourcentage,
                 //          description_details, description_moniker, description_security_contact, description_website,
                 //          valaccount_address, status, delegator_shares, shares_on_total_shares_ratio
                 //      }
                 tblValidators[validatorInfo.operator_address] = {
-                    'commission_max_change_rate': validatorInfo.commission.commission_rates.max_change_rate,
-                    'commission_max_rate': validatorInfo.commission.commission_rates.max_rate,
-                    'commission_actual_rate': validatorInfo.commission.commission_rates.actual_rate,
+                    'commission_max_change_pourcentage': validatorInfo.commission.commission_rates.max_change_pourcentage,
+                    'commission_max_pourcentage': validatorInfo.commission.commission_rates.max_pourcentage,
+                    'commission_actual_pourcentage': validatorInfo.commission.commission_rates.actual_pourcentage,
                     'description_details': validatorInfo.description.details,
                     'description_moniker':  validatorInfo.description.moniker,
                     'description_security_contact':  validatorInfo.description.security_contact,
                     'description_website':  validatorInfo.description.website,
-                    'valaccount_address': validatorInfo.accAddress,
+                    'terra1account_address': validatorInfo.terra1account_address,
                     'status': validatorInfo.status,
                     'delegator_shares': validatorInfo.delegator_shares,
                     'shares_on_total_shares_ratio': 0

@@ -53,7 +53,7 @@ const BlockValidatorsV2 = () => {
                                 return <tr key={clef}>
                                     <td>{clef+1}</td>
                                     <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
-                                    <td>{valeur[1].commission_actual_rate}%</td>
+                                    <td>{valeur[1].commission_actual_pourcentage}%</td>
                                     <td>{metEnFormeGrandNombre(valeur[1].delegator_shares/1000000, 2)}</td>
                                     <td><strong>{valeur[1].shares_on_total_shares_ratio}%</strong></td>
                                 </tr>
