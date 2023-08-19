@@ -71,14 +71,17 @@ const PageValidators = () => {
                         {loadingOrNot ?
                             <tr><td colSpan="5">Loading data from blockchain (fcd), please wait ...</td></tr>
                         :   
-                            Object.entries(tblValidators).sort((a, b) => {return b[1].delegator_shares - a[1].delegator_shares}).map((valeur, clef) => {
-                                return <tr key={clef}>
-                                    <td>{clef+1}</td>
-                                    <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
-                                    <td>{valeur[1].commission_actual_pourcentage}%</td>
-                                    <td>{metEnFormeGrandNombre(valeur[1].delegator_shares/1000000, 2)}</td>
-                                    <td><strong>{valeur[1].shares_on_total_shares_ratio}%</strong></td>
-                                </tr>
+                            Object.entries(tblValidators).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, clef) => {
+                                if(valeur[1].status === "active")
+                                    return <tr key={clef}>
+                                        <td>{clef+1}</td>
+                                        <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
+                                        <td>{valeur[1].commission_actual_pourcentage}%</td>
+                                        <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
+                                        <td><strong>{valeur[1].voting_power_pourcentage.toFixed(2)}%</strong></td>
+                                    </tr>
+                                else
+                                    return null;
                             })
                         }
                         </tbody>

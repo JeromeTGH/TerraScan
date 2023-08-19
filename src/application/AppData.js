@@ -31,9 +31,21 @@ export const tblBlocks = {};
 // *************************************************************************************
 // Structure :
 //      tblValidators["valoper"] = {
-//          commission_max_change_rate, commission_max_rate, commission_actual_rate,
-//          description_details, description_moniker, description_security_contact, description_website,
-//          terra1_account_address, status, delegator_shares, shares_on_total_shares_ratio
+//          up_time,
+//          status,
+//          terra1_account_address,
+//          description_moniker,
+//          description_website,
+//          description_security_contact,
+//          description_details,
+//          profile_icon,
+//          voting_power_amount,
+//          voting_power_weight,
+//          commission_actual_pourcentage,
+//          commission_max_pourcentage,
+//          commission_max_change_pourcentage,
+//          self_delegation_amount,
+//          self_delegation_weight
 //      }
 export const tblValidators = {};
 
