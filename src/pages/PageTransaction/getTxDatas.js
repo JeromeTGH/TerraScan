@@ -1,6 +1,7 @@
 import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
          MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgInstantiateContract, MsgSend, MsgSubmitProposal,
+         MsgTransfer,
          MsgUndelegate, MsgUnjail, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
 
@@ -291,6 +292,14 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['MsgType'] = 'MsgUnjail';
                 msgStructRet['MsgDesc'] = 'Unjail';
                 msgStructRet['Address'] = message.address === undefined ? "(undefined)" : message.address;
+            }
+
+            if(message instanceof MsgTransfer) {
+                msgStructRet['MsgType'] = 'MsgTransfer';
+                msgStructRet['MsgDesc'] = 'Transfer';
+                msgStructRet['FromAddress'] = message.sender;
+                msgStructRet['ToAddress'] = message.receiver;
+                msgStructRet['SourceChannel'] = message.source_channel;
             }
 
             txMessages.push(msgStructRet);

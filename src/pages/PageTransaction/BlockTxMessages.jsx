@@ -19,6 +19,7 @@ import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
 import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
+import MsgTransfer from './MsgTransfer';
 
 const BlockTxMessages = (props) => {
 
@@ -46,6 +47,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExecAuthorized txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgInstantiateContract' ? <MsgInstantiateContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUnjail' ? <MsgUnjail txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgTransfer' ? <MsgTransfer txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

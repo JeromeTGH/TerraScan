@@ -91,10 +91,44 @@ export const getBlockInfoV2 = async (blockNum) => {
                             tx_to_name = tx_from_name;
                             tx_to_account = tx_from_account;
                             break;
+                        case 'MsgAggregateExchangeRateVote':
+                            tx_description = 'Aggregate Exchange Rate Vote';
+                            break;
+                        case 'MsgAggregateExchangeRatePrevote':
+                            tx_description = 'Aggregate Exchange Rate Prevote';
+                            break;
+                        case 'MsgExecuteContract':
+                            tx_description = 'Execute Contract';
+                            break;
+                        case 'MsgSubmitProposal':
+                            tx_description = 'Submit Proposal';
+                            break;
+                        case 'MsgDeposit':
+                            tx_description = 'Deposit';
+                            break;
+                        case 'MsgFundCommunityPool':
+                            tx_description = 'Fund Community Pool';
+                            break;
+                        case 'MsgUpdateClient':
+                            tx_description = 'Update Client';
+                            break;
+                        case 'MsgAcknowledgement':
+                            tx_description = 'Acknowledgement';
+                            break;
+                        case 'MsgExecAuthorized':
+                            tx_description = 'Exec Authorized';
+                            break;
+                        case 'MsgInstantiateContract':
+                            tx_description = 'Instantiate Contract';
+                            break;
+                        case 'MsgUnjail':
+                            tx_description = 'Unjail';
+                            break;
                         default:
                             break;
                     }
                 }
+
 
                 // Renseignement validateur, s'il s'agit de son compte (côté sender ou receiver)
                 if(tx_from_valoper === '') {
