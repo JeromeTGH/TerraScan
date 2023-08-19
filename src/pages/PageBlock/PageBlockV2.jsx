@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BlocksIcon } from '../../application/AppIcons';
+import { BlocksIcon, ExchangeIcon } from '../../application/AppIcons';
 import styles from './PageBlockV2.module.scss';
 // import BlockDetail from './BlockDetail';
 // import BlockTransactions from './BlockTransactions';
 import { appName } from '../../application/AppParams';
 import { getBlockInfoV2 } from './getBlockInfoV2';
 import { tblBlocks } from '../../application/AppData';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { isValidTerraAddressFormat, metEnFormeDateTime } from '../../application/AppUtils';
 
 const PageBlock = () => {
 
@@ -75,6 +75,7 @@ const PageBlock = () => {
                 </div>
                 <br />
                 <div className="boxContainer ">
+                    <h2><ExchangeIcon /><span>Transactions</span></h2>
                     {tblBlocks && tblBlocks[blockNum] && tblBlocks[blockNum].txs ? 
                         <table className={styles.tblTransactions}>
                             <thead>
@@ -94,32 +95,30 @@ const PageBlock = () => {
                                             {valeur.tx_status === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}
                                         </td>
                                         <td>
-                                            {valeur.tx_from_account ?
+                                            {valeur.tx_description === 'MsgSend' || valeur.tx_description === 'MsgDelegate' || valeur.tx_description === 'MsgTransfer' ?
                                                 <>
-                                                    <Link to={"/accounts/" + valeur.tx_from_account}>{valeur.tx_from_account}</Link><br />
+                                                    Account : {isValidTerraAddressFormat(valeur.tx_from_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_from_account}>{valeur.tx_from_account}</Link> : valeur.tx_from_account}<br />
                                                     {valeur.tx_from_valoper ? 
-                                                        <span>It is the account of validator « <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link> »</span>
+                                                        <span>Of validator : <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link></span>
                                                         : null
                                                     }
-                                                </>
-                                                : "--"
+                                                </> : null
                                             }
+                                            {valeur.tx_description === 'MsgUndelegate' ? <span>Validator : <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link></span> : null}
                                         </td>
                                         <td>
-                                            {valeur.tx_to_account ?
+                                            {valeur.tx_description === 'MsgSend' || valeur.tx_description === 'MsgUndelegate' || valeur.tx_description === 'MsgTransfer' ?
                                                 <>
-                                                    <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_to_account}</Link><br />
+                                                    Account : {isValidTerraAddressFormat(valeur.tx_to_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_from_account}</Link> : valeur.tx_to_account}<br />
                                                     {valeur.tx_to_valoper ? 
-                                                        <span>It is the account of validator « <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link> »</span>
+                                                        <span>Of validator : <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link></span>
                                                         : null
                                                     }
-                                                </>
-                                                : "--"
+                                                </> : null
                                             }
+                                            {valeur.tx_description === 'MsgDelegate' ? <span>Validator : <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link></span> : null}
                                         </td>
                                         {/* <td>
-                                            {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
-                                            {valeur[3] === 'Delegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
                                             {valeur[3] === 'Undelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
                                             {valeur[3] === 'Begin Redelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
                                             {valeur[3] === 'Vote' ?
@@ -145,8 +144,6 @@ const PageBlock = () => {
                                             }
                                         </td> */}
                                         {/* <td>
-                                            {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
-                                            {valeur[3] === 'Delegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
                                             {valeur[3] === 'Undelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
                                             {valeur[3] === 'Begin Redelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
                                             {valeur[3] === 'Vote' ? <><span>Proposal : </span><Link to={"/proposals/" + valeur[5]}>#{valeur[5]}</Link></> : null}

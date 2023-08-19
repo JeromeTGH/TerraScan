@@ -46,21 +46,39 @@ export const getBlockInfoV2 = async (blockNum) => {
                             tx_from_account = tx.tx.value.msg[0].value.from_address;
                             tx_to_account = tx.tx.value.msg[0].value.to_address;
                             break;
+                        case 'MsgDelegate':
+                            tx_from_account = tx.tx.value.msg[0].value.delegator_address;
+                            tx_to_valoper = tx.tx.value.msg[0].value.validator_address;
+                            tx_to_name = tblValidators[tx_to_valoper].description_moniker;
+                            break;
+                        case 'MsgUndelegate':
+                            tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
+                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
+                            tx_to_account = tx.tx.value.msg[0].value.delegator_address;
+                            break;
+                        case 'MsgTransfer':
+                            tx_from_account = tx.tx.value.msg[0].value.sender;
+                            tx_to_account = tx.tx.value.msg[0].value.receiver;
+                            break;
                         default:
                             break;
                     }
                 }
 
                 // Renseignement validateur, s'il s'agit de son compte (côté sender ou receiver)
-                const isSenderValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === tx_from_account);
-                if(isSenderValidatorAccount) {
-                    tx_from_name = isSenderValidatorAccount[1].description_moniker;
-                    tx_from_valoper = isSenderValidatorAccount[0];
+                if(tx_from_valoper === '') {
+                    const isSenderValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === tx_from_account);
+                    if(isSenderValidatorAccount) {
+                        tx_from_name = isSenderValidatorAccount[1].description_moniker;
+                        tx_from_valoper = isSenderValidatorAccount[0];
+                    }
                 }
-                const isReceiverValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === tx_to_account);
-                if(isReceiverValidatorAccount) {
-                    tx_to_name = isReceiverValidatorAccount[1].description_moniker;
-                    tx_to_valoper = isReceiverValidatorAccount[0];
+                if(tx_to_valoper === '') {
+                    const isReceiverValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === tx_to_account);
+                    if(isReceiverValidatorAccount) {
+                        tx_to_name = isReceiverValidatorAccount[1].description_moniker;
+                        tx_to_valoper = isReceiverValidatorAccount[0];
+                    }
                 }
 
 
