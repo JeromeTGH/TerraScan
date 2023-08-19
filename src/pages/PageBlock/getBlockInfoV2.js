@@ -7,7 +7,7 @@ import { loadValidatorsList } from "../../sharedFunctions/getValidatorsV2";
 export const getBlockInfoV2 = async (blockNum) => {
     
     // Interroge le FCD, seulement si ce bloc n'a pas déjà été téléchargé en mémoire, précédemment
-    if(!tblBlocks[blockNum.toString()] !== 12) {
+    if(!tblBlocks[blockNum.toString()] || !tblBlocks[blockNum.toString()].txs) {
 
         // Charge la liste des validateurs, si elle est vide
         await loadValidatorsList();
@@ -18,47 +18,78 @@ export const getBlockInfoV2 = async (blockNum) => {
         // Récupération des infos concernant le block recherché
         const rawBlockInfo = await fcd.tendermint.askForBlockInfo(blockNum).catch(handleError);
         if(rawBlockInfo) {
-            // console.log("rawBlockInfo", rawBlockInfo);
             const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);    
-            // console.log("blockInfo", blockInfo);
-
 
             // Analyse/synthèse des transactions de ce block
             const tblTxs = [];
             for(const tx of blockInfo.txs) {
-                console.log("tx", tx);
 
                 // Description de la transaction (type : MsgDelegate, MsgSend, ..., sinon Multiple...)
-                const tx_description = (tx.tx.value.msg.length === 1 ?
+                const tx_type = (tx.tx.value.msg.length === 1 ?
                             tx.tx.value.msg[0].type.split('/')[1]
-                            : 'Multiple (' + tx.tx.value.msg.length + ')');
+                            : 'Multiple (' + tx.tx.value.msg.length + ' messages)');
 
-                // Détermination des potentiels "from" et "to"
+                // Détermination des "from" et "to", récupération d'autres infos "intéressantes" dans la foulée
                 let tx_from_account = '';
                 let tx_from_name = '';
                 let tx_from_valoper = '';
                 let tx_to_account = '';
                 let tx_to_name = '';
                 let tx_to_valoper = '';
-                if(tx_description.includes("Msg")) {
-                    switch (tx_description) {
+                let proposal_id = '';
+                let vote_choice = '';
+                let tx_description = '';
+                if(tx_type.includes("Msg")) {
+                    switch (tx_type) {
                         case 'MsgSend':
+                            tx_description = 'Send';
                             tx_from_account = tx.tx.value.msg[0].value.from_address;
                             tx_to_account = tx.tx.value.msg[0].value.to_address;
                             break;
                         case 'MsgDelegate':
+                            tx_description = 'Delegate';
                             tx_from_account = tx.tx.value.msg[0].value.delegator_address;
                             tx_to_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_to_name = tblValidators[tx_to_valoper].description_moniker;
                             break;
                         case 'MsgUndelegate':
+                            tx_description = 'Undelegate';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_from_name = tblValidators[tx_from_valoper].description_moniker;
                             tx_to_account = tx.tx.value.msg[0].value.delegator_address;
                             break;
                         case 'MsgTransfer':
+                            tx_description = 'Transfer';
                             tx_from_account = tx.tx.value.msg[0].value.sender;
                             tx_to_account = tx.tx.value.msg[0].value.receiver;
+                            break;
+                        case 'MsgBeginRedelegate':
+                            tx_description = 'Begin Redelegate';
+                            tx_from_account = tx.tx.value.msg[0].value.delegator_address;
+                            tx_to_valoper = tx.tx.value.msg[0].value.validator_dst_address;
+                            tx_to_name = tblValidators[tx_to_valoper].description_moniker;
+                            break;
+                        case 'MsgVote':
+                            tx_description = 'Vote';
+                            tx_from_account = tx.tx.value.msg[0].value.voter;
+                            proposal_id = tx.tx.value.msg[0].value.proposal_id;
+                            vote_choice = tx.tx.value.msg[0].value.option;
+                            break;
+                        case 'MsgWithdrawDelegatorReward':                    // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
+                            tx_description = 'Withdraw Delegator Reward';
+                            tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
+                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
+                            tx_from_account = tblValidators[tx_from_valoper].terra1_account_address;
+                            tx_to_account = tx.tx.value.msg[0].value.delegator_address;
+                            break;
+                        case 'MsgWithdrawValidatorCommission':
+                            tx_description = 'Withdraw Validator Commission';
+                            tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
+                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
+                            tx_from_account = tblValidators[tx_from_valoper].terra1_account_address;
+                            tx_to_valoper = tx_from_valoper;
+                            tx_to_name = tx_from_name;
+                            tx_to_account = tx_from_account;
                             break;
                         default:
                             break;
@@ -86,13 +117,16 @@ export const getBlockInfoV2 = async (blockNum) => {
                 const objTx = {
                     'tx_hash': tx.txhash,
                     'tx_status': tx.code,
+                    'tx_type': tx_type,
                     'tx_description': tx_description,
                     'tx_from_account': tx_from_account,
                     'tx_from_name': tx_from_name,
                     'tx_from_valoper': tx_from_valoper,
                     'tx_to_account': tx_to_account,
                     'tx_to_name': tx_to_name,
-                    'tx_to_valoper': tx_to_valoper
+                    'tx_to_valoper': tx_to_valoper,
+                    'proposal_id': proposal_id,
+                    'vote_choice': vote_choice
                 }
                 tblTxs.push(objTx);
             }

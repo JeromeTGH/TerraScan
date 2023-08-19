@@ -23,7 +23,7 @@ export const loadValidatorsList = async () => {
                 //      tblValidators["valoper"] = {
                 //          commission_max_change_pourcentage, commission_max_pourcentage, commission_actual_pourcentage,
                 //          description_details, description_moniker, description_security_contact, description_website,
-                //          valaccount_address, status, delegator_shares, shares_on_total_shares_ratio
+                //          terra1_account_address, status, delegator_shares, shares_on_total_shares_ratio
                 //      }
                 tblValidators[validatorInfo.operator_address] = {
                     'commission_max_change_pourcentage': validatorInfo.commission.commission_rates.max_change_pourcentage,
