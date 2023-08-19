@@ -50,12 +50,12 @@ export const getBlockInfoV2 = async (blockNum) => {
                             tx_description = 'Delegate';
                             tx_from_account = tx.tx.value.msg[0].value.delegator_address;
                             tx_to_valoper = tx.tx.value.msg[0].value.validator_address;
-                            tx_to_name = tblValidators[tx_to_valoper].description_moniker;
+                            tx_to_name = tblValidators[tx_to_valoper] ? tblValidators[tx_to_valoper].description_moniker : 'unknown';
                             break;
                         case 'MsgUndelegate':
                             tx_description = 'Undelegate';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
-                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
+                            tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
                             tx_to_account = tx.tx.value.msg[0].value.delegator_address;
                             break;
                         case 'MsgTransfer':
@@ -67,7 +67,7 @@ export const getBlockInfoV2 = async (blockNum) => {
                             tx_description = 'Begin Redelegate';
                             tx_from_account = tx.tx.value.msg[0].value.delegator_address;
                             tx_to_valoper = tx.tx.value.msg[0].value.validator_dst_address;
-                            tx_to_name = tblValidators[tx_to_valoper].description_moniker;
+                            tx_to_name = tblValidators[tx_to_valoper] ? tblValidators[tx_to_valoper].description_moniker : 'unknown';
                             break;
                         case 'MsgVote':
                             tx_description = 'Vote';
@@ -78,15 +78,15 @@ export const getBlockInfoV2 = async (blockNum) => {
                         case 'MsgWithdrawDelegatorReward':                    // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
                             tx_description = 'Withdraw Delegator Reward';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
-                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
-                            tx_from_account = tblValidators[tx_from_valoper].terra1_account_address;
+                            tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
+                            tx_from_account = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].terra1_account_address : 'unknown';
                             tx_to_account = tx.tx.value.msg[0].value.delegator_address;
                             break;
                         case 'MsgWithdrawValidatorCommission':
                             tx_description = 'Withdraw Validator Commission';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
-                            tx_from_name = tblValidators[tx_from_valoper].description_moniker;
-                            tx_from_account = tblValidators[tx_from_valoper].terra1_account_address;
+                            tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
+                            tx_from_account = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].terra1_account_address : 'unknown';
                             tx_to_valoper = tx_from_valoper;
                             tx_to_name = tx_from_name;
                             tx_to_account = tx_from_account;
@@ -132,14 +132,26 @@ export const getBlockInfoV2 = async (blockNum) => {
             }
 
 
-
             // Structure :
             //      tblBlocks["height"] = {
             //          nb_tx,
             //          validator_moniker,
             //          validator_address,
             //          datetime,
-            //          txs [] of {tx_hash, tx_status, tx_description, tx_from_address, tx_from_moniker, tx_to_address, tx_to_moniker}
+            //          optional txs [] of {
+            //              tx_hash,
+            //              tx_status,
+            //              tx_type,
+            //              tx_description,
+            //              tx_from_account,
+            //              tx_from_name,
+            //              tx_from_valoper,
+            //              tx_to_account,
+            //              tx_to_name,
+            //              tx_to_valoper,
+            //              proposal_id,
+            //              vote_choice
+            //          }
             //      }
             tblBlocks[blockNum.toString()] = {
                 'nb_tx': blockInfo.txs.length,
