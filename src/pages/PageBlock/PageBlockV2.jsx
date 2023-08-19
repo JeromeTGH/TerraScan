@@ -75,7 +75,99 @@ const PageBlock = () => {
                 </div>
                 <br />
                 <div className="boxContainer ">
-                    Txs à venir ...
+                    {tblBlocks && tblBlocks[blockNum] && tblBlocks[blockNum].txs ? 
+                        <table className={styles.tblTransactions}>
+                            <thead>
+                                <tr>
+                                    <th>Hash</th>
+                                    <th>Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tblBlocks[blockNum].txs.map((valeur, clef) => {
+                                    return <tr key={clef}>
+                                        <td><Link to={"/transactions/" + valeur.tx_hash}>{valeur.tx_hash}</Link></td>
+                                        <td>
+                                            {valeur.tx_description}<br />
+                                            {valeur.tx_status === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}
+                                        </td>
+                                        <td>
+                                            {valeur.tx_from_account ?
+                                                <>
+                                                    <Link to={"/accounts/" + valeur.tx_from_account}>{valeur.tx_from_account}</Link><br />
+                                                    {valeur.tx_from_valoper ? 
+                                                        <span>It is the account of validator « <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link> »</span>
+                                                        : null
+                                                    }
+                                                </>
+                                                : "--"
+                                            }
+                                        </td>
+                                        <td>
+                                            {valeur.tx_to_account ?
+                                                <>
+                                                    <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_to_account}</Link><br />
+                                                    {valeur.tx_to_valoper ? 
+                                                        <span>It is the account of validator « <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link> »</span>
+                                                        : null
+                                                    }
+                                                </>
+                                                : "--"
+                                            }
+                                        </td>
+                                        {/* <td>
+                                            {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                            {valeur[3] === 'Delegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                            {valeur[3] === 'Undelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                            {valeur[3] === 'Begin Redelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></> : null}
+                                            {valeur[3] === 'Vote' ?
+                                                valeur[6] === '' ?
+                                                    <><span>Account : </span><Link to={"/accounts/" + valeur[4]}>{valeur[4]}</Link></>
+                                                :
+                                                    <>
+                                                        <span>Validator : </span>
+                                                        <Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link>
+                                                        {valeur[7] !== '' ? <><br /><span>(through his account <Link to={"/accounts/" + valeur[7]}>{valeur[7]}</Link>)</span></> : null}
+                                                    </>
+                                            : null}
+                                            {valeur[3] === 'Withdraw Delegator Reward' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                            {valeur[3] === 'Withdraw Validator Commission' ? <><span>Validator : </span><Link to={"/validators/" + valeur[4]}>{valeur[6]}</Link></> : null}
+                                            {valeur[3] !== 'Send'
+                                                && valeur[3] !== 'Delegate'
+                                                && valeur[3] !== 'Undelegate'
+                                                && valeur[3] !== 'Begin Redelegate'
+                                                && valeur[3] !== 'Vote'
+                                                && valeur[3] !== 'Withdraw Delegator Reward'
+                                                && valeur[3] !== 'Withdraw Validator Commission'
+                                                ? "--" : null
+                                            }
+                                        </td> */}
+                                        {/* <td>
+                                            {valeur[3] === 'Send' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                            {valeur[3] === 'Delegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
+                                            {valeur[3] === 'Undelegate' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                            {valeur[3] === 'Begin Redelegate' ? <><span>Validator : </span><Link to={"/validators/" + valeur[5]}>{valeur[6]}</Link></> : null}
+                                            {valeur[3] === 'Vote' ? <><span>Proposal : </span><Link to={"/proposals/" + valeur[5]}>#{valeur[5]}</Link></> : null}
+                                            {valeur[3] === 'Withdraw Delegator Reward' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                            {valeur[3] === 'Withdraw Validator Commission' ? <><span>Account : </span><Link to={"/accounts/" + valeur[5]}>{valeur[5]}</Link></> : null}
+                                            {valeur[3] !== 'Send'
+                                                && valeur[3] !== 'Delegate'
+                                                && valeur[3] !== 'Undelegate'
+                                                && valeur[3] !== 'Begin Redelegate'
+                                                && valeur[3] !== 'Vote'
+                                                && valeur[3] !== 'Withdraw Delegator Reward'
+                                                && valeur[3] !== 'Withdraw Validator Commission'
+                                                ? "--" : null
+                                            }                                  
+                                        </td> */}
+                                    </tr>
+                                })}
+                            </tbody>
+                        </table>
+                    : <p>No transaction.</p>
+                }
                 </div>
             </>
             }

@@ -27,8 +27,15 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
             // Téléchargement du bloc "i"
             const rawBlockInfo = await fcd.tendermint.askForBlockInfo(i).catch(handleError);
             if(rawBlockInfo) {
-                const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);    
-                // tblBlocks["height"] = { nb_tx, validator_moniker, validator_address, datetime }
+                const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);
+                // Structure :
+                //      tblBlocks["height"] = {
+                //          nb_tx,
+                //          validator_moniker,
+                //          validator_address,
+                //          datetime,
+                //          [tx_hash, tx_description, tx_from, tx_to]
+                //      }
                 tblBlocks[i.toString()] = {
                     'nb_tx': blockInfo.txs.length,
                     'validator_moniker': blockInfo.proposer.moniker,
