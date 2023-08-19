@@ -40,12 +40,12 @@ export const tblBlocks = {};
 //          description_details,
 //          profile_icon,
 //          voting_power_amount,
-//          voting_power_weight,
+//          voting_power_pourcentage,
 //          commission_actual_pourcentage,
 //          commission_max_pourcentage,
 //          commission_max_change_pourcentage,
 //          self_delegation_amount,
-//          self_delegation_weight
+//          self_delegation_pourcentage
 //      }
 export const tblValidators = {};
 

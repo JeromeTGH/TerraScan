@@ -27,12 +27,12 @@ export const loadValidatorsList = async () => {
                 //          description_details,
                 //          profile_icon,
                 //          voting_power_amount,
-                //          voting_power_weight,
+                //          voting_power_pourcentage,
                 //          commission_actual_pourcentage,
                 //          commission_max_pourcentage,
                 //          commission_max_change_pourcentage,
                 //          self_delegation_amount,
-                //          self_delegation_weight
+                //          self_delegation_pourcentage
                 //      }
                 tblValidators[validatorInfo.operator_address] = {
                     'up_time': validatorInfo.up_time,
