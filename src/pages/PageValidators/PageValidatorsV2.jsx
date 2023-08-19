@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalculatorIcon, SearchIcon } from '../../application/AppIcons';
-import styles from './PageValidators.module.scss';
+import styles from './PageValidatorsV2.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidTerraAddressFormat, metEnFormeGrandNombre } from '../../application/AppUtils';
 import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';

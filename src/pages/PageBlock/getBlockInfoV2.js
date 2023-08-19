@@ -6,7 +6,7 @@ import { BlockInfo } from "../../fcd/classes/BlockInfo";
 export const getBlockInfoV2 = async (blockNum) => {
     
     // Interroge le FCD, seulement si ce bloc n'a pas déjà été téléchargé en mémoire, précédemment
-    if(!tblBlocks[blockNum.toString()]) {
+    if(!tblBlocks[blockNum.toString()] !== 12) {
 
         // Récupération du singleton de la classe FCDclient
         const fcd = FCDclient.getSingleton();
@@ -15,6 +15,12 @@ export const getBlockInfoV2 = async (blockNum) => {
         const rawBlockInfo = await fcd.tendermint.askForBlockInfo(blockNum).catch(handleError);
         if(rawBlockInfo) {
             const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);    
+
+
+            console.log("blockInfo", blockInfo);
+
+
+
             // tblBlocks["height"] = { nb_tx, validator_moniker, validator_address, datetime }
             tblBlocks[blockNum.toString()] = {
                 'nb_tx': blockInfo.txs.length,
