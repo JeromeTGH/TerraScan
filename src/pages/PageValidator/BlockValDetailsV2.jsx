@@ -21,10 +21,10 @@ const BlockValDetailsV2 = (props) => {
                         <td>Voting power :</td>
                         <td>{tblValidators[props.valAddress].voting_power_pourcentage}%</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                         <td>Nb of stakers (delegators) :</td>
                         <td>(not implemented)</td>
-                    </tr>
+                    </tr> */}
                     <tr><td colSpan='2'>&nbsp;</td></tr>
                     <tr>
                         <td>Nb LUNC staked :</td>

@@ -1,66 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './BlockValInfosV2.module.scss';
-import { getValInfos } from './getValInfos';
-import { appName } from '../../application/AppParams';
+import { tblValidators } from '../../application/AppData';
+
 
 const BlockValInfosV2 = (props) => {
-    
-    // Variables React
-    const [tableValInfos, setTableValInfos] = useState();
-    const [msgErreurTableValInfos, setMsgErreurTableValInfos] = useState();
-
-    // Chargement au démarrage
-    useEffect(() => {
-        getValInfos(props.valAddress).then((res) => {
-            if(res['erreur']) {
-                setMsgErreurTableValInfos(res['erreur']);
-                setTableValInfos({});
-            }
-            else {
-                setMsgErreurTableValInfos('');
-                setTableValInfos(res);
-
-                // Changement du "title" de la page web
-                if(res['moniker'])
-                    document.title = 'Validator "' + res['moniker'] + '" - ' + appName;
-            }
-        })
-    }, [props])
 
     // Affichage
     return (
         <div className={"boxContainer " + styles.infosBlock}>
-            {tableValInfos && tableValInfos['moniker'] ? <p className={"h2like " + styles.h2Infos}>{tableValInfos['moniker']}</p> : null}
-            {tableValInfos ? 
-                tableValInfos['moniker'] ? 
-                <table className={styles.tblInfos}>
-                    <tbody>
-                        <tr>
-                            <td>Website :</td>
-                            <td><a className={styles.website} href={tableValInfos['website']} target='_blank' rel='noopener noreferrer'>{tableValInfos['website']}</a></td>
-                        </tr>
-                        <tr>
-                            <td>Email :</td>
-                            <td><span  className={styles.email}>{tableValInfos['email']}</span></td>
-                        </tr>
-                        <tr>
-                            <td>Comments :</td>
-                            <td>{tableValInfos['details']}</td>
-                        </tr>
-                        <tr>
-                            <td>Status :</td>
-                            <td>
-                                <span>{tableValInfos['activeOrNot'] ? "Bonded" : "Unbonded"}</span>
-                                <span> / </span>
-                                <span className={tableValInfos['jailedOrNot'] ? "erreur" : "succes"}><strong>{tableValInfos['jailedOrNot'] ? "Jailed" : "Active"}</strong></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                : null
-                : <p>Loading data from blockchain (lcd) ...</p>
+            <div className="h2like" style={{textAlign: "center"}}>{tblValidators[props.valAddress].description_moniker}</div>
+            {tblValidators[props.valAddress].profile_icon ?
+                <div className={styles.img}><img src={tblValidators[props.valAddress].profile_icon} alt="Validator logo" /></div>
+                :
+                null
             }
-            <div className="erreur">{msgErreurTableValInfos}</div>
+            <table className={styles.tblInfos}>
+                <tbody>
+                    <tr>
+                        <td><strong>Website&nbsp;:</strong></td>
+                        <td><a className={styles.website} href={tblValidators[props.valAddress].description_website} target='_blank' rel='noopener noreferrer'>{tblValidators[props.valAddress].description_website}</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email&nbsp;:</strong></td>
+                        <td><span  className={styles.email}>{tblValidators[props.valAddress].description_security_contact}</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comments&nbsp;:</strong></td>
+                        <td>{tblValidators[props.valAddress].description_details}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status&nbsp;:</strong></td>
+                        <td>
+                            <span className={tblValidators[props.valAddress].status === 'active' ? "succes" : "erreur"}><strong>{tblValidators[props.valAddress].status}</strong></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     );
 };
