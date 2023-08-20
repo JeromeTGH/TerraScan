@@ -1,8 +1,5 @@
 import { LCDurl } from "../application/AppParams";
 import { APIrequester } from "./APIrequester";
-import { AccountAPI } from "./api/AccountAPI";
-import { StakingAPI } from "./api/StakingAPI";
-import { TendermintAPI } from "./api/TendermintAPI";
 
 export class LCDclient {
 
@@ -18,14 +15,17 @@ export class LCDclient {
             this.apiRequester = new APIrequester(url_of_LCD);
 
 
-            //    À COMPLÉTER !!
-            //    À COMPLÉTER !!
-            //    À COMPLÉTER !!
+            //    À COMPLÉTER, AU BESOIN !!
+            //    À COMPLÉTER, AU BESOIN !!
+            //    À COMPLÉTER, AU BESOIN !!
 
+
+            // ================
+            // Exemple de paths
+            // ================
             this.paths = {
                 bank: {
-                    getAccountDetails: '...',
-                    getAccountTxs: '...'
+                    getAccountDetails: '...'
                 },
                 tendermint: {
                     getNodeInfos: '...',
@@ -37,6 +37,9 @@ export class LCDclient {
                 }
             }
     
+            // =============================
+            // Exemples d'intanciation d'API
+            // =============================
             // this.account = new AccountAPI(this.apiRequester, null);
             // this.tendermint = new TendermintAPI(this.apiRequester, null);
             // this.staking = new StakingAPI(this.apiRequester, this.paths.staking);

@@ -12,10 +12,4 @@ export class BankAPI {
         return await this.apiRequester.get(this.paths.getAccountDetails + accountAdr, params);
     }
 
-    // Exemple d'appel : /v1/txs?offset=0&limit=100&account=terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu
-    async getAccountTxs(params) {
-        params.append('limit', 100);
-        return this.apiRequester.get(this.paths.getAccountTxs, params);
-    }
-
 }

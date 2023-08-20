@@ -17,7 +17,7 @@ export const getTransactionsAccount = async (accountAddress) => {
     params.append('account', accountAddress);
 
     // Récupération des 100 dernières transactions
-    const rawTxs = await fcd.account.getAccountTxs(params).catch(handleError);
+    const rawTxs = await fcd.tx.getAccountTxs(params).catch(handleError);
     if(rawTxs) {
         // Structure :
         //      {

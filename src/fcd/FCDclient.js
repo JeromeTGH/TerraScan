@@ -3,6 +3,7 @@ import { APIrequester } from "./APIrequester";
 import { BankAPI } from "./api/BankAPI";
 import { StakingAPI } from "./api/StakingAPI";
 import { TendermintAPI } from "./api/TendermintAPI";
+import { TxAPI } from "./api/TxAPI";
 
 export class FCDclient {
 
@@ -18,8 +19,7 @@ export class FCDclient {
             this.apiRequester = new APIrequester(url_of_FCD);
             this.paths = {
                 bank: {
-                    getAccountDetails: '/v1/bank/',
-                    getAccountTxs: '/v1/txs'
+                    getAccountDetails: '/v1/bank/'
                 },
                 tendermint: {
                     getNodeInfos: '/node_info',
@@ -28,12 +28,17 @@ export class FCDclient {
                 staking: {
                     getValidatorInfos: '/v1/staking/validators/',
                     getValidatorsList: '/v1/staking/validators'
+                },
+                tx: {
+                    getAccountTxs: '/v1/txs',
+                    getTxInfos: '/v1/txs/'
                 }
             }
     
             this.account = new BankAPI(this.apiRequester, this.paths.bank);
             this.tendermint = new TendermintAPI(this.apiRequester, this.paths.tendermint);
             this.staking = new StakingAPI(this.apiRequester, this.paths.staking);
+            this.tx = new TxAPI(this.apiRequester, this.paths.tx);
 
             FCDclient._instance = this;
             console.log('Instance FCD créée.');
