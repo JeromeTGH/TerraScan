@@ -1,6 +1,6 @@
-import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
+import { chainID, chainLCDurl, tblCorrespondanceMessages, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { AccAddress, Coins, LCDClient, MsgAcknowledgement, MsgAggregateExchangeRatePrevote, MsgAggregateExchangeRateVote,
-         MsgBeginRedelegate, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgInstantiateContract, MsgSend, MsgSubmitProposal,
+         MsgBeginRedelegate, MsgCreateValidator, MsgDelegate, MsgDeposit, MsgExecAuthorized, MsgExecuteContract, MsgFundCommunityPool, MsgInstantiateContract, MsgSend, MsgSubmitProposal,
          MsgTransfer,
          MsgUndelegate, MsgUnjail, MsgUpdateClient, MsgVote, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from '@terra-money/terra.js';
 
@@ -91,7 +91,6 @@ export const getTxDatas = async (txHash) => {
             
             if(message instanceof MsgSend) {
                 msgStructRet['MsgType'] = 'MsgSend';
-                msgStructRet['MsgDesc'] = 'Send';
                 msgStructRet['FromAddress'] = message.from_address;
                 msgStructRet['ToAddress'] = message.to_address;
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
@@ -99,7 +98,6 @@ export const getTxDatas = async (txHash) => {
             
             if(message instanceof MsgAggregateExchangeRateVote) {
                 msgStructRet['MsgType'] = 'MsgAggregateExchangeRateVote';
-                msgStructRet['MsgDesc'] = 'Aggregate Exchange Rate Vote';
                 msgStructRet['Feeder'] = message.feeder;
                 msgStructRet['Salt'] = message.salt;
                 msgStructRet["ExchangeRates"] = exchangeRatesToFormatedText(message.exchange_rates);
@@ -109,7 +107,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgAggregateExchangeRatePrevote) {
                 msgStructRet['MsgType'] = 'MsgAggregateExchangeRatePrevote';
-                msgStructRet['MsgDesc'] = 'Aggregate Exchange Rate Prevote';
                 msgStructRet['Feeder'] = message.feeder;
                 msgStructRet['Hash'] = message.hash;
                 msgStructRet['ValidatorAddress'] = message.validator;
@@ -118,7 +115,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgVote) {
                 msgStructRet['MsgType'] = 'MsgVote';
-                msgStructRet['MsgDesc'] = 'Vote';
                 msgStructRet['VoteChoice'] = message.option;
                 msgStructRet['ProposalID'] = message.proposal_id;
                 msgStructRet['VoterAddress'] = message.voter;
@@ -131,7 +127,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgWithdrawDelegatorReward) {
                 msgStructRet['MsgType'] = 'MsgWithdrawDelegatorReward';
-                msgStructRet['MsgDesc'] = 'Withdraw Delegator Reward';
                 msgStructRet['DelegatorAddress'] = message.delegator_address;
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
@@ -142,12 +137,11 @@ export const getTxDatas = async (txHash) => {
                     msgStructRet['withdrawRewards'] = rewards;
                 } else
                     msgStructRet['withdrawRewards'] = ['(undefined)'];
-
             }
 
             if(message instanceof MsgWithdrawValidatorCommission) {
+                // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
                 msgStructRet['MsgType'] = 'MsgWithdrawValidatorCommission';
-                msgStructRet['MsgDesc'] = 'Withdraw Validator Commission';
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
                 msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.validator_address);
@@ -162,7 +156,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgExecuteContract) {
                 msgStructRet['MsgType'] = 'MsgExecuteContract';
-                msgStructRet['MsgDesc'] = 'Execute Contract';
                 msgStructRet['Contract'] = message.contract;
                 msgStructRet['Sender'] = message.sender;
                 msgStructRet['Coins'] = coinsListToFormatedText(message.coins);
@@ -171,7 +164,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgDelegate) {
                 msgStructRet['MsgType'] = 'MsgDelegate';
-                msgStructRet['MsgDesc'] = 'Delegate';
                 msgStructRet['DelegatorAddress'] = message.delegator_address;
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
@@ -187,7 +179,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgUndelegate) {
                 msgStructRet['MsgType'] = 'MsgUndelegate';
-                msgStructRet['MsgDesc'] = 'Undelegate';
                 msgStructRet['DelegatorAddress'] = message.delegator_address;
                 msgStructRet['ValidatorAddress'] = message.validator_address;
                 msgStructRet['ValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_address);
@@ -203,7 +194,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgBeginRedelegate) {
                 msgStructRet['MsgType'] = 'MsgBeginRedelegate';
-                msgStructRet['MsgDesc'] = 'Begin Redelegate';
                 msgStructRet['DelegatorAddress'] = message.delegator_address;
                 msgStructRet['SrcValidatorAddress'] = message.validator_src_address;
                 msgStructRet['SrcValidatorMoniker'] = await getValidatorMoniker(lcd, message.validator_src_address);
@@ -221,7 +211,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgSubmitProposal) {
                 msgStructRet['MsgType'] = 'MsgSubmitProposal';
-                msgStructRet['MsgDesc'] = 'Submit Proposal';
                 msgStructRet['Proposer'] = message.proposer;
                 msgStructRet['InitialDeposit'] = coinsListToFormatedText(message.initial_deposit);
                 msgStructRet['ContentTitle'] = message.content.title;
@@ -235,7 +224,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgDeposit) {
                 msgStructRet['MsgType'] = 'MsgDeposit';
-                msgStructRet['MsgDesc'] = 'Deposit';
                 msgStructRet['Depositor'] = message.depositor;
                 msgStructRet['ProposalID'] = message.proposal_id;
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
@@ -243,7 +231,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgFundCommunityPool) {
                 msgStructRet['MsgType'] = 'MsgFundCommunityPool';
-                msgStructRet['MsgDesc'] = 'Fund Community Pool';
                 msgStructRet['Depositor'] = message.depositor;
                 msgStructRet['Amount'] = coinsListToFormatedText(message.amount);
                 if(rawTxInfo.logs[i] !== undefined) {
@@ -254,7 +241,6 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgUpdateClient) {
                 msgStructRet['MsgType'] = 'MsgUpdateClient';
-                msgStructRet['MsgDesc'] = 'Update Client';
                 msgStructRet['Signer'] = message.signer;
                 msgStructRet['ClientID'] = message.client_id;
                 msgStructRet['Header'] = message.header;
@@ -262,7 +248,6 @@ export const getTxDatas = async (txHash) => {
             
             if(message instanceof MsgAcknowledgement) {
                 msgStructRet['MsgType'] = 'MsgAcknowledgement';
-                msgStructRet['MsgDesc'] = 'Acknowledgement';
                 msgStructRet['Signer'] = message.signer;
                 msgStructRet['Acknowledgement'] = message.acknowledgement;
                 msgStructRet['ProofAcked'] = message.proof_acked;
@@ -272,14 +257,12 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgExecAuthorized) {
                 msgStructRet['MsgType'] = 'MsgExecAuthorized';
-                msgStructRet['MsgDesc'] = 'Exec Authorized';
                 msgStructRet['Grantee'] = message.grantee;
                 msgStructRet['Msgs'] = message.msgs;
             }
 
             if(message instanceof MsgInstantiateContract) {
                 msgStructRet['MsgType'] = 'MsgInstantiateContract';
-                msgStructRet['MsgDesc'] = 'Instantiate Contract';
                 msgStructRet['Admin'] = message.admin;
                 msgStructRet['CodeID'] = message.code_id;
                 msgStructRet['InitCoins'] = coinsListToFormatedText(message.init_coins);
@@ -290,18 +273,29 @@ export const getTxDatas = async (txHash) => {
 
             if(message instanceof MsgUnjail) {
                 msgStructRet['MsgType'] = 'MsgUnjail';
-                msgStructRet['MsgDesc'] = 'Unjail';
                 msgStructRet['Address'] = message.address === undefined ? "(undefined)" : message.address;
             }
 
             if(message instanceof MsgTransfer) {
                 msgStructRet['MsgType'] = 'MsgTransfer';
-                msgStructRet['MsgDesc'] = 'Transfer';
                 msgStructRet['FromAddress'] = message.sender;
                 msgStructRet['ToAddress'] = message.receiver;
                 msgStructRet['SourceChannel'] = message.source_channel;
             }
 
+            if(message instanceof MsgCreateValidator) {
+                msgStructRet['MsgType'] = 'MsgCreateValidator';
+                msgStructRet['commission'] = message.commission;
+                msgStructRet['delegator_address'] = message.delegator_address;
+                msgStructRet['description'] = message.description;
+                msgStructRet['min_self_delegation'] = (message.min_self_delegation.toFixed(0) / 1000000);
+                msgStructRet['val_pubkey'] = message.pubkey.key;
+                msgStructRet['validator_address'] = message.validator_address;
+                msgStructRet['value'] = (message.value.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.value.denom] ? tblCorrespondanceValeurs[message.value.denom] : message.value.denom);
+            }
+
+
+            msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);
         }
 

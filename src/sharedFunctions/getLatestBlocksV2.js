@@ -1,6 +1,6 @@
 import { tblBlocks } from "../application/AppData";
-import { FCDclient } from "../fcd-lcd/FCDclient";
-import { BlockInfo } from "../fcd-lcd/classes/BlockInfo";
+import { FCDclient } from "../fcd/FCDclient";
+import { BlockInfo } from "../fcd/classes/BlockInfo";
 
 
 export const loadLatestBlocks = async (nbre_de_block_a_charger) => {

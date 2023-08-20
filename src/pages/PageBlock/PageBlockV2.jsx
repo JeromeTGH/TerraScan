@@ -114,6 +114,7 @@ const PageBlock = () => {
                                             }
                                             {valeur.tx_type === 'MsgUndelegate' ||
                                              valeur.tx_type === 'MsgWithdrawDelegatorReward' ||
+                                             valeur.tx_type === 'MsgWithdrawDelegationReward' ||
                                              valeur.tx_type === 'MsgWithdrawValidatorCommission'
                                             ? <span>Validator : <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link></span> : null}
                                             {valeur.tx_type !== 'MsgSend'
@@ -123,6 +124,7 @@ const PageBlock = () => {
                                                 && valeur.tx_type !== 'MsgVote'
                                                 && valeur.tx_type !== 'MsgUndelegate'
                                                 && valeur.tx_type !== 'MsgWithdrawDelegatorReward'
+                                                && valeur.tx_type !== 'MsgWithdrawDelegationReward'
                                                 && valeur.tx_type !== 'MsgWithdrawValidatorCommission'
                                                 ? "--" : null
                                             }
@@ -132,6 +134,7 @@ const PageBlock = () => {
                                              valeur.tx_type === 'MsgUndelegate' || 
                                              valeur.tx_type === 'MsgTransfer' ||
                                              valeur.tx_type === 'MsgWithdrawDelegatorReward' ||
+                                             valeur.tx_type === 'MsgWithdrawDelegationReward' ||
                                              valeur.tx_type === 'MsgWithdrawValidatorCommission'
                                              ?
                                                 <>
@@ -156,6 +159,7 @@ const PageBlock = () => {
                                                 && valeur.tx_type !== 'MsgVote'
                                                 && valeur.tx_type !== 'MsgUndelegate'
                                                 && valeur.tx_type !== 'MsgWithdrawDelegatorReward'
+                                                && valeur.tx_type !== 'MsgWithdrawDelegationReward'
                                                 && valeur.tx_type !== 'MsgWithdrawValidatorCommission'
                                                 ? "--" : null
                                             }

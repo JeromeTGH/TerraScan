@@ -31,10 +31,10 @@ const BlockTransactions = (props) => {
             <table className={styles.tblTransactions}>
                 <thead>
                     <tr>
+                        <th>Height</th>
                         <th>DateTime</th>
                         <th>TxHash</th>
                         <th>Operation</th>
-                        <th>Height</th>
                     </tr>
                 </thead>
                 {tableOfTransactions ? 
@@ -42,10 +42,10 @@ const BlockTransactions = (props) => {
                             <tbody>
                                 {tableOfTransactions.map((valeur, clef) => {
                                     return <tr key={clef}>
-                                        <td>{valeur[0]}</td>
-                                        <td><Link to={"/transactions/" + valeur[1]}>{valeur[1].substring(0,8) + "..." + valeur[1].slice(-8)}</Link></td>
-                                        <td><span>{valeur[3]}</span><br />{valeur[4] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}</td>
                                         <td><Link to={"/blocks/" + valeur[2]}>{valeur[2]}</Link></td>
+                                        <td>{valeur[0]}</td>
+                                        <td><Link to={"/transactions/" + valeur[1]}>{valeur[1]}</Link></td>
+                                        <td><span>{valeur[3]}</span><br />{valeur[4] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}</td>
                                     </tr>
                                 })}
                             </tbody>

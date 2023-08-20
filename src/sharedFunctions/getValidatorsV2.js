@@ -1,6 +1,6 @@
 import { tblValidators } from "../application/AppData";
-import { FCDclient } from "../fcd-lcd/FCDclient";
-import { Validator } from "../fcd-lcd/classes/Validator";
+import { FCDclient } from "../fcd/FCDclient";
+import { Validator } from "../fcd/classes/Validator";
 
 
 export const loadValidatorsList = async () => {

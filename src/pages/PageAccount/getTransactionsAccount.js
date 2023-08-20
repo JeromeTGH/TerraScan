@@ -1,5 +1,6 @@
+import { tblCorrespondanceMessages } from "../../application/AppParams";
 import { metEnFormeDateTime } from "../../application/AppUtils";
-import { FCDclient } from "../../fcd-lcd/FCDclient";
+import { FCDclient } from "../../fcd/FCDclient";
 
 
 export const getTransactionsAccount = async (accountAddress) => {
@@ -18,9 +19,14 @@ export const getTransactionsAccount = async (accountAddress) => {
     // Récupération des 100 dernières transactions
     const rawTxs = await fcd.account.getAccountTxs(params).catch(handleError);
     if(rawTxs) {
-        // console.log(rawTxs);
-        if(rawTxs.txs) {
-            rawTxs.txs.forEach(element => {
+        // Structure :
+        //      {
+        //          "next": number,                 // si d'autres données sont téléchargeables
+        //          "limit": 100,                   // taille standard de lecture/renvoi
+        //          "txs": [tx]                     // array of Tx
+        //      }
+        if(rawTxs.data && rawTxs.data.txs) {
+            rawTxs.data.txs.forEach(element => {
                 const datetime = metEnFormeDateTime(element.timestamp);
                 const txHash = element.txhash;
                 const txHeight = element.height;
@@ -29,16 +35,17 @@ export const getTransactionsAccount = async (accountAddress) => {
                 if(msgs.length === 0)
                     msgType = 'Nothing';
                 else if(msgs.length > 1)
-                    msgType = 'Multiple (' + msgs.length + ')';
+                    msgType = 'Multiple (' + msgs.length + ' messages)';
                 else {
                     const msgTxtBrut = msgs[0].type;
                     const msgTxtSeul = msgTxtBrut.split("/")[1];
-                    msgType = msgTxtSeul.replace('Msg', '');
+                    msgType = tblCorrespondanceMessages[msgTxtSeul] ? tblCorrespondanceMessages[msgTxtSeul] : msgTxtSeul;
                 }
                 const errorCode = element.code ? element.code : 0;
                 tblTransactions.push([datetime, txHash, txHeight, msgType, errorCode]);
             })
-        }
+        } else
+            return { "erreur": "res.data.txs not found ..." }
     } else
         return { "erreur": "Failed to fetch [txs] ..." }
 

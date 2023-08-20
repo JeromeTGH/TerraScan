@@ -1,6 +1,7 @@
 import { tblBlocks, tblValidators } from "../../application/AppData";
-import { FCDclient } from "../../fcd-lcd/FCDclient";
-import { BlockInfo } from "../../fcd-lcd/classes/BlockInfo";
+import { tblCorrespondanceMessages } from "../../application/AppParams";
+import { FCDclient } from "../../fcd/FCDclient";
+import { BlockInfo } from "../../fcd/classes/BlockInfo";
 import { loadValidatorsList } from "../../sharedFunctions/getValidatorsV2";
 
 
@@ -40,50 +41,44 @@ export const getBlockInfoV2 = async (blockNum) => {
                 let vote_choice = '';
                 let tx_description = '';
                 if(tx_type.includes("Msg")) {
+                    tx_description = tblCorrespondanceMessages[tx_type] ? tblCorrespondanceMessages[tx_type] : tx_type;
                     switch (tx_type) {
                         case 'MsgSend':
-                            tx_description = 'Send';
                             tx_from_account = tx.tx.value.msg[0].value.from_address;
                             tx_to_account = tx.tx.value.msg[0].value.to_address;
                             break;
                         case 'MsgDelegate':
-                            tx_description = 'Delegate';
                             tx_from_account = tx.tx.value.msg[0].value.delegator_address;
                             tx_to_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_to_name = tblValidators[tx_to_valoper] ? tblValidators[tx_to_valoper].description_moniker : 'unknown';
                             break;
                         case 'MsgUndelegate':
-                            tx_description = 'Undelegate';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
                             tx_to_account = tx.tx.value.msg[0].value.delegator_address;
                             break;
                         case 'MsgTransfer':
-                            tx_description = 'Transfer';
                             tx_from_account = tx.tx.value.msg[0].value.sender;
                             tx_to_account = tx.tx.value.msg[0].value.receiver;
                             break;
                         case 'MsgBeginRedelegate':
-                            tx_description = 'Begin Redelegate';
                             tx_from_account = tx.tx.value.msg[0].value.delegator_address;
                             tx_to_valoper = tx.tx.value.msg[0].value.validator_dst_address;
                             tx_to_name = tblValidators[tx_to_valoper] ? tblValidators[tx_to_valoper].description_moniker : 'unknown';
                             break;
                         case 'MsgVote':
-                            tx_description = 'Vote';
                             tx_from_account = tx.tx.value.msg[0].value.voter;
                             proposal_id = tx.tx.value.msg[0].value.proposal_id;
                             vote_choice = tx.tx.value.msg[0].value.option;
                             break;
-                        case 'MsgWithdrawDelegatorReward':                    // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
-                            tx_description = 'Withdraw Delegator Reward';
+                        case 'MsgWithdrawDelegatorReward':          // variance 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141 et 13492618, par exemple
+                        case 'MsgWithdrawDelegationReward':
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
                             tx_from_account = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].terra1_account_address : 'unknown';
                             tx_to_account = tx.tx.value.msg[0].value.delegator_address;
                             break;
                         case 'MsgWithdrawValidatorCommission':
-                            tx_description = 'Withdraw Validator Commission';
                             tx_from_valoper = tx.tx.value.msg[0].value.validator_address;
                             tx_from_name = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].description_moniker : 'unknown';
                             tx_from_account = tblValidators[tx_from_valoper] ? tblValidators[tx_from_valoper].terra1_account_address : 'unknown';
@@ -92,37 +87,26 @@ export const getBlockInfoV2 = async (blockNum) => {
                             tx_to_account = tx_from_account;
                             break;
                         case 'MsgAggregateExchangeRateVote':
-                            tx_description = 'Aggregate Exchange Rate Vote';
                             break;
                         case 'MsgAggregateExchangeRatePrevote':
-                            tx_description = 'Aggregate Exchange Rate Prevote';
                             break;
                         case 'MsgExecuteContract':
-                            tx_description = 'Execute Contract';
                             break;
                         case 'MsgSubmitProposal':
-                            tx_description = 'Submit Proposal';
                             break;
                         case 'MsgDeposit':
-                            tx_description = 'Deposit';
                             break;
                         case 'MsgFundCommunityPool':
-                            tx_description = 'Fund Community Pool';
                             break;
                         case 'MsgUpdateClient':
-                            tx_description = 'Update Client';
                             break;
                         case 'MsgAcknowledgement':
-                            tx_description = 'Acknowledgement';
                             break;
                         case 'MsgExecAuthorized':
-                            tx_description = 'Exec Authorized';
                             break;
                         case 'MsgInstantiateContract':
-                            tx_description = 'Instantiate Contract';
                             break;
                         case 'MsgUnjail':
-                            tx_description = 'Unjail';
                             break;
                         default:
                             break;

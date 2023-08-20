@@ -42,3 +42,29 @@ export const tblCorrespondanceCompte = {
     "terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f": "Oracle pool",              // Nota : noté en dur, dans la section "overview" de la "homepage"
     "terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe": "Binance main wallet"
 }
+
+
+// Tableau de messages
+export const tblCorrespondanceMessages = {
+    "MsgSend": "Send",
+    "MsgDelegate": "Delegate",
+    "MsgUndelegate": "Undelegate",
+    "MsgTransfer": "Transfer",
+    "MsgBeginRedelegate": "Begin Redelegate",
+    "MsgVote": "Vote",
+    "MsgWithdrawDelegatorReward": "Withdraw Delegator Reward",  // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
+        "MsgWithdrawDelegationReward" : "Withdraw Delegation Reward",
+    "MsgWithdrawValidatorCommission": "Withdraw Validator Commission",
+    "MsgAggregateExchangeRateVote": "Aggregate Exchange Rate Vote",
+    "MsgAggregateExchangeRatePrevote": "Aggregate Exchange Rate Prevote",
+    "MsgExecuteContract": "Execute Contract",
+    "MsgSubmitProposal": "Submit Proposal",
+    "MsgDeposit": "Deposit",
+    "MsgFundCommunityPool": "Fund Community Pool",
+    "MsgUpdateClient": "Update Client",
+    "MsgAcknowledgement": "Acknowledgement",
+    "MsgExecAuthorized": "Exec Authorized",
+    "MsgInstantiateContract": "Instantiate Contract",
+    "MsgUnjail": "Unjail",
+        "MsgCreateValidator": "Create Validator"            // à implémenter
+}
