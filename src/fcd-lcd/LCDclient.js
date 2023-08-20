@@ -1,3 +1,4 @@
+import { LCDurl } from "../application/AppParams";
 import { APIrequester } from "./APIrequester";
 import { AccountAPI } from "./api/AccountAPI";
 import { StakingAPI } from "./api/StakingAPI";
@@ -8,13 +9,13 @@ export class LCDclient {
     _instance = null;
 
     // Constructeur
-    constructor (LCDurl) {
+    constructor (url_of_LCD) {
 
         if(LCDclient._instance) {
             return LCDclient._instance;
         }
         else {            
-            this.apiRequester = new APIrequester(LCDurl);
+            this.apiRequester = new APIrequester(url_of_LCD);
 
 
             //    À COMPLÉTER !!
@@ -22,9 +23,17 @@ export class LCDclient {
             //    À COMPLÉTER !!
 
             this.paths = {
+                bank: {
+                    getAccountDetails: '...',
+                    getAccountTxs: '...'
+                },
+                tendermint: {
+                    getNodeInfos: '...',
+                    getBlockInfos: '...'
+                },
                 staking: {
-                    askForValidatorInfo: '...',
-                    askForValidatorsList: '...'
+                    getValidatorInfos: '...',
+                    getValidatorsList: '...'
                 }
             }
     
@@ -38,11 +47,11 @@ export class LCDclient {
     }
 
     // Singleton (pour avoir une unique instance de cette classe)
-    static getSingleton(LCDurl = 'https://terra-classic-lcd.publicnode.com') {
+    static getSingleton(url_of_LCD = LCDurl) {
         if(LCDclient._instance)
             return LCDclient._instance;
         else
-            return new LCDclient(LCDurl);
+            return new LCDclient(url_of_LCD);
     }
 
 }

@@ -52,7 +52,8 @@ export const loadValidatorsList = async () => {
                     'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage
                 }
             }
-        }
+        } else
+            return { "erreur": "Failed to fetch [validators list] ..." }
     }
 
     // Envoie d'un objet vide en retour, pour signifier qu'aucune erreur ne s'est produite

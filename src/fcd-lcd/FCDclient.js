@@ -1,3 +1,4 @@
+import { FCDurl } from "../application/AppParams";
 import { APIrequester } from "./APIrequester";
 import { BankAPI } from "./api/BankAPI";
 import { StakingAPI } from "./api/StakingAPI";
@@ -8,13 +9,13 @@ export class FCDclient {
     _instance = null;
 
     // Constructeur
-    constructor (FCDurl) {
+    constructor (url_of_FCD) {
 
         if(FCDclient._instance) {
             return FCDclient._instance;
         }
         else {
-            this.apiRequester = new APIrequester(FCDurl);
+            this.apiRequester = new APIrequester(url_of_FCD);
             this.paths = {
                 bank: {
                     getAccountDetails: '/v1/bank/',
@@ -40,11 +41,11 @@ export class FCDclient {
     }
 
     // Singleton (pour avoir une unique instance de cette classe)
-    static getSingleton(FCDurl = 'https://terra-classic-fcd.publicnode.com') {
+    static getSingleton(url_of_FCD = FCDurl) {
         if(FCDclient._instance)
             return FCDclient._instance;
         else
-            return new FCDclient(FCDurl);
+            return new FCDclient(url_of_FCD);
     }
 
 }

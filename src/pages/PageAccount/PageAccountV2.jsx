@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-
-import { appName, chainID, chainLCDurl } from '../../application/AppParams';
-import { AccAddress, LCDClient } from '@terra-money/terra.js';
+import { appName } from '../../application/AppParams';
 
 import { AccountIcon } from '../../application/AppIcons';
 import { Link, useParams } from 'react-router-dom';
-import styles from './PageAccount.module.scss';
+import styles from './PageAccountV2.module.scss';
 import BlockBalances from './BlockBalances';
 import BlockDelegations from './BlockDelegations';
 import BlockOtherAssets from './BlockOtherAssets';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import BlockUndelegations from './BlockUndelegations';
 import BlockTransactions from './BlockTransactions';
+import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
+import { tblValidators } from '../../application/AppData';
 
-const PageAccount = () => {
+const PageAccountV2 = () => {
 
     // Récupération du numéro de compte, passé en argument
     const { cptNum } = useParams();
@@ -23,6 +23,7 @@ const PageAccount = () => {
 
     // Récupération des infos validateur, si c'est "son compte"
     const [infosValidateur, setInfosValidateur] = useState(null);
+    const [msgErreurGetValidators, setMsgErreurGetValidators] = useState(null);
 
 
     // Exécution au démarrage, et à chaque changement de cptNum
@@ -31,29 +32,26 @@ const PageAccount = () => {
         // Changement du "title" de la page web
         document.title = 'Account "' + cptNum + '" - ' + appName;
 
-        // Connexion au LCD
-        const lcd = new LCDClient({
-            URL: chainLCDurl,
-            chainID: chainID,
-            isClassic: true
-        });
-
-        // Récupération de la liste de tous les validateurs (pour récupérer leur adresse validateur puis terra1, en fait)
-        lcd.staking.validators({'pagination.limit': '9999'}).then(rawValidators => {
-            if(rawValidators[0]) {
-                rawValidators[0].forEach(element => {
-                    if(AccAddress.fromValAddress(element.operator_address) === cptNum) {
-                        setInfosValidateur([element.operator_address, element.description.moniker]);
-                    }
-                })
-            } else {
-                setInfosValidateur('ERROR : failed to fetch [validators] ...')
+        // Vérification au niveau de la liste des validateurs, pour voir si ce compte ne serait pas l'un des leurs
+        loadValidatorsList().then((res) => {
+            if(res['erreur']) {
+                setMsgErreurGetValidators(res['erreur']);
             }
-        }).catch(err => {
-            setInfosValidateur('ERROR : failed to fetch [validators] ...')
-            console.log(err);
-        })
+            else {
+                setMsgErreurGetValidators('');
 
+                // Récupération des éventuelles infos validateur
+                let valoperAdr = null;
+                let valName = null;
+                const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === cptNum);
+                if(isValidatorAccount) {
+                    valoperAdr = isValidatorAccount[0];
+                    valName = isValidatorAccount[1].description_moniker;
+                }
+                if(valoperAdr && valName)
+                    setInfosValidateur([valoperAdr, valName]);
+            }
+        });
 
     }, [cptNum])
 
@@ -63,6 +61,7 @@ const PageAccount = () => {
             <h1><span><AccountIcon /><strong>{cptDesignation}</strong></span></h1>
             <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
             {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This is the account of <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link> validator.</p> : null}
+            <div className="erreur">{msgErreurGetValidators}</div>
             <br />
             <div className={styles.blocksAccountPage}>
                 <BlockBalances accountAddress={cptNum} />
@@ -75,4 +74,4 @@ const PageAccount = () => {
     );
 };
 
-export default PageAccount;
+export default PageAccountV2;

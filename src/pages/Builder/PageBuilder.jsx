@@ -4,7 +4,7 @@ import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
-import PageAccount from '../PageAccount/PageAccount';
+import PageAccountV2 from '../PageAccount/PageAccountV2';
 import PageAccounts from '../PageAccounts/PageAccounts';
 import PageBlockV2 from '../PageBlock/PageBlockV2';
 import PageBlocksV2 from '../PageBlocks/PageBlocksV2';
@@ -39,7 +39,7 @@ const PageBuilder = (props) => {
             case 'home':
                 return <PageHome />;
             case 'account':
-                return <PageAccount />;
+                return <PageAccountV2 />;
             case 'accounts':
                 return <PageAccounts />;
             case 'block':
