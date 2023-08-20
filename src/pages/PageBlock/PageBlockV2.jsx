@@ -138,7 +138,7 @@ const PageBlock = () => {
                                              valeur.tx_type === 'MsgWithdrawValidatorCommission'
                                              ?
                                                 <>
-                                                    Account : {isValidTerraAddressFormat(valeur.tx_to_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_from_account}</Link> : valeur.tx_to_account}<br />
+                                                    Account : {isValidTerraAddressFormat(valeur.tx_to_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_to_account}</Link> : valeur.tx_to_account}<br />
                                                     {valeur.tx_to_valoper ? 
                                                         <span>Of validator : <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link></span>
                                                         : null
