@@ -1,6 +1,6 @@
 import { tblBlocks } from "../application/AppData";
-import { FCDclient } from "../fcd/FCDclient";
-import { BlockInfo } from "../fcd/classes/BlockInfo";
+import { FCDclient } from "../fcd-lcd/FCDclient";
+import { BlockInfo } from "../fcd-lcd/classes/BlockInfo";
 
 
 export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
@@ -12,9 +12,9 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
     const fcd = FCDclient.getSingleton();
 
     // Récupération du numéro de dernier block
-    const rawLatestBlockInfo = await fcd.tendermint.askForBlockInfo().catch(handleError);
+    const rawLatestBlockInfo = await fcd.tendermint.getBlockInfos('latest').catch(handleError);
     if(rawLatestBlockInfo) {
-        const latestBlockInfo = BlockInfo.extractFromTendermintBlockInfo(rawLatestBlockInfo);    
+        const latestBlockInfo = BlockInfo.extractFromTendermintBlockInfos(rawLatestBlockInfo);    
         last_block_height = latestBlockInfo.height;
     } else
         return { "erreur": "Failed to fetch [latest block] ..." }
@@ -25,9 +25,9 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
         // Vérification s'il n'a pas déjà été téléchargé auparavant
         if(!tblBlocks[i.toString()]) {
             // Téléchargement du bloc "i"
-            const rawBlockInfo = await fcd.tendermint.askForBlockInfo(i).catch(handleError);
+            const rawBlockInfo = await fcd.tendermint.getBlockInfos(i).catch(handleError);
             if(rawBlockInfo) {
-                const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);
+                const blockInfo = BlockInfo.extractFromTendermintBlockInfos(rawBlockInfo);
                 // Structure :
                 //      tblBlocks["height"] = {
                 //          nb_tx,
@@ -56,7 +56,7 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger) => {
 
 const handleError = (err) => {
     if(err.response && err.response.data)
-    console.log("err.response.data", err.response.data);
-else
-    console.log(err);
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

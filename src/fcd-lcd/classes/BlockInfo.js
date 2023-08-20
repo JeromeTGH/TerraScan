@@ -19,7 +19,7 @@ export class BlockInfo {
     }
 
 
-    static extractFromTendermintBlockInfo (rawApiData) {
+    static extractFromTendermintBlockInfos (rawApiData) {
         return new BlockInfo(rawApiData.data);
     }
 

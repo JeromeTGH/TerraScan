@@ -1,6 +1,6 @@
 import { tblValidators } from "../application/AppData";
-import { FCDclient } from "../fcd/FCDclient";
-import { Validator } from "../fcd/classes/Validator";
+import { FCDclient } from "../fcd-lcd/FCDclient";
+import { Validator } from "../fcd-lcd/classes/Validator";
 
 
 export const loadValidatorsList = async () => {
@@ -12,7 +12,7 @@ export const loadValidatorsList = async () => {
         const fcd = FCDclient.getSingleton();
 
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
-        const rawValidatorList = await fcd.staking.askForValidatorsList().catch(handleError);
+        const rawValidatorList = await fcd.staking.getValidatorsList().catch(handleError);
         if(rawValidatorList.data && rawValidatorList.data) {
             for(const validator of rawValidatorList.data) {
                 const validatorInfo = new Validator(validator);
@@ -63,7 +63,7 @@ export const loadValidatorsList = async () => {
 
 const handleError = (err) => {
     if(err.response && err.response.data)
-    console.log("err.response.data", err.response.data);
-else
-    console.log(err);
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

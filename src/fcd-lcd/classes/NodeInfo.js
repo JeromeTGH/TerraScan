@@ -26,7 +26,7 @@ export class NodeInfo {
     }
 
 
-    static extractFromTendermintNodeInfo (rawApiData) {
+    static extractFromTendermintNodeInfos (rawApiData) {
         return new NodeInfo(rawApiData.data);
     }
 

@@ -1,5 +1,5 @@
 import { metEnFormeDateTime } from "../../application/AppUtils";
-import { FCDclient } from "../../fcd/FCDclient";
+import { FCDclient } from "../../fcd-lcd/FCDclient";
 
 
 export const getTransactionsAccount = async (accountAddress) => {
@@ -16,7 +16,7 @@ export const getTransactionsAccount = async (accountAddress) => {
     params.append('account', accountAddress);
 
     // Récupération des 100 dernières transactions
-    const rawTxs = await fcd.account.txs(params).catch(handleError);
+    const rawTxs = await fcd.account.getAccountTxs(params).catch(handleError);
     if(rawTxs) {
         // console.log(rawTxs);
         if(rawTxs.txs) {
@@ -50,5 +50,8 @@ export const getTransactionsAccount = async (accountAddress) => {
 
 
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

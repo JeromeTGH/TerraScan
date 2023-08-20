@@ -1,6 +1,6 @@
 import { tblBlocks, tblValidators } from "../../application/AppData";
-import { FCDclient } from "../../fcd/FCDclient";
-import { BlockInfo } from "../../fcd/classes/BlockInfo";
+import { FCDclient } from "../../fcd-lcd/FCDclient";
+import { BlockInfo } from "../../fcd-lcd/classes/BlockInfo";
 import { loadValidatorsList } from "../../sharedFunctions/getValidatorsV2";
 
 
@@ -16,9 +16,9 @@ export const getBlockInfoV2 = async (blockNum) => {
         const fcd = FCDclient.getSingleton();
 
         // Récupération des infos concernant le block recherché
-        const rawBlockInfo = await fcd.tendermint.askForBlockInfo(blockNum).catch(handleError);
+        const rawBlockInfo = await fcd.tendermint.getBlockInfos(blockNum).catch(handleError);
         if(rawBlockInfo) {
-            const blockInfo = BlockInfo.extractFromTendermintBlockInfo(rawBlockInfo);    
+            const blockInfo = BlockInfo.extractFromTendermintBlockInfos(rawBlockInfo);    
 
             // Analyse/synthèse des transactions de ce block
             const tblTxs = [];
@@ -206,7 +206,7 @@ export const getBlockInfoV2 = async (blockNum) => {
 
 const handleError = (err) => {
     if(err.response && err.response.data)
-    console.log("err.response.data", err.response.data);
-else
-    console.log(err);
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

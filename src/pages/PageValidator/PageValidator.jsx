@@ -6,7 +6,7 @@ import BlockValInfosV2 from './BlockValInfosV2';
 import BlockValDetailsV2 from './BlockValDetailsV2';
 import BlockTopDelegators from './BlockTopDelegators';
 import { appName } from '../../application/AppParams';
-import { loadValidator } from './getValidatorInfos';
+import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
 
 const PageValidator = () => {
 
@@ -22,7 +22,7 @@ const PageValidator = () => {
     useEffect(() => {
         document.title = 'Validator "' + valAdr + '" - ' + appName;
 
-        loadValidator(valAdr).then((res) => {
+        loadValidatorsList().then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetValidator(res['erreur']);
             }
