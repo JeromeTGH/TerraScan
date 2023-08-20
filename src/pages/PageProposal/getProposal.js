@@ -160,8 +160,8 @@ export const getProposal = async (propID) => {
 
             const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['pourcentageOfVoters'].toFixed(2) + "% have voted, but " + proposalInfos['seuilDuQuorum'] + "% of voters is required)" :
                                     proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilDeVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "%)" :
-                                    proposalInfos['pourcentageOfYes'] < proposalInfos['seuilDacceptation'] ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "%)" :
-                                                                                                             "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "%)";
+                                    proposalInfos['pourcentageOfYes'] < (proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "%, vs YES)" :
+                                                                                                             "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "%, vs NO+VETO)";
 
             proposalInfos['statutVote'] = statutVote;
 

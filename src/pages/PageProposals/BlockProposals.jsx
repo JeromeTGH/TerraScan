@@ -52,7 +52,7 @@ const BlockProposals = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>Proposal ID :</td>
-                                            <td><Link to={"/proposals/"+element.id}>#{element.id} (see details)</Link></td>
+                                            <td><strong><Link to={"/proposals/"+element.id}>#{element.id} (see details)</Link></strong></td>
                                         </tr>
                                         {element.status !== 1 ? <>
                                             <tr>
@@ -83,14 +83,25 @@ const BlockProposals = (props) => {
                                         {element.statutVote ? <tr>
                                                 <td>Vote status :</td>
                                                 <td>
-                                                    <div>{element.noteOnVoting}</div>
+                                                    {/* <div>{element.noteOnVoting}</div> */}
+                                                    <div>
+                                                        <span>{element.pourcentageOfVoters}% of voters</span>
+                                                        <span> | </span>
+                                                        <span className='textVoteYes'>{element.pourcentageOfYes}% of YES</span>
+                                                        <span> | </span>
+                                                        <span className='textVoteAbstain'>{element.pourcentageOfAbstain}% of ABSTAIN</span>
+                                                        <span> | </span>
+                                                        <span className='textVoteNo'>{element.pourcentageOfNo}% of NO</span>
+                                                        <span> | </span>
+                                                        <span className='textVoteNowithveto'>{element.pourcentageOfNoWithVeto}% of VETO </span>
+                                                    </div>
                                                     <div className={styles.supportBar}>
                                                         <div style={{ width: element.pourcentageOfYes + "%"}} className='barVoteYes'>&nbsp;</div>
                                                         <div style={{ width: element.pourcentageOfAbstain + "%"}} className='barVoteAbstain'>&nbsp;</div>
                                                         <div style={{ width: element.pourcentageOfNo + "%"}} className='barVoteNo'>&nbsp;</div>
                                                         <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
                                                     </div>
-                                                    <div><strong>→ {element.statutVote}</strong></div>
+                                                    <div><br /><strong>===&gt; {element.statutVote}</strong></div>
                                                 </td>
                                             </tr> : null
                                         }
