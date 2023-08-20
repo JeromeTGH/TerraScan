@@ -1,26 +1,26 @@
 import React from 'react';
 import styles from './BlockTxMessages.module.scss';
 import { MessageIcon } from '../../application/AppIcons';
-import MsgSend from './MsgSend';
-import MsgVote from './MsgVote';
-import MsgUnjail from './MsgUnjail';
-import MsgDeposit from './MsgDeposit';
-import MsgDelegate from './MsgDelegate';
-import MsgTransfer from './MsgTransfer';
-import MsgUndelegate from './MsgUndelegate';
-import MsgUpdateClient from './MsgUpdateClient';
-import MsgExecAuthorized from './MsgExecAuthorized';
-import MsgSubmitProposal from './MsgSubmitProposal';
-import MsgAcknowledgement from './MsgAcknowledgement';
-import MsgBeginRedelegate from './MsgBeginRedelegate';
-import MsgCreateValidator from './MsgCreateValidator';
-import MsgExecuteContract from './MsgExecuteContract';
-import MsgFundCommunityPool from './MsgFundCommunityPool';
-import MsgInstantiateContract from './MsgInstantiateContract';
-import MsgWithdrawDelegatorReward from './MsgWithdrawDelegatorReward';
-import MsgAggregateExchangeRateVote from './MsgAggregateExchangeRateVote';
-import MsgWithdrawValidatorCommission from './MsgWithdrawValidatorCommission';
-import MsgAggregateExchangeRatePrevote from './MsgAggregateExchangeRatePrevote';
+import MsgSend from './Msgs/MsgSend';
+import MsgVote from './Msgs/MsgVote';
+import MsgUnjail from './Msgs/MsgUnjail';
+import MsgDeposit from './Msgs/MsgDeposit';
+import MsgDelegate from './Msgs/MsgDelegate';
+import MsgTransfer from './Msgs/MsgTransfer';
+import MsgUndelegate from './Msgs/MsgUndelegate';
+import MsgUpdateClient from './Msgs/MsgUpdateClient';
+import MsgExecAuthorized from './Msgs/MsgExecAuthorized';
+import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
+import MsgAcknowledgement from './Msgs/MsgAcknowledgement';
+import MsgBeginRedelegate from './Msgs/MsgBeginRedelegate';
+import MsgCreateValidator from './Msgs/MsgCreateValidator';
+import MsgExecuteContract from './Msgs/MsgExecuteContract';
+import MsgFundCommunityPool from './Msgs/MsgFundCommunityPool';
+import MsgInstantiateContract from './Msgs/MsgInstantiateContract';
+import MsgWithdrawDelegatorReward from './Msgs/MsgWithdrawDelegatorReward';
+import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
+import MsgWithdrawValidatorCommission from './Msgs/MsgWithdrawValidatorCommission';
+import MsgAggregateExchangeRatePrevote from './Msgs/MsgAggregateExchangeRatePrevote';
 
 const BlockTxMessages = (props) => {
 

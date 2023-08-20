@@ -9,8 +9,8 @@ export class Tx {
         this.gas_wanted = objetAvecVariables.gas_wanted;
         this.height = objetAvecVariables.height;
         this.id = objetAvecVariables.id;
-        // Logs[]
-        // raw_log
+        this.logs = objetAvecVariables.logs;
+        this.raw_log = objetAvecVariables.raw_log;
         this.timestamp = objetAvecVariables.timestamp;
         this.tx = {
             value: {

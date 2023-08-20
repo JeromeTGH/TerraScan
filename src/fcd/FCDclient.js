@@ -31,7 +31,7 @@ export class FCDclient {
                 },
                 tx: {
                     getAccountTxs: '/v1/txs',
-                    getTxInfos: '/v1/txs/'
+                    getTxInfos: '/v1/tx/'
                 }
             }
     

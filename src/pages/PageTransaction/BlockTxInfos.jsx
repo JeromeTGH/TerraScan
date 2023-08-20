@@ -30,12 +30,18 @@ const BlockTxInfos = (props) => {
                         <td>{props.txInfos['gas_used']} / {props.txInfos['gas_wanted']}</td>
                     </tr>
                     <tr>
-                        <td>Fees (taxes included, if due) :</td>
+                        <td>Fees :</td>
                         <td>
                             {props.txInfos['feesAmountAndCoin'].map((element, index) => {
                                 const sep = index === 0 ? "" : ", ";
                                 return sep + element;
                             })}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Taxes :</td>
+                        <td>
+                            {props.txInfos['taxes']}
                         </td>
                     </tr>
                     <tr>

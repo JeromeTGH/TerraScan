@@ -19,7 +19,7 @@ export const getTransactionsAccount = async (accountAddress) => {
     // Récupération des 100 dernières transactions
     const rawTxs = await fcd.tx.getAccountTxs(params).catch(handleError);
     if(rawTxs) {
-        // Structure :
+        // Structure "data" :
         //      {
         //          "next": number,                 // si d'autres données sont téléchargeables
         //          "limit": 100,                   // taille standard de lecture/renvoi

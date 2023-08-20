@@ -8,7 +8,7 @@ import PageAccountV2 from '../PageAccount/PageAccountV2';
 import PageAccounts from '../PageAccounts/PageAccounts';
 import PageBlockV2 from '../PageBlock/PageBlockV2';
 import PageBlocksV2 from '../PageBlocks/PageBlocksV2';
-import PageTransaction from '../PageTransaction/PageTransaction';
+import PageTransactionV2 from '../PageTransaction/PageTransactionV2';
 import PageTransactions from '../PageTransactions/PageTransactions';
 import PageValidator from '../PageValidator/PageValidator';
 import PageValidatorsV2 from '../PageValidators/PageValidatorsV2';
@@ -47,7 +47,7 @@ const PageBuilder = (props) => {
             case 'blocks':
                 return <PageBlocksV2 />;
             case 'transaction':
-                return <PageTransaction />;
+                return <PageTransactionV2 />;
             case 'transactions':
                 return <PageTransactions />;
             case 'validator':
