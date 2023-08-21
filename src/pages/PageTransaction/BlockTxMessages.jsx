@@ -8,6 +8,7 @@ import MsgUnjail from './Msgs/MsgUnjail';
 import MsgDeposit from './Msgs/MsgDeposit';
 import MsgDelegate from './Msgs/MsgDelegate';
 import MsgTransfer from './Msgs/MsgTransfer';
+import MsgStoreCode from './Msgs/MsgStoreCode';
 import MsgUndelegate from './Msgs/MsgUndelegate';
 import MsgUpdateClient from './Msgs/MsgUpdateClient';
 import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
@@ -16,6 +17,7 @@ import MsgBeginRedelegate from './Msgs/MsgBeginRedelegate';
 import MsgCreateValidator from './Msgs/MsgCreateValidator';
 import MsgExecuteContract from './Msgs/MsgExecuteContract';
 import MsgFundCommunityPool from './Msgs/MsgFundCommunityPool';
+import MsgGrantAuthorization from './Msgs/MsgGrantAuthorization';
 import MsgInstantiateContract from './Msgs/MsgInstantiateContract';
 import MsgWithdrawDelegatorReward from './Msgs/MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
@@ -52,6 +54,8 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgUnjail' ? <MsgUnjail txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgTransfer' ? <MsgTransfer txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgCreateValidator' ? <MsgCreateValidator txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgGrantAuthorization' ? <MsgGrantAuthorization txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgStoreCode' ? <MsgStoreCode txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

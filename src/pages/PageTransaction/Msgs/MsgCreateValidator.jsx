@@ -6,8 +6,7 @@ const MsgCreateValidator = (props) => {
         <>
             <tr>
                 <td>Commission :</td>
-                <td><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(props.txMessage['commission']))), null, 2)}</pre></td>
-                {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
+                <td><pre>{JSON.stringify(props.txMessage['commission'], null, 2)}</pre></td>
             </tr>
             <tr>
                 <td>Delegator address :</td>
@@ -16,7 +15,6 @@ const MsgCreateValidator = (props) => {
             <tr>
                 <td>Description :</td>
                 <td><pre>{JSON.stringify(props.txMessage['description'], null, 2)}</pre></td>
-                {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
             </tr>
             <tr>
                 <td>Min self delegation :</td>

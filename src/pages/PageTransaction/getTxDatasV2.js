@@ -173,8 +173,10 @@ export const getTxDatasV2 = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgExecuteContract') {
                 msgStructRet['Contract'] = message.value.contract;
                 msgStructRet['Sender'] = message.value.sender;
+                msgStructRet['Coins'] = coinsListToFormatedText(message.value.coins);
                 msgStructRet['Funds'] = coinsListToFormatedText(message.value.funds);
                 msgStructRet['Msg'] = message.value.msg;
+                msgStructRet['ExecuteMsg'] = message.value.execute_msg;
             }
 
             if(msgStructRet['MsgType'] === 'MsgDelegate') {
@@ -271,6 +273,7 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['Admin'] = message.value.admin;
                 msgStructRet['CodeID'] = message.value.code_id;
                 msgStructRet['InitCoins'] = coinsListToFormatedText(message.value.init_coins);
+                msgStructRet['Funds'] = coinsListToFormatedText(message.value.funds);
                 msgStructRet['InitMsg'] = message.value.init_msg;
                 msgStructRet['Label'] = message.value.label;
                 msgStructRet['Sender'] = message.value.sender;
@@ -290,10 +293,22 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['commission'] = message.value.commission;
                 msgStructRet['delegator_address'] = message.value.delegator_address;
                 msgStructRet['description'] = message.value.description;
-                msgStructRet['min_self_delegation'] = (message.value.min_self_delegation.toFixed(0) / 1000000);
+                msgStructRet['min_self_delegation'] = (parseInt(message.value.min_self_delegation) / 1000000).toFixed(6);
                 msgStructRet['val_pubkey'] = message.value.pubkey.key;
                 msgStructRet['validator_address'] = message.value.validator_address;
                 msgStructRet['value'] = (message.value.value.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.value.value.denom] ? tblCorrespondanceValeurs[message.value.value.denom] : message.value.value.denom);
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgGrantAuthorization') {
+                msgStructRet['grantee'] = message.value.grantee;
+                msgStructRet['granter'] = message.value.granter;
+                msgStructRet['grant'] = message.value.grant;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgStoreCode') {
+                msgStructRet['instantiate_permission'] = message.value.instantiate_permission ? message.value.instantiate_permission : "null";
+                msgStructRet['sender'] = message.value.sender;
+                msgStructRet['wasm_byte_code'] = message.value.wasm_byte_code;
             }
 
 
@@ -322,6 +337,10 @@ const handleError = (err) => {
 // Créé un STRING avec montant+devise, séparé de virgules si multidevises
 // ======================================================================
 const coinsListToFormatedText = (coinsList) => {
+
+    if(coinsList===undefined)
+        return "---";
+
     //const dataCoinsList = (new Coins(coinsList)).toData();
     const dataCoinsList = new CoinsList(coinsList);
     let retour = "";

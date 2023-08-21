@@ -13,6 +13,10 @@ const MsgInstantiateContract = (props) => {
                 <td>{props.txMessage['CodeID']}</td>
             </tr>
             <tr>
+                <td>Funds :</td>
+                <td>{props.txMessage['Funds']}</td>
+            </tr>
+            <tr>
                 <td>Init Coins :</td>
                 <td>{props.txMessage['InitCoins']}</td>
             </tr>
