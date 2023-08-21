@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MsgExecAuthorized = (props) => {
+const MsgExec = (props) => {
     return (
         <>
             <tr>
@@ -11,12 +11,11 @@ const MsgExecAuthorized = (props) => {
             {props.txMessage['Msgs'].map((element, index) => {
                 return <tr key={index}>
                     <td>Part {(index+1)}/{props.txMessage['Msgs'].length} :</td>
-                    <td><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(element))), null, 2)}</pre></td>
-                    {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
+                    <td><pre>{JSON.stringify(element, null, 2)}</pre></td>
                 </tr>
             })}
         </>
     );
 };
 
-export default MsgExecAuthorized;
+export default MsgExec;

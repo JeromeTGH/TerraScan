@@ -20,7 +20,7 @@ const MsgDelegate = (props) => {
                 <td>Auto withdraw rewards :</td>
                 <td>{props.txMessage['withdrawRewards'].length > 0 ? props.txMessage['withdrawRewards'].map((element, index) => {
                     return <span key={index}>{element}<br /></span>
-                }) : "nothing to withdraw"}</td>
+                }) : "nothing (no withdraw_rewards event)"}</td>
             </tr>
         </>
     );

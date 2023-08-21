@@ -64,7 +64,7 @@ export const getTxDatasV2 = async (txHash) => {
 
         // ====== Taxes
         const logsTbl = rawTxInfo.logs;
-        let totalOfTaxes = '--';
+        let totalOfTaxes = '---';
         for(const lgLog of logsTbl) {
             if(lgLog.log && lgLog.log.tax) {
                 let logTaxe = '';
@@ -72,7 +72,7 @@ export const getTxDatasV2 = async (txHash) => {
                     logTaxe = (parseInt(lgLog.log.tax.replace('uluna'))/1000000).toFixed(6) + ' LUNC';
                 else
                     logTaxe = lgLog.log.tax;
-                if(totalOfTaxes === '--')
+                if(totalOfTaxes === '---')
                     totalOfTaxes = logTaxe;
                 else
                     totalOfTaxes = ', ' + logTaxe;
@@ -143,7 +143,7 @@ export const getTxDatasV2 = async (txHash) => {
                 }
             }
 
-            if(msgStructRet['MsgType'] === 'MsgWithdrawDelegatorReward') {
+            if(msgStructRet['MsgType'] === 'MsgWithdrawDelegatorReward' || msgStructRet['MsgType'] === 'MsgWithdrawDelegationReward') {
                 // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
                 msgStructRet['DelegatorAddress'] = message.value.delegator_address;
                 msgStructRet['ValidatorAddress'] = message.value.validator_address;
@@ -154,7 +154,7 @@ export const getTxDatasV2 = async (txHash) => {
                     rewards = formatGluedAmountsAndCoins(rewards);
                     msgStructRet['withdrawRewards'] = rewards;
                 } else
-                    msgStructRet['withdrawRewards'] = ['(undefined)'];
+                    msgStructRet['withdrawRewards'] = ['(nothing)'];
             }
 
             if(msgStructRet['MsgType'] === 'MsgWithdrawValidatorCommission') {
@@ -167,14 +167,14 @@ export const getTxDatasV2 = async (txHash) => {
                     commission = formatGluedAmountsAndCoins(commission);
                     msgStructRet['withdrawCommissions'] = commission;
                 } else
-                    msgStructRet['withdrawCommissions'] = ['(undefined)'];
+                    msgStructRet['withdrawCommissions'] = ['(nothing)'];
             }
 
             if(msgStructRet['MsgType'] === 'MsgExecuteContract') {
                 msgStructRet['Contract'] = message.value.contract;
                 msgStructRet['Sender'] = message.value.sender;
-                msgStructRet['Coins'] = coinsListToFormatedText(message.value.coins);
-                msgStructRet['ExecuteMsg'] = message.value.execute_msg;
+                msgStructRet['Funds'] = coinsListToFormatedText(message.value.funds);
+                msgStructRet['Msg'] = message.value.msg;
             }
 
             if(msgStructRet['MsgType'] === 'MsgDelegate') {
@@ -188,7 +188,7 @@ export const getTxDatasV2 = async (txHash) => {
                     rewards = formatGluedAmountsAndCoins(rewards);
                     msgStructRet['withdrawRewards'] = rewards;
                 } else
-                    msgStructRet['withdrawRewards'] = ['(undefined)'];
+                    msgStructRet['withdrawRewards'] = ['(nothing)'];
             }
 
             if(msgStructRet['MsgType'] === 'MsgUndelegate') {
@@ -202,7 +202,7 @@ export const getTxDatasV2 = async (txHash) => {
                     rewards = formatGluedAmountsAndCoins(rewards);
                     msgStructRet['withdrawRewards'] = rewards;
                 } else
-                    msgStructRet['withdrawRewards'] = ['(undefined)'];
+                    msgStructRet['withdrawRewards'] = ['(nothing)'];
             }
 
             if(msgStructRet['MsgType'] === 'MsgBeginRedelegate') {
@@ -218,7 +218,7 @@ export const getTxDatasV2 = async (txHash) => {
                     rewards = formatGluedAmountsAndCoins(rewards);
                     msgStructRet['withdrawRewards'] = rewards;
                 } else
-                    msgStructRet['withdrawRewards'] = ['(undefined)'];
+                    msgStructRet['withdrawRewards'] = ['(nothing)'];
             }
 
             if(msgStructRet['MsgType'] === 'MsgSubmitProposal') {
@@ -262,7 +262,7 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['ProofHeight'] = message.value.proof_height;
             }
 
-            if(msgStructRet['MsgType'] === 'MsgExecAuthorized') {
+            if(msgStructRet['MsgType'] === 'MsgExec' || msgStructRet['MsgType'] === 'MsgExecAuthorized') {
                 msgStructRet['Grantee'] = message.value.grantee;
                 msgStructRet['Msgs'] = message.value.msgs;
             }

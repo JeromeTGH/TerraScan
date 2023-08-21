@@ -40,7 +40,14 @@ export const tblCorrespondanceValeurs = {
 export const tblCorrespondanceCompte = {
     "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu": "Burn wallet",
     "terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f": "Oracle pool",              // Nota : noté en dur, dans la section "overview" de la "homepage"
-    "terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe": "Binance main wallet"
+    "terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe": "Binance main wallet",
+    "terra1g9htux72h5nj5c0hpzely3rqwnryzmy22xlxpu": "DFLunc's account",
+    "terra153mwt0upple9klvrryrtckx9vneguw6ja33d3c": "TerraCasino.io's account",
+    "terra1nm0rrq86ucezaf8uj35pq9fpwr5r82clp5z7r5": "Kraken user's account",
+    "terra1vwchc3pkrxn8kahd0g9wxd8zjr0drnduzkn4z3": "Cremation Coin's account",
+    "terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "LUNC DAO's account",
+    "terra1w8nc8ev0ylg97qnj080np4lnljngdvpd90ev63": "MEXC wallet",
+    "terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e": "Kucoin wallet"
 }
 
 
@@ -52,8 +59,8 @@ export const tblCorrespondanceMessages = {
     "MsgTransfer": "Transfer",
     "MsgBeginRedelegate": "Begin Redelegate",
     "MsgVote": "Vote",
-    "MsgWithdrawDelegatorReward": "Withdraw Delegator Reward",  // variante 'MsgWithdrawDelegationReward' trouvée dans bloc #9106141, par exemple
-        "MsgWithdrawDelegationReward" : "Withdraw Delegation Reward",
+    "MsgWithdrawDelegatorReward": "Withdraw Delegator Reward",
+        "MsgWithdrawDelegationReward" : "Withdraw Delegation Reward",   // variante de 'MsgWithdrawDelegatorReward', trouvée dans bloc #9106141, par exemple
     "MsgWithdrawValidatorCommission": "Withdraw Validator Commission",
     "MsgAggregateExchangeRateVote": "Aggregate Exchange Rate Vote",
     "MsgAggregateExchangeRatePrevote": "Aggregate Exchange Rate Prevote",
@@ -63,8 +70,11 @@ export const tblCorrespondanceMessages = {
     "MsgFundCommunityPool": "Fund Community Pool",
     "MsgUpdateClient": "Update Client",
     "MsgAcknowledgement": "Acknowledgement",
-    "MsgExecAuthorized": "Exec Authorized",
+    "MsgExec": "Exec",
+        "MsgExecAuthorized": "Exec Authorized",     // variantes de 'MsgExec'
     "MsgInstantiateContract": "Instantiate Contract",
     "MsgUnjail": "Unjail",
-        "MsgCreateValidator": "Create Validator"            // à implémenter
+    "MsgCreateValidator": "Create Validator",
+    "MsgGrantAuthorization": "Grant Authorization",
+    "MsgStoreCode": "Store Code"
 }

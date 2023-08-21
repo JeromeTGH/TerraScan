@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './BlockTxMessages.module.scss';
 import { MessageIcon } from '../../application/AppIcons';
+import MsgExec from './Msgs/MsgExec';
 import MsgSend from './Msgs/MsgSend';
 import MsgVote from './Msgs/MsgVote';
 import MsgUnjail from './Msgs/MsgUnjail';
@@ -9,7 +10,6 @@ import MsgDelegate from './Msgs/MsgDelegate';
 import MsgTransfer from './Msgs/MsgTransfer';
 import MsgUndelegate from './Msgs/MsgUndelegate';
 import MsgUpdateClient from './Msgs/MsgUpdateClient';
-import MsgExecAuthorized from './Msgs/MsgExecAuthorized';
 import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
 import MsgAcknowledgement from './Msgs/MsgAcknowledgement';
 import MsgBeginRedelegate from './Msgs/MsgBeginRedelegate';
@@ -34,7 +34,8 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgAggregateExchangeRateVote' ? <MsgAggregateExchangeRateVote txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgAggregateExchangeRatePrevote' ? <MsgAggregateExchangeRatePrevote txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgVote' ? <MsgVote txMessage={props.txMessage} /> : null}
-                    {props.txMessage['MsgType'] === 'MsgWithdrawDelegatorReward' ? <MsgWithdrawDelegatorReward txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgWithdrawDelegatorReward' ||
+                     props.txMessage['MsgType'] === 'MsgWithdrawDelegationReward'  ? <MsgWithdrawDelegatorReward txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgWithdrawValidatorCommission' ? <MsgWithdrawValidatorCommission txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgExecuteContract' ? <MsgExecuteContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgDelegate' ? <MsgDelegate txMessage={props.txMessage} /> : null}
@@ -45,7 +46,8 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgFundCommunityPool' ? <MsgFundCommunityPool txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUpdateClient' ? <MsgUpdateClient txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgAcknowledgement' ? <MsgAcknowledgement txMessage={props.txMessage} /> : null}
-                    {props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExecAuthorized txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgExec' ||
+                     props.txMessage['MsgType'] === 'MsgExecAuthorized' ? <MsgExec txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgInstantiateContract' ? <MsgInstantiateContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUnjail' ? <MsgUnjail txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgTransfer' ? <MsgTransfer txMessage={props.txMessage} /> : null}
