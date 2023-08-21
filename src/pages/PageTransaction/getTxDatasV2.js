@@ -299,7 +299,7 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['value'] = (message.value.value.amount / 1000000).toFixed(6) + "\u00a0" + (tblCorrespondanceValeurs[message.value.value.denom] ? tblCorrespondanceValeurs[message.value.value.denom] : message.value.value.denom);
             }
 
-            if(msgStructRet['MsgType'] === 'MsgGrantAuthorization') {
+            if(msgStructRet['MsgType'] === 'MsgGrantAuthorization' || msgStructRet['MsgType'] === 'MsgGrant') {
                 msgStructRet['grantee'] = message.value.grantee;
                 msgStructRet['granter'] = message.value.granter;
                 msgStructRet['grant'] = message.value.grant;
@@ -309,6 +309,28 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['instantiate_permission'] = message.value.instantiate_permission ? message.value.instantiate_permission : "null";
                 msgStructRet['sender'] = message.value.sender;
                 msgStructRet['wasm_byte_code'] = message.value.wasm_byte_code;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgMigrateContract') {
+                msgStructRet['code_id'] = message.value.code_id;
+                msgStructRet['contract'] = message.value.contract;
+                msgStructRet['msg'] = message.value.msg;
+                msgStructRet['sender'] = message.value.sender;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgSetWithdrawAddress') {
+                msgStructRet['delegator_address'] = message.value.delegator_address;
+                msgStructRet['withdraw_address'] = message.value.withdraw_address;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgClearAdmin') {
+                msgStructRet['contract'] = message.value.contract;
+                msgStructRet['sender'] = message.value.sender;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgModifyWithdrawAddress') {
+                msgStructRet['delegator_address'] = message.value.delegator_address;
+                msgStructRet['withdraw_address'] = message.value.withdraw_address;
             }
 
 

@@ -9,6 +9,7 @@ import MsgDeposit from './Msgs/MsgDeposit';
 import MsgDelegate from './Msgs/MsgDelegate';
 import MsgTransfer from './Msgs/MsgTransfer';
 import MsgStoreCode from './Msgs/MsgStoreCode';
+import MsgClearAdmin from './Msgs/MsgClearAdmin';
 import MsgUndelegate from './Msgs/MsgUndelegate';
 import MsgUpdateClient from './Msgs/MsgUpdateClient';
 import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
@@ -16,9 +17,12 @@ import MsgAcknowledgement from './Msgs/MsgAcknowledgement';
 import MsgBeginRedelegate from './Msgs/MsgBeginRedelegate';
 import MsgCreateValidator from './Msgs/MsgCreateValidator';
 import MsgExecuteContract from './Msgs/MsgExecuteContract';
+import MsgMigrateContract from './Msgs/MsgMigrateContract';
 import MsgFundCommunityPool from './Msgs/MsgFundCommunityPool';
 import MsgGrantAuthorization from './Msgs/MsgGrantAuthorization';
+import MsgSetWithdrawAddress from './Msgs/MsgSetWithdrawAddress';
 import MsgInstantiateContract from './Msgs/MsgInstantiateContract';
+import MsgModifyWithdrawAddress from './Msgs/MsgModifyWithdrawAddress';
 import MsgWithdrawDelegatorReward from './Msgs/MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './Msgs/MsgWithdrawValidatorCommission';
@@ -54,8 +58,13 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgUnjail' ? <MsgUnjail txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgTransfer' ? <MsgTransfer txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgCreateValidator' ? <MsgCreateValidator txMessage={props.txMessage} /> : null}
-                    {props.txMessage['MsgType'] === 'MsgGrantAuthorization' ? <MsgGrantAuthorization txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgGrantAuthorization' ||
+                     props.txMessage['MsgType'] === 'MsgGrant' ? <MsgGrantAuthorization txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgStoreCode' ? <MsgStoreCode txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgMigrateContract' ? <MsgMigrateContract txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgSetWithdrawAddress' ? <MsgSetWithdrawAddress txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgClearAdmin' ? <MsgClearAdmin txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgModifyWithdrawAddress' ? <MsgModifyWithdrawAddress txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

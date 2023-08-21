@@ -60,7 +60,7 @@ export const tblCorrespondanceMessages = {
     "MsgBeginRedelegate": "Begin Redelegate",
     "MsgVote": "Vote",
     "MsgWithdrawDelegatorReward": "Withdraw Delegator Reward",
-        "MsgWithdrawDelegationReward" : "Withdraw Delegation Reward",   // variante de 'MsgWithdrawDelegatorReward', trouvée dans bloc #9106141, par exemple
+        "MsgWithdrawDelegationReward" : "Withdraw Delegation Reward",   // variante de 'MsgWithdrawDelegatorReward' (identifié au bloc #9106141, par exemple)
     "MsgWithdrawValidatorCommission": "Withdraw Validator Commission",
     "MsgAggregateExchangeRateVote": "Aggregate Exchange Rate Vote",
     "MsgAggregateExchangeRatePrevote": "Aggregate Exchange Rate Prevote",
@@ -71,10 +71,15 @@ export const tblCorrespondanceMessages = {
     "MsgUpdateClient": "Update Client",
     "MsgAcknowledgement": "Acknowledgement",
     "MsgExec": "Exec",
-        "MsgExecAuthorized": "Exec Authorized",     // variantes de 'MsgExec'
+        "MsgExecAuthorized": "Exec Authorized",     // variante de 'MsgExec'
     "MsgInstantiateContract": "Instantiate Contract",
     "MsgUnjail": "Unjail",
     "MsgCreateValidator": "Create Validator",
     "MsgGrantAuthorization": "Grant Authorization",
-    "MsgStoreCode": "Store Code"
+        "MsgGrant": "Grant",        // variante de 'MsgGrantAuthorization'
+    "MsgStoreCode": "Store Code",
+    "MsgMigrateContract": "Migrate Contract",
+    "MsgSetWithdrawAddress": "Set Withdraw Address",
+    "MsgClearAdmin": "Clear Admin",
+    "MsgModifyWithdrawAddress": "Modify Withdraw Address"
 }
