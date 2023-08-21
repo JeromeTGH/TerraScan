@@ -8,6 +8,7 @@ import BlockValidatorsV2 from './BlockValidatorsV2';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
+import BlockBurn from './BlockBurn';
 
 
 const PageHome = () => {
@@ -34,6 +35,9 @@ const PageHome = () => {
             <div className={styles.blocksHomepage}>
                 <div className={"boxContainer " + styles.searchBlock}>
                     <BlockSearch />
+                </div>
+                <div className={"boxContainer " + styles.burnBlock}>
+                    <BlockBurn />
                 </div>
                 <div className={"boxContainer " + styles.overviewBlock}>
                     <BlockOverview />

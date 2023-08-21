@@ -36,7 +36,7 @@ const BlockLatestBlocksV2 = () => {
     // Affichage
     return (
         <>
-            <h2><strong><BlocksIcon /></strong><span><strong>Latest Blocks</strong></span></h2>
+            <h2><strong><BlocksIcon /></strong><span><strong>{nbBlocksAafficher} Latest Blocks</strong></span></h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>

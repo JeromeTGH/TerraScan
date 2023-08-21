@@ -84,7 +84,7 @@ const PageBlocksV2 = () => {
             </div>
             <br />
             <br />
-            <h2 className={styles.h2blocks}><strong><BlocksIcon /></strong><span><strong>Latest blocks</strong></span></h2>
+            <h2 className={styles.h2blocks}><strong><BlocksIcon /></strong><span><strong>{nbBlocksAafficher} Latest blocks</strong></span></h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>

@@ -29,9 +29,9 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/accounts"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
-                            <span><AccountIcon /></span>
-                            <span>Accounts</span>
+                        <NavLink to={"/blocks"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                            <span><BlocksIcon /></span>
+                            <span>Blocks</span>
                         </NavLink>
                     </li>
                     <li>
@@ -41,9 +41,9 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/blocks"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
-                            <span><BlocksIcon /></span>
-                            <span>Blocks</span>
+                        <NavLink to={"/accounts"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                            <span><AccountIcon /></span>
+                            <span>Accounts</span>
                         </NavLink>
                     </li>
                     <li>

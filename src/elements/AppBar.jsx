@@ -46,17 +46,17 @@ const AppBar = () => {
                             <span><HomeIcon /></span>
                             <span>Home</span>
                         </Link></li>
-                        <li><Link to="/accounts" onClick={() => hiddenMenuCloseClick()}>
-                            <span><AccountIcon /></span>
-                            <span>Accounts</span>
+                        <li><Link to="/blocks" onClick={() => hiddenMenuCloseClick()}>
+                            <span><BlocksIcon /></span>
+                            <span>Blocks</span>
                         </Link></li>
                         <li><Link to="/validators" onClick={() => hiddenMenuCloseClick()}>
                             <span><CalculatorIcon /></span>
                             <span>Validators</span>
                         </Link></li>
-                        <li><Link to="/blocks" onClick={() => hiddenMenuCloseClick()}>
-                            <span><BlocksIcon /></span>
-                            <span>Blocks</span>
+                        <li><Link to="/accounts" onClick={() => hiddenMenuCloseClick()}>
+                            <span><AccountIcon /></span>
+                            <span>Accounts</span>
                         </Link></li>
                         <li><Link to="/transactions" onClick={() => hiddenMenuCloseClick()}>
                             <span><ExchangeIcon /></span>
