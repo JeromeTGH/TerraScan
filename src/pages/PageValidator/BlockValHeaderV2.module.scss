@@ -1,0 +1,62 @@
+@import '../../style/variables';
+
+.infosBlock {
+    grid-area: infos;
+}
+
+.h2Infos {
+    text-align: left;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+.headerBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    @media (max-width: 680px) {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .img {
+        text-align: center;
+        padding: 0.4rem;
+        max-width: 25%;
+
+        img {
+            width: 100%;
+        }
+    }
+    
+    
+    .tblInfos {        
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+        
+        .website, .email {
+            word-break: break-all;
+        }
+
+        td, th {
+            padding: 0.2rem 0.2rem;
+            font-size: 0.9rem;
+            vertical-align: top;
+    
+            @media (max-width: $primary-breakpoint) {
+                font-size: 0.8rem;
+            }
+        }
+    
+        td:nth-child(1) {
+            width: 1%;
+            white-space: nowrap;
+        }
+    
+    }
+}
+
+

@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './BlockValDetailsV2.module.scss';
+import styles from './BlockValLeftV2.module.scss';
 import { CalculatorIcon } from '../../application/AppIcons';
 import { formateLeNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblValidators } from '../../application/AppData';
 
-const BlockValDetailsV2 = (props) => {
+const BlockValLeftV2 = (props) => {
    
     // Affichage
     return (
@@ -68,4 +68,4 @@ const BlockValDetailsV2 = (props) => {
     );
 };
 
-export default BlockValDetailsV2;
+export default BlockValLeftV2;

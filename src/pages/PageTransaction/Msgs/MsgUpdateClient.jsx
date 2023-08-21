@@ -14,8 +14,7 @@ const MsgUpdateClient = (props) => {
             </tr>
             <tr>
                 <td>Header :</td>
-                <td><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(props.txMessage['Header']))), null, 2)}</pre></td>
-                {/* JSON.stringify "tout seul" ne fonctionne pas, à l'écran */}
+                <td><pre>{JSON.stringify(props.txMessage['Header'], null, 2)}</pre></td>
             </tr>
         </>
     );

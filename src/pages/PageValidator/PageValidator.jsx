@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
-import BlockValInfosV2 from './BlockValInfosV2';
-import BlockValDetailsV2 from './BlockValDetailsV2';
+import BlockValHeaderV2 from './BlockValHeaderV2';
+import BlockValLeftV2 from './BlockValLeftV2';
 import BlockTopDelegators from './BlockTopDelegators';
 import { appName } from '../../application/AppParams';
 import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
@@ -47,8 +47,8 @@ const PageValidator = () => {
                         <p>Loading data from blockchain (fcd), please wait ...</p>
                         :
                         <>
-                            <BlockValInfosV2 valAddress={valAdr} />
-                            <BlockValDetailsV2 valAddress={valAdr} />
+                            <BlockValHeaderV2 valAddress={valAdr} />
+                            <BlockValLeftV2 valAddress={valAdr} />
                             <BlockTopDelegators valAddress={valAdr} />
                         </>
                     }

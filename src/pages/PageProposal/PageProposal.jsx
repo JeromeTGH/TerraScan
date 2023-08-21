@@ -134,15 +134,13 @@ const PageProposal = () => {
                                         </tr>
                                         <tr>
                                             <td>Quorum :</td>
-                                            <td>{proposalInfos['pourcentageOfVoters'].toFixed(2)}% voted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status :</td>
-                                            <td>{proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ?
-                                                <span className='erreur'><strong>{proposalInfos['statutVote']}</strong></span>
+                                            <td>
+                                                {proposalInfos['pourcentageOfVoters'].toFixed(2)}% voted
+                                                {proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ?
+                                                <span className='erreur'><strong> (quorum not reached)</strong></span>
                                                 :
-                                                <span className='colore'><strong>{proposalInfos['statutVote']}</strong></span>}
-                                        </td>
+                                                <span className='succes'><strong> (quorum reached)</strong></span>}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Total of YES votes :</td>
@@ -178,6 +176,10 @@ const PageProposal = () => {
                                         <tr>
                                             <td>Voting end time :</td>
                                             <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status :</td>
+                                            <td><span className='colore'><strong>{proposalInfos['statutVote']}</strong></span></td>
                                         </tr>
                                     </tbody>
                                 </table>
