@@ -28,37 +28,42 @@ const BlockTransactions = (props) => {
     return (
         <div className={"boxContainer " + styles.transactionsBlock}>
             <h2><ExchangeIcon /><span>Latest Transactions</span></h2>
-            <table className={styles.tblTransactions}>
-                <thead>
-                    <tr>
-                        <th>Height</th>
-                        <th>DateTime</th>
-                        <th>TxHash</th>
-                        <th>Operation</th>
-                    </tr>
-                </thead>
-                {tableOfTransactions ? 
-                        tableOfTransactions.length > 0 ? (
-                            <tbody>
-                                {tableOfTransactions.map((valeur, clef) => {
-                                    return <tr key={clef}>
-                                        <td><Link to={"/blocks/" + valeur[2]}>{valeur[2]}</Link></td>
-                                        <td>{valeur[0]}</td>
-                                        <td><Link to={"/transactions/" + valeur[1]}>{valeur[1]}</Link></td>
-                                        <td><span>{valeur[3]}</span><br />{valeur[4] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}</td>
-                                    </tr>
-                                })}
-                            </tbody>
-                        ) : (
-                            <tbody><tr><td colSpan="7">No transaction.</td></tr></tbody>
-                        )
-                    : (
-                        <tbody><tr><td colSpan="7">Loading data from blockchain (fcd), please wait ...</td></tr></tbody>
-                    )}
-            </table>
-            <div className={styles.comments}><u>Note</u> : only the last 100 transactions are displayed here (max)</div>
-            <br />
-            <div className="erreur">{msgErreurGettingTransactions}</div>
+            {msgErreurGettingTransactions ?
+                <div className="erreur">{msgErreurGettingTransactions}</div>
+            :
+                <>
+                    <table className={styles.tblTransactions}>
+                        <thead>
+                            <tr>
+                                <th>Height</th>
+                                <th>DateTime</th>
+                                <th>TxHash</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        {tableOfTransactions ? 
+                                tableOfTransactions.length > 0 ? (
+                                    <tbody>
+                                        {tableOfTransactions.map((valeur, clef) => {
+                                            return <tr key={clef}>
+                                                <td><Link to={"/blocks/" + valeur[2]}>{valeur[2]}</Link></td>
+                                                <td>{valeur[0]}</td>
+                                                <td><Link to={"/transactions/" + valeur[1]}>{valeur[1]}</Link></td>
+                                                <td><span>{valeur[3]}</span><br />{valeur[4] === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}</td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                ) : (
+                                    <tbody><tr><td colSpan="7">No transaction.</td></tr></tbody>
+                                )
+                            : (
+                                <tbody><tr><td colSpan="7">Loading data from blockchain (fcd), please wait ...</td></tr></tbody>
+                            )}
+                    </table>
+                    <div className={styles.comments}><u>Note</u> : only the last 100 transactions are displayed here (max)</div>
+                </>
+            }
+            <br />            
         </div>
     );
 };
