@@ -1,13 +1,13 @@
-import { tblCorrespondanceValeurs } from "../../application/AppParams";
-import { formateLeNombre } from "../../application/AppUtils";
-import { FCDclient } from "../../fcd/FCDclient";
+import { tblCorrespondanceValeurs } from "../application/AppParams";
+import { formateLeNombre } from "../application/AppUtils";
+import { FCDclient } from "../fcd/FCDclient";
 
 export const getBurnTbl = async (minLuncToShow, minUstcToShow, nbLineToShow) => {
 
     // Constantes
     const burnWalletAddress = 'terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu';
     const tblBurns = [];
-    const nbBouclagesMaxi = 10;     // Sécurité
+    const nbBouclagesMaxi = 20;     // Sécurité
     
     // Variables
     let nextid = 0;
@@ -120,7 +120,8 @@ export const getBurnTbl = async (minLuncToShow, minUstcToShow, nbLineToShow) => 
         nb_bouclage++;
         if(nb_bouclage > nbBouclagesMaxi) {
             console.warn("Bouclage FCD supérieur à " + nbBouclagesMaxi + ". Arrêt forcé, pour éviter tout bouclage infini.");
-            return { "erreur": "Interrupted (because of too many FCD calls, and max=" + nbBouclagesMaxi + ")" }
+            // return { "erreur": "Interrupted (because of too many FCD calls, and max=" + nbBouclagesMaxi + ")" }
+            break;
         }
     }
 
@@ -130,7 +131,6 @@ export const getBurnTbl = async (minLuncToShow, minUstcToShow, nbLineToShow) => 
     // - "sort" permet de trier par clef (qui sont les 'id' de transaction, ici)
     // - "slice" permet de ne garder que les X premiers résultats (des fois qu'il y en ait plus, du fait qu'on mémoire les 'anciens')
     const arrBurns = Object.entries(tblBurns).sort((a, b) => {return b[0] - a[0]}).slice(0, nbLineToShow);
-    // console.log("arrBurns", arrBurns);
 
     // Renvoie le tableau final, pour affichage
     return arrBurns;

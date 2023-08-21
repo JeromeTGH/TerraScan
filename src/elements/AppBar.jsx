@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './AppBar.module.scss';
 import { appName } from '../application/AppParams';
-import { BlocksIcon, BurgerMenu, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../application/AppIcons';
+import { BlocksIcon, BurgerMenu, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon } from '../application/AppIcons';
 import { Link } from 'react-router-dom';
 import BtnJourNuit from './BtnJourNuit';
 
@@ -65,6 +65,10 @@ const AppBar = () => {
                         <li><Link to="/proposals" onClick={() => hiddenMenuCloseClick()}>
                             <span><VoteIcon /></span>
                             <span>Governance</span>
+                        </Link></li>
+                        <li><Link to="/burns" onClick={() => hiddenMenuCloseClick()}>
+                            <span><BurnIcon /></span>
+                            <span>Burns</span>
                         </Link></li>
                         <li><Link to="/staking" onClick={() => hiddenMenuCloseClick()}>
                             <span><LockIcon /></span>

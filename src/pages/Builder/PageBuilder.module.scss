@@ -30,11 +30,14 @@
     }
 
     main {
-        margin: 0 auto;
         height: 100%;
-        width: 100%;
-        max-width: 1300px;
         padding-bottom: 1rem;
+    }
+    
+    header, main, footer {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 1300px;
     }
 
 }

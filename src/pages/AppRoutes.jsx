@@ -10,59 +10,63 @@ const AppRoutes = () => {
         [
             {
                 path: "/",
-                element: <PageBuilder targetPage="home" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="home" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/accounts",
-                element: <PageBuilder targetPage="accounts" withHeader="no" withFooter="no" />},
+                element: <PageBuilder targetPage="accounts" withHeader="yes" withFooter="yes" />},
             {
                 path: "/accounts/:cptNum",
-                element: <PageBuilder targetPage="account" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="account" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/blocks",
-                element: <PageBuilder targetPage="blocks" withHeader="no" withFooter="no" />},
+                element: <PageBuilder targetPage="blocks" withHeader="yes" withFooter="yes" />},
             {
                 path: "/blocks/:blockNum",
-                element: <PageBuilder targetPage="block" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="block" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/transactions",
-                element: <PageBuilder targetPage="transactions" withHeader="no" withFooter="no" />},
+                element: <PageBuilder targetPage="transactions" withHeader="yes" withFooter="yes" />},
             {
                 path: "/transactions/:txHash",
-                element: <PageBuilder targetPage="transaction" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="transaction" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/validators",
-                element: <PageBuilder targetPage="validators" withHeader="no" withFooter="no" />},
+                element: <PageBuilder targetPage="validators" withHeader="yes" withFooter="yes" />},
             {
                 path: "/validators/:valAdr",
-                element: <PageBuilder targetPage="validator" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="validator" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/proposals",
-                element: <PageBuilder targetPage="proposals" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="proposals" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/proposals/:propID",
-                element: <PageBuilder targetPage="proposal" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="proposal" withHeader="yes" withFooter="yes" />
+            },
+            {
+                path: "/burns",
+                element: <PageBuilder targetPage="burns" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/staking",
-                element: <PageBuilder targetPage="staking" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="staking" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/search",
-                element: <PageBuilder targetPage="search" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="search" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/about",
-                element: <PageBuilder targetPage="about" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="about" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/404",
-                element: <PageBuilder targetPage="404" withHeader="no" withFooter="no" />
+                element: <PageBuilder targetPage="404" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "*",

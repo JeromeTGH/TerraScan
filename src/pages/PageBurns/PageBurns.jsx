@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { getBurnTbl } from '../../sharedFunctions/getBurnTbl';
-import styles from './BlockBurn.module.scss';
-import { BurnIcon } from '../../application/AppIcons';
+import { BurnIcon, MessageIcon } from '../../application/AppIcons';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
+import styles from './PageBurns.module.scss';
 
-const BlockBurn = () => {
+const PageBurns = () => {
 
     // Constantes
-    const minLuncToShow = 10000;    // Nombre de LUNC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
-    const minUstcToShow = 100;      // Nombre d'USTC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
-    const nbLineToShow = 40;       // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
+    const minLuncToShow = 100;    // Nombre de LUNC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
+    const minUstcToShow = 1;      // Nombre d'USTC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
+    const nbLineToShow = 500;     // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
 
         
     // Variables React
@@ -39,20 +39,27 @@ const BlockBurn = () => {
         })
     }, [])
 
-
     
     // Affichage
     return (
-        <div className={styles.generalites}>
-            <h2 className={styles.h2burn}><strong><BurnIcon /></strong><span><strong>{nbLineToShow} Latest Burns</strong></span></h2>
+        <>
+            <h1><span><BurnIcon /><strong>Burns</strong></span></h1>
+            <br />
+            <h2 className={styles.h2blocks}><strong><MessageIcon /></strong><span><strong>Burn filtering rules, here</strong></span></h2>
+            <p className={styles.note}>
+            - type of transaction : <strong>MsgSend</strong><br />
+            - number of displayed transactions here : <strong>{nbLineToShow}&nbsp;lines</strong><br />
+            - amount of LUNC required to be displayed here : <strong>{minLuncToShow}&nbsp;LUNC</strong> min<br />
+            - amount of USTC required to be displayed here : <strong>{minUstcToShow}&nbsp;USTC</strong> min
+            </p>
+            <br />
+            <h2 className={styles.h2blocks}><strong><BurnIcon /></strong><span><strong>{nbLineToShow} Latest Burns</strong></span></h2>
             {msgErreurGettingTransactions ?
                 <div className="erreur ">{msgErreurGettingTransactions}</div>
             :
                 isLoading ?
                     <div>Loading from blockchain (FCD), please wait ...</div>
                 :
-                <>
-                    <div className={styles.comments}>(only amounts &gt;100.000 LUNC or &gt;100 USTC are shown here)</div>
                     <div className={styles.burnDiv}>
                         <table className={styles.tblOfLastBurns}>
                             <thead>
@@ -81,10 +88,9 @@ const BlockBurn = () => {
                             </tbody>
                         </table>
                     </div>
-                </>
             }
-        </div>
+        </>
     );
 };
 
-export default BlockBurn;
+export default PageBurns;

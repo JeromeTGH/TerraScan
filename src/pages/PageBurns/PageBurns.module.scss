@@ -1,17 +1,17 @@
 @import '../../style/variables';
 
-.h2burn {
-    margin-bottom: 0;
+.h2blocks {
+    text-align: left;
+    border-bottom: 1px solid var(--outline-box-color);
 }
 
-.generalites {
+.note {
     font-size: 0.9rem;
-    text-align: center;
 }
+
 
 .burnDiv {
-    max-width: calc(100vw - 2.6rem);
-    max-height: calc(100vh * 0.4);
+    max-width: calc(100vw - 1.2rem);
     overflow: auto;
 
     .tblOfLastBurns {
@@ -50,13 +50,7 @@
         td:nth-child(3) {
             text-align: right;
         }
-    
     }
 }
 
 
-.comments {
-    font-size: 0.7rem;
-    padding-bottom: 0.4rem;
-    text-align: center;
-}

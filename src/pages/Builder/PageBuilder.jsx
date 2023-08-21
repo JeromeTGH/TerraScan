@@ -14,6 +14,7 @@ import PageValidator from '../PageValidator/PageValidator';
 import PageValidatorsV2 from '../PageValidators/PageValidatorsV2';
 import PageProposals from '../PageProposals/PageProposals';
 import PageProposal from '../PageProposal/PageProposal';
+import PageBurns from '../PageBurns/PageBurns';
 import PageStaking from '../PageStaking/PageStaking';
 import PageSearch from '../PageSearch/PageSearch';
 import PageAbout from '../PageAbout/PageAbout';
@@ -60,6 +61,8 @@ const PageBuilder = (props) => {
                 return <PageProposal />;
             case 'proposals':
                 return <PageProposals />;
+            case 'burns':
+                return <PageBurns />;
             case 'staking':
                 return <PageStaking />;
             case 'search':

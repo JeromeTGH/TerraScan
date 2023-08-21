@@ -3,7 +3,7 @@ import React from 'react';
 import { chainID, chainLCDurl, appName, FCDurl} from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon } from '../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
@@ -56,6 +56,12 @@ const SideBar = () => {
                         <NavLink to={"/proposals"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><VoteIcon /></span>
                             <span>Governance</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={"/burns"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                            <span><BurnIcon /></span>
+                            <span>Burns</span>
                         </NavLink>
                     </li>
                     <li>
