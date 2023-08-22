@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getBurnTbl } from '../../sharedFunctions/getBurnTbl';
 import styles from './BlockBurn.module.scss';
 import { BurnIcon } from '../../application/AppIcons';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 
@@ -48,11 +48,8 @@ const BlockBurn = () => {
             {msgErreurGettingTransactions ?
                 <div className="erreur ">{msgErreurGettingTransactions}</div>
             :
-                isLoading ?
-                    <div>Loading from blockchain (FCD), please wait ...</div>
-                :
                 <>
-                    <div className={styles.comments}>(only amounts &gt;100.000 LUNC or &gt;100 USTC are shown here)</div>
+                    <div className={styles.comments}>(only MsgSend, with amounts &gt;{formateLeNombre(minLuncToShow, '.')} LUNC or &gt;{formateLeNombre(minUstcToShow,'.')} USTC, are shown here)</div>
                     <div className={styles.burnDiv}>
                         <table className={styles.tblOfLastBurns}>
                             <thead>
@@ -65,19 +62,23 @@ const BlockBurn = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tblTxsBurn.map((valeur, index) => {
-                                    return <tr key={index}>
-                                        <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
-                                        <td><Link to={"/transactions/" + valeur[1].txHash}>
-                                            {valeur[1].txHash.substring(0,8)}...{valeur[1].txHash.slice(-8)}
-                                        </Link></td>
-                                        <td>{valeur[1].amount}</td>
-                                        <td><Link to={"/accounts/" + valeur[1].account}>
-                                            {tblCorrespondanceCompte[valeur[1].account] ? tblCorrespondanceCompte[valeur[1].account] : valeur[1].account}
-                                        </Link></td>
-                                        <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
-                                    </tr>
-                                })}
+                                {isLoading ?
+                                    <tr><td colSpan="5">Loading from blockchain (FCD), please wait ...</td></tr>
+                                :
+                                    tblTxsBurn.map((valeur, index) => {
+                                        return <tr key={index}>
+                                            <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
+                                            <td><Link to={"/transactions/" + valeur[1].txHash}>
+                                                {valeur[1].txHash.substring(0,8)}...{valeur[1].txHash.slice(-8)}
+                                            </Link></td>
+                                            <td>{valeur[1].amount}</td>
+                                            <td><Link to={"/accounts/" + valeur[1].account}>{valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}</Link>
+                                                {tblCorrespondanceCompte[valeur[1].account] ? <><br /><span>({tblCorrespondanceCompte[valeur[1].account]})</span></> : null}
+                                            </td>
+                                            <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
+                                        </tr>
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -48,7 +48,9 @@ export const tblCorrespondanceCompte = {
     "terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "LUNC DAO",
     "terra1w8nc8ev0ylg97qnj080np4lnljngdvpd90ev63": "MEXC wallet",
     "terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e": "Kucoin wallet",
-    "terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf": "Frag"
+    "terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf": "Frag",
+    "terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk": "Lunaclassic.com",
+    "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova"
 }
 
 

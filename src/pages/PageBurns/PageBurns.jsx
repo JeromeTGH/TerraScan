@@ -57,37 +57,37 @@ const PageBurns = () => {
             {msgErreurGettingTransactions ?
                 <div className="erreur ">{msgErreurGettingTransactions}</div>
             :
-                isLoading ?
-                    <div>Loading from blockchain (FCD), please wait ...</div>
-                :
-                    <div className={styles.burnDiv}>
-                        <table className={styles.tblOfLastBurns}>
-                            <thead>
-                                <tr>
-                                    <th>Date/Time</th>
-                                    <th>TxHash</th>
-                                    <th>Rounded&nbsp;amount</th>
-                                    <th>Account</th>
-                                    <th>Memo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tblTxsBurn.map((valeur, index) => {
+                <div className={styles.burnDiv}>
+                    <table className={styles.tblOfLastBurns}>
+                        <thead>
+                            <tr>
+                                <th>Date/Time</th>
+                                <th>TxHash</th>
+                                <th>Rounded&nbsp;amount</th>
+                                <th>Account</th>
+                                <th>Memo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {isLoading ?
+                                <tr><td colSpan="5">Loading from blockchain (FCD), please wait ...</td></tr>
+                            :
+                                tblTxsBurn.map((valeur, index) => {
                                     return <tr key={index}>
                                         <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
                                         <td><Link to={"/transactions/" + valeur[1].txHash}>
                                             {valeur[1].txHash.substring(0,8)}...{valeur[1].txHash.slice(-8)}
                                         </Link></td>
                                         <td>{valeur[1].amount}</td>
-                                        <td><Link to={"/accounts/" + valeur[1].account}>
-                                            {tblCorrespondanceCompte[valeur[1].account] ? tblCorrespondanceCompte[valeur[1].account] : valeur[1].account}
-                                        </Link></td>
+                                        <td><Link to={"/accounts/" + valeur[1].account}>{valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}</Link>
+                                            {tblCorrespondanceCompte[valeur[1].account] ? <><br /><span>({tblCorrespondanceCompte[valeur[1].account]})</span></> : null}
+                                        </td>
                                         <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
                                     </tr>
                                 })}
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
             }
         </>
     );

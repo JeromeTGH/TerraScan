@@ -57,7 +57,7 @@
 
             .pgsearch {
                 font-size: 1.2rem;
-                @media (max-width: var(--breakpoint)) {
+                @media (max-width: $primary-breakpoint) {
                     font-size: 1.1rem;
                 }
             }

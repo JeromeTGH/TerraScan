@@ -11,8 +11,12 @@
 
 
 .burnDiv {
-    max-width: calc(100vw - 1.2rem);
+    max-width: calc(100vw - 4rem);
     overflow: auto;
+
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 2.4rem);
+    }
 
     .tblOfLastBurns {
         width: 100%;
@@ -34,11 +38,14 @@
         
         td, th {
             padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
-            @media (max-width: $primary-breakpoint) {
+            font-size: 0.85rem;
+            @media (max-width: 1200px) {
                 font-size: 0.8rem;
-                @media (max-width: 600px) {
-                    font-size: 0.7rem;
+                @media (max-width: 1200px) {
+                    font-size: 0.75rem;
+                    @media (max-width: 600px) {
+                        font-size: 0.7rem;
+                    }
                 }
             }
         }
