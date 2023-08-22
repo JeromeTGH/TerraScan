@@ -84,5 +84,6 @@ export const tblCorrespondanceMessages = {
     "MsgMigrateContract": "Migrate Contract",
     "MsgSetWithdrawAddress": "Set Withdraw Address",
     "MsgClearAdmin": "Clear Admin",
-    "MsgModifyWithdrawAddress": "Modify Withdraw Address"
+    "MsgModifyWithdrawAddress": "Modify Withdraw Address",
+    "MsgSwap": "Swap"
 }

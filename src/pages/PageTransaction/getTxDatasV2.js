@@ -89,7 +89,7 @@ export const getTxDatasV2 = async (txHash) => {
 
             // console.log("rawTxInfo", rawTxInfo);
             const message = rawTxInfo.tx.value.msg[i];
-            // console.log("message", message);
+            console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
@@ -336,6 +336,11 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['withdraw_address'] = message.value.withdraw_address;
             }
 
+            if(msgStructRet['MsgType'] === 'MsgSwap') {
+                msgStructRet['ask_denom'] = message.value.ask_denom;
+                msgStructRet['offer_coin'] = message.value.offer_coin;
+                msgStructRet['trader'] = message.value.trader;
+            }
 
             msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);

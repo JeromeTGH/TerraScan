@@ -3,6 +3,7 @@ import styles from './BlockTxMessages.module.scss';
 import { MessageIcon } from '../../application/AppIcons';
 import MsgExec from './Msgs/MsgExec';
 import MsgSend from './Msgs/MsgSend';
+import MsgSwap from './Msgs/MsgSwap';
 import MsgVote from './Msgs/MsgVote';
 import MsgUnjail from './Msgs/MsgUnjail';
 import MsgDeposit from './Msgs/MsgDeposit';
@@ -65,6 +66,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgSetWithdrawAddress' ? <MsgSetWithdrawAddress txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgClearAdmin' ? <MsgClearAdmin txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgModifyWithdrawAddress' ? <MsgModifyWithdrawAddress txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgSwap' ? <MsgSwap txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>
