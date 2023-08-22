@@ -3,7 +3,7 @@
 .site {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: $sidebar-width  calc(100% - #{$sidebar-width});
+    grid-template-columns: $sidebar-width calc(100% - #{$sidebar-width});
     grid-column-gap: 0;
     grid-row-gap: 0;
 
@@ -18,10 +18,10 @@
 .content {
    
     padding: 0.8rem 1.2rem;
-
+    
     display: grid;
     grid-template-rows: min-content auto min-content;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
 
     @media (max-width: $primary-breakpoint) {
@@ -35,9 +35,14 @@
     }
     
     header, main, footer {
-        width: 100%;
         margin: 0 auto;
         max-width: 1300px;
+        width: calc(100vw - #{$sidebar-width} - 4rem);
+
+        @media (max-width: $primary-breakpoint) {
+            width: 100%;
+        }
+            
     }
 
 }
