@@ -10,6 +10,8 @@
     --primary-text-color: #{$darkTheme_primaryFontColor};
     --secondary-text-color: #{$darkTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$darkTheme_primaryFontColorOnSidebarFill};
+    --brillant-text-color: #{$darkTheme_brillantTextColor};
+    --brillant-fill-color: #{$darkTheme_backgroundColor};
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
@@ -30,6 +32,8 @@
     --primary-text-color: #{$lightTheme_primaryFontColor};
     --secondary-text-color: #{$lightTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnSidebarFill};
+    --brillant-text-color: #{$lightTheme_primaryFontColor};
+    --brillant-fill-color: #{$lightTheme_brillantFillColor};
     --link-color: #{$lightTheme_linkColor};
     --error-color: #{$lightTheme_errorColor};
     --success-color: #{$lightTheme_successColor};
@@ -48,6 +52,11 @@ body {
 a, .colore {
     color: var(--link-color);
     // font-weight: var(--link-weight);
+}
+
+.textBrillant {
+    color: var(--brillant-text-color);
+    background-color: var(--brillant-fill-color);
 }
 
 .erreur {

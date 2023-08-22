@@ -51,7 +51,7 @@ export const getProposals = async (governanceInfos) => {
                 const seuilAcceptation = governanceInfos['seuilDacceptation'];
                 const seuilDeRejet = governanceInfos['seuilDeRefus'];
 
-                const statutVote = pourcentageOfVoters < seuilQuorum ? "Quorum not reached, for the moment (" + seuilQuorum + "% needed)" :
+                const statutVote = pourcentageOfVoters < seuilQuorum ? "Quorum not reached, for the moment (" + pourcentageOfVoters.toFixed(2) + "% voted, but " + seuilQuorum + "% needed)" :
                                         pourcentageOfNoWithVeto > seuilVeto ? "VETO threshold reached, for the moment (veto threshold = " + seuilVeto + "%)" :
                                         pourcentageOfYes < (pourcentageOfNo + pourcentageOfNoWithVeto) ? "Majority of NO, for the moment (reject threshold = " + seuilDeRejet + "%, vs YES)" :
                                                                               "Majority of YES, for the moment (acceptation threshold = " + seuilAcceptation + "%, vs NO+VETO)";

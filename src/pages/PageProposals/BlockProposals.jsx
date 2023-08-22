@@ -101,7 +101,8 @@ const BlockProposals = (props) => {
                                                         <div style={{ width: element.pourcentageOfNo + "%"}} className='barVoteNo'>&nbsp;</div>
                                                         <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
                                                     </div>
-                                                    <div><br /><strong>===&gt; {element.statutVote}</strong></div>
+                                                    <br />
+                                                    <div className='textBrillant'>===&gt; {element.statutVote}</div>
                                                 </td>
                                             </tr> : null
                                         }
