@@ -41,7 +41,7 @@ export class FCDclient {
             this.tx = new TxAPI(this.apiRequester, this.paths.tx);
 
             FCDclient._instance = this;
-            console.log('Instance FCD créée.');
+            // console.log('Instance FCD créée.');
         }
     }
 

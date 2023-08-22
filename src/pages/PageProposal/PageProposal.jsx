@@ -253,7 +253,7 @@ const PageProposal = () => {
                         : null}
                     </>
                         :
-                        <div>Loading data from blockchain (lcd) ...</div>
+                        <div className="boxContainer"><div>Loading data from blockchain (lcd) ...</div></div>
                 }
             </div>
         </>
