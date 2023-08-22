@@ -10,10 +10,12 @@
 }
 
 .burnDiv {
-    max-width: calc(100vw - 4rem);
     max-height: calc(100vh * 0.4);
-    overflow: auto;
-    margin: 0 auto;
+    overflow-x: auto;
+
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 2.4rem);
+    }
 
     .tblOfLastBurns {
         width: 100%;
@@ -32,23 +34,20 @@
         th {
             text-align: center;
         }
-        
+
+        th:nth-child(5), th:nth-child(6) {
+            text-align: left;
+        }
+
         td, th {
             padding: 0.2rem 0.2rem;
             font-size: 0.9rem;
+        }
 
-            @media (max-width: 1100px) {
-                font-size: 0.8rem;
-                @media (max-width: 600px) {
-                    font-size: 0.7rem;
-                }
-            }
+        td:nth-child(1) {
+            white-space: nowrap;
         }
-        
-        td:nth-child(4) a {
-            word-break: break-word;
-        }
-    
+
         td:nth-child(3) {
             text-align: right;
         }

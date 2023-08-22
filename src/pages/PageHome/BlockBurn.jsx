@@ -58,12 +58,13 @@ const BlockBurn = () => {
                                     <th>TxHash</th>
                                     <th>Rounded&nbsp;amount</th>
                                     <th>Account</th>
+                                    <th>Owner</th>
                                     <th>Memo</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {isLoading ?
-                                    <tr><td colSpan="5">Loading from blockchain (FCD), please wait ...</td></tr>
+                                    <tr><td colSpan="6">Loading from blockchain (FCD), please wait ...</td></tr>
                                 :
                                     tblTxsBurn.map((valeur, index) => {
                                         return <tr key={index}>
@@ -72,9 +73,8 @@ const BlockBurn = () => {
                                                 {valeur[1].txHash.substring(0,8)}...{valeur[1].txHash.slice(-8)}
                                             </Link></td>
                                             <td>{valeur[1].amount}</td>
-                                            <td><Link to={"/accounts/" + valeur[1].account}>{valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}</Link>
-                                                {tblCorrespondanceCompte[valeur[1].account] ? <><br /><span>({tblCorrespondanceCompte[valeur[1].account]})</span></> : null}
-                                            </td>
+                                            <td><Link to={"/accounts/" + valeur[1].account}>{valeur[1].account}</Link></td>
+                                            <td>{tblCorrespondanceCompte[valeur[1].account] ? tblCorrespondanceCompte[valeur[1].account] : '-'}</td>
                                             <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
                                         </tr>
                                     })

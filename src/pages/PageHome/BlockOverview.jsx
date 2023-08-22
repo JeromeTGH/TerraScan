@@ -103,9 +103,16 @@ const BlockOverview = () => {
                             <td className={styles.progressbartext}>Staking&nbsp;ratio&nbsp;:</td>
                             <td className={styles.progressbarcontent}>
                                 <div className={styles.progressbar}>
-                                    {stakingRatio && stakingRatio !== -1 ? (
-                                        <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>{stakingRatio + "%"}</span></div>
-                                    ) : (
+                                    {stakingRatio && stakingRatio !== -1 ? 
+                                        (stakingRatio < 15) ? (
+                                            <>
+                                                <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>&nbsp;</span></div>
+                                                <div className={styles.apresbarre}><span>&nbsp;&nbsp;←&nbsp;&nbsp;{stakingRatio}%</span></div>
+                                            </>
+                                        ) : (
+                                            <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>{stakingRatio}%</span></div>
+                                        )
+                                     : (
                                         <>
                                             <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>
                                             <div className={styles.apresbarre}><span>&nbsp;Loading...</span></div>
