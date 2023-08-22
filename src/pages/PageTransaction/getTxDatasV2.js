@@ -67,11 +67,14 @@ export const getTxDatasV2 = async (txHash) => {
         let totalOfTaxes = '---';
         for(const lgLog of logsTbl) {
             if(lgLog.log && lgLog.log.tax) {
+                const denom = lgLog.log.tax.replace(/[0-9]/g, '');
+                const value = lgLog.log.tax.replace(denom, '');
+                
                 let logTaxe = '';
-                if(lgLog.log.tax.includes('uluna'))
-                    logTaxe = (parseInt(lgLog.log.tax.replace('uluna'))/1000000).toFixed(6) + ' LUNC';
+                if(tblCorrespondanceValeurs[denom])
+                    logTaxe = (parseInt(value)/1000000).toFixed(6) + '\u00a0' + tblCorrespondanceValeurs[denom];
                 else
-                    logTaxe = lgLog.log.tax;
+                    logTaxe = value + '\u00a0' + denom;
                 if(totalOfTaxes === '---')
                     totalOfTaxes = logTaxe;
                 else
