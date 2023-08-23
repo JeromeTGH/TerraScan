@@ -83,7 +83,7 @@ export const getProposal = async (propID) => {
     if(rawProposer) {
         proposalInfos['proposerAddress'] = rawProposer;
     } else
-        return { "erreur": "Failed to fetch [proposer] ..." }
+        proposalInfos['proposerAddress'] = "";
 
 
     // Scan de toute la liste des validateurs, pour voir si cette adresse ne correspondrait pas à l'un d'entre eux
@@ -246,7 +246,7 @@ export const getProposal = async (propID) => {
 // Log les éventuelles erreurs
 // ===========================
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    console.warn("ERREUR", err);
 }
 
 

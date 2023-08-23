@@ -3,6 +3,7 @@ import { OverviewIcon } from '../../application/AppIcons';
 import { getOverviewInfos } from './getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
+import { Link } from 'react-router-dom';
 
 const BlockOverview = () => {
 
@@ -145,11 +146,11 @@ const BlockOverview = () => {
                         <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;Tobin tax ("tax burn") :</div>
+                        <div>→&nbsp;<Link to="/proposals/11515">Tobin tax</Link> ("tax burn") :</div>
                         <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;Tobin tax split :</div>
+                        <div>→&nbsp;<Link to="/proposals/11514">Tobin tax split</Link> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
@@ -157,7 +158,7 @@ const BlockOverview = () => {
                         <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;Distribution Module split :</div>
+                        <div>→&nbsp;<Link to="/proposals/11513">Distribution Module split</Link> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>

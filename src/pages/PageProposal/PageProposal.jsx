@@ -57,7 +57,10 @@ const PageProposal = () => {
                                         <span>)</span>
                                     </>
                                 :
-                                    <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link>
+                                    proposalInfos['proposerAddress'] ?
+                                        <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link>
+                                    :
+                                        <span>(unknown)</span>
                                 }
                             </p>
                         </div>
