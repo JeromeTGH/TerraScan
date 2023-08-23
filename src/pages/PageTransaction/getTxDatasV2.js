@@ -342,6 +342,19 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['trader'] = message.value.trader;
             }
 
+            if(msgStructRet['MsgType'] === 'MsgUpdateAdmin') {
+                msgStructRet['contract'] = message.value.contract;
+                msgStructRet['sender'] = message.value.sender;
+                msgStructRet['new_admin'] = message.value.new_admin;
+            }
+
+            if(msgStructRet['MsgType'] === 'MsgSwapSend') {
+                msgStructRet['ask_denom'] = message.value.ask_denom;
+                msgStructRet['offer_coin'] = message.value.offer_coin;
+                msgStructRet['from_address'] = message.value.from_address;
+                msgStructRet['to_address'] = message.value.to_address;
+            }
+
             msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);
         }

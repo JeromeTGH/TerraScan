@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import packageJson from '../../../package.json';
 import { FCDurl, appName, chainID, chainLCDurl } from '../../application/AppParams';
+import { CircleQuestionIcon } from '../../application/AppIcons';
 
 const PageAbout = () => {
 
@@ -11,7 +12,7 @@ const PageAbout = () => {
 
     return (
         <div>
-            <h1>About</h1>
+            <h1><span><CircleQuestionIcon /><strong>About</strong></span></h1>
             <br />
             <p>This app, "TerraScan", is an scanner/finder for Terra Classic blockchain.</p>
             <br />
@@ -29,6 +30,8 @@ const PageAbout = () => {
                 <p>- do your own research, always</p>
                 <p>- do not trust, verify</p>
                 <p>- the cryptocurrency world is full of scammers and thieves, so be extremely careful</p>
+                <p>- there is no guarantee of accuracy on this site, particularly on data extracted from the blockchain</p>
+                <p>- no responsibility can be engaged (against this site or its creator), as to the use of this data and its consequences, in any way</p>
             </div>
             <br />
             <br />

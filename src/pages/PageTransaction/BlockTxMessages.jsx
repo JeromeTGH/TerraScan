@@ -8,10 +8,12 @@ import MsgVote from './Msgs/MsgVote';
 import MsgUnjail from './Msgs/MsgUnjail';
 import MsgDeposit from './Msgs/MsgDeposit';
 import MsgDelegate from './Msgs/MsgDelegate';
+import MsgSwapSend from './Msgs/MsgSwapSend';
 import MsgTransfer from './Msgs/MsgTransfer';
 import MsgStoreCode from './Msgs/MsgStoreCode';
 import MsgClearAdmin from './Msgs/MsgClearAdmin';
 import MsgUndelegate from './Msgs/MsgUndelegate';
+import MsgUpdateAdmin from './Msgs/MsgUpdateAdmin';
 import MsgUpdateClient from './Msgs/MsgUpdateClient';
 import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
 import MsgAcknowledgement from './Msgs/MsgAcknowledgement';
@@ -67,6 +69,8 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgClearAdmin' ? <MsgClearAdmin txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgModifyWithdrawAddress' ? <MsgModifyWithdrawAddress txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgSwap' ? <MsgSwap txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgUpdateAdmin' ? <MsgUpdateAdmin txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgSwapSend' ? <MsgSwapSend txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

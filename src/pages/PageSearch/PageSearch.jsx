@@ -59,7 +59,7 @@ const PageSearch = () => {
                 </form>
                 <p className={"erreur " + styles.message}>{errorMessage}</p>
             </div>
-            <div className={'comment ' + styles.cmtbtm}>Using {chainName} LCD ({chainID})</div>
+            <div className={'comment ' + styles.cmtbtm}>Using {chainName} LCD/FCD ({chainID})</div>
         </div>
     );
 };

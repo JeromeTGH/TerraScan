@@ -96,7 +96,7 @@ const SideBar = () => {
                     Want to help me ?<br />
                     To make this app sustainable ?<br />
                     <button onClick={() => handleDon()}><CoffeeIcon /><span>Donate</span></button><br />
-                    So please donate ! Thanks !<br />
+                    So please donate ! Thanks ;)<br />
                 </div>
             </nav>
         </div>
