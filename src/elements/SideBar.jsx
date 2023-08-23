@@ -11,6 +11,7 @@ const SideBar = () => {
 
     const navigate = useNavigate();
 
+    // Fonction de redirection "donate"
     const handleDon = () => {
         navigate('/donate/');
     }
