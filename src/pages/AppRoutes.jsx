@@ -65,6 +65,10 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="about" withHeader="yes" withFooter="yes" />
             },
             {
+                path: "/donate",
+                element: <PageBuilder targetPage="donate" withHeader="yes" withFooter="yes" />
+            },
+            {
                 path: "/404",
                 element: <PageBuilder targetPage="404" withHeader="yes" withFooter="yes" />
             },

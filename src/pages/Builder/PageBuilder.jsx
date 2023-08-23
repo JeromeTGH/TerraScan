@@ -25,6 +25,7 @@ import SideBar from '../../elements/SideBar';
 import AppBar from '../../elements/AppBar';
 
 import { AppScrollToTop } from '../../application/AppScrollToTop'
+import PageDonate from '../PageDonate/PageDonate';
 
 
 const PageBuilder = (props) => {
@@ -65,6 +66,8 @@ const PageBuilder = (props) => {
                 return <PageBurns />;
             case 'staking':
                 return <PageStaking />;
+            case 'donate':
+                return <PageDonate />;
             case 'search':
                 return <PageSearch />;
             case '404':

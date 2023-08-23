@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
@@ -8,8 +9,10 @@ import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
 
+    const navigate = useNavigate();
+
     const handleDon = () => {
-        console.log("don");
+        navigate('/donate/');
     }
 
     // Affichage
