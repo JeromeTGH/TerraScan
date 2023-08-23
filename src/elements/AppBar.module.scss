@@ -129,6 +129,19 @@ $hiddenMenuPadding: 0.4rem;
 
                 }
             }
+
+            .donate {
+                background-color: var(--donate-btn-fill-color);
+
+                &:hover {
+                    background-color: var(--donate-btn-hover-fill-color);
+                    transform: translateX(10px);
+                }
+
+                a {
+                    color: var(--donate-btn-text-color);
+                }
+           }
         }
     }
 }

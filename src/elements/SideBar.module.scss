@@ -115,11 +115,11 @@ $titleBlocHeight: 6rem;
         button {
             margin: 0.8rem;
             padding: 0.4rem 1rem;
-            border: 1px solid orange;
+            border: 1px solid var(--donate-btn-border-color);
             border-radius: 0.6rem;
-            background-color: gold;
+            background-color: var(--donate-btn-fill-color);
             font-weight: 600;
-            color: #771133;
+            color: var(--donate-btn-text-color);
 
             svg {
                 vertical-align: middle;
