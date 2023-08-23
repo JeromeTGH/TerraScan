@@ -1,6 +1,16 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Si mode maintenance activé
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.on -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteCond %{REQUEST_URI} !\.(css|gif|jpe?g|png|ico|txt) [NC]
+  RewriteRule ^.*$ /maintenance.html [R=307,L]
+
+  # Si mode maintenance désactivé
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.on !-f
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { chainID, chainLCDurl, appName, FCDurl} from '../application/AppParams';
+import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon } from '../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, CoffeeIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
+
+    const handleDon = () => {
+        console.log("don");
+    }
 
     // Affichage
     return (
@@ -88,10 +92,11 @@ const SideBar = () => {
                 </div>
                 <br />
                 <br />
-                <div className={styles.chainInfos}>
-                    &nbsp;==&gt; Network : <strong>{chainID}</strong><br />
-                    &nbsp;==&gt; LCD : <strong>{chainLCDurl.replace('https://', '')}</strong><br />
-                    &nbsp;==&gt; FCD : <strong>{FCDurl.replace('https://', '')}</strong>
+                <div className={styles.don}>
+                    Want to help me ?<br />
+                    To make this app sustainable ?<br />
+                    <button onClick={() => handleDon()}><CoffeeIcon /><span>Donate</span></button><br />
+                    So please donate ! Thanks !<br />
                 </div>
             </nav>
         </div>

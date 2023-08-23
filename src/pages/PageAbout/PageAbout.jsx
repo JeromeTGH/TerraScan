@@ -24,6 +24,14 @@ const PageAbout = () => {
             <p><u>LCD</u> : {chainLCDurl.replace('https://', '')}</p>
             <p><u>FCD</u> : {FCDurl.replace('https://', '')}</p>
             <br />
+            <div className='erreur'>
+                <p>Very important :</p>
+                <p>- do your own research, always</p>
+                <p>- do not trust, verify</p>
+                <p>- the cryptocurrency world is full of scammers and thieves, so be extremely careful</p>
+            </div>
+            <br />
+            <br />
             <p>Created by <a href="https://twitter.com/jerometomski" target="_blank" rel="noreferrer noopener">Jerome TOMSKI</a>, @2023</p>
             <br />
         </div>
