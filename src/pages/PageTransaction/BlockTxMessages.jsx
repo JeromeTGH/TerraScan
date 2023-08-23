@@ -25,6 +25,7 @@ import MsgFundCommunityPool from './Msgs/MsgFundCommunityPool';
 import MsgGrantAuthorization from './Msgs/MsgGrantAuthorization';
 import MsgSetWithdrawAddress from './Msgs/MsgSetWithdrawAddress';
 import MsgInstantiateContract from './Msgs/MsgInstantiateContract';
+import MsgRevokeAuthorization from './Msgs/MsgRevokeAuthorization';
 import MsgModifyWithdrawAddress from './Msgs/MsgModifyWithdrawAddress';
 import MsgWithdrawDelegatorReward from './Msgs/MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
@@ -71,6 +72,8 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgSwap' ? <MsgSwap txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgUpdateAdmin' ? <MsgUpdateAdmin txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgSwapSend' ? <MsgSwapSend txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgRevokeAuthorization' ||
+                     props.txMessage['MsgType'] === 'MsgRevoke' ? <MsgRevokeAuthorization txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

@@ -251,7 +251,8 @@ const PageProposal = () => {
                                 </table>
                             </div>
                         : null}
-                        {proposalInfos['tblDesVotesDeValidateur'] ?
+                        {/* Pb en dessous : le LCD ne remonte pas tous les votes, malheureusement ; en fait, si "MsgVote" n'est pas utilisé, il peut y avoir des manques */}
+                        {/* {proposalInfos['tblDesVotesDeValidateur'] ?
                             <div className="boxContainer">
                                 <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain)</h2>
                                 <div className={"textBrillant " + styles.comments}>
@@ -283,7 +284,7 @@ const PageProposal = () => {
                                     </tbody>
                                 </table>
                             </div>
-                        : null}
+                        : null} */}
                     </>
                         :
                         <div className="boxContainer"><div>Loading data from blockchain (lcd), please wait ...</div></div>

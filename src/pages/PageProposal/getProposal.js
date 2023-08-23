@@ -196,42 +196,45 @@ export const getProposal = async (propID) => {
                 proposalInfos['statutVote'] = "Proposal REJECTED";
     }          
 
-    // Recherche des votes, pour cette proposition (lecture par "paquet" de 100 votes, car "pagination.limit = 9999" ne marche pas ici)
-    const tblDesVotesDeValidateur = [];       // array of [ valaddress, valmoniker, option_de_vote ]
-    const rawVotes = await lcd.gov.votes(propID, {'pagination.offset': 0}).catch(handleError);
-    if(rawVotes) {
-        for(const vote of rawVotes[0]) {
-            const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === vote.voter);
-            if(isValidatorAddress) {
-                tblDesVotesDeValidateur.push([
-                    isValidatorAddress[0],
-                    isValidatorAddress[1].description_moniker,
-                    vote.options[0].option
-                ]);
-            }
-        }
 
-        const nbDeLecturesAfaire = parseInt(rawVotes[1].total/100);
-        for(let i=1 ; i <= nbDeLecturesAfaire ; i++) {
-            const rawVotesSuivants = await lcd.gov.votes(propID, {'pagination.offset': i*100}).catch(handleError);
-                for(const voteSuivant of rawVotesSuivants[0]) {
-                    const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === voteSuivant.voter);
-                    if(isValidatorAddress) {
-                        tblDesVotesDeValidateur.push([
-                            isValidatorAddress[0],
-                            isValidatorAddress[1].description_moniker,
-                            voteSuivant.options[0].option
-                        ]);
-                    }
-                }
-            }
+                // Pb ci-dessous : les validateurs qui votent via "MsgExec" par exemple, ne sont pas notés ici (seuls les "MsgVote" sont remontés ici)
 
-    } else
-        return { "erreur": "Failed to fetch [votes] ..." }
+    // // Recherche des votes, pour cette proposition (lecture par "paquet" de 100 votes, car "pagination.limit = 9999" ne marche pas ici)
+    // const tblDesVotesDeValidateur = [];       // array of [ valaddress, valmoniker, option_de_vote ]
+    // const rawVotes = await lcd.gov.votes(propID, {'pagination.offset': 0}).catch(handleError);
+    // if(rawVotes) {
+    //     for(const vote of rawVotes[0]) {
+    //         const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === vote.voter);
+    //         if(isValidatorAddress) {
+    //             tblDesVotesDeValidateur.push([
+    //                 isValidatorAddress[0],
+    //                 isValidatorAddress[1].description_moniker,
+    //                 vote.options[0].option
+    //             ]);
+    //         }
+    //     }
+
+    //     const nbDeLecturesAfaire = parseInt(rawVotes[1].total/100);
+    //     for(let i=1 ; i <= nbDeLecturesAfaire ; i++) {
+    //         const rawVotesSuivants = await lcd.gov.votes(propID, {'pagination.offset': i*100}).catch(handleError);
+    //             for(const voteSuivant of rawVotesSuivants[0]) {
+    //                 const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === voteSuivant.voter);
+    //                 if(isValidatorAddress) {
+    //                     tblDesVotesDeValidateur.push([
+    //                         isValidatorAddress[0],
+    //                         isValidatorAddress[1].description_moniker,
+    //                         voteSuivant.options[0].option
+    //                     ]);
+    //                 }
+    //             }
+    //         }
+
+    // } else
+    //     return { "erreur": "Failed to fetch [votes] ..." }
 
 
-    // Ajout de ces votes validateurs, au retour-données
-    proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
+    // // Ajout de ces votes validateurs, au retour-données
+    // proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
     
 
     // Envoi des infos en retour

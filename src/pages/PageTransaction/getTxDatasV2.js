@@ -89,7 +89,7 @@ export const getTxDatasV2 = async (txHash) => {
 
             // console.log("rawTxInfo", rawTxInfo);
             const message = rawTxInfo.tx.value.msg[i];
-            // console.log("message", message);
+            console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
@@ -354,6 +354,13 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['from_address'] = message.value.from_address;
                 msgStructRet['to_address'] = message.value.to_address;
             }
+
+            if(msgStructRet['MsgType'] === 'MsgRevokeAuthorization' || msgStructRet['MsgType'] === 'MsgRevoke') {
+                msgStructRet['grantee'] = message.value.grantee;
+                msgStructRet['granter'] = message.value.granter;
+                msgStructRet['msg_type_url'] = message.value.msg_type_url;
+            }
+
 
             msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);

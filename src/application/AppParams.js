@@ -85,5 +85,7 @@ export const tblCorrespondanceMessages = {
     "MsgModifyWithdrawAddress": "Modify Withdraw Address",
     "MsgSwap": "Swap",
     "MsgUpdateAdmin": "Update Admin",
-    "MsgSwapSend": "Swap Send"
+    "MsgSwapSend": "Swap Send",
+    "MsgRevoke": "Revoke",
+        "MsgRevokeAuthorization": "Revoke Authorization"    // variante de 'MsgRevoke'
 }
