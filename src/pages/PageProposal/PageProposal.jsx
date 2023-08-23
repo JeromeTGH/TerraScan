@@ -251,9 +251,42 @@ const PageProposal = () => {
                                 </table>
                             </div>
                         : null}
+                        {proposalInfos['tblDesVotesDeValidateur'] ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain)</h2>
+                                <div className={"textBrillant " + styles.comments}>
+                                    <span><u>Note 1</u> : if a validator has changed his vote over time, then his name will appear multiple times here (because each/all vote are shown in this table)</span>
+                                    <br />
+                                    <span><u>Note 2</u> : this table is not updated in real time, on the LCD ; so do not trust exactly what is displayed here</span>
+                                </div>
+                                <table className={styles.tblValidatorsVotes}>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Validators</th>
+                                            <th>Votes (older to newer)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {proposalInfos['tblDesVotesDeValidateur'].map((valeur, index) => {
+                                            return <tr key={index}>
+                                                <td>{index+1}</td>
+                                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1]}</Link></td>
+                                                <td>
+                                                    {valeur[2] === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>Vote YES</span> : null}
+                                                    {valeur[2] === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>Vote ABSTAIN</span> : null}
+                                                    {valeur[2] === 'VOTE_OPTION_NO' ? <span className='textVoteNo'>Vote NO</span> : null}
+                                                    {valeur[2] === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>Vote NO_WITH_VETO</span> : null}
+                                                </td>
+                                            </tr>
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        : null}
                     </>
                         :
-                        <div className="boxContainer"><div>Loading data from blockchain (lcd) ...</div></div>
+                        <div className="boxContainer"><div>Loading data from blockchain (lcd), please wait ...</div></div>
                 }
             </div>
         </>

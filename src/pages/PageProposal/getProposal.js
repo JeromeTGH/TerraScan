@@ -1,9 +1,15 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
-import { AccAddress, Coins, LCDClient } from '@terra-money/terra.js';
+import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
+import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
+import { tblValidators } from '../../application/AppData';
 
 export const getProposal = async (propID) => {
 
+    // Charge la liste des validateurs, si elle est vide
+    await loadValidatorsList();
+
+    // Idée de la structure de retour
     const proposalInfos = {
         'contentTitle': null,           // Titre de la proposition
         'contentDescription': null,     // Description de la proposition
@@ -81,16 +87,11 @@ export const getProposal = async (propID) => {
 
 
     // Scan de toute la liste des validateurs, pour voir si cette adresse ne correspondrait pas à l'un d'entre eux
-    const rawValidators = await lcd.staking.validators({'pagination.limit': '9999'}).catch(handleError);
-    if(rawValidators) {
-        for(let i=0 ; i<rawValidators[0].length ; i++) {
-            if(AccAddress.fromValAddress(rawValidators[0][i].operator_address) === proposalInfos['proposerAddress']) {
-                proposalInfos['proposerValAddress'] = rawValidators[0][i].operator_address;
-                proposalInfos['proposerValMoniker'] = rawValidators[0][i].description.moniker;
-            }
-        }
-    } else
-        return { "erreur": "Failed to fetch [validators] ..." }
+    const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === proposalInfos['proposerAddress']);
+    if(isValidatorAccount) {
+        proposalInfos['proposerValAddress'] = isValidatorAccount[0];
+        proposalInfos['proposerValMoniker'] = isValidatorAccount[1].description_moniker;
+    }
 
 
     // Si un vote est en attente d'un dépôt suffisant (status = 1), alors on récupère d'autres infos particulières
@@ -193,8 +194,44 @@ export const getProposal = async (propID) => {
                 proposalInfos['statutVote'] = "Proposal ADOPTED";
             else
                 proposalInfos['statutVote'] = "Proposal REJECTED";
-        
-    }
+    }          
+
+    // Recherche des votes, pour cette proposition (lecture par "paquet" de 100 votes, car "pagination.limit = 9999" ne marche pas ici)
+    const tblDesVotesDeValidateur = [];       // array of [ valaddress, valmoniker, option_de_vote ]
+    const rawVotes = await lcd.gov.votes(propID, {'pagination.offset': 0}).catch(handleError);
+    if(rawVotes) {
+        for(const vote of rawVotes[0]) {
+            const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === vote.voter);
+            if(isValidatorAddress) {
+                tblDesVotesDeValidateur.push([
+                    isValidatorAddress[0],
+                    isValidatorAddress[1].description_moniker,
+                    vote.options[0].option
+                ]);
+            }
+        }
+
+        const nbDeLecturesAfaire = parseInt(rawVotes[1].total/100);
+        for(let i=1 ; i <= nbDeLecturesAfaire ; i++) {
+            const rawVotesSuivants = await lcd.gov.votes(propID, {'pagination.offset': i*100}).catch(handleError);
+                for(const voteSuivant of rawVotesSuivants[0]) {
+                    const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === voteSuivant.voter);
+                    if(isValidatorAddress) {
+                        tblDesVotesDeValidateur.push([
+                            isValidatorAddress[0],
+                            isValidatorAddress[1].description_moniker,
+                            voteSuivant.options[0].option
+                        ]);
+                    }
+                }
+            }
+
+    } else
+        return { "erreur": "Failed to fetch [votes] ..." }
+
+
+    // Ajout de ces votes validateurs, au retour-données
+    proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
     
 
     // Envoi des infos en retour
