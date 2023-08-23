@@ -70,7 +70,7 @@ const PageProposal = () => {
                                 <span className='colore'><strong>{proposalInfos['statusText']}</strong></span>
                             }
                         </div>
-                        <div className="boxContainer">
+                        <div className={"boxContainer " + styles.propContainer}>
                             <h2 className={styles.h2titles}><strong>Proposal : </strong>{proposalInfos['contentTitle']}</h2>
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </div>

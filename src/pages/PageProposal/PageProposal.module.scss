@@ -22,6 +22,15 @@
         font-style: italic;    
     }
 
+    .propContainer {
+        overflow-x: auto;
+    
+        @media (max-width: $primary-breakpoint) {
+            max-width: calc(100vw - 1.4rem);
+        }
+
+    }
+
     .tblInfos {
         width: 100%;
         border-spacing: 0;

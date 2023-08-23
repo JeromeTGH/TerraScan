@@ -32,7 +32,7 @@ const BlockProposals = (props) => {
     // Affichage
     return (
         <div className={styles.blockProposals}>
-            <table className={styles.tblFilters}>
+            {/* <table className={styles.tblFilters}>
                 <tbody>
                     <tr>
                         <td className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}>Show ALL proposals<br />↓</td>
@@ -42,7 +42,14 @@ const BlockProposals = (props) => {
                         <td className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</td>
                     </tr>
                 </tbody>
-            </table>
+            </table> */}
+            <div className={styles.tblFilters2}>
+                <button className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}>Show ALL proposals<br />↓</button>
+                <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}>Show VOTES in progress<br />↓</button>
+                <button className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}>Show PENDING deposits<br />↓</button>
+                <button className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(3)}>Show ADOPTED proposals<br />↓</button>
+                <button className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</button>
+            </div>
             <div>
                 {props.tblProposals.map((element, index) => {
                     return (
@@ -68,10 +75,6 @@ const BlockProposals = (props) => {
                                             <td>Title :</td>
                                             <td><strong>{element.content.title}</strong></td>
                                         </tr>
-                                        {/* <tr>
-                                            <td>Description :</td>
-                                            <td>{element.content.description.length > nbCaracteresMaxAffichesPourDescription ? element.content.description.substring(0, nbCaracteresMaxAffichesPourDescription) + " [......]" : element.content.description}</td>
-                                        </tr> */}
                                         <tr>
                                             <td>Status :</td>
                                             <td><u>{proposalStatus[element.status]}</u></td>

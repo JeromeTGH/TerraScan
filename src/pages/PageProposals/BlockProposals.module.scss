@@ -3,16 +3,18 @@
 .blockProposals {
     grid-area: proposals;
 
-    .tblFilters {
-        width: 100%;
-        border-spacing: 0.2rem;
+    .tblFilters2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 0.2rem;
         padding-bottom: 1rem;
 
         @media (max-width: 480px) {
-            border-spacing: 0.1rem;
+            column-gap: 0.1rem;
         }
 
-        td {
+        button {
+            border: none;
             text-align: center;
             color: var(--primary-text-color-on-fill);
             background-color: var(--primary-fill);
@@ -34,9 +36,50 @@
         }
     }
 
+    // .tblFilters {
+    //     width: 100%;
+    //     border-spacing: 0.2rem;
+    //     padding-bottom: 1rem;
+
+    //     @media (max-width: 480px) {
+    //         border-spacing: 0.1rem;
+    //     }
+
+    //     td {
+    //         text-align: center;
+    //         color: var(--primary-text-color-on-fill);
+    //         background-color: var(--primary-fill);
+    //         cursor: pointer;
+    //         font-size: 0.8rem;
+    //         padding: 0.4rem;
+
+    //         &:hover {
+    //             background-color: var(--secondary-fill);
+    //         }
+
+    //         @media (max-width: 480px) {
+    //             font-size: 0.7rem;
+    //         }
+    //     }
+
+    //     .selectedFilter {
+    //         background-color: var(--tertiary-fill);
+    //     }
+    // }
+
     .proposalBox {
         margin-bottom: 1rem;
         cursor: pointer;
+        overflow-x: auto;
+        transition: transform .2s;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: $primary-breakpoint) {
+            max-width: calc(100vw - 1.4rem);
+        }
 
         .tblProposals {
             width: 100%;
@@ -60,7 +103,6 @@
             }
         
             td:nth-child(2) {
-                // word-break: break-all;
                 white-space: pre-wrap;
             }
 
