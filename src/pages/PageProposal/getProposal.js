@@ -2,7 +2,8 @@ import { chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
 import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
-import { tblValidators } from '../../application/AppData';
+import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
+import { LCDclient } from '../../lcd/LCDclient';
 
 export const getProposal = async (propID) => {
 
@@ -37,6 +38,9 @@ export const getProposal = async (propID) => {
         chainID: chainID,
         isClassic: true
     });
+
+    let tblDesVotesDeValidateur = {};
+    const tblHistoriqueDesVotesValidateur = [];
 
 
     // Récupération des infos concernant cette proposition
@@ -197,44 +201,196 @@ export const getProposal = async (propID) => {
     }          
 
 
-                // Pb ci-dessous : les validateurs qui votent via "MsgExec" par exemple, ne sont pas notés ici (seuls les "MsgVote" sont remontés ici)
 
-    // // Recherche des votes, pour cette proposition (lecture par "paquet" de 100 votes, car "pagination.limit = 9999" ne marche pas ici)
-    // const tblDesVotesDeValidateur = [];       // array of [ valaddress, valmoniker, option_de_vote ]
-    // const rawVotes = await lcd.gov.votes(propID, {'pagination.offset': 0}).catch(handleError);
-    // if(rawVotes) {
-    //     for(const vote of rawVotes[0]) {
-    //         const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === vote.voter);
-    //         if(isValidatorAddress) {
-    //             tblDesVotesDeValidateur.push([
-    //                 isValidatorAddress[0],
-    //                 isValidatorAddress[1].description_moniker,
-    //                 vote.options[0].option
-    //             ]);
-    //         }
-    //     }
+    // ===================================================
+    // Création d'un tableau de vote, pour les validateurs
+    // ===================================================
+    // Nota 1 : mettre tous les validateurs, si status = 3 (prop adoptée) ou status = 4 (prop rejetée)
+    // Nota 2 : mettre uniquement les validateurs actifs, si status = 2 (prop en cours de vote)
+    
+    if(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
+        tblDesVotesDeValidateur = {...tblValidators};
+                // On effacera ensuite ceux qui n'ont pas voté, du fait qu'on ne saurait distinguer s'ils étaient là à l'époquer, pour voter ou non
+    }
+    if(proposalInfos['status'] === 2) {
+        for (const [valoperAdr, validator] of Object.entries(tblValidators)) {
+            if(validator.status === "active") {
+                tblDesVotesDeValidateur[valoperAdr] = validator;
+                tblDesVotesDeValidateur[valoperAdr].vote = 'DID_NOT_VOTE';
+            }
+        }
+    }
 
-    //     const nbDeLecturesAfaire = parseInt(rawVotes[1].total/100);
-    //     for(let i=1 ; i <= nbDeLecturesAfaire ; i++) {
-    //         const rawVotesSuivants = await lcd.gov.votes(propID, {'pagination.offset': i*100}).catch(handleError);
-    //             for(const voteSuivant of rawVotesSuivants[0]) {
-    //                 const isValidatorAddress = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === voteSuivant.voter);
-    //                 if(isValidatorAddress) {
-    //                     tblDesVotesDeValidateur.push([
-    //                         isValidatorAddress[0],
-    //                         isValidatorAddress[1].description_moniker,
-    //                         voteSuivant.options[0].option
-    //                     ]);
-    //                 }
-    //             }
-    //         }
+    // =======================================================
+    // Exploration des txs, pour récupérer les votes de chacun
+    // =======================================================
+    // Nota 1 : même si on scanne tout, on excluera les votes de "non validateur"
+    // Nota 2 : on enregistrera toutes les transactions validateur dans un tableau historique
+    //              array of { txHash, datetime, valoperaddress, valmoniker, vote }
+    
+    
+    if(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
 
-    // } else
-    //     return { "erreur": "Failed to fetch [votes] ..." }
+        // Création/récupération d'une instance de requétage LCD
+        const client_lcd = LCDclient.getSingleton();
+
+        // Montage des paramètres nécessaires ici
+        const params = new URLSearchParams();
+        params.append("pagination.offset", 0);
+        params.append("events", "proposal_vote.proposal_id=" + propID.toString());
+
+        // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
+        const rawTxs = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
+        if(rawTxs && rawTxs.data) {
+            const nbTotalDeTxs = parseInt(rawTxs.data.pagination.total);
+
+// console.log(rawTxs.data);
+
+            // Traitement des 100 premiers txs (ou moins, si y'en a moins, bien sûr)
+            for(let i=0 ; i < rawTxs.data.txs.length ; i++) {
+                let txcode = rawTxs.data.tx_responses[i].code;
+                // On analyse seulement les transactions réussie (code = 0)
+                if(txcode === 0) {
+                    let txhash = rawTxs.data.tx_responses[i].txhash;
+                    let txtdatetime = rawTxs.data.tx_responses[i].timestamp;
+                    // On parcoure les messages de cette tx
+                    for(let j=0 ; j < rawTxs.data.tx_responses[i].tx.body.messages.length ; j++) {
+                        // Check si y'a un "proposal_id"
+                        if(rawTxs.data.tx_responses[i].tx.body.messages[j].proposal_id) {
+                            let voter = rawTxs.data.tx_responses[i].tx.body.messages[j].voter;          // Adresse "terra1..."
+                            let voteoption = rawTxs.data.tx_responses[i].tx.body.messages[j].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
+                            // Si c'est le vote d'un validateur ...
+                            if(tblValidatorsAccounts[voter]) {
+                                tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
+                                tblHistoriqueDesVotesValidateur.push({
+                                    // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                    'txhash': txhash,
+                                    'datetime': txtdatetime,
+                                    'valoperaddress': tblValidatorsAccounts[voter],
+                                    'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                    'vote': voteoption
+                                })
+                            } 
+                        }
+                        // Check si y'a un msgs, avant le "proposal_id"
+                        if(rawTxs.data.tx_responses[i].tx.body.messages[j].msgs) {
+                            for(let k=0 ; k < rawTxs.data.tx_responses[i].tx.body.messages[j].msgs.length ; k++) {
+                                if(rawTxs.data.tx_responses[i].tx.body.messages[j].msgs[k].proposal_id) {
+                                    let voter = rawTxs.data.tx_responses[i].tx.body.messages[j].msgs[k].voter;          // Adresse "terra1..."
+                                    let voteoption = rawTxs.data.tx_responses[i].tx.body.messages[j].msgs[k].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
+                                    // Si c'est le vote d'un validateur ...
+                                    if(tblValidatorsAccounts[voter]) {
+                                        tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
+                                        tblHistoriqueDesVotesValidateur.push({
+                                            // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                            'txhash': txhash,
+                                            'datetime': txtdatetime,
+                                            'valoperaddress': tblValidatorsAccounts[voter],
+                                            'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                            'vote': voteoption
+                                        })
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            const nbDeLecturesAfaire = parseInt(nbTotalDeTxs/100);
+            for(let n=1 ; n <= nbDeLecturesAfaire ; n++) {
+
+                // Montage des paramètres nécessaires ici
+                const params = new URLSearchParams();
+                params.append("pagination.offset", n*100);
+                params.append("events", "proposal_vote.proposal_id=" + propID.toString());
+
+                // Exécution de la requête de recherche des 100 txs suivants
+                const rawTxsSuivants = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
+                if(rawTxsSuivants && rawTxsSuivants.data) {
+                    // Traitement des 100 premiers txs (ou moins, si y'en a moins, bien sûr)
+                    for(let i=0 ; i < rawTxsSuivants.data.txs.length ; i++) {
+                        let txcode = rawTxsSuivants.data.tx_responses[i].code;
+                        // On analyse seulement les transactions réussie (code = 0)
+                        if(txcode === 0) {
+                            let txhash = rawTxsSuivants.data.tx_responses[i].txhash;
+                            let txtdatetime = rawTxsSuivants.data.tx_responses[i].timestamp;
+                            // On parcoure les messages de cette tx
+                            for(let j=0 ; j < rawTxsSuivants.data.tx_responses[i].tx.body.messages.length ; j++) {
+                                // Check si y'a un "proposal_id"
+                                if(rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].proposal_id) {
+                                    let voter = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].voter;          // Adresse "terra1..."
+                                    let voteoption = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
+                                    // Si c'est le vote d'un validateur ...
+                                    if(tblValidatorsAccounts[voter]) {
+                                        tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
+                                        tblHistoriqueDesVotesValidateur.push({
+                                            // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                            'txhash': txhash,
+                                            'datetime': txtdatetime,
+                                            'valoperaddress': tblValidatorsAccounts[voter],
+                                            'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                            'vote': voteoption
+                                        })
+                                    } 
+                                }
+                                // Check si y'a un msgs, avant le "proposal_id"
+                                if(rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs) {
+                                    for(let k=0 ; k < rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs.length ; k++) {
+                                        if(rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs[k].proposal_id) {
+                                            let voter = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs[k].voter;          // Adresse "terra1..."
+                                            let voteoption = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs[k].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
+                                            // Si c'est le vote d'un validateur ...
+                                            if(tblValidatorsAccounts[voter]) {
+                                                tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
+                                                tblHistoriqueDesVotesValidateur.push({
+                                                    // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                                    'txhash': txhash,
+                                                    'datetime': txtdatetime,
+                                                    'valoperaddress': tblValidatorsAccounts[voter],
+                                                    'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                                    'vote': voteoption
+                                                })
+                                            } 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else
+                    return { "erreur": "Failed to fetch [nexts tx] for votes ..." }
+            }
+        } else
+            return { "erreur": "Failed to fetch [first txs] for votes ..." }
+    }
 
 
-    // // Ajout de ces votes validateurs, au retour-données
-    // proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
+    // Ajout de ces votes validateurs, au retour-données
+    proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
+    proposalInfos['tblHistoriqueDesVotesValidateur'] = tblHistoriqueDesVotesValidateur;
+
+
+    // Comptage des votes par catégorie, au besoin
+    proposalInfos['actual_TOTAL_VOTES'] = 0;
+    proposalInfos['actual_DID_NOT_VOTE'] = 0;
+    proposalInfos['actual_VOTE_OPTION_YES'] = 0;
+    proposalInfos['actual_VOTE_OPTION_ABSTAIN'] = 0;
+    proposalInfos['actual_VOTE_OPTION_NO'] = 0;
+    proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] = 0;
+    for (const validator of Object.values(tblDesVotesDeValidateur)) {
+        proposalInfos['actual_TOTAL_VOTES'] += 1;
+        if(validator.vote === "DID_NOT_VOTE")
+            proposalInfos['actual_DID_NOT_VOTE'] += 1;
+        if(validator.vote === "VOTE_OPTION_YES")
+            proposalInfos['actual_VOTE_OPTION_YES'] += 1;
+        if(validator.vote === "VOTE_OPTION_ABSTAIN")
+            proposalInfos['actual_VOTE_OPTION_ABSTAIN'] += 1;
+        if(validator.vote === "VOTE_OPTION_NO")
+            proposalInfos['actual_VOTE_OPTION_NO'] += 1;
+        if(validator.vote === "VOTE_OPTION_NO_WITH_VETO")
+            proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] += 1;
+    }
     
 
     // Envoi des infos en retour

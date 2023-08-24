@@ -66,7 +66,87 @@
         margin-bottom: 1rem;
     }
 
-    .tblValidatorsVotes {
+
+    .tblPendingVotesFilter, .tblClosedVotesFilter {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 0.2rem;
+        padding-bottom: 1rem;
+
+        @media (max-width: 480px) {
+            column-gap: 0.1rem;
+        }
+
+        button {
+            border: none;
+            text-align: center;
+            color: var(--primary-text-color-on-fill);
+            background-color: var(--primary-fill);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            &:hover {
+                background-color: var(--secondary-fill);
+            }
+
+            @media (max-width: 480px) {
+                font-size: 0.7rem;
+            }
+        }
+
+        .selectedFilter {
+            background-color: var(--tertiary-fill);
+        }
+    }
+    .tblClosedVotesFilter {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .tblPendingValidatorsVotes {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        thead tr {
+            background-color: var(--head-table-line-fill-color);
+        }
+    
+        tbody tr:nth-child(odd) {
+            background-color: var(--even-table-line-fill-color);
+        }
+        
+        td, th {
+            padding: 0.2rem 0.2rem;
+            font-size: 0.9rem;
+            text-align: left;
+    
+            @media (max-width: $primary-breakpoint) {
+                font-size: 0.8rem;
+            }
+        }
+
+        td:nth-child(1) {
+            word-break: break-all;
+        }
+        
+        th:nth-child(2) {
+            text-align: right;
+        }
+        td:nth-child(2) {
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: top;
+            text-align: right;
+            font-weight: bold;
+        }
+    }
+
+    .tblHistoricalValidatorsVotes {
         width: 100%;
         border-spacing: 0;
         border-collapse: collapse;
@@ -80,10 +160,10 @@
         }
     
         th {
-            text-align: left;
+            text-align: center;
         }
-        th:nth-child(3) {
-            text-align: right;
+        th:nth-child(1) {
+            text-align: left;
         }
         
         td, th {
@@ -95,17 +175,14 @@
             }
         }
 
-        td:nth-child(2) {
+        td:nth-child(4) {
             word-break: break-all;
         }
         
         td:nth-child(3) {
             width: 1%;
             white-space: nowrap;
-            vertical-align: top;
-            text-align: right;
             font-weight: bold;
         }
-
     }
 }

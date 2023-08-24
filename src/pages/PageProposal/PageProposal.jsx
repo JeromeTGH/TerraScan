@@ -15,6 +15,13 @@ const PageProposal = () => {
     // Variables React
     const [proposalInfos, setProposalInfos] = useState();
     const [msgErreur, setMsgErreur] = useState();
+    const [filtre, setFiltre] = useState("DID_NOT_VOTE");
+
+
+    // Fonction de sélection de filtre
+    const handleClickOnFilter = (val) => {
+        setFiltre(val);
+    }
 
 
     // Chargement au démarrage
@@ -30,9 +37,14 @@ const PageProposal = () => {
             }
             else {
                 setMsgErreur('');
+
+                if((res['status'] === 3 || res['status'] === 4) && filtre === "DID_NOT_VOTE")
+                    setFiltre("VOTE_OPTION_YES");
+
                 setProposalInfos(res);
             }
         })
+        // eslint-disable-next-line
     }, [propID])
 
 
@@ -254,40 +266,95 @@ const PageProposal = () => {
                                 </table>
                             </div>
                         : null}
-                        {/* Pb en dessous : le LCD ne remonte pas tous les votes, malheureusement ; en fait, si "MsgVote" n'est pas utilisé, il peut y avoir des manques */}
-                        {/* {proposalInfos['tblDesVotesDeValidateur'] ?
+
+                        {proposalInfos['status'] === 2 && proposalInfos['tblDesVotesDeValidateur'] ?
                             <div className="boxContainer">
-                                <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain)</h2>
-                                <div className={"textBrillant " + styles.comments}>
-                                    <span><u>Note 1</u> : if a validator has changed his vote over time, then his name will appear multiple times here (because each/all vote are shown in this table)</span>
-                                    <br />
-                                    <span><u>Note 2</u> : this table is not updated in real time, on the LCD ; so do not trust exactly what is displayed here</span>
+                                <h2 className={styles.h2titles}><strong>Validator's votes</strong></h2>
+                                <div className={styles.tblPendingVotesFilter}>
+                                    <button className={filtre === "DID_NOT_VOTE" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("DID_NOT_VOTE")}><strong>Did not vote</strong><span>(&nbsp;{proposalInfos['actual_DID_NOT_VOTE']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
                                 </div>
-                                <table className={styles.tblValidatorsVotes}>
+                                <table className={styles.tblPendingValidatorsVotes}>
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Validators</th>
-                                            <th>Votes (older to newer)</th>
+                                            <th>Validator</th>
+                                            <th>Voting power</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {proposalInfos['tblDesVotesDeValidateur'].map((valeur, index) => {
+                                        {Object.entries(proposalInfos['tblDesVotesDeValidateur']).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, index) => {
+                                            return valeur[1].vote === filtre ? <tr key={index}>
+                                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
+                                                <td>{valeur[1].voting_power_pourcentage.toFixed(2)}&nbsp;%</td>
+                                            </tr> : null
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        : null}
+                        {(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblDesVotesDeValidateur'] ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>Validator's votes</strong></h2>
+                                <div className={styles.tblClosedVotesFilter}>
+                                    <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
+                                    <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
+                                </div>
+                                <table className={styles.tblPendingValidatorsVotes}>
+                                    <thead>
+                                        <tr>
+                                            <th>Validator</th>
+                                            <th>Voting power</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {Object.entries(proposalInfos['tblDesVotesDeValidateur']).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, index) => {
+                                            return valeur[1].vote === filtre ? <tr key={index}>
+                                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
+                                                <td>{valeur[1].voting_power_pourcentage.toFixed(2)}&nbsp;%</td>
+                                            </tr> : null
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        : null}
+                        {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain)</h2>
+                                <div className={"textBrillant " + styles.comments}>
+                                    <span><u>Note</u> : if a validator has changed his vote over time, then his name will appear multiple times here (because each/all vote are shown in this table)</span>
+                                </div>
+                                <table className={styles.tblHistoricalValidatorsVotes}>
+                                    <thead>
+                                        <tr>
+                                            <th>Date/Time</th>
+                                            <th>Validators</th>
+                                            <th>Votes (older to newer)</th>
+                                            <th>TxHash</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {proposalInfos['tblHistoriqueDesVotesValidateur'].map((valeur, index) => {
                                             return <tr key={index}>
-                                                <td>{index+1}</td>
-                                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1]}</Link></td>
+                                                <td>{metEnFormeDateTime(valeur.datetime)}</td>
+                                                <td><Link to={"/validators/" + valeur.valoperaddress}>{valeur.valmoniker}</Link></td>
                                                 <td>
-                                                    {valeur[2] === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>Vote YES</span> : null}
-                                                    {valeur[2] === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>Vote ABSTAIN</span> : null}
-                                                    {valeur[2] === 'VOTE_OPTION_NO' ? <span className='textVoteNo'>Vote NO</span> : null}
-                                                    {valeur[2] === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>Vote NO_WITH_VETO</span> : null}
+                                                    {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}
+                                                    {valeur.vote === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>ABSTAIN</span> : null}
+                                                    {valeur.vote === 'VOTE_OPTION_NO' ? <span className='textVoteNo'>NO</span> : null}
+                                                    {valeur.vote === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>NO_WITH_VETO</span> : null}
                                                 </td>
+                                                <td><Link to={"/transactions/" + valeur.txhash}>{valeur.txhash}</Link></td>
                                             </tr>
                                         })}
                                     </tbody>
                                 </table>
                             </div>
-                        : null} */}
+                        : null}
                     </>
                         :
                         <div className="boxContainer"><div>Loading data from blockchain (lcd), please wait ...</div></div>

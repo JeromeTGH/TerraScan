@@ -1,4 +1,4 @@
-import { tblValidators } from "../application/AppData";
+import { tblValidators, tblValidatorsAccounts } from "../application/AppData";
 import { FCDclient } from "../fcd/FCDclient";
 import { Validator } from "../fcd/classes/Validator";
 
@@ -13,7 +13,7 @@ export const loadValidatorsList = async () => {
 
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
         const rawValidatorList = await fcd.staking.getValidatorsList().catch(handleError);
-        if(rawValidatorList.data && rawValidatorList.data) {
+        if(rawValidatorList && rawValidatorList.data) {
             for(const validator of rawValidatorList.data) {
                 const validatorInfo = new Validator(validator);
                 // Structure :
@@ -51,10 +51,18 @@ export const loadValidatorsList = async () => {
                     'self_delegation_amount': validatorInfo.selfDelegation.amount,
                     'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage
                 }
+                tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
             }
         } else
             return { "erreur": "Failed to fetch [validators list] ..." }
     }
+
+    // Création d'un index inversé, pour gagner en performance par la suite
+
+
+
+    
+
 
     // Envoie d'un objet vide en retour, pour signifier qu'aucune erreur ne s'est produite
     return {};

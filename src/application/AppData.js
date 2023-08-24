@@ -48,4 +48,9 @@ export const tblBlocks = {};
 //          self_delegation_pourcentage
 //      }
 export const tblValidators = {};
+// Structure :
+//      tblValidators["terra1_account_address"] = {
+//          terravaloper1_address
+//      }
+export const tblValidatorsAccounts = {};
 
