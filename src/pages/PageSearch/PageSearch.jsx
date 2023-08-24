@@ -42,7 +42,7 @@ const PageSearch = () => {
     return (
         <div className={styles.searchpage}>
             <div className={styles.texts}>
-                <h1><strong>Search on Terra Classic</strong></h1>
+                <h1><strong>Search&nbsp;on Terra&nbsp;Classic</strong></h1>
                 <p className='comment'>Enter an <span className={styles.highlighted}>Address</span>, a <span className={styles.highlighted}>Block&nbsp;number</span>, or a <span className={styles.highlighted}>Transaction&nbsp;hash</span> below, for&nbsp;a&nbsp;search (<u>exact&nbsp;match</u>)</p>
             </div>
             <div className={styles.searchBar}>
