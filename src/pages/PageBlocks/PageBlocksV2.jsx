@@ -6,10 +6,13 @@ import { isValidBlockNumberFormat, metEnFormeDateTime } from '../../application/
 import { appName } from '../../application/AppParams';
 import { loadLatestBlocks } from '../../sharedFunctions/getLatestBlocksV2';
 import { tblBlocks } from '../../application/AppData';
+import { AppContext } from '../../application/AppContext';
+
 
 const PageBlocksV2 = () => {
 
     const navigate = useNavigate();
+    const { liveViewState, changeLiveViewStateTo } = AppContext();
 
     // Variables react
     const nbBlocksAafficher = 10;
@@ -17,14 +20,38 @@ const PageBlocksV2 = () => {
     const [ errorMessage, setErrorMessage ] = useState("");
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
+    const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
 
-    // Récupération d'infos, au chargement du component
+    // Toogle pour la checkbox "live view"
+    const handleCheckboxChange = (e) => {
+        changeLiveViewStateTo(e.target.checked);
+        setRefreshBlocks(e.target.checked);
+    };
+
+    // Exécution au démarrage
     useEffect(() => {
-
         // Changement du "title" de la page web
         document.title = 'Blocks - ' + appName;
 
-        // Récupération des 10 derniers blocks
+        // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
+        refreshBlockList();
+
+    }, [])
+
+    // Exécution toutes les X secondes, avec prise en compte ou non, selon l'état du "liveview"
+    useEffect(() => {
+        if(liveViewState && refreshBlocks) {
+            setRefreshBlocks(false);
+            setTimeout(() => {
+                refreshBlockList();
+                setRefreshBlocks(true);
+            }, 6000);
+        }
+    }, [liveViewState, refreshBlocks])
+
+
+    // Récupération des 10 derniers blocks
+    const refreshBlockList = () => {
         loadLatestBlocks(nbBlocksAafficher).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetDerniersBlocks(res['erreur']);
@@ -40,8 +67,10 @@ const PageBlocksV2 = () => {
                 setMsgErreurGetDerniersBlocks('');
             }
         });
-    }, [])
+    }
 
+
+    // Fonction de recherche par numéro de block
     const handleBtnClick = (e) => {
         e.preventDefault();
         setErrorMessage("");
@@ -55,6 +84,8 @@ const PageBlocksV2 = () => {
         }
     }
 
+
+    // Affichage
     return (
         <>
             <h1><span><BlocksIcon /><strong>Blocks</strong></span></h1>
@@ -84,7 +115,18 @@ const PageBlocksV2 = () => {
             </div>
             <br />
             <br />
-            <h2 className={styles.h2blocks}><strong><BlocksIcon /></strong><span><strong>{nbBlocksAafficher} Latest blocks</strong></span></h2>
+            <h2 className={styles.h2blocks}>
+                <span><strong><BlocksIcon />{nbBlocksAafficher} Latest blocks</strong></span>
+                <span className={styles.liveview}>
+                    <input 
+                        type="checkbox"
+                        id="checkboxLiveView"
+                        checked={liveViewState}
+                        onChange={(e) => handleCheckboxChange(e)}
+                    />
+                    <label htmlFor='checkboxLiveView'>&nbsp;live&nbsp;view</label>
+                </span>
+            </h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>

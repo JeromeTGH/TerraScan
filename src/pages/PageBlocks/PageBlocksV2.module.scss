@@ -1,8 +1,19 @@
 @import '../../style/variables';
 
 .h2blocks {
-    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-bottom: 1px solid var(--outline-box-color);
+
+    .liveview {
+        font-size: 0.6em;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 0.2rem;
+    }
 }
 
 .note {

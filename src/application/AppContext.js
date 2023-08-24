@@ -5,8 +5,10 @@ const MonContexte = createContext();
 const Contexte = ({children}) => {
 
     const selectedTheme = localStorage.getItem("terrascan-themecolor");
+    const liveViewOption = localStorage.getItem("terrascan-liveviewoption") ? localStorage.getItem("terrascan-liveviewoption") : true;      // Activé, par défaut
 
     const [theme, setTheme] = useState(selectedTheme);
+    const [liveViewState, setLiveViewState] = useState(liveViewOption === true || liveViewOption === 'true');       // Conversion "string" vers "boolean"
 
     const setLightTheme = () => {
         document.querySelector("body").setAttribute("data-theme", "light");
@@ -20,8 +22,13 @@ const Contexte = ({children}) => {
         setTheme("dark");
     }
 
+    const changeLiveViewStateTo = (etat) => {
+        localStorage.setItem("terrascan-liveviewoption", etat);
+        setLiveViewState(etat);
+    }
+
     return (
-        <MonContexte.Provider value={{theme, setLightTheme, setDarkTheme}}>
+        <MonContexte.Provider value={{theme, setLightTheme, setDarkTheme, liveViewState, changeLiveViewStateTo}}>
             {children}
         </MonContexte.Provider>
     );
