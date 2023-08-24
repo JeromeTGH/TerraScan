@@ -361,6 +361,11 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['msg_type_url'] = message.value.msg_type_url;
             }
 
+            if(msgStructRet['MsgType'] === 'MsgMultiSend') {
+                msgStructRet['inputs'] = message.value.inputs;
+                msgStructRet['outputs'] = message.value.outputs;
+            }
+
 
             msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);

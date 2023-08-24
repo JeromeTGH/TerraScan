@@ -10,6 +10,7 @@ import MsgDeposit from './Msgs/MsgDeposit';
 import MsgDelegate from './Msgs/MsgDelegate';
 import MsgSwapSend from './Msgs/MsgSwapSend';
 import MsgTransfer from './Msgs/MsgTransfer';
+import MsgMultiSend from './Msgs/MsgMultiSend';
 import MsgStoreCode from './Msgs/MsgStoreCode';
 import MsgClearAdmin from './Msgs/MsgClearAdmin';
 import MsgUndelegate from './Msgs/MsgUndelegate';
@@ -74,6 +75,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgSwapSend' ? <MsgSwapSend txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgRevokeAuthorization' ||
                      props.txMessage['MsgType'] === 'MsgRevoke' ? <MsgRevokeAuthorization txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgMultiSend' ? <MsgMultiSend txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>
