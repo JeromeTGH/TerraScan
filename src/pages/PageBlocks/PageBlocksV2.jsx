@@ -15,14 +15,14 @@ const PageBlocksV2 = () => {
     const { liveViewState, changeLiveViewStateTo } = AppContext();
 
     // Variables react
-    const nbBlocksAafficher = 10;
+    const nbBlocksAafficher = 20;
     const [ searchFieldValue, setSearchFieldValue ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState("");
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
     const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
 
-    // Toogle pour la checkbox "live view"
+    // Fonction de traitement de changement d'état de la checkbox "live view"
     const handleCheckboxChange = (e) => {
         changeLiveViewStateTo(e.target.checked);
         setRefreshBlocks(e.target.checked);
@@ -42,15 +42,15 @@ const PageBlocksV2 = () => {
     useEffect(() => {
         if(liveViewState && refreshBlocks) {
             setRefreshBlocks(false);
+            refreshBlockList();
             setTimeout(() => {
-                refreshBlockList();
                 setRefreshBlocks(true);
             }, 6000);
         }
     }, [liveViewState, refreshBlocks])
 
 
-    // Récupération des 10 derniers blocks
+    // Récupération des X derniers blocks
     const refreshBlockList = () => {
         loadLatestBlocks(nbBlocksAafficher).then((res) => {
             if(res['erreur']) {
@@ -90,7 +90,7 @@ const PageBlocksV2 = () => {
         <>
             <h1><span><BlocksIcon /><strong>Blocks</strong></span></h1>
             <br />
-            <h2 className={styles.h2blocks}><strong><SearchIcon /></strong><span><strong>Search a specific block</strong></span></h2>
+            <h2 className={styles.h2blocksA}><strong><SearchIcon /></strong><span><strong>Search a specific block</strong></span></h2>
             <p className={styles.note}>
             Enter the number of the block you are looking for below.<br />
             <br />
@@ -115,7 +115,7 @@ const PageBlocksV2 = () => {
             </div>
             <br />
             <br />
-            <h2 className={styles.h2blocks}>
+            <h2 className={styles.h2blocksB}>
                 <span><strong><BlocksIcon />{nbBlocksAafficher} Latest blocks</strong></span>
                 <span className={styles.liveview}>
                     <input 

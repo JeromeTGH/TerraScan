@@ -1,5 +1,20 @@
 @import '../../style/variables';
 
+.h2blocks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .liveview {
+        font-size: 0.6em;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 0.2rem;
+    }
+}
+
 .tblListOfBlocks {
     width: 100%;
     border-spacing: 0;

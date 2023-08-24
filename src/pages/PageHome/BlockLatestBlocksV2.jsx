@@ -5,17 +5,47 @@ import { Link } from 'react-router-dom';
 import { loadLatestBlocks } from '../../sharedFunctions/getLatestBlocksV2';
 import { tblBlocks } from '../../application/AppData';
 import { metEnFormeDateTime } from '../../application/AppUtils';
+import { AppContext } from '../../application/AppContext';
 
 
 const BlockLatestBlocksV2 = () => {
+
+    const { liveViewState, changeLiveViewStateTo } = AppContext();
 
     // Variables react
     const nbBlocksAafficher = 10;
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
+    const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
 
-    // Récupération d'infos, au chargement du component
+    // Fonction de traitement de changement d'état de la checkbox "live view"
+    const handleCheckboxChange = (e) => {
+        changeLiveViewStateTo(e.target.checked);
+        setRefreshBlocks(e.target.checked);
+    };
+    
+
+    // Exécution au démarrage
     useEffect(() => {
+        // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
+        refreshBlockList();
+    }, [])
+    
+
+    // Exécution toutes les X secondes, avec prise en compte ou non, selon l'état du "liveview"
+    useEffect(() => {
+        if(liveViewState && refreshBlocks) {
+            setRefreshBlocks(false);
+            refreshBlockList();
+            setTimeout(() => {
+                setRefreshBlocks(true);
+            }, 6000);
+        }
+    }, [liveViewState, refreshBlocks])
+
+
+    // Récupération des X derniers blocks
+    const refreshBlockList = () => {
         loadLatestBlocks(nbBlocksAafficher).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetDerniersBlocks(res['erreur']);
@@ -31,12 +61,25 @@ const BlockLatestBlocksV2 = () => {
                 setMsgErreurGetDerniersBlocks('');
             }
         });
-    }, [])
+    }
+
 
     // Affichage
     return (
         <>
-            <h2><strong><BlocksIcon /></strong><span><strong>{nbBlocksAafficher} Latest Blocks</strong></span></h2>
+            <h2 className={styles.h2blocks}>
+                <span>&nbsp;</span>
+                <span><strong><BlocksIcon />{nbBlocksAafficher} Latest Blocks</strong></span>
+                <span className={styles.liveview}>
+                    <input 
+                        type="checkbox"
+                        id="checkboxLiveView"
+                        checked={liveViewState}
+                        onChange={(e) => handleCheckboxChange(e)}
+                    />
+                    <label htmlFor='checkboxLiveView'>&nbsp;live&nbsp;view</label>
+                </span>
+            </h2>
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>
