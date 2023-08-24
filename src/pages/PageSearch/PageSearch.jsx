@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './PageSearch.module.scss';
 
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
-import { appName, chainID, chainName } from '../../application/AppParams';
+import { appName } from '../../application/AppParams';
 import { SearchIcon } from '../../application/AppIcons';
 
 const PageSearch = () => {
@@ -42,8 +42,8 @@ const PageSearch = () => {
     return (
         <div className={styles.searchpage}>
             <div className={styles.texts}>
-                <h1>Terra Classic Finder</h1>
-                <p className='comment'>Enter an <span className={styles.highlighted}>Account&nbsp;address</span>, a <span className={styles.highlighted}>Block&nbsp;number</span>, or a <span className={styles.highlighted}>Transaction&nbsp;hash</span> below, for&nbsp;a&nbsp;search (exact&nbsp;match)</p>
+                <h1><strong>Search on Terra Classic</strong></h1>
+                <p className='comment'>Enter an <span className={styles.highlighted}>Address</span>, a <span className={styles.highlighted}>Block&nbsp;number</span>, or a <span className={styles.highlighted}>Transaction&nbsp;hash</span> below, for&nbsp;a&nbsp;search (<u>exact&nbsp;match</u>)</p>
             </div>
             <div className={styles.searchBar}>
                 <form>
@@ -59,7 +59,6 @@ const PageSearch = () => {
                 </form>
                 <p className={"erreur " + styles.message}>{errorMessage}</p>
             </div>
-            <div className={'comment ' + styles.cmtbtm}>Using {chainName} LCD/FCD ({chainID})</div>
         </div>
     );
 };

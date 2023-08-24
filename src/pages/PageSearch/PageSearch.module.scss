@@ -2,16 +2,17 @@
 
 .searchpage {
     padding: 0 1rem;
-    max-width: 600px;
+    max-width: 800px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin: auto;
 
     .texts {
         text-align: center;
+        padding-bottom: 4rem;
 
         p {
             padding-top: 1.6rem;
@@ -20,7 +21,7 @@
 
             .highlighted {
                 color: var(--primary-text-color);
-                font-weight: 500;
+                font-weight: bold;
             }
         }
     }

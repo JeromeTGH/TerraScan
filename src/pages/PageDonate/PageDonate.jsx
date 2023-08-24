@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './PageDonate.module.scss';
 import { CopyIcon } from '../../application/AppIcons';
+import { appName } from '../../application/AppParams';
 
 const PageDonate = () => {
 
     // Variables
     const terraAddress = 'terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd';
     const [msgCopied, setMsgCopied] = useState('');
+
+
+    // À exécuter au démarrage
+    useEffect(() => {
+        // Changement du "title" de la page web
+        document.title = 'Donate - ' + appName;
+    }, [])
+
 
     // OnClick du bouton "copier adresse"
     const handleClickOnCopyButton = () => {
@@ -16,6 +25,7 @@ const PageDonate = () => {
             setMsgCopied('Unable to write to clipboard, sorry ...')
         })
     }
+
 
     // Affichage
     return (
