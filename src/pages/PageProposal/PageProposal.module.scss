@@ -8,12 +8,10 @@
     .h2titles {
         text-align: left;
         border-bottom: 1px solid var(--outline-box-color);
-        // word-break: break-all;
         white-space: pre-wrap;
     }
 
     .contentDescription {
-        // word-break: break-all;
         white-space: pre-wrap;
     }
 
@@ -89,6 +87,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            border-radius: 6px;
 
             &:hover {
                 background-color: var(--secondary-fill);
@@ -144,6 +143,12 @@
             text-align: right;
             font-weight: bold;
         }
+
+        .noVoteRow {
+            font-weight: bold;
+            text-align: center;
+            padding: 2rem 0;
+        }
     }
 
     .tblHistoricalValidatorsVotes {
@@ -172,6 +177,9 @@
     
             @media (max-width: $primary-breakpoint) {
                 font-size: 0.8rem;
+                @media (max-width: 600px) {
+                    font-size: 0.7rem;
+                }
             }
         }
 
@@ -180,9 +188,10 @@
         }
         
         td:nth-child(3) {
-            width: 1%;
-            white-space: nowrap;
+            // width: 1%;
+            // white-space: nowrap;
             font-weight: bold;
+            text-align: center;
         }
     }
 }

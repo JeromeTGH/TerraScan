@@ -3,7 +3,7 @@
 .blockProposals {
     grid-area: proposals;
 
-    .tblFilters2 {
+    .tblFilters {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         column-gap: 0.2rem;
@@ -21,6 +21,7 @@
             cursor: pointer;
             font-size: 0.8rem;
             padding: 0.4rem;
+            border-radius: 6px;
 
             &:hover {
                 background-color: var(--secondary-fill);
@@ -35,37 +36,6 @@
             background-color: var(--tertiary-fill);
         }
     }
-
-    // .tblFilters {
-    //     width: 100%;
-    //     border-spacing: 0.2rem;
-    //     padding-bottom: 1rem;
-
-    //     @media (max-width: 480px) {
-    //         border-spacing: 0.1rem;
-    //     }
-
-    //     td {
-    //         text-align: center;
-    //         color: var(--primary-text-color-on-fill);
-    //         background-color: var(--primary-fill);
-    //         cursor: pointer;
-    //         font-size: 0.8rem;
-    //         padding: 0.4rem;
-
-    //         &:hover {
-    //             background-color: var(--secondary-fill);
-    //         }
-
-    //         @media (max-width: 480px) {
-    //             font-size: 0.7rem;
-    //         }
-    //     }
-
-    //     .selectedFilter {
-    //         background-color: var(--tertiary-fill);
-    //     }
-    // }
 
     .proposalBox {
         margin-bottom: 1rem;
@@ -112,6 +82,17 @@
                 flex-direction: row;
                 border: 1px solid var(--outline-box-color);
                 font-size: 0.4rem;
+            }
+        }
+
+        .txtStatus {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            span {
+                padding: 0.2rem 0.4rem;
+                border-radius: 10px;
             }
         }
     }

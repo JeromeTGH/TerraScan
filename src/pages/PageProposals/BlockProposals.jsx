@@ -32,18 +32,7 @@ const BlockProposals = (props) => {
     // Affichage
     return (
         <div className={styles.blockProposals}>
-            {/* <table className={styles.tblFilters}>
-                <tbody>
-                    <tr>
-                        <td className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}>Show ALL proposals<br />↓</td>
-                        <td className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}>Show VOTES in progress<br />↓</td>
-                        <td className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}>Show PENDING deposits<br />↓</td>
-                        <td className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(3)}>Show ADOPTED proposals<br />↓</td>
-                        <td className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</td>
-                    </tr>
-                </tbody>
-            </table> */}
-            <div className={styles.tblFilters2}>
+            <div className={styles.tblFilters}>
                 <button className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}>Show ALL proposals<br />↓</button>
                 <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}>Show VOTES in progress<br />↓</button>
                 <button className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}>Show PENDING deposits<br />↓</button>
@@ -105,7 +94,7 @@ const BlockProposals = (props) => {
                                                         <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
                                                     </div>
                                                     <br />
-                                                    <div className='textBrillant'>===&gt; {element.statutVote}</div>
+                                                    <div className={styles.txtStatus}><span className='textBrillant'>===&gt; {element.statutVote}</span></div>
                                                 </td>
                                             </tr> : null
                                         }

@@ -285,6 +285,26 @@ const PageProposal = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {(filtre === "DID_NOT_VOTE" && proposalInfos['actual_DID_NOT_VOTE'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator votes recorded here</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_YES" && proposalInfos['actual_VOTE_OPTION_YES'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted YES</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['actual_VOTE_OPTION_ABSTAIN'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted ABSTAIN</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_NO" && proposalInfos['actual_VOTE_OPTION_NO'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted NO</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
+                                        </tr> : null}
                                         {Object.entries(proposalInfos['tblDesVotesDeValidateur']).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, index) => {
                                             return valeur[1].vote === filtre ? <tr key={index}>
                                                 <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
@@ -312,6 +332,23 @@ const PageProposal = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {(filtre === "VOTE_OPTION_YES" && proposalInfos['actual_VOTE_OPTION_YES'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted YES</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['actual_VOTE_OPTION_ABSTAIN'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted ABSTAIN</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_NO" && proposalInfos['actual_VOTE_OPTION_NO'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted NO</td>
+                                        </tr> : null}
+                                        {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
+                                        <tr>
+                                            <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
+                                        </tr> : null}
+
                                         {Object.entries(proposalInfos['tblDesVotesDeValidateur']).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, index) => {
                                             return valeur[1].vote === filtre ? <tr key={index}>
                                                 <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
@@ -324,8 +361,8 @@ const PageProposal = () => {
                         : null}
                         {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <div className="boxContainer">
-                                <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain)</h2>
-                                <div className={"textBrillant " + styles.comments}>
+                                <h2 className={styles.h2titles}><strong>HISTORY of validators votes</strong> (who did not abstain, so)</h2>
+                                <div className={styles.comments}>
                                     <span><u>Note</u> : if a validator has changed his vote over time, then his name will appear multiple times here (because each/all vote are shown in this table)</span>
                                 </div>
                                 <table className={styles.tblHistoricalValidatorsVotes}>
@@ -346,7 +383,7 @@ const PageProposal = () => {
                                                     {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}
                                                     {valeur.vote === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>ABSTAIN</span> : null}
                                                     {valeur.vote === 'VOTE_OPTION_NO' ? <span className='textVoteNo'>NO</span> : null}
-                                                    {valeur.vote === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>NO_WITH_VETO</span> : null}
+                                                    {valeur.vote === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>NO WITH VETO</span> : null}
                                                 </td>
                                                 <td><Link to={"/transactions/" + valeur.txhash}>{valeur.txhash}</Link></td>
                                             </tr>
