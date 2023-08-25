@@ -3,7 +3,7 @@ import { getBurnTbl } from '../../sharedFunctions/getBurnTbl';
 import { BurnIcon, MessageIcon } from '../../application/AppIcons';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
-import { tblCorrespondanceCompte } from '../../application/AppParams';
+import { appName, tblCorrespondanceCompte } from '../../application/AppParams';
 import styles from './PageBurns.module.scss';
 
 const PageBurns = () => {
@@ -22,8 +22,11 @@ const PageBurns = () => {
 
     // Chargement au démarrage
     useEffect(() => {
-        setIsLoading(true);
 
+        // Changement du "title" de la page web
+        document.title = 'Burns - ' + appName;
+
+        setIsLoading(true);
         getBurnTbl(minLuncToShow, minUstcToShow, nbLineToShow).then((res) => {
             if(res['erreur']) {
                 // Erreur
