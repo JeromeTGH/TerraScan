@@ -43,12 +43,6 @@ export const getProposal = async (propID) => {
     // Effacement mémoire, en cas d'erreur non bloquante ensuite
     let tblDesVotesDeValidateur = {};
     const tblHistoriqueDesVotesValidateur = [];
-    proposalInfos['actual_TOTAL_VOTES'] = 0;
-    proposalInfos['actual_DID_NOT_VOTE'] = 0;
-    proposalInfos['actual_VOTE_OPTION_YES'] = 0;
-    proposalInfos['actual_VOTE_OPTION_ABSTAIN'] = 0;
-    proposalInfos['actual_VOTE_OPTION_NO'] = 0;
-    proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] = 0;
 
 
     // Récupération des infos concernant cette proposition
@@ -380,6 +374,12 @@ export const getProposal = async (propID) => {
     proposalInfos['tblHistoriqueDesVotesValidateur'] = tblHistoriqueDesVotesValidateur;
 
     // Comptage des votes par catégorie, au besoin
+    proposalInfos['actual_TOTAL_VOTES'] = 0;
+    proposalInfos['actual_DID_NOT_VOTE'] = 0;
+    proposalInfos['actual_VOTE_OPTION_YES'] = 0;
+    proposalInfos['actual_VOTE_OPTION_ABSTAIN'] = 0;
+    proposalInfos['actual_VOTE_OPTION_NO'] = 0;
+    proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] = 0;
     for (const validator of Object.values(tblDesVotesDeValidateur)) {
         proposalInfos['actual_TOTAL_VOTES'] += 1;
         if(validator.vote === "DID_NOT_VOTE")

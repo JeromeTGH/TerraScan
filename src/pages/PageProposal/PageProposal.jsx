@@ -229,19 +229,19 @@ const PageProposal = () => {
                                         </tr>
                                         <tr>
                                             <td>Total of YES votes :</td>
-                                            <td>{(proposalInfos['nbVotesYesLunc']/1000000).toFixed(6)} ({proposalInfos['pourcentageOfYes'].toFixed(2)}% of voters)</td>
+                                            <td>{(proposalInfos['nbVotesYesLunc']/1000000).toFixed(6)} (<strong>{proposalInfos['pourcentageOfYes'].toFixed(2)}%&nbsp;of&nbsp;YES</strong>)</td>
                                         </tr>
                                         <tr>
                                             <td>Total of ABSTAIN votes :</td>
-                                            <td>{(proposalInfos['nbVotesAbstainLunc']/1000000).toFixed(6)} ({proposalInfos['pourcentageOfAbstain'].toFixed(2)}% of voters)</td>
+                                            <td>{(proposalInfos['nbVotesAbstainLunc']/1000000).toFixed(6)} (<strong>{proposalInfos['pourcentageOfAbstain'].toFixed(2)}%&nbsp;of&nbsp;ABSTAIN</strong>)</td>
                                         </tr>
                                         <tr>
                                             <td>Total of NO votes :</td>
-                                            <td>{(proposalInfos['nbVotesNoLunc']/1000000).toFixed(6)} ({proposalInfos['pourcentageOfNo'].toFixed(2)}% of voters)</td>
+                                            <td>{(proposalInfos['nbVotesNoLunc']/1000000).toFixed(6)} (<strong>{proposalInfos['pourcentageOfNo'].toFixed(2)}%&nbsp;of&nbsp;NO</strong>)</td>
                                         </tr>
                                         <tr>
                                             <td>Total of VETO votes :</td>
-                                            <td>{(proposalInfos['nbVotesNowithvetoLunc']/1000000).toFixed(6)} ({proposalInfos['pourcentageOfNoWithVeto'].toFixed(2)}% of voters)</td>
+                                            <td>{(proposalInfos['nbVotesNowithvetoLunc']/1000000).toFixed(6)} (<strong>{proposalInfos['pourcentageOfNoWithVeto'].toFixed(2)}%&nbsp;of&nbsp;VETO</strong>)</td>
                                         </tr>
                                         <tr>
                                             <td>Distribution of voters :</td>
