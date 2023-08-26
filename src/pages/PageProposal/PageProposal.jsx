@@ -374,7 +374,7 @@ const PageProposal = () => {
                         : null}
                         {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <div className="boxContainer">
-                                <h2 className={styles.h2titles}><strong>Validators & delegators votes ratio</strong> (unweighted)</h2>
+                                <h2 className={styles.h2titles}><strong>Unweighted validators & delegators votes</strong></h2>
                                 <div><strong>Proposal #{propID}</strong></div>
                                 <div className={styles.comments}>
                                     <span><u>Note 1</u> : Note 1 : to keep it simple here, "delegators" are everyone but validators</span><br />
@@ -385,7 +385,7 @@ const PageProposal = () => {
                                         <h3>Validators votes ({proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
                                         <Chart
                                             type="pie"
-                                            width={"100%"}
+                                            // width={"100%"}
                                             series={[proposalInfos['validator_VOTE_OPTION_YES'], proposalInfos['validator_VOTE_OPTION_ABSTAIN'], proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']]}
                                             options={{
                                                 labels: ['Yes (' + proposalInfos['validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['validator_VOTE_OPTION_NO'] + + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
@@ -404,7 +404,7 @@ const PageProposal = () => {
                                         <h3>Delegators votes ({proposalInfos['non_validator_VOTE_OPTION_YES'] + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
                                         <Chart
                                             type="pie"
-                                            width={"100%"}
+                                            // width={"100%"}
                                             series={[proposalInfos['non_validator_VOTE_OPTION_YES'], proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'], proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']]}
                                             options={{
                                                 labels: ['Yes (' + proposalInfos['non_validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['non_validator_VOTE_OPTION_NO'] + + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
@@ -480,7 +480,7 @@ const PageProposal = () => {
                                     <div><br />No data returned by the LCD, sorry.<br /><br /></div>
                                 :
                                     <>
-                                        <table className={styles.tblHistoricalValidatorsVotes}>
+                                        <table className={styles.tblHistoricalNonValidatorsVotes}>
                                             <thead>
                                                 <tr>
                                                     <th>Date/Time</th>

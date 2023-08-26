@@ -163,7 +163,7 @@
         }
     }
 
-    .tblHistoricalValidatorsVotes {
+    .tblHistoricalValidatorsVotes, .tblHistoricalNonValidatorsVotes {
         width: 100%;
         border-spacing: 0;
         border-collapse: collapse;
@@ -204,6 +204,12 @@
             // white-space: nowrap;
             font-weight: bold;
             text-align: center;
+        }
+    }
+
+    .tblHistoricalNonValidatorsVotes {
+        td:nth-child(2) {
+            word-break: break-all;
         }
     }
 }
