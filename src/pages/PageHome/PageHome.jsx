@@ -9,12 +9,14 @@ import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
 import BlockBurn from './BlockBurn';
+import { getCommonHomeDatas } from './getCommonHomeDatas';
 
 
 const PageHome = () => {
 
     // Variables react
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
+    const [totalSupplies, setTotalSupplies] = useState();
 
     useEffect(() => {
         // Changement du "title" de la page web
@@ -23,6 +25,12 @@ const PageHome = () => {
         // Mémorisation de la date/heure de chargement de cette page
         const maDate = Date.now();
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
+
+        // Chargement des données commmunes aux sous-components de ce component
+        getCommonHomeDatas().then((res) => {
+            // console.log("res['totalSupplies']", res['totalSupplies']);
+            setTotalSupplies(res['totalSupplies']);
+        })
     }, [])
 
 
@@ -51,9 +59,7 @@ const PageHome = () => {
                 <div className={"boxContainer " + styles.validatorsBlock}>
                     <BlockValidatorsV2 />
                 </div>
-                <div className={"boxContainer " + styles.suppliesBlock}>
-                    <BlockTotalSupplies />
-                </div>
+                <BlockTotalSupplies totalSupplies={totalSupplies} />
             </div>
         </>
     );

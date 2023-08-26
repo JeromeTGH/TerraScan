@@ -57,11 +57,6 @@ export const loadValidatorsList = async () => {
             return { "erreur": "Failed to fetch [validators list] ..." }
     }
 
-    // Création d'un index inversé, pour gagner en performance par la suite
-
-
-
-    
 
 
     // Envoie d'un objet vide en retour, pour signifier qu'aucune erreur ne s'est produite

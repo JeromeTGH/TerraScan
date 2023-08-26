@@ -1,5 +1,6 @@
 import { LCDurl } from "../application/AppParams";
 import { APIrequester } from "./APIrequester";
+import { BankAPI } from "./api/BankAPI";
 import { TxAPI } from "./api/TxAPI";
 
 export class LCDclient {
@@ -15,11 +16,15 @@ export class LCDclient {
         else {            
             this.apiRequester = new APIrequester(url_of_LCD);
             this.paths = {
+                bank: {
+                    getTotalSupplies: '/cosmos/bank/v1beta1/supply'
+                },
                 tx: {
                     searchTxsByEvent: '/cosmos/tx/v1beta1/txs'
                 }
             }
     
+            this.bank = new BankAPI(this.apiRequester, this.paths.bank);
             this.tx = new TxAPI(this.apiRequester, this.paths.tx);
 
             LCDclient._instance = this;
