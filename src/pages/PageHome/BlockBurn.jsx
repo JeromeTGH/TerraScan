@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getBurnTbl } from '../../sharedFunctions/getBurnTbl';
 import styles from './BlockBurn.module.scss';
 import { BurnIcon } from '../../application/AppIcons';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
+import { loadLatestBurns } from '../../dataloaders/loadLatestBurns';
 
 const BlockBurn = () => {
 
@@ -24,7 +24,7 @@ const BlockBurn = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        getBurnTbl(minLuncToShow, minUstcToShow, nbLineToShow).then((res) => {
+        loadLatestBurns(minLuncToShow, minUstcToShow, nbLineToShow).then((res) => {
             if(res['erreur']) {
                 // Erreur
                 setMsgErreurGettingTransactions(res['erreur']);

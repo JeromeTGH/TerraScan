@@ -9,12 +9,13 @@ import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
 import BlockBurn from './BlockBurn';
-import { preloadDatas } from './PageHome.preloader';
-
+import { loadGlobalAppDatas } from '../../dataloaders/loadGlobalAppDatas';
+import { loadCommonAppDatas } from './PageHome.loader';
 
 const PageHome = () => {
 
     // Variables react
+    const [globalDataLoaded, setGlobalDataLoaded] = useState(false);
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
     const [totalSupplies, setTotalSupplies] = useState();
 
@@ -26,14 +27,16 @@ const PageHome = () => {
         const maDate = Date.now();
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
 
-        // Chargement des données commmunes aux sous-components de ce component
-        preloadDatas().then((res) => {
-            // Stockage des données préloadées
-            setTotalSupplies(res['totalSupplies']);
-
-            // Chargement des données des components enfant, à présent
-            // ...
+        // Chargement des données globales, si ce n'est pas déjà fait
+        loadGlobalAppDatas().then(() => {
+            setGlobalDataLoaded(true);
         })
+
+        // Chargement des données communes
+        loadCommonAppDatas().then((res) => {
+            setTotalSupplies(res['totalSupplies']);
+        })
+
     }, [])
 
 
@@ -45,11 +48,11 @@ const PageHome = () => {
             <br />
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
-                <BlockBurn />
-                <BlockOverview />
-                <BlockLatestBlocksV2 />
+                <BlockBurn globalDataLoaded={globalDataLoaded} />
+                <BlockOverview globalDataLoaded={globalDataLoaded} totalSupplies={totalSupplies} />
+                <BlockLatestBlocksV2 globalDataLoaded={globalDataLoaded} />
                 <BlockAccounts />
-                <BlockValidatorsV2 />
+                <BlockValidatorsV2 globalDataLoaded={globalDataLoaded} />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />
             </div>
         </>

@@ -1,14 +1,7 @@
 import { loadTotalSupplies } from "../../dataloaders/loadTotalSupplies";
-import { loadValidators } from "../../dataloaders/loadValidators";
 
 
-export const preloadDatas = async () => {
-
-    // ==================================================
-    // Chargement de la liste des validateurs, avant tout
-    // ==================================================
-    
-        await loadValidators();
+export const loadCommonAppDatas = async () => {
 
     // ===============================
     // Chargement des données communes
