@@ -5,29 +5,31 @@ import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 
-const BlockOverview = () => {
+const BlockOverview = (props) => {
 
-    // const tip1 = "<u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)";
-
+    // Variables React
     const [overviewInfos, setOverviewInfos] = useState();
     const [msgErreurOverviewInfos, setMsgErreurOverviewInfos] = useState();
-
     const [stakingRatio, setStakingRatio] = useState(-1);
 
+
+    // Exécution au démarrage, et à chaque changement de props.globalDataLoaded
     useEffect(() => {
-        getOverviewInfos().then((res) => {
-            if(res['erreur']) {
-                setMsgErreurOverviewInfos(res['erreur']);
-                setOverviewInfos([]);
-            }
-            else {
-                setMsgErreurOverviewInfos('');
-                setOverviewInfos(res);
-                const pourcentageDeStaking = (res['LuncBonded'] / res['LuncTotalSupply'] * 100).toFixed(1);
-                setStakingRatio(pourcentageDeStaking);
-            }
-        })
-    }, [])
+        if(props.globalDataLoaded) {
+            getOverviewInfos().then((res) => {
+                if(res['erreur']) {
+                    setMsgErreurOverviewInfos(res['erreur']);
+                    setOverviewInfos([]);
+                }
+                else {
+                    setMsgErreurOverviewInfos('');
+                    setOverviewInfos(res);
+                    const pourcentageDeStaking = (res['LuncBonded'] / res['LuncTotalSupply'] * 100).toFixed(1);
+                    setStakingRatio(pourcentageDeStaking);
+                }
+            })
+        }
+    }, [props.globalDataLoaded])
 
     return (
         <div className={"boxContainer " + styles.overviewBlock}>

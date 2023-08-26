@@ -48,7 +48,7 @@ const PageHome = () => {
             <br />
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
-                <BlockBurn globalDataLoaded={globalDataLoaded} />
+                <BlockBurn />
                 <BlockOverview globalDataLoaded={globalDataLoaded} totalSupplies={totalSupplies} />
                 <BlockLatestBlocksV2 globalDataLoaded={globalDataLoaded} />
                 <BlockAccounts />

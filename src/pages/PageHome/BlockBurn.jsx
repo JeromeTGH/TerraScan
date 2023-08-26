@@ -20,7 +20,7 @@ const BlockBurn = () => {
     const [tblTxsBurn, setTblTxsBurn] = useState([]);
 
 
-    // Chargement au démarrage
+    // Exécution au démarrage
     useEffect(() => {
         setIsLoading(true);
 
@@ -38,7 +38,6 @@ const BlockBurn = () => {
             }
         })
     }, [])
-
 
     
     // Affichage

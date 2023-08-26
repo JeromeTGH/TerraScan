@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getBurnTbl } from '../../sharedFunctions/getBurnTbl';
 import { BurnIcon, MessageIcon } from '../../application/AppIcons';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { appName, tblCorrespondanceCompte } from '../../application/AppParams';
 import styles from './PageBurns.module.scss';
+import { loadLatestBurns } from '../../dataloaders/loadLatestBurns';
 
 const PageBurns = () => {
 
@@ -27,7 +27,7 @@ const PageBurns = () => {
         document.title = 'Burns - ' + appName;
 
         setIsLoading(true);
-        getBurnTbl(minLuncToShow, minUstcToShow, nbLineToShow).then((res) => {
+        loadLatestBurns(minLuncToShow, minUstcToShow, nbLineToShow).then((res) => {
             if(res['erreur']) {
                 // Erreur
                 setMsgErreurGettingTransactions(res['erreur']);

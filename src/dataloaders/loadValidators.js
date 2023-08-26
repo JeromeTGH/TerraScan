@@ -55,6 +55,9 @@ export const loadValidators = async () => {
             }
         } else
             return { "erreur": "Failed to fetch [validators list] ..." }
+
+        // Fin du chargement
+        console.log("Liste des validateurs chargée.");
     }
 
 
