@@ -42,7 +42,9 @@ export const getProposal = async (propID) => {
 
     // Effacement mémoire, en cas d'erreur non bloquante ensuite
     let tblDesVotesDeValidateur = {};
+    let tblDesVotesNonValidateur = {};
     const tblHistoriqueDesVotesValidateur = [];
+    const tblHistoriqueDesVotesNonValidateur = [];
 
 
     // Récupération des infos concernant cette proposition
@@ -271,7 +273,17 @@ export const getProposal = async (propID) => {
                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                         'vote': voteoption
                                     })
-                                } 
+                                } else {
+                                    tblDesVotesNonValidateur[voter] = {};
+                                    tblDesVotesNonValidateur[voter].vote = voteoption;
+                                    tblHistoriqueDesVotesNonValidateur.push({
+                                        // array of { txHash, datetime, terra1address, vote }
+                                        'txhash': txhash,
+                                        'datetime': txtdatetime,
+                                        'terra1address': voter,
+                                        'vote': voteoption
+                                    })
+                                }
                             }
                             // Check si y'a un msgs, avant le "proposal_id"
                             if(rawTxs.data.tx_responses[i].tx.body.messages[j].msgs) {
@@ -290,7 +302,17 @@ export const getProposal = async (propID) => {
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'vote': voteoption
                                             })
-                                        } 
+                                        } else {
+                                            tblDesVotesNonValidateur[voter] = {};
+                                            tblDesVotesNonValidateur[voter].vote = voteoption;
+                                            tblHistoriqueDesVotesNonValidateur.push({
+                                                // array of { txHash, datetime, terra1address, vote }
+                                                'txhash': txhash,
+                                                'datetime': txtdatetime,
+                                                'terra1address': voter,
+                                                'vote': voteoption
+                                            })        
+                                        }
                                     }
                                 }
                             }
@@ -333,7 +355,17 @@ export const getProposal = async (propID) => {
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'vote': voteoption
                                             })
-                                        } 
+                                        } else {
+                                            tblDesVotesNonValidateur[voter] = {};
+                                            tblDesVotesNonValidateur[voter].vote = voteoption;
+                                            tblHistoriqueDesVotesNonValidateur.push({
+                                                // array of { txHash, datetime, terra1address, vote }
+                                                'txhash': txhash,
+                                                'datetime': txtdatetime,
+                                                'terra1address': voter,
+                                                'vote': voteoption
+                                            })        
+                                        }
                                     }
                                     // Check si y'a un msgs, avant le "proposal_id"
                                     if(rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs) {
@@ -352,7 +384,17 @@ export const getProposal = async (propID) => {
                                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                         'vote': voteoption
                                                     })
-                                                } 
+                                                } else {
+                                                    tblDesVotesNonValidateur[voter] = {};
+                                                    tblDesVotesNonValidateur[voter].vote = voteoption;
+                                                    tblHistoriqueDesVotesNonValidateur.push({
+                                                        // array of { txHash, datetime, terra1address, vote }
+                                                        'txhash': txhash,
+                                                        'datetime': txtdatetime,
+                                                        'terra1address': voter,
+                                                        'vote': voteoption
+                                                    })                
+                                                }
                                             }
                                         }
                                     }
@@ -372,28 +414,48 @@ export const getProposal = async (propID) => {
     // Ajout de ces votes validateurs, au retour-données
     proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
     proposalInfos['tblHistoriqueDesVotesValidateur'] = tblHistoriqueDesVotesValidateur;
+    proposalInfos['tblDesVotesNonValidateur'] = tblDesVotesNonValidateur;
+    proposalInfos['tblHistoriqueDesVotesNonValidateur'] = tblHistoriqueDesVotesNonValidateur;
 
-    // Comptage des votes par catégorie, au besoin
-    proposalInfos['actual_TOTAL_VOTES'] = 0;
-    proposalInfos['actual_DID_NOT_VOTE'] = 0;
-    proposalInfos['actual_VOTE_OPTION_YES'] = 0;
-    proposalInfos['actual_VOTE_OPTION_ABSTAIN'] = 0;
-    proposalInfos['actual_VOTE_OPTION_NO'] = 0;
-    proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] = 0;
+    // Comptage des votes de validateur, par catégorie
+    proposalInfos['validator_TOTAL_VOTES'] = 0;
+    proposalInfos['validator_DID_NOT_VOTE'] = 0;
+    proposalInfos['validator_VOTE_OPTION_YES'] = 0;
+    proposalInfos['validator_VOTE_OPTION_ABSTAIN'] = 0;
+    proposalInfos['validator_VOTE_OPTION_NO'] = 0;
+    proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] = 0;
     for (const validator of Object.values(tblDesVotesDeValidateur)) {
-        proposalInfos['actual_TOTAL_VOTES'] += 1;
+        proposalInfos['validator_TOTAL_VOTES'] += 1;
         if(validator.vote === "DID_NOT_VOTE")
-            proposalInfos['actual_DID_NOT_VOTE'] += 1;
+            proposalInfos['validator_DID_NOT_VOTE'] += 1;
         if(validator.vote === "VOTE_OPTION_YES")
-            proposalInfos['actual_VOTE_OPTION_YES'] += 1;
+            proposalInfos['validator_VOTE_OPTION_YES'] += 1;
         if(validator.vote === "VOTE_OPTION_ABSTAIN")
-            proposalInfos['actual_VOTE_OPTION_ABSTAIN'] += 1;
+            proposalInfos['validator_VOTE_OPTION_ABSTAIN'] += 1;
         if(validator.vote === "VOTE_OPTION_NO")
-            proposalInfos['actual_VOTE_OPTION_NO'] += 1;
+            proposalInfos['validator_VOTE_OPTION_NO'] += 1;
         if(validator.vote === "VOTE_OPTION_NO_WITH_VETO")
-            proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] += 1;
+            proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
     }
     
+    // Comptage des votes des "non validateur", par catégorie
+    proposalInfos['non_validator_TOTAL_VOTES'] = 0;
+    proposalInfos['non_validator_VOTE_OPTION_YES'] = 0;
+    proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] = 0;
+    proposalInfos['non_validator_VOTE_OPTION_NO'] = 0;
+    proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] = 0;
+    for (const nonvalidator of Object.values(tblDesVotesNonValidateur)) {
+        proposalInfos['non_validator_TOTAL_VOTES'] += 1;
+        if(nonvalidator.vote === "VOTE_OPTION_YES")
+            proposalInfos['non_validator_VOTE_OPTION_YES'] += 1;
+        if(nonvalidator.vote === "VOTE_OPTION_ABSTAIN")
+            proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] += 1;
+        if(nonvalidator.vote === "VOTE_OPTION_NO")
+            proposalInfos['non_validator_VOTE_OPTION_NO'] += 1;
+        if(nonvalidator.vote === "VOTE_OPTION_NO_WITH_VETO")
+            proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
+    }
+
 
     // Envoi des infos en retour
     return proposalInfos;

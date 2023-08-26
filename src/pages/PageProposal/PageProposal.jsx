@@ -5,6 +5,7 @@ import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
+import Chart from 'react-apexcharts';
 
 
 const PageProposal = () => {
@@ -275,11 +276,11 @@ const PageProposal = () => {
                                 :
                                     <>
                                         <div className={styles.tblPendingVotesFilter}>
-                                            <button className={filtre === "DID_NOT_VOTE" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("DID_NOT_VOTE")}><strong>Did not vote</strong><span>(&nbsp;{proposalInfos['actual_DID_NOT_VOTE']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "DID_NOT_VOTE" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("DID_NOT_VOTE")}><strong>Did not vote</strong><span>(&nbsp;{proposalInfos['validator_DID_NOT_VOTE']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
                                         </div>
                                         <table className={styles.tblPendingValidatorsVotes}>
                                             <thead>
@@ -289,23 +290,23 @@ const PageProposal = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {(filtre === "DID_NOT_VOTE" && proposalInfos['actual_DID_NOT_VOTE'] === 0) ?
+                                                {(filtre === "DID_NOT_VOTE" && proposalInfos['validator_DID_NOT_VOTE'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator votes recorded here</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_YES" && proposalInfos['actual_VOTE_OPTION_YES'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted YES</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['actual_VOTE_OPTION_ABSTAIN'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['validator_VOTE_OPTION_ABSTAIN'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted ABSTAIN</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_NO" && proposalInfos['actual_VOTE_OPTION_NO'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_NO" && proposalInfos['validator_VOTE_OPTION_NO'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
                                                 </tr> : null}
@@ -329,10 +330,10 @@ const PageProposal = () => {
                                 :
                                     <>
                                         <div className={styles.tblClosedVotesFilter}>
-                                            <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
-                                            <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
+                                            <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
                                         </div>
                                         <table className={styles.tblPendingValidatorsVotes}>
                                             <thead>
@@ -342,19 +343,19 @@ const PageProposal = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {(filtre === "VOTE_OPTION_YES" && proposalInfos['actual_VOTE_OPTION_YES'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted YES</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['actual_VOTE_OPTION_ABSTAIN'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['validator_VOTE_OPTION_ABSTAIN'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted ABSTAIN</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_NO" && proposalInfos['actual_VOTE_OPTION_NO'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_NO" && proposalInfos['validator_VOTE_OPTION_NO'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO</td>
                                                 </tr> : null}
-                                                {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['actual_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
+                                                {(filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] === 0) ?
                                                 <tr>
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
                                                 </tr> : null}
@@ -369,6 +370,56 @@ const PageProposal = () => {
                                         </table>
                                     </>
                                 }
+                            </div>
+                        : null}
+                        {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>Validators & delegators votes ratio</strong> (unweighted)</h2>
+                                <div><strong>Proposal #{propID}</strong></div>
+                                <div className={styles.comments}>
+                                    <span><u>Note 1</u> : Note 1 : to keep it simple here, "delegators" are everyone but validators</span><br />
+                                    <span><u>Note 2</u> : keep in mind that these graphs can be interpreted in different ways, so be careful</span>
+                                </div>
+                                <div className={styles.twoGraphs}>
+                                    <div>
+                                        <h3>Validators votes ({proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
+                                        <Chart
+                                            type="pie"
+                                            width={"100%"}
+                                            series={[proposalInfos['validator_VOTE_OPTION_YES'], proposalInfos['validator_VOTE_OPTION_ABSTAIN'], proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']]}
+                                            options={{
+                                                labels: ['Yes (' + proposalInfos['validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['validator_VOTE_OPTION_NO'] + + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
+                                                colors: ["#00D070", "#0090FF", "#FF5060"],          // Couleur des parts
+                                                chart: {
+                                                    foreColor: 'var(--primary-text-color)'          // Couleur des textes
+                                                },
+                                                legend: {
+                                                    show: !0,
+                                                    position: "bottom",
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <h3>Delegators votes ({proposalInfos['non_validator_VOTE_OPTION_YES'] + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
+                                        <Chart
+                                            type="pie"
+                                            width={"100%"}
+                                            series={[proposalInfos['non_validator_VOTE_OPTION_YES'], proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'], proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']]}
+                                            options={{
+                                                labels: ['Yes (' + proposalInfos['non_validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['non_validator_VOTE_OPTION_NO'] + + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
+                                                colors: ["#00D070", "#0090FF", "#FF5060"],          // Couleur des parts
+                                                chart: {
+                                                    foreColor: 'var(--primary-text-color)'          // Couleur des textes
+                                                },
+                                                legend: {
+                                                    show: !0,
+                                                    position: "bottom",
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         : null}
                         {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
@@ -391,6 +442,10 @@ const PageProposal = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <tr>
+                                                    <td>{metEnFormeDateTime(proposalInfos['votingStartTime'])}</td>
+                                                    <td colSpan="3">Voting opened at this date/time</td>
+                                                </tr>
                                                 {proposalInfos['tblHistoriqueDesVotesValidateur'].map((valeur, index) => {
                                                     return <tr key={index}>
                                                         <td>{metEnFormeDateTime(valeur.datetime)}</td>
@@ -404,6 +459,62 @@ const PageProposal = () => {
                                                         <td><Link to={"/transactions/" + valeur.txhash}>{valeur.txhash}</Link></td>
                                                     </tr>
                                                 })}
+                                                <tr>
+                                                    <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
+                                                    <td colSpan="3">
+                                                        {proposalInfos['status'] === 2 ?
+                                                            '<== voting will end at this date/time'
+                                                            :'Voting ended at this date/time'}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </>
+                                }
+                            </div>
+                        : null}
+                        {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                            <div className="boxContainer">
+                                <h2 className={styles.h2titles}><strong>HISTORY of other votes</strong> (delegators)</h2>
+                                {Object.keys(proposalInfos['tblHistoriqueDesVotesNonValidateur']).length === 0 ?
+                                    <div><br />No data returned by the LCD, sorry.<br /><br /></div>
+                                :
+                                    <>
+                                        <table className={styles.tblHistoricalValidatorsVotes}>
+                                            <thead>
+                                                <tr>
+                                                    <th>Date/Time</th>
+                                                    <th>Delegators</th>
+                                                    <th>Votes (older to newer)</th>
+                                                    <th>TxHash</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{metEnFormeDateTime(proposalInfos['votingStartTime'])}</td>
+                                                    <td colSpan="3">Voting opened at this date/time</td>
+                                                </tr>
+                                                {proposalInfos['tblHistoriqueDesVotesNonValidateur'].map((valeur, index) => {
+                                                    return <tr key={index}>
+                                                        <td>{metEnFormeDateTime(valeur.datetime)}</td>
+                                                        <td><Link to={"/accounts/" + valeur.terra1address}>{valeur.terra1address}</Link></td>
+                                                        <td>
+                                                            {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}
+                                                            {valeur.vote === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>ABSTAIN</span> : null}
+                                                            {valeur.vote === 'VOTE_OPTION_NO' ? <span className='textVoteNo'>NO</span> : null}
+                                                            {valeur.vote === 'VOTE_OPTION_NO_WITH_VETO' ? <span className='textVoteNowithveto'>NO WITH VETO</span> : null}
+                                                        </td>
+                                                        <td><Link to={"/transactions/" + valeur.txhash}>{valeur.txhash}</Link></td>
+                                                    </tr>
+                                                })}
+                                                <tr>
+                                                    <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
+                                                    <td colSpan="3">
+                                                        {proposalInfos['status'] === 2 ?
+                                                            '<== voting will end at this date/time'
+                                                            :'Voting ended at this date/time'}
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </>
