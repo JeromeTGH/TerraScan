@@ -1,5 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 
+User-agent: Twitterbot
+Disallow:
+
 User-agent: *
 Disallow: /about
 Disallow: /donate
