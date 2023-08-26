@@ -1,4 +1,9 @@
-.accountsContainer {
+
+.accountsBlock {
+    grid-area: accounts;
+}
+
+.accountsBlock {
     a {
         word-break: break-all;
     }

@@ -30,7 +30,7 @@ const BlockOverview = () => {
     }, [])
 
     return (
-        <>
+        <div className={"boxContainer " + styles.overviewBlock}>
             <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
 
             <div className={styles.overviews}>
@@ -199,7 +199,7 @@ const BlockOverview = () => {
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
             </div>
             <div className="erreur">{msgErreurOverviewInfos}</div>
-        </>
+        </div>
     );
 };
 

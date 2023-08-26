@@ -31,19 +31,21 @@ const BlockSearch = () => {
     }
 
     return (
-        <div className={styles.searchBar}>
-            <form>
-                <input
-                    type='search'
-                    placeholder='Search for address / tx / block ...'
-                    onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
-                    value={searchFieldValue}
-                />
-                <button onClick={(e) => {handleBtnClick(e)}}>
-                    <SearchIcon />
-                </button>
-            </form>
-            <div className={"erreur " + styles.message}>{errorMessage}</div>
+        <div className={"boxContainer " + styles.searchBlock}>
+            <div className={styles.searchBar}>
+                <form>
+                    <input
+                        type='search'
+                        placeholder='Search for address / tx / block ...'
+                        onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
+                        value={searchFieldValue}
+                    />
+                    <button onClick={(e) => {handleBtnClick(e)}}>
+                        <SearchIcon />
+                    </button>
+                </form>
+                <div className={"erreur " + styles.message}>{errorMessage}</div>
+            </div>
         </div>
     );
 };

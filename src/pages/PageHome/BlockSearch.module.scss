@@ -1,5 +1,9 @@
 @import '../../style/variables';
 
+.searchBlock {
+    grid-area: search;
+}
+
 .searchBar {
     width: 100%;
     display: flex;

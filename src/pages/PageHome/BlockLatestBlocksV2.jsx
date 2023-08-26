@@ -66,7 +66,7 @@ const BlockLatestBlocksV2 = () => {
 
     // Affichage
     return (
-        <>
+        <div className={"boxContainer " + styles.blocksBlock}>
             <h2 className={styles.h2blocks}>
                 <span>&nbsp;</span>
                 <span><strong><BlocksIcon />{nbBlocksAafficher} Latest Blocks</strong></span>
@@ -106,7 +106,7 @@ const BlockLatestBlocksV2 = () => {
                 <u>Validator</u> = proposer (tendermint)
             </div>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
-        </>
+        </div>
     );
 };
 

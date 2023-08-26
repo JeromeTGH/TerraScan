@@ -5,7 +5,7 @@ import styles from './BlockAccounts.module.scss';
 
 const BlockAccounts = () => {
     return (
-        <div className={styles.accountsContainer}>
+        <div className={"boxContainer " + styles.accountsBlock}>
             <h2><strong><AccountIcon /></strong><span><strong>Accounts</strong> (notorious)</span></h2>
             → <strong>Burn</strong> address : <Link to="/accounts/terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu">terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu</Link><br />
             → <strong>Oracle Pool</strong> address : <Link to="/accounts/terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f">terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f</Link><br />  

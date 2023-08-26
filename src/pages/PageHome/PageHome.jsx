@@ -9,7 +9,7 @@ import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
 import BlockBurn from './BlockBurn';
-import { getCommonHomeDatas } from './getCommonHomeDatas';
+import { preloadDatas } from './PageHome.preloader';
 
 
 const PageHome = () => {
@@ -27,9 +27,12 @@ const PageHome = () => {
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
 
         // Chargement des données commmunes aux sous-components de ce component
-        getCommonHomeDatas().then((res) => {
-            // console.log("res['totalSupplies']", res['totalSupplies']);
+        preloadDatas().then((res) => {
+            // Stockage des données préloadées
             setTotalSupplies(res['totalSupplies']);
+
+            // Chargement des données des components enfant, à présent
+            // ...
         })
     }, [])
 
@@ -41,24 +44,12 @@ const PageHome = () => {
             <p className="datetimeupdate">→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <div className={styles.blocksHomepage}>
-                <div className={"boxContainer " + styles.searchBlock}>
-                    <BlockSearch />
-                </div>
-                <div className={"boxContainer " + styles.burnBlock}>
-                    <BlockBurn />
-                </div>
-                <div className={"boxContainer " + styles.overviewBlock}>
-                    <BlockOverview />
-                </div>
-                <div className={"boxContainer " + styles.blocksBlock}>
-                    <BlockLatestBlocksV2 />
-                </div>
-                <div className={"boxContainer " + styles.accountsBlock}>
-                    <BlockAccounts />
-                </div>
-                <div className={"boxContainer " + styles.validatorsBlock}>
-                    <BlockValidatorsV2 />
-                </div>
+                <BlockSearch />
+                <BlockBurn />
+                <BlockOverview />
+                <BlockLatestBlocksV2 />
+                <BlockAccounts />
+                <BlockValidatorsV2 />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />
             </div>
         </>

@@ -1,5 +1,9 @@
 @import '../../style/variables';
 
+.blocksBlock {
+    grid-area: blocks;
+}
+
 .h2blocks {
     display: flex;
     flex-direction: row;

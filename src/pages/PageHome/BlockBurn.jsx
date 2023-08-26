@@ -43,7 +43,7 @@ const BlockBurn = () => {
     
     // Affichage
     return (
-        <div className={styles.generalites}>
+        <div className={"boxContainer " + styles.burnBlock}>
             <h2 className={styles.h2burn}><strong><BurnIcon /></strong><span><strong>{nbLineToShow} Latest Burns</strong></span></h2>
             {msgErreurGettingTransactions ?
                 <div className="erreur ">{msgErreurGettingTransactions}</div>

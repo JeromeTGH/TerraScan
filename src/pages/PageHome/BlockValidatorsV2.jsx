@@ -29,7 +29,7 @@ const BlockValidatorsV2 = () => {
 
     // Affichage
     return (
-        <>
+        <div className={"boxContainer " + styles.validatorsBlock}>
             <h2><strong><CalculatorIcon /></strong><span><strong>Validators</strong> (actives)</span></h2>
             {msgErreurGetValidators ?
                 <div className="erreur">{msgErreurGetValidators}</div>
@@ -69,7 +69,7 @@ const BlockValidatorsV2 = () => {
                     </div>
                 </>
             }
-        </>
+        </div>
     );
 };
 

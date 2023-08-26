@@ -1,5 +1,9 @@
 @import '../../style/variables';
 
+.overviewBlock {
+    grid-area: overview;
+}
+
 .overviews {
     font-size: 0.9rem;
 
