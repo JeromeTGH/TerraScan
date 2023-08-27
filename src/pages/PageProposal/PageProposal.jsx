@@ -6,6 +6,7 @@ import { getProposal } from './getProposal';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import Chart from 'react-apexcharts';
+import { getDelegatorsParticipation } from './getDelegatorsParticipation';
 
 
 const PageProposal = () => {
@@ -17,6 +18,7 @@ const PageProposal = () => {
     const [proposalInfos, setProposalInfos] = useState();
     const [msgErreur, setMsgErreur] = useState();
     const [filtre, setFiltre] = useState("DID_NOT_VOTE");
+    const [delegatorsVoteTurnout, setDelegatorsVoteTurnout] = useState("loading...");
 
 
     // Fonction de sélection de filtre
@@ -38,11 +40,16 @@ const PageProposal = () => {
             }
             else {
                 setMsgErreur('');
-
                 if(res['status'] === 3 || res['status'] === 4)
                     setFiltre("VOTE_OPTION_YES");
-
                 setProposalInfos(res);
+
+                // Chargement de données complémentaires
+                getDelegatorsParticipation().then((res) => {
+                    setDelegatorsVoteTurnout(res);
+                }).catch(err => {
+                    console.log("delegations err", err);
+                })
             }
         })
         // eslint-disable-next-line
@@ -372,20 +379,20 @@ const PageProposal = () => {
                                 }
                             </div>
                         : null}
-                        {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                        {(proposalInfos['status'] === 2) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <div className="boxContainer">
                                 <h2 className={styles.h2titles}><strong>Unweighted validators & delegators votes</strong></h2>
                                 <div><strong>Proposal #{propID}</strong></div>
                                 <div className={styles.comments}>
-                                    <span><u>Note 1</u> : Note 1 : to keep it simple here, "delegators" are everyone but validators</span><br />
-                                    <span><u>Note 2</u> : keep in mind that these graphs can be interpreted in different ways, so be careful</span>
+                                    <span><u>Note 1</u> : Note 1 : to keep it simple, "delegators" here are everyone but validators</span><br />
+                                    <span><u>Note 2</u> : keep in mind that these graphs/datas can be interpreted in different ways, so be careful (in any case, do not oppose them)</span><br />
+                                    <span><u>Note 3</u> : currently, there are {proposalInfos['validator_TOTAL_VOTES']} <u>active</u> validators and {isNaN(1/delegatorsVoteTurnout) ? '(nb loading...)' : delegatorsVoteTurnout} <u>unique</u> delegators (these can delegate to multiple validators)</span>
                                 </div>
                                 <div className={styles.twoGraphs}>
                                     <div>
-                                        <h3>Validators votes ({proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
+                                        <h3>Validators votes ({proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}/{proposalInfos['validator_TOTAL_VOTES']})</h3>
                                         <Chart
                                             type="pie"
-                                            // width={"100%"}
                                             series={[proposalInfos['validator_VOTE_OPTION_YES'], proposalInfos['validator_VOTE_OPTION_ABSTAIN'], proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']]}
                                             options={{
                                                 labels: ['Yes (' + proposalInfos['validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['validator_VOTE_OPTION_NO'] + + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
@@ -399,12 +406,12 @@ const PageProposal = () => {
                                                 }
                                             }}
                                         />
+                                        <p className="textBrillant">Validators vote turnout : <strong>{proposalInfos['pourcentageOfVoters'].toFixed(2)}&nbsp;%</strong></p>
                                     </div>
                                     <div>
-                                        <h3>Delegators votes ({proposalInfos['non_validator_VOTE_OPTION_YES'] + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']})</h3>
+                                        <h3>Delegators votes ({proposalInfos['non_validator_TOTAL_VOTES']}/{delegatorsVoteTurnout})</h3>
                                         <Chart
                                             type="pie"
-                                            // width={"100%"}
                                             series={[proposalInfos['non_validator_VOTE_OPTION_YES'], proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'], proposalInfos['non_validator_VOTE_OPTION_NO'] + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']]}
                                             options={{
                                                 labels: ['Yes (' + proposalInfos['non_validator_VOTE_OPTION_YES'] +')', 'Abstain (' + proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] +')', 'No+Veto (' + (proposalInfos['non_validator_VOTE_OPTION_NO'] + + proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO']) +')'],
@@ -418,6 +425,7 @@ const PageProposal = () => {
                                                 }
                                             }}
                                         />
+                                        <p className="textBrillant">Delegators vote turnout : <strong>{isNaN(1/delegatorsVoteTurnout) ? 'loading...' : (proposalInfos['non_validator_TOTAL_VOTES']/delegatorsVoteTurnout).toFixed(4)}&nbsp;%</strong></p>
                                     </div>
                                 </div>
                             </div>

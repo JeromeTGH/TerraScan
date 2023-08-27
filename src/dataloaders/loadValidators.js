@@ -14,6 +14,9 @@ export const loadValidators = async () => {
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
         const rawValidatorList = await fcd.staking.getValidatorsList().catch(handleError);
         if(rawValidatorList && rawValidatorList.data) {
+
+            // console.log("rawValidatorList.data", rawValidatorList.data);
+
             for(const validator of rawValidatorList.data) {
                 const validatorInfo = new Validator(validator);
                 // Structure :

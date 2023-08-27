@@ -418,6 +418,7 @@ export const getProposal = async (propID) => {
     proposalInfos['tblHistoriqueDesVotesNonValidateur'] = tblHistoriqueDesVotesNonValidateur;
 
     // Comptage des votes de validateur, par catégorie
+    proposalInfos['validator_NB_ACTIVES'] = Object.keys(tblDesVotesDeValidateur).length;
     proposalInfos['validator_TOTAL_VOTES'] = 0;
     proposalInfos['validator_DID_NOT_VOTE'] = 0;
     proposalInfos['validator_VOTE_OPTION_YES'] = 0;
@@ -466,7 +467,10 @@ export const getProposal = async (propID) => {
 // Log les éventuelles erreurs
 // ===========================
 const handleError = (err) => {
-    console.warn("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }
 
 
