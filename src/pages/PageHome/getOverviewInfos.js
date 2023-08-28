@@ -1,8 +1,10 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
+import { LCDclient } from '../../lcd/LCDclient';
+import { tblValidators } from '../../application/AppData';
 
-export const getOverviewInfos = async () => {
+export const getOverviewInfos = async (totalSupplies) => {
 
     // Tableau à retourner
     const tblAretourner = {
@@ -28,6 +30,74 @@ export const getOverviewInfos = async () => {
         "DateEstimativeProchaineEpoch": null
     }
 
+    // Récupération de la "total supply" du LUNC
+    const idxLuncSupply = totalSupplies.findIndex(element => element.denom === "uluna");
+    if(idxLuncSupply >= 0) {
+        tblAretourner['LuncTotalSupply'] = parseInt(totalSupplies[idxLuncSupply].amount/1000000);
+    } else
+        return { "erreur": "Failed to fetch [LUNC total supply] ..." }
+
+    
+    // Récupération du nombre total de validateurs ayant un status "bonded"
+    tblAretourner['NbBondedValidators'] = Object.values(tblValidators).filter(element => element.status === 'active').length;
+
+
+
+    // ****************************
+    // Requetes LCD, à partir d'ici
+    // ****************************
+
+    // Création/récupération d'une instance de requétage LCD
+    const client_lcd = LCDclient.getSingleton();
+
+
+    // Récupération du nombre de LUNC stakés (bonded)
+    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
+    if(rawStakingPool?.data?.pool?.bonded_tokens)
+        tblAretourner['LuncBonded'] = parseInt(rawStakingPool.data.pool.bonded_tokens/1000000);
+    else
+        return { "erreur": "Failed to fetch [staking pool] ..." }
+
+
+    // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)
+    const rawStakingParameters = await client_lcd.staking.getStakingParameters().catch(handleError);
+    if(rawStakingParameters?.data?.params) {
+        tblAretourner['UnbondingTime'] = parseInt(rawStakingParameters.data.params.unbonding_time.replace('s', '')) / 3600 / 24;       // Transformation nbSecondes --> nbJours
+        tblAretourner['NbMaxValidators'] = rawStakingParameters.data.params.max_validators;
+    }
+    else
+        return { "erreur": "Failed to fetch [staking parameters] ..." }
+
+
+    // Récupération du taux d'inflation max
+    const rawMintParameters = await client_lcd.mint.getMintParameters().catch(handleError);
+    if(rawMintParameters?.data?.params) {
+        tblAretourner['InflationMax'] = rawMintParameters.data.params.inflation_max * 100;
+    }
+    else
+        return { "erreur": "Failed to fetch [mint parameters] ..." }
+
+
+    // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
+    const rawTreasuryParameters = await client_lcd.treasury.getTreasuryParameters().catch(handleError);
+    if(rawTreasuryParameters?.data?.params) {
+        tblAretourner['TobinTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
+        tblAretourner['TobinTaxSplitToBeBurn'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
+        tblAretourner['TobinTaxSplitToDistributionModule'] = 100 - tblAretourner['TobinTaxSplitToBeBurn'];
+    }
+    else
+        return { "erreur": "Failed to fetch [treasury parameters] ..." }
+
+
+
+
+
+
+
+        
+
+
+
     // Connexion au LCD
     const lcd = new LCDClient({
         URL: chainLCDurl,
@@ -35,62 +105,6 @@ export const getOverviewInfos = async () => {
         isClassic: true
     });
 
-    // Récupération de la "total supply" du LUNC
-    const rawTotalSupplies = await lcd.bank.total({'pagination.limit': 9999}).catch(handleError);
-    if(rawTotalSupplies) {
-        const lstTotalSupplies = (new Coins(rawTotalSupplies[0])).toData();
-        const idxLunc = lstTotalSupplies.findIndex(element => element.denom === "uluna");
-
-        if(idxLunc >= 0) {
-            tblAretourner['LuncTotalSupply'] = parseInt(lstTotalSupplies[idxLunc].amount/1000000);
-        } else
-            return { "erreur": "Failed to fetch [LUNC total supply] ..." }
-    } else
-        return { "erreur": "Failed to fetch [total supplies] ..." }
-
-    // Récupération du nombre de LUNC stakés (bonded)
-    const rawStakingPool = await lcd.staking.pool().catch(handleError);
-    if(rawStakingPool) {
-        const bondedTokens = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
-        tblAretourner['LuncBonded'] = parseInt(bondedTokens/1000000);
-    } else
-        return { "erreur": "Failed to fetch [staking pool] ..." }
-
-    // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)
-    const rawStakingParameters = await lcd.staking.parameters().catch(handleError);
-    if(rawStakingParameters) {
-        tblAretourner['UnbondingTime'] = rawStakingParameters.unbonding_time / 3600 / 24;       // Transformation nbSecondes --> nbJours
-        tblAretourner['NbMaxValidators'] = rawStakingParameters.max_validators;
-    } else
-        return { "erreur": "Failed to fetch [staking parameters] ..." }
-
-    // Récupération du nombre total de validateurs ayant un status "bonded"
-    const rawValidators = await lcd.staking.validators({'pagination.limit': 9999, "status": "BOND_STATUS_BONDED"}).catch(handleError);
-    if(rawValidators) {
-        tblAretourner['NbBondedValidators'] = rawValidators[0].length
-    } else
-        return { "erreur": "Failed to fetch [validators] ..." }
-
-
-    // Récupération du taux d'inflation max
-    const rawMintParameters = await lcd.mint.parameters().catch(handleError);
-    if(rawMintParameters) {
-        const inflationMax = (new Decimal(rawMintParameters.inflation_max)).toFixed(3);
-        tblAretourner['InflationMax'] = inflationMax*100;       // Pour afficher des pourcentages
-    } else
-        return { "erreur": "Failed to fetch [mint parameters] ..." }
-
-    // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
-    const rawTreasuryParameters = await lcd.treasury.parameters().catch(handleError);
-    if(rawTreasuryParameters) {
-        const tobinTaxMax = (new Decimal(rawTreasuryParameters.tax_policy.rate_max)).toFixed(3);
-        const tobinTaxSplitToDistributionModule = (new Decimal(rawTreasuryParameters.burn_tax_split)).toFixed(3);
-        const tobinTaxSplitToBeBurn = 1 - tobinTaxSplitToDistributionModule;
-        tblAretourner['TobinTaxMax'] = tobinTaxMax*100;                                                 // Pour afficher des pourcentages
-        tblAretourner['TobinTaxSplitToBeBurn'] = tobinTaxSplitToBeBurn * 100;                           // Pour afficher des pourcentages
-        tblAretourner['TobinTaxSplitToDistributionModule'] = tobinTaxSplitToDistributionModule * 100;   // Pour afficher des pourcentages
-    } else
-        return { "erreur": "Failed to fetch [treasury parameters] ..." }
 
     // Récupération des infos concernant le split du "distribution module"
     const rawDistributionParameters = await lcd.distribution.parameters().catch(handleError);
@@ -174,5 +188,8 @@ export const getOverviewInfos = async () => {
 
 
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }
