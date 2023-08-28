@@ -394,9 +394,9 @@ const PageProposal = () => {
                                         <div className={styles.comments}>(normally weighted votes)</div>
                                         <Chart
                                             type="pie"
-                                            series={[proposalInfos['pourcentageOfYes'], proposalInfos['pourcentageOfAbstain'], proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']]}
+                                            series={[proposalInfos['validator_VP_VOTED_YES'], proposalInfos['validator_VP_VOTED_ABSTAIN'], proposalInfos['validator_VP_VOTED_NOS']]}
                                             options={{
-                                                labels: ['YES<br />' + proposalInfos['validator_VOTE_OPTION_YES'] + ' (' + proposalInfos['pourcentageOfYes'].toFixed(2) +'%)', 'ABSTAIN<br/>' + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + ' (' + proposalInfos['pourcentageOfAbstain'].toFixed(2) +'%)', 'NO+VETO<br />' + (proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) + ' (' + (proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']).toFixed(2) +'%)'],
+                                                labels: ['YES<br />' + proposalInfos['validator_VOTE_OPTION_YES'] + ' (' + proposalInfos['validator_VP_VOTED_YES'].toFixed(2) +'%)', 'ABSTAIN<br/>' + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + ' (' + proposalInfos['validator_VP_VOTED_ABSTAIN'].toFixed(2) +'%)', 'NO+VETO<br />' + (proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) + ' (' + proposalInfos['validator_VP_VOTED_NOS'].toFixed(2) +'%)'],
                                                 colors: ["#00D070", "#0090FF", "#FF5060"],          // Couleur des parts
                                                 chart: {
                                                     foreColor: 'var(--primary-text-color)'          // Couleur des textes

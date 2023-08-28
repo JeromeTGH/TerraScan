@@ -425,20 +425,41 @@ export const getProposal = async (propID) => {
     proposalInfos['validator_VOTE_OPTION_ABSTAIN'] = 0;
     proposalInfos['validator_VOTE_OPTION_NO'] = 0;
     proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] = 0;
+    proposalInfos['validator_VP_VOTED_YES'] = 0;
+    proposalInfos['validator_VP_VOTED_ABSTAIN'] = 0;
+    proposalInfos['validator_VP_VOTED_NOS'] = 0;
+    proposalInfos['validator_VP_TOTAL'] = 0;
     for (const validator of Object.values(tblDesVotesDeValidateur)) {
         proposalInfos['validator_TOTAL_VOTES'] += 1;
         if(validator.vote === "DID_NOT_VOTE")
             proposalInfos['validator_DID_NOT_VOTE'] += 1;
-        if(validator.vote === "VOTE_OPTION_YES")
+        if(validator.vote === "VOTE_OPTION_YES") {
             proposalInfos['validator_VOTE_OPTION_YES'] += 1;
-        if(validator.vote === "VOTE_OPTION_ABSTAIN")
+            proposalInfos['validator_VP_VOTED_YES'] += validator.voting_power_pourcentage;
+        }
+        if(validator.vote === "VOTE_OPTION_ABSTAIN") {
             proposalInfos['validator_VOTE_OPTION_ABSTAIN'] += 1;
-        if(validator.vote === "VOTE_OPTION_NO")
+            proposalInfos['validator_VP_VOTED_ABSTAIN'] += validator.voting_power_pourcentage;
+        }
+        if(validator.vote === "VOTE_OPTION_NO") {
             proposalInfos['validator_VOTE_OPTION_NO'] += 1;
-        if(validator.vote === "VOTE_OPTION_NO_WITH_VETO")
+            proposalInfos['validator_VP_VOTED_NOS'] += validator.voting_power_pourcentage;            
+        }
+        if(validator.vote === "VOTE_OPTION_NO_WITH_VETO") {
             proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
+            proposalInfos['validator_VP_VOTED_NOS'] += validator.voting_power_pourcentage;            
+        }
     }
 
+    // Ramener les "voting power" des validateurs sur la base de ceux qui ont voté, uniquement (pour le graphe circulaire)
+    proposalInfos['validator_VP_TOTAL'] = proposalInfos['validator_VP_VOTED_YES'] + proposalInfos['validator_VP_VOTED_ABSTAIN'] + proposalInfos['validator_VP_VOTED_NOS'];
+    proposalInfos['validator_VP_VOTED_YES'] = proposalInfos['validator_VP_VOTED_YES'] / proposalInfos['validator_VP_TOTAL'] * 100;
+    proposalInfos['validator_VP_VOTED_ABSTAIN'] = proposalInfos['validator_VP_VOTED_ABSTAIN'] / proposalInfos['validator_VP_TOTAL'] * 100;
+    proposalInfos['validator_VP_VOTED_NOS'] = proposalInfos['validator_VP_VOTED_NOS'] / proposalInfos['validator_VP_TOTAL'] * 100;
+
+
+    
+    // Détermination du nombre de votes validateurs, par choix de vote
     proposalInfos['validator_NB_VOTE_TOTAL'] = proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'];
     proposalInfos['validator_NB_VOTE_YES'] = (proposalInfos['validator_VOTE_OPTION_YES'] / proposalInfos['validator_NB_VOTE_TOTAL']) *100;
     proposalInfos['validator_NB_VOTE_ABSTAIN'] = (proposalInfos['validator_VOTE_OPTION_ABSTAIN'] / proposalInfos['validator_NB_VOTE_TOTAL']) *100;
