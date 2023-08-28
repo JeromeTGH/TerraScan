@@ -13,6 +13,7 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger, given_height = -
 
     if(given_height === -1) {
         // console.log("Given height=none");
+        
         // Récupération du numéro de dernier block, si non passé en argument
         const rawLatestBlockInfo = await fcd.tendermint.getBlockInfos('latest').catch(handleError);
         if(rawLatestBlockInfo) {
@@ -21,8 +22,8 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger, given_height = -
         } else
             return { "erreur": "Failed to fetch [latest block] ..." }
     } else {
-        last_block_height = given_height;
         // console.log("Given height=" + given_height);
+        last_block_height = given_height;
     }
 
 

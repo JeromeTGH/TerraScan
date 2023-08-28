@@ -4,9 +4,10 @@ import styles from './PageBlocksV2.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidBlockNumberFormat, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
-import { loadLatestBlocks } from '../../sharedFunctions/getLatestBlocksV2';
+
 import { tblBlocks } from '../../application/AppData';
 import { AppContext } from '../../application/AppContext';
+import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
 
 const PageBlocksV2 = () => {
@@ -21,6 +22,7 @@ const PageBlocksV2 = () => {
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
     const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
+    const [ preloadingPending, setPreloadingPending] = useState(true);
 
     // Fonction de traitement de changement d'état de la checkbox "live view"
     const handleCheckboxChange = (e) => {
@@ -35,19 +37,23 @@ const PageBlocksV2 = () => {
 
         // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
         refreshBlockList();
+        setTimeout(() => {
+            setRefreshBlocks(true);
+            setPreloadingPending(false);
+        }, 6000);
 
     }, [])
 
     // Exécution toutes les X secondes, avec prise en compte ou non, selon l'état du "liveview"
     useEffect(() => {
-        if(liveViewState && refreshBlocks) {
+        if(!preloadingPending && liveViewState && refreshBlocks) {
             setRefreshBlocks(false);
             refreshBlockList();
             setTimeout(() => {
                 setRefreshBlocks(true);
             }, 6000);
         }
-    }, [liveViewState, refreshBlocks])
+    }, [preloadingPending, liveViewState, refreshBlocks])
 
 
     // Récupération des X derniers blocks
