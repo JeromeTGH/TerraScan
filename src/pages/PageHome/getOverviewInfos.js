@@ -1,10 +1,7 @@
-import { chainID, chainLCDurl } from '../../application/AppParams';
-import { Coins, LCDClient } from '@terra-money/terra.js';
-import Decimal from 'decimal.js';
 import { LCDclient } from '../../lcd/LCDclient';
 import { tblValidators } from '../../application/AppData';
 
-export const getOverviewInfos = async (totalSupplies) => {
+export const getOverviewInfos = async (totalSupplies, latestBlockHeightAndDatetime) => {
 
     // Tableau à retourner
     const tblAretourner = {
@@ -30,6 +27,10 @@ export const getOverviewInfos = async (totalSupplies) => {
         "DateEstimativeProchaineEpoch": null
     }
 
+    // ******************************************
+    // Opérations ne nécessitant pas de requêtage
+    // ******************************************
+
     // Récupération de la "total supply" du LUNC
     const idxLuncSupply = totalSupplies.findIndex(element => element.denom === "uluna");
     if(idxLuncSupply >= 0) {
@@ -40,6 +41,28 @@ export const getOverviewInfos = async (totalSupplies) => {
     
     // Récupération du nombre total de validateurs ayant un status "bonded"
     tblAretourner['NbBondedValidators'] = Object.values(tblValidators).filter(element => element.status === 'active').length;
+
+
+    // Récupération des infos concernant le dernier block
+        // Paramètres de calcul
+        const nbBlocksPerEpoch = 100800;        // Sur la base de 100 800 block par epoch
+        const nbSecondsPerBlock = 6;            // Sur la base "moyenne" d'un nouveau bloc toutes les 6 secondes
+
+        // Récupération des données qui nous intéresse ici
+        const lastBlockHeight = latestBlockHeightAndDatetime.height;
+        const lastBlockDateTime = latestBlockHeightAndDatetime.datetime;
+
+        // Calculs (pour retrouver le n° de l'epoch en cours, le % d'avancement dans celle-ci, et la date de la prochaine)
+        const estimatedCurrentEpoch = parseInt(lastBlockHeight/nbBlocksPerEpoch);
+        const pourcentageAvancementDansEpoch = ((lastBlockHeight % nbBlocksPerEpoch)/nbBlocksPerEpoch*100).toFixed(1);
+        const estimatedNbSecondsLeftUntilNextEpoch = ((estimatedCurrentEpoch+1)*nbBlocksPerEpoch - lastBlockHeight)*nbSecondsPerBlock;
+        const dateTimeLastBlock = new Date(lastBlockDateTime);
+        const estimatedNextEpochStart = new Date(dateTimeLastBlock.getTime() + estimatedNbSecondsLeftUntilNextEpoch*1000);  // *1000 pour conversion sec => millisecondes
+
+        tblAretourner['LastBlockHeight'] = lastBlockHeight;
+        tblAretourner['LastBlockEpoch'] = estimatedCurrentEpoch;
+        tblAretourner['PourcentageAvancementDansEpoch'] = pourcentageAvancementDansEpoch;
+        tblAretourner['DateEstimativeProchaineEpoch'] = estimatedNextEpochStart.toLocaleString();
 
 
 
@@ -89,99 +112,61 @@ export const getOverviewInfos = async (totalSupplies) => {
         return { "erreur": "Failed to fetch [treasury parameters] ..." }
 
 
-
-
-
-
-
-        
-
-
-
-    // Connexion au LCD
-    const lcd = new LCDClient({
-        URL: chainLCDurl,
-        chainID: chainID,
-        isClassic: true
-    });
-
-
     // Récupération des infos concernant le split du "distribution module"
-    const rawDistributionParameters = await lcd.distribution.parameters().catch(handleError);
-    if(rawDistributionParameters) {
-        const distributionModuleSplitToCommunityPool = (new Decimal(rawDistributionParameters.community_tax)).toFixed(3);
-        const distributionModuleSplitToStakers = 1 - distributionModuleSplitToCommunityPool;
-        tblAretourner['DistributionModuleSplitToStakers'] = distributionModuleSplitToStakers * 100;                 // Pour afficher des pourcentages
-        tblAretourner['DistributionModuleSplitToCommunityPool'] = distributionModuleSplitToCommunityPool * 100;     // Pour afficher des pourcentages
-    } else
+    const rawDistributionParameters = await client_lcd.distribution.getDistributionParameters().catch(handleError);
+    if(rawDistributionParameters?.data?.params) {
+        tblAretourner['DistributionModuleSplitToStakers'] = rawDistributionParameters.data.params.community_tax * 100;
+        tblAretourner['DistributionModuleSplitToCommunityPool'] = 100 - tblAretourner['DistributionModuleSplitToStakers'];
+    }
+    else
         return { "erreur": "Failed to fetch [distribution parameters] ..." }
 
+        
     // Récupération des infos concernant le "community pool"
-    const rawCommunityPool = await lcd.distribution.communityPool().catch(handleError);
-    if(rawCommunityPool) {
-        const lstCoinsInCP = (new Coins(rawCommunityPool)).toData();
-        const idxLuncInCP = lstCoinsInCP.findIndex(element => element.denom === "uluna");
-        const idxUstcInCP = lstCoinsInCP.findIndex(element => element.denom === "uusd");
+    const rawDistributionCommunityPool = await client_lcd.distribution.getDistributionCommunityPool().catch(handleError);
+    if(rawDistributionCommunityPool?.data?.pool) {
+        const idxLuncInCP = rawDistributionCommunityPool.data.pool.findIndex(element => element.denom === "uluna");
+        const idxUstcInCP = rawDistributionCommunityPool.data.pool.findIndex(element => element.denom === "uusd");
 
-        if(idxLuncInCP >= 0)
-            tblAretourner['AmountOfLuncInCP'] = parseInt(lstCoinsInCP[idxLuncInCP].amount/1000000);
+        if(idxLuncInCP > -1)
+            tblAretourner['AmountOfLuncInCP'] = parseInt(rawDistributionCommunityPool.data.pool[idxLuncInCP].amount/1000000);
         else
             tblAretourner['AmountOfLuncInCP'] = 0;
 
-        if(idxUstcInCP >= 0)
-            tblAretourner['AmountOfUstcInCP'] = parseInt(lstCoinsInCP[idxUstcInCP].amount/1000000);
+        if(idxUstcInCP > -1)
+            tblAretourner['AmountOfUstcInCP'] = parseInt(rawDistributionCommunityPool.data.pool[idxUstcInCP].amount/1000000);
         else
             tblAretourner['AmountOfUstcInCP'] = 0;
-    } else
-        return { "erreur": "Failed to fetch [distribution parameters] ..." }
+
+    }
+    else
+        return { "erreur": "Failed to fetch [distribution community pool] ..." }
 
 
     // Récupération des infos concernant le "oracle pool" (adresse = terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f)
-    const rawOraclePool = await lcd.bank.balance("terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f").catch(handleError);
-    if(rawOraclePool) {
-        const lstCoinsInOP = (new Coins(rawOraclePool[0])).toData();
-        const idxLuncInOP = lstCoinsInOP.findIndex(element => element.denom === "uluna");
-        const idxUstcInOP = lstCoinsInOP.findIndex(element => element.denom === "uusd");
+    const rawOraclePoolBalance = await client_lcd.bank.getOraclePoolBalance('terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f').catch(handleError);
+    if(rawOraclePoolBalance?.data?.balances) {
+        const idxLuncInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uluna");
+        const idxUstcInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uusd");
 
-        if(idxLuncInOP >= 0)
-            tblAretourner['AmountOfLuncInOP'] = parseInt(lstCoinsInOP[idxLuncInOP].amount/1000000);
+        if(idxLuncInCP > -1)
+            tblAretourner['AmountOfLuncInOP'] = parseInt(rawOraclePoolBalance.data.balances[idxLuncInCP].amount/1000000);
         else
             tblAretourner['AmountOfLuncInOP'] = 0;
 
-        if(idxUstcInOP >= 0)
-            tblAretourner['AmountOfUstcInOP'] = parseInt(lstCoinsInOP[idxUstcInOP].amount/1000000);
+        if(idxUstcInCP > -1)
+            tblAretourner['AmountOfUstcInOP'] = parseInt(rawOraclePoolBalance.data.balances[idxUstcInCP].amount/1000000);
         else
             tblAretourner['AmountOfUstcInOP'] = 0;
-    } else
+
+    }
+    else
         return { "erreur": "Failed to fetch [oracle pool balance] ..." }
-        
-    // Récupération des infos concernant le dernier block
-    const rawLastBlock = await lcd.tendermint.blockInfo().catch(handleError);
-    if(rawLastBlock) {
-        // Paramètres de calcul
-        const nbBlocksPerEpoch = 100800;        // Sur la base de 100 800 block par epoch
-        const nbSecondsPerBlock = 6;            // Sur la base "moyenne" d'un nouveau bloc toutes les 6 secondes
 
-        // Récupération des données qui nous intéresse ici
-        const lastBlockHeight = rawLastBlock.block.header.height;
-        const lastBlockDateTime = rawLastBlock.block.header.time;
-
-        // Calculs (pour retrouver le n° de l'epoch en cours, le % d'avancement dans celle-ci, et la date de la prochaine)
-        const estimatedCurrentEpoch = parseInt(lastBlockHeight/nbBlocksPerEpoch);
-        const pourcentageAvancementDansEpoch = ((lastBlockHeight % nbBlocksPerEpoch)/nbBlocksPerEpoch*100).toFixed(1);
-        const estimatedNbSecondsLeftUntilNextEpoch = ((estimatedCurrentEpoch+1)*nbBlocksPerEpoch - lastBlockHeight)*nbSecondsPerBlock;
-        const dateTimeLastBlock = new Date(lastBlockDateTime);
-        const estimatedNextEpochStart = new Date(dateTimeLastBlock.getTime() + estimatedNbSecondsLeftUntilNextEpoch*1000);  // *1000 pour conversion sec => millisecondes
-
-        tblAretourner['LastBlockHeight'] = lastBlockHeight;
-        tblAretourner['LastBlockEpoch'] = estimatedCurrentEpoch
-        tblAretourner['PourcentageAvancementDansEpoch'] = pourcentageAvancementDansEpoch;
-        tblAretourner['DateEstimativeProchaineEpoch'] = estimatedNextEpochStart.toLocaleString();
-    } else
-        return { "erreur": "Failed to fetch [last block info] ..." }
 
     // Renvoie du tableau global/rempli, à la fin
     return tblAretourner;
+
 }
 
 

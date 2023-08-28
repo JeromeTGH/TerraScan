@@ -15,8 +15,8 @@ const BlockOverview = (props) => {
 
     // Exécution au démarrage, et à chaque changement de props.globalDataLoaded
     useEffect(() => {
-        if(props.globalDataLoaded && props.totalSupplies) {
-            getOverviewInfos(props.totalSupplies).then((res) => {
+        if(props.globalDataLoaded && props.totalSupplies && props.latestBlockHeightAndDatetime) {
+            getOverviewInfos(props.totalSupplies, props.latestBlockHeightAndDatetime).then((res) => {
                 if(res['erreur']) {
                     setMsgErreurOverviewInfos(res['erreur']);
                     setOverviewInfos([]);
@@ -29,7 +29,7 @@ const BlockOverview = (props) => {
                 }
             })
         }
-    }, [props.globalDataLoaded, props.totalSupplies])
+    }, [props.globalDataLoaded, props.totalSupplies, props.latestBlockHeightAndDatetime])
 
     return (
         <div className={"boxContainer " + styles.overviewBlock}>

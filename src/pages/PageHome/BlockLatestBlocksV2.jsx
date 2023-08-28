@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockLatestBlocksV2.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
-import { loadLatestBlocks } from '../../sharedFunctions/getLatestBlocksV2';
 import { tblBlocks } from '../../application/AppData';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { AppContext } from '../../application/AppContext';
+import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
 
-const BlockLatestBlocksV2 = () => {
+const BlockLatestBlocksV2 = (props) => {
 
     const { liveViewState, changeLiveViewStateTo } = AppContext();
 
@@ -17,6 +17,7 @@ const BlockLatestBlocksV2 = () => {
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
     const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
+    const [ preloadingPending, setPreloadingPending] = useState(true);
 
     // Fonction de traitement de changement d'état de la checkbox "live view"
     const handleCheckboxChange = (e) => {
@@ -27,26 +28,33 @@ const BlockLatestBlocksV2 = () => {
 
     // Exécution au démarrage
     useEffect(() => {
-        // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
-        refreshBlockList();
-    }, [])
-    
+        if(props.latestBlockHeightAndDatetime) {
+            // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
+            refreshBlockList(props.latestBlockHeightAndDatetime.height);
+            setTimeout(() => {
+                setRefreshBlocks(true);
+                setPreloadingPending(false);
+            }, 6000);
+        }
+    }, [props.latestBlockHeightAndDatetime])
+
+
 
     // Exécution toutes les X secondes, avec prise en compte ou non, selon l'état du "liveview"
     useEffect(() => {
-        if(liveViewState && refreshBlocks) {
+        if(!preloadingPending && liveViewState && refreshBlocks) {
             setRefreshBlocks(false);
             refreshBlockList();
             setTimeout(() => {
                 setRefreshBlocks(true);
             }, 6000);
         }
-    }, [liveViewState, refreshBlocks])
+    }, [preloadingPending, liveViewState, refreshBlocks])
 
 
     // Récupération des X derniers blocks
-    const refreshBlockList = () => {
-        loadLatestBlocks(nbBlocksAafficher).then((res) => {
+    const refreshBlockList = (given_height) => {
+        loadLatestBlocks(nbBlocksAafficher, given_height).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetDerniersBlocks(res['erreur']);
                 setDerniersBlocks([]);
