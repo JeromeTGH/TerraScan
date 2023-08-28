@@ -438,7 +438,13 @@ export const getProposal = async (propID) => {
         if(validator.vote === "VOTE_OPTION_NO_WITH_VETO")
             proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
     }
+
+    proposalInfos['validator_NB_VOTE_TOTAL'] = proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'];
+    proposalInfos['validator_NB_VOTE_YES'] = (proposalInfos['validator_VOTE_OPTION_YES'] / proposalInfos['validator_NB_VOTE_TOTAL']) *100;
+    proposalInfos['validator_NB_VOTE_ABSTAIN'] = (proposalInfos['validator_VOTE_OPTION_ABSTAIN'] / proposalInfos['validator_NB_VOTE_TOTAL']) *100;
+    proposalInfos['validator_NB_VOTE_NOS'] = (proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) / proposalInfos['validator_NB_VOTE_TOTAL'] * 100;
     
+
     // Comptage des votes des "non validateur", par catégorie
     proposalInfos['non_validator_TOTAL_VOTES'] = 0;
     proposalInfos['non_validator_VOTE_OPTION_YES'] = 0;
