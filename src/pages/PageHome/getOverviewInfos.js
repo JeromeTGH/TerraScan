@@ -64,6 +64,16 @@ export const getOverviewInfos = async (totalSupplies, latestBlockHeightAndDateti
         tblAretourner['PourcentageAvancementDansEpoch'] = pourcentageAvancementDansEpoch;
         tblAretourner['DateEstimativeProchaineEpoch'] = estimatedNextEpochStart.toLocaleString();
 
+    // Calcul du Coefficient de Nakamoto (c'est à dire le nombre de validateurs minimum, qui s'ils s'allient, atteignent les 33,33% de VP, et peuvent halt la chaine)
+    let coeffNakamoto = 0;
+    let cumulativeVotingPower = 0;
+    for(const validator of Object.values(tblValidators).sort((a, b) => {return b.voting_power_pourcentage - a.voting_power_pourcentage})) {
+        coeffNakamoto += 1;
+        cumulativeVotingPower += validator.voting_power_pourcentage;
+        if(cumulativeVotingPower >= (100/3))
+            break;
+    }
+    tblAretourner['NakamotoCoefficient'] = coeffNakamoto;
 
 
     // ****************************

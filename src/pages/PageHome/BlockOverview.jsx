@@ -94,9 +94,16 @@ const BlockOverview = (props) => {
                         <div>→&nbsp;Staking unbonding time :</div>
                         <div><strong>{overviewInfos ? overviewInfos['UnbondingTime'] : "..."} days</strong></div>
                     </div>
+                </div>
+                <br />
+                <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Nb validators (active/max) :</div>
                         <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;Nakamoto Coefficient (33,33% VP) :</div>
+                        <div><strong>{overviewInfos ? overviewInfos['NakamotoCoefficient'] : "..."}</strong></div>
                     </div>
                 </div>
                 <br />
