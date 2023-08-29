@@ -4,19 +4,19 @@
     grid-template-rows: auto;
     grid-template-areas:                // Config par défaut si écran entre 920 et 1024px, ou si supérieur à 1200px
         "search search search"
-        "burn burn burn"
         "overview blocks blocks"
         "overview accounts accounts"
+        "burn burn burn"
         "validators validators supplies";
     column-gap: 1rem;
     row-gap: 1rem;
 
-    @media (min-width: 1024px) and (max-width: 1200px) {
+    @media (min-width: 1024px) and (max-width: 1260px) {
         grid-template-columns: 33% 33% 31%;
         grid-template-areas:
             "search search search"
-            "burn burn burn"
             "overview overview supplies"
+            "burn burn burn"
             "blocks blocks blocks"
             "accounts accounts accounts"
             "validators validators validators";
@@ -25,8 +25,8 @@
         grid-template-columns: 27% 28% 40%;
         grid-template-areas:
             "search search search"
-            "burn burn burn"
             "overview overview supplies"
+            "burn burn burn"
             "blocks blocks blocks"
             "accounts accounts accounts"
             "validators validators validators";
@@ -35,8 +35,8 @@
         grid-template-columns: 100%;
         grid-template-areas:
             "search"
-            "burn"
             "overview"
+            "burn"
             "blocks"
             "accounts"
             "validators"
