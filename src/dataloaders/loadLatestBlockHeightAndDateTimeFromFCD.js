@@ -1,7 +1,7 @@
 import { FCDclient } from "../fcd/FCDclient";
 
 
-export const loadLatestBlockHeightAndDateTime = async () => {
+export const loadLatestBlockHeightAndDateTimeFromFCD = async () => {
 
     // Instanciation d'une classe de requetage FCD
     const fcd = FCDclient.getSingleton();

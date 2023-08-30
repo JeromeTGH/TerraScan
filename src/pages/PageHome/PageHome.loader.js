@@ -1,4 +1,4 @@
-import { loadLatestBlockHeightAndDateTime } from "../../dataloaders/loadLatestBlockHeightAndDateTime";
+import { loadLatestBlockHeightAndDateTimeFromFCD } from "../../dataloaders/loadLatestBlockHeightAndDateTimeFromFCD";
 import { loadTotalSupplies } from "../../dataloaders/loadTotalSupplies";
 
 
@@ -16,7 +16,7 @@ export const loadCommonAppDatas = async () => {
 
     // Chargement des données
     tblRetour['totalSupplies'] = await loadTotalSupplies();
-    tblRetour['latestBlockHeightAndDatetime'] = await loadLatestBlockHeightAndDateTime();
+    tblRetour['latestBlockHeightAndDatetime'] = await loadLatestBlockHeightAndDateTimeFromFCD();
 
     // Transmission des données
     return tblRetour;

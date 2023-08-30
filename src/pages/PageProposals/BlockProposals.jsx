@@ -40,10 +40,8 @@ const BlockProposals = (props) => {
                 <button className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</button>
             </div>
             <div>
-                {props.tblProposals.map((element, index) => {
-                    return (
-                        ((filtre === 0) || element.status === filtre) ?
-                            <div className={"boxContainer " + styles.proposalBox} key={index} onClick={() => handleClickOnProposal(element.id)}>
+                {props.tblProposals.filter(element => (filtre === 0 || element.status === filtre)).map((element, index) => {
+                    return <div className={"boxContainer " + styles.proposalBox} key={index} onClick={() => handleClickOnProposal(element.id)}>
                                 <table className={styles.tblProposals}>
                                     <tbody>
                                         <tr>
@@ -101,8 +99,6 @@ const BlockProposals = (props) => {
                                     </tbody>
                                 </table>
                             </div>
-                        : null
-                    )
                 })}
             </div>
         </div>
@@ -115,7 +111,7 @@ const proposalStatus = {
     0: "???",                                       // PROPOSAL_STATUS_UNSPECIFIED
     1: "Waiting enough deposit (deposit period)",   // PROPOSAL_STATUS_DEPOSIT_PERIOD
     2: "Voting in progress",                        // PROPOSAL_STATUS_VOTING_PERIOD
-    3: "Passed",                                    // PROPOSAL_STATUS_PASSED
+    3: "Adopted",                                   // PROPOSAL_STATUS_PASSED
     4: "Rejected",                                  // PROPOSAL_STATUS_REJECTED
     // 5: "PROPOSAL_STATUS_FAILED"
 }

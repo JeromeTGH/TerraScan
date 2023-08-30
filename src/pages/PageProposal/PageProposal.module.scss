@@ -5,6 +5,30 @@
     display: grid;
     row-gap: 1.2rem;
 
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        column-gap: 0.1rem;
+        padding-top: 0.4rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+
+        span {
+            padding: 0.2rem 0.6rem;
+        }
+
+        .pageNumber {
+            color: var(--primary-text-color-on-fill);
+            background-color: var(--primary-fill);
+        }
+
+        .pageSelected {
+            color: var(--primary-text-color-on-fill);
+            background-color: var(--tertiary-fill);
+        }
+    }
+
     .h2titles {
         text-align: left;
         border-bottom: 1px solid var(--outline-box-color);
