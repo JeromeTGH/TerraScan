@@ -76,3 +76,28 @@ h2, .h2like {
 
 .tblHide { display: none; }
 .nomargin { margin: 0; }
+
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 0.1rem;
+    padding-top: 0.4rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    span {
+        padding: 0.2rem 0.6rem;
+    }
+
+    .paginationPageUnselected {
+        color: var(--primary-text-color-on-fill);
+        background-color: var(--primary-fill);
+    }
+
+    .paginationPageSelected {
+        color: var(--primary-text-color-on-fill);
+        background-color: var(--tertiary-fill);
+    }
+}

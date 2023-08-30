@@ -339,10 +339,10 @@ const PageProposal = () => {
                                                 })}
                                             </tbody>
                                         </table>
-                                        <div className={styles.pagination}>
+                                        <div className='pagination'>
                                             <span>Page :</span>
                                             {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + 1).fill(1).map((el, i) =>
-                                                <span key={i} className={i === validatorVotesPagination ? styles.pageSelected : styles.pageNumber} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
+                                                <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
                                             )}
                                         </div>
                                     </>
@@ -395,10 +395,10 @@ const PageProposal = () => {
                                                 })}
                                             </tbody>
                                         </table>
-                                        <div className={styles.pagination}>
+                                        <div className='pagination'>
                                             <span>Page :</span>
                                             {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + 1).fill(1).map((el, i) =>
-                                                <span key={i} className={i === validatorVotesPagination ? styles.pageSelected : styles.pageNumber} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
+                                                <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
                                             )}
                                         </div>
                                     </>
