@@ -12,8 +12,6 @@
 }
 
 .burnDiv {
-    min-height: calc(100vh * 0.4);
-    max-height: calc(100vh * 0.4);
     overflow-x: auto;
 
     @media (max-width: $primary-breakpoint) {

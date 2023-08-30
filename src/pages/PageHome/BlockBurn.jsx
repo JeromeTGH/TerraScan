@@ -11,14 +11,21 @@ const BlockBurn = () => {
     // Constantes
     const minLuncToShow = 10000;    // Nombre de LUNC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
     const minUstcToShow = 100;      // Nombre d'USTC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
-    const nbLineToShow = 40;       // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
+    const nbLineToShow = 40;                // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
+    const nbElementsParPagination = 10;     // Nombre d'éléments à afficher par pagination
 
         
     // Variables React
     const [isLoading, setIsLoading] = useState(true);
     const [msgErreurGettingTransactions, setMsgErreurGettingTransactions] = useState();
     const [tblTxsBurn, setTblTxsBurn] = useState([]);
+    const [burnTblPagination, setBurnTblPagination] = useState(0);
 
+    // Fonction de sélection de page, pour la liste des burns
+    const handleClickBurnPagination = (val) => {
+        setBurnTblPagination(val);
+    }
+    
 
     // Exécution au démarrage
     useEffect(() => {
@@ -65,7 +72,7 @@ const BlockBurn = () => {
                                 {isLoading ?
                                     <tr><td colSpan="6">Loading from blockchain (FCD), please wait ...</td></tr>
                                 :
-                                    tblTxsBurn.map((valeur, index) => {
+                                    tblTxsBurn.slice(burnTblPagination*nbElementsParPagination, burnTblPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, index) => {
                                         return <tr key={index}>
                                             <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
                                             <td><Link to={"/transactions/" + valeur[1].txHash}>
@@ -80,6 +87,12 @@ const BlockBurn = () => {
                                 }
                             </tbody>
                         </table>
+                    </div>
+                    <div className='pagination'>
+                        <span>Page :</span>
+                        {Array(parseInt(Object.entries(tblTxsBurn).length/nbElementsParPagination) + ((Object.entries(tblTxsBurn).length/nbElementsParPagination)%1 > 0 ? 1 : 0)).fill(1).map((el, i) =>
+                            <span key={i} className={i === burnTblPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickBurnPagination(i)}>{i+1}</span>
+                        )}
                     </div>
                 </>
             }
