@@ -11,7 +11,7 @@ const BlockAccounts = () => {
             → <strong>Oracle Pool</strong> address : <Link to="/accounts/terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f">terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f</Link><br />  
             → <strong>Binance wallet</strong> main address : <Link to="/accounts/terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe">terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe</Link> (contains funds owned by Binance and those of its customers)<br />
             <br />
-            → <strong>Community Pool</strong> address : none (access through API)<br />  
+            → <strong>Community Pool</strong> : common pot, so no specific address (access through API only)<br />  
         </div>
     );
 };

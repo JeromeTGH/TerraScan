@@ -16,6 +16,7 @@ import MsgClearAdmin from './Msgs/MsgClearAdmin';
 import MsgUndelegate from './Msgs/MsgUndelegate';
 import MsgUpdateAdmin from './Msgs/MsgUpdateAdmin';
 import MsgUpdateClient from './Msgs/MsgUpdateClient';
+import MsgVoteWeighted from './Msgs/MsgVoteWeighted';
 import MsgSubmitProposal from './Msgs/MsgSubmitProposal';
 import MsgAcknowledgement from './Msgs/MsgAcknowledgement';
 import MsgBeginRedelegate from './Msgs/MsgBeginRedelegate';
@@ -76,6 +77,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgRevokeAuthorization' ||
                      props.txMessage['MsgType'] === 'MsgRevoke' ? <MsgRevokeAuthorization txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgMultiSend' ? <MsgMultiSend txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgVoteWeighted' ? <MsgVoteWeighted txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </div>

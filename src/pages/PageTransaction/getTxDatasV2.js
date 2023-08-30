@@ -366,6 +366,18 @@ export const getTxDatasV2 = async (txHash) => {
                 msgStructRet['outputs'] = message.value.outputs;
             }
 
+            if(msgStructRet['MsgType'] === 'MsgVoteWeighted') {
+                msgStructRet['VoteChoices'] = message.value.options;
+                msgStructRet['ProposalID'] = message.value.proposal_id;
+                msgStructRet['VoterAddress'] = message.value.voter;
+
+                const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === message.value.voter);
+                if(isValidatorAccount) {
+                    msgStructRet['ValidatorAddress'] = isValidatorAccount[0];
+                    msgStructRet['ValidatorMoniker'] = isValidatorAccount[1].description_moniker;
+                }
+            }
+
 
             msgStructRet['MsgDesc'] = tblCorrespondanceMessages[msgStructRet['MsgType']] ? tblCorrespondanceMessages[msgStructRet['MsgType']] : msgStructRet['MsgType'];
             txMessages.push(msgStructRet);

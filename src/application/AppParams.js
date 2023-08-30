@@ -92,5 +92,6 @@ export const tblCorrespondanceMessages = {
     "MsgSwapSend": "Swap Send",
     "MsgRevoke": "Revoke",
         "MsgRevokeAuthorization": "Revoke Authorization",   // variante de 'MsgRevoke'
-    "MsgMultiSend": "Multi Send"
+    "MsgMultiSend": "Multi Send",
+    "MsgVoteWeighted": "Vote Weighted"
 }
