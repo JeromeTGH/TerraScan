@@ -5,6 +5,7 @@ import { tblValidators } from '../../application/AppData';
 import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
 import { Tx } from '../../fcd/classes/Tx';
 import { CoinsList } from '../../fcd/classes/CoinsList';
+import { LCDclient } from '../../lcd/LCDclient';
 
 export const getTxDatasV2 = async (txHash) => {
 
@@ -24,8 +25,9 @@ export const getTxDatasV2 = async (txHash) => {
         'nbMessages': null              // Nombre de messages, à l'intérieur de cette transaction
     }
     
-    // Instanciation FCD
+    // Instanciation FCD et LCD
     const fcd = FCDclient.getSingleton();
+    const client_lcd = LCDclient.getSingleton();
 
     // Récupération des infos concernant cette transaction
     const rawFullTxInfo = await fcd.tx.getTxInfos(txHash).catch(handleError);
@@ -137,6 +139,14 @@ export const getTxDatasV2 = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgVote') {
                 msgStructRet['VoteChoice'] = message.value.option;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
+
+                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                if(rawProposalInfos?.data?.proposal?.content?.title) {
+                    msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                } else {
+                    msgStructRet['ProposalTitle'] = '(unknown)';
+                }
+
                 msgStructRet['VoterAddress'] = message.value.voter;
 
                 const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === message.value.voter);
@@ -241,6 +251,14 @@ export const getTxDatasV2 = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgDeposit') {
                 msgStructRet['Depositor'] = message.value.depositor;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
+
+                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                if(rawProposalInfos?.data?.proposal?.content?.title) {
+                    msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                } else {
+                    msgStructRet['ProposalTitle'] = '(unknown)';
+                }
+
                 msgStructRet['Amount'] = coinsListToFormatedText(message.value.amount);
             }
 
@@ -369,6 +387,14 @@ export const getTxDatasV2 = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgVoteWeighted') {
                 msgStructRet['VoteChoices'] = message.value.options;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
+
+                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                if(rawProposalInfos?.data?.proposal?.content?.title) {
+                    msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                } else {
+                    msgStructRet['ProposalTitle'] = '(unknown)';
+                }
+                
                 msgStructRet['VoterAddress'] = message.value.voter;
 
                 const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === message.value.voter);
@@ -396,7 +422,10 @@ export const getTxDatasV2 = async (txHash) => {
 // Log les éventuelles erreurs
 // ===========================
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }
 
 

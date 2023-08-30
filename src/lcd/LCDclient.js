@@ -3,6 +3,7 @@ import { APIrequester } from "./APIrequester";
 
 import { BankAPI } from "./api/BankAPI";
 import { DistributionAPI } from "./api/DistributionAPI";
+import { GovAPI } from "./api/GovAPI";
 import { MintAPI } from "./api/MintAPI";
 import { StakingAPI } from "./api/StakingAPI";
 import { TreasuryAPI } from "./api/TreasuryAPI";
@@ -29,6 +30,9 @@ export class LCDclient {
                     getDistributionCommunityPool: '/cosmos/distribution/v1beta1/community_pool',
                     getDistributionParameters: '/cosmos/distribution/v1beta1/params'
                 },
+                gov: {
+                    getProposalInfos: '/cosmos/gov/v1beta1/proposals/'
+                },
                 mint: {
                     getMintParameters: '/cosmos/mint/v1beta1/params'
                 },
@@ -46,6 +50,7 @@ export class LCDclient {
     
             this.bank = new BankAPI(this.apiRequester, this.paths.bank);
             this.distribution = new DistributionAPI(this.apiRequester, this.paths.distribution);
+            this.gov = new GovAPI(this.apiRequester, this.paths.gov);
             this.mint = new MintAPI(this.apiRequester, this.paths.mint);
             this.staking = new StakingAPI(this.apiRequester, this.paths.staking);
             this.treasury = new TreasuryAPI(this.apiRequester, this.paths.treasury);

@@ -50,10 +50,13 @@ const PageProposal = () => {
                 setProposalInfos({});
             }
             else {
-                setMsgErreur('');
-                if(res['status'] === 3 || res['status'] === 4)
+                setMsgErreur('');                                       // Effacement des éventuels message d'erreur
+                setValidatorVotesPagination(0);                         // Fixation de la pagination à l'origine (page 1, par défaut, bien évidemment)
+                if(res['status'] === 3 || res['status'] === 4)          // Fixation du filtre par défaut, suivant le type de status de proposition
                     setFiltre("VOTE_OPTION_YES");
-                setProposalInfos(res);
+                if(res['status'] === 2)
+                    setFiltre("DID_NOT_VOTE");
+                setProposalInfos(res);                                  // Et transmission des données, pour mise à jour ici
 
                 // Chargement de données complémentaires
                 // getDelegatorsParticipation().then((res) => {
@@ -329,10 +332,10 @@ const PageProposal = () => {
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
                                                 </tr> : null}
                                                 {Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).slice(validatorVotesPagination*nbElementsParPagination, validatorVotesPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, index) => {
-                                                    return valeur[1].vote === filtre ? <tr key={index}>
+                                                    return <tr key={index}>
                                                         <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                                                         <td>{valeur[1].voting_power_pourcentage.toFixed(2)}&nbsp;%</td>
-                                                    </tr> : null
+                                                    </tr>
                                                 })}
                                             </tbody>
                                         </table>
@@ -384,14 +387,20 @@ const PageProposal = () => {
                                                     <td colSpan="2" className={styles.noVoteRow}>No validator voted NO WITH VETO</td>
                                                 </tr> : null}
 
-                                                {Object.entries(proposalInfos['tblDesVotesDeValidateur']).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).map((valeur, index) => {
-                                                    return valeur[1].vote === filtre ? <tr key={index}>
+                                                {Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).slice(validatorVotesPagination*nbElementsParPagination, validatorVotesPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, index) => {
+                                                    return<tr key={index}>
                                                         <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                                                         <td>{valeur[1].voting_power_pourcentage.toFixed(2)}&nbsp;%</td>
-                                                    </tr> : null
+                                                    </tr>
                                                 })}
                                             </tbody>
                                         </table>
+                                        <div className={styles.pagination}>
+                                            <span>Page :</span>
+                                            {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + 1).fill(1).map((el, i) =>
+                                                <span key={i} className={i === validatorVotesPagination ? styles.pageSelected : styles.pageNumber} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
+                                            )}
+                                        </div>
                                     </>
                                 }
                             </div>

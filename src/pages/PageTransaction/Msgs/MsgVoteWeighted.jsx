@@ -6,7 +6,7 @@ const MsgVoteWeighted = (props) => {
         <>
             <tr>
                 <td>On proposal :</td>
-                <td><Link to={"/proposals/" + props.txMessage['ProposalID']}>#{props.txMessage['ProposalID']}</Link></td>
+                <td><Link to={"/proposals/" + props.txMessage['ProposalID']}>#{props.txMessage['ProposalID']} : {props.txMessage['ProposalTitle']}</Link></td>
             </tr>
             <tr>
                 <td>Vote choices :</td>
