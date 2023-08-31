@@ -89,16 +89,17 @@ h2, .h2like {
 
     span {
         padding: 0.2rem 0.6rem;
-    }
-
-    .paginationPageUnselected {
-        color: var(--primary-text-color-on-fill);
-        background-color: var(--primary-fill);
+        border-radius: 2px;
     }
 
     .paginationPageSelected {
-        color: var(--primary-text-color-on-fill);
-        background-color: var(--tertiary-fill);
+        color: var(--pagination-page-number-text-color);
+        background-color: var(--pagination-selected-page-fill-color);
+    }
+
+    .paginationPageUnselected {
+        color: var(--pagination-page-number-text-color);
+        background-color: var(--pagination-unselected-page-fill-color);
     }
 }
 
@@ -115,4 +116,5 @@ h2, .h2like {
     color: var(--brillant-text-color);
     background-color: var(--brillant-fill-color);
     padding: 0.4rem 0.6rem;
+    border-radius : 6px;
 }

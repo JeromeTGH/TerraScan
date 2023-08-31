@@ -15,6 +15,10 @@ $lightTheme_evenTableLineFillColor: #E0E0E0;
 $lightTheme_headTableLineFillColor: #C0C0C0;
 $lightTheme_boxerFillColor: #E0E0E0;
 $lightTheme_brillantFillColor: #D1D1FF;
+$lightTheme_brillantTextColor: #404090;
+$lightTheme_paginationSelectedPageFillColor: #002A50;
+$lightTheme_paginationUnselectedPageFillColor: #0072EE;
+$lightTheme_paginationPageNumberTextColor: #F1F1F1;
 
 
 // Dark Theme Colors
@@ -27,13 +31,17 @@ $darkTheme_primaryFontColor: white;
 $darkTheme_secondaryFontColor: #C1C1C1;
     $darkTheme_primaryFontColorOnSidebarFill: #F1F1F1;
 $darkTheme_linkColor: #2DA0FF;
-$darkTheme_errorColor: red;    
+$darkTheme_errorColor: #E10000;    
 $darkTheme_successColor: #00C900;
 $darkTheme_outlineBoxColor: #606060;
-$darkTheme_evenTableLineFillColor: #202020;
-$darkTheme_headTableLineFillColor: #383838;
-$darkTheme_boxerFillColor: #202020;
-$darkTheme_brillantTextColor: yellow;
+$darkTheme_evenTableLineFillColor: #202030;
+$darkTheme_headTableLineFillColor: #383848;
+$darkTheme_boxerFillColor: #202030;
+$darkTheme_brillantFillColor: #323242;
+$darkTheme_brillantTextColor: #D1D1FF;
+$darkTheme_paginationSelectedPageFillColor: #005FC4;
+$darkTheme_paginationUnselectedPageFillColor: #103A60;
+$darkTheme_paginationPageNumberTextColor: #F1F1F1;
 
 // Largeurs
 $primary-breakpoint: 1024px;        // Moment à partir duquel on passe d'un "menu latéral gauche" à un "burger menu"

@@ -10,8 +10,8 @@
     --primary-text-color: #{$darkTheme_primaryFontColor};
     --secondary-text-color: #{$darkTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$darkTheme_primaryFontColorOnSidebarFill};
+    --brillant-fill-color: #{$darkTheme_brillantFillColor};
     --brillant-text-color: #{$darkTheme_brillantTextColor};
-    --brillant-fill-color: #{$darkTheme_backgroundColor};
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
@@ -20,6 +20,9 @@
     --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$darkTheme_headTableLineFillColor};
     --boxed-fill-color: #{$darkTheme_boxerFillColor};
+    --pagination-selected-page-fill-color: #{$darkTheme_paginationSelectedPageFillColor};
+    --pagination-unselected-page-fill-color: #{$darkTheme_paginationUnselectedPageFillColor};
+    --pagination-page-number-text-color: #{$darkTheme_paginationPageNumberTextColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -32,7 +35,7 @@
     --primary-text-color: #{$lightTheme_primaryFontColor};
     --secondary-text-color: #{$lightTheme_secondaryFontColor};
         --primary-text-color-on-fill: #{$lightTheme_primaryFontColorOnSidebarFill};
-    --brillant-text-color: #{$lightTheme_primaryFontColor};
+    --brillant-text-color: #{$lightTheme_brillantTextColor};
     --brillant-fill-color: #{$lightTheme_brillantFillColor};
     --link-color: #{$lightTheme_linkColor};
     --error-color: #{$lightTheme_errorColor};
@@ -42,6 +45,9 @@
     --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$lightTheme_headTableLineFillColor};
     --boxed-fill-color: #{$lightTheme_boxerFillColor};
+    --pagination-selected-page-fill-color: #{$lightTheme_paginationSelectedPageFillColor};
+    --pagination-unselected-page-fill-color: #{$lightTheme_paginationUnselectedPageFillColor};
+    --pagination-page-number-text-color: #{$lightTheme_paginationPageNumberTextColor};
 }
 
 body {
