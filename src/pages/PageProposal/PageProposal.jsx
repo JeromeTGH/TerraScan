@@ -411,7 +411,9 @@ const PageProposal = () => {
                                 <div className={styles.comments}>
                                     <div className="textBrillant">
                                         <div>Proposal : <strong>#{propID}</strong></div>
-                                        <div>Validators vote turnout : <strong>{proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}/{proposalInfos['validator_TOTAL_VOTES']} ({proposalInfos['pourcentageOfVoters'].toFixed(2)}&nbsp;%)</strong></div>
+                                        <div>Validators vote turnout : <strong>{proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}/{proposalInfos['validator_TOTAL_VOTES']} ({((proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'])/proposalInfos['validator_TOTAL_VOTES']*100).toFixed(2)}&nbsp;% of validators)</strong></div>
+                                        <div>Note 1 : total votes (validators + delegators) = <strong>{proposalInfos['pourcentageOfVoters'].toFixed(2)}&nbsp;% of VOTING POWER <span className={proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "erreur" : "succes"}>{proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "(quorum not reached)" : "(quorum reached)"}</span></strong></div>
+                                        <div>Note 2 : attention, this <strong><span className='colore'>vote is in progress</span></strong> (not finished yet)</div>
                                     </div>
                                 </div>
                                 <div className={styles.twoGraphs}>
@@ -456,7 +458,6 @@ const PageProposal = () => {
                                         <p className="textBrillant">This graph represents the <strong>validators sentiment</strong>, if they had the same voting power (hypothetical situation)</p>
                                     </div>
                                 </div>
-                                {proposalInfos['status'] === 2 ? <p className='erreur'><u>Note</u> : attention, this vote is in progress (not finished yet)</p> : null}
                             </div>
                         : null}
                         {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
