@@ -19,15 +19,33 @@ const BlockValHeaderV2 = (props) => {
                     <tbody>
                         <tr>
                             <td><strong>Website&nbsp;:</strong></td>
-                            <td><a className={styles.website} href={tblValidators[props.valAddress].description_website} target='_blank' rel='noopener noreferrer'>{tblValidators[props.valAddress].description_website}</a></td>
+                            <td>
+                                {tblValidators[props.valAddress].description_website ?
+                                    <a className={styles.website} href={tblValidators[props.valAddress].description_website} target='_blank' rel='noopener noreferrer'>{tblValidators[props.valAddress].description_website}</a>
+                                :
+                                    <span>(not specified)</span>
+                                }
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Email&nbsp;:</strong></td>
-                            <td><span  className={styles.email}>{tblValidators[props.valAddress].description_security_contact}</span></td>
+                            <td>
+                                {tblValidators[props.valAddress].description_security_contact ?
+                                <span className={styles.email}>{tblValidators[props.valAddress].description_security_contact}</span>
+                            :
+                                <span>(not specified)</span>
+                            }
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Comments&nbsp;:</strong></td>
-                            <td>{tblValidators[props.valAddress].description_details}</td>
+                            <td>
+                                {tblValidators[props.valAddress].description_details ?
+                                    <span>{tblValidators[props.valAddress].description_details}</span>
+                                :
+                                    <span>(not specified)</span>
+                                }
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Status&nbsp;:</strong></td>
