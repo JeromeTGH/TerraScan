@@ -320,8 +320,10 @@ export const getProposal = async (propID) => {
                     }
                 }
 
-                const nbDeLecturesAfaire = parseInt(nbTotalDeTxs/100);
-                for(let n=1 ; n <= nbDeLecturesAfaire ; n++) {
+                let nbDeLecturesAfaire = parseInt(nbTotalDeTxs/100);
+                if((nbTotalDeTxs/100)%1 > 0)
+                    nbDeLecturesAfaire += 1;
+                for(let n=1 ; n < nbDeLecturesAfaire ; n++) {
 
                     // Montage des paramètres nécessaires ici
                     const params = new URLSearchParams();
