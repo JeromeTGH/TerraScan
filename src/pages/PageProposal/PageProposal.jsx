@@ -410,10 +410,9 @@ const PageProposal = () => {
                                 <h2 className={styles.h2titles}><strong>Validators votes & sentiment</strong></h2>
                                 <div className={styles.comments}>
                                     <div className="textBrillant">
-                                        <div>Proposal : <strong>#{propID}</strong></div>
-                                        <div>Validators vote turnout : <strong>{proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}/{proposalInfos['validator_TOTAL_VOTES']} ({((proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'])/proposalInfos['validator_TOTAL_VOTES']*100).toFixed(2)}&nbsp;% of validators)</strong></div>
-                                        <div>Note 1 : total votes (validators + delegators) = <strong>{proposalInfos['pourcentageOfVoters'].toFixed(2)}&nbsp;% of VOTING POWER <span className={proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "erreur" : "succes"}>{proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "(quorum not reached)" : "(quorum reached)"}</span></strong></div>
-                                        <div>Note 2 : attention, this <strong><span className='colore'>vote is in progress</span></strong> (not finished yet)</div>
+                                        <div><u>Proposal</u> : <strong>#{propID}</strong></div>
+                                        <div><u>Validators vote turnout</u> : <strong>{proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}/{proposalInfos['validator_TOTAL_VOTES']}</strong> ({((proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'])/proposalInfos['validator_TOTAL_VOTES']*100).toFixed(2)}&nbsp;%&nbsp;of&nbsp;validators)</div>
+                                        <div><u>Note</u> : total votes (validators + delegators) = {proposalInfos['pourcentageOfVoters'].toFixed(2)}&nbsp;%&nbsp;of&nbsp;VOTING&nbsp;POWER <strong><span className={proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "erreur" : "colore"}>{proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "(quorum not reached, but vote still in progress)" : "(quorum reached, but vote still in progress)"}</span></strong></div>
                                     </div>
                                 </div>
                                 <div className={styles.twoGraphs}>
@@ -435,7 +434,7 @@ const PageProposal = () => {
                                                 }
                                             }}
                                         />
-                                        <p className="textBrillant">This graph represents the <strong>validators votes</strong>, based on the real voting power of each</p>
+                                        <p className="textBrillant">This graph represents the <strong>validators votes</strong>, based on their real voting power</p>
                                     </div>
                                     <div>
                                         <h3>Validators sentiment</h3>
@@ -455,7 +454,7 @@ const PageProposal = () => {
                                                 }
                                             }}
                                         />
-                                        <p className="textBrillant">This graph represents the <strong>validators sentiment</strong>, if they had the same voting power (hypothetical situation)</p>
+                                        <p className="textBrillant">This graph represents the <strong>validators sentiment</strong>, if all had the same voting power (hypothetical situation)</p>
                                     </div>
                                 </div>
                             </div>
