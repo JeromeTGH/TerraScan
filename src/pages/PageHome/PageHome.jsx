@@ -49,6 +49,7 @@ const PageHome = () => {
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
             <p className="datetimeupdate">→ Last data update : {datetimeDernierUpdate}</p>
             <br />
+            {(latestBlockHeightAndDatetime?.erreur) ? <><div className="errorBlock">{latestBlockHeightAndDatetime.erreur}</div><br /></> : null}
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 <BlockBurn />

@@ -6,6 +6,7 @@ import { DistributionAPI } from "./api/DistributionAPI";
 import { GovAPI } from "./api/GovAPI";
 import { MintAPI } from "./api/MintAPI";
 import { StakingAPI } from "./api/StakingAPI";
+import { TendermintAPI } from "./api/TendermintAPI";
 import { TreasuryAPI } from "./api/TreasuryAPI";
 import { TxAPI } from "./api/TxAPI";
 
@@ -40,6 +41,10 @@ export class LCDclient {
                     getStakingParameters: '/cosmos/staking/v1beta1/params',
                     getStakingPool: '/cosmos/staking/v1beta1/pool'
                 },
+                tendermint: {
+                    getNodeInfos: '/cosmos/base/tendermint/v1beta1/node_info',
+                    getBlockInfos: '/cosmos/base/tendermint/v1beta1/blocks/'
+                },
                 treasury : {
                     getTreasuryParameters: '/terra/treasury/v1beta1/params'
                 },
@@ -53,6 +58,7 @@ export class LCDclient {
             this.gov = new GovAPI(this.apiRequester, this.paths.gov);
             this.mint = new MintAPI(this.apiRequester, this.paths.mint);
             this.staking = new StakingAPI(this.apiRequester, this.paths.staking);
+            this.tendermint = new TendermintAPI(this.apiRequester, this.paths.tendermint);
             this.treasury = new TreasuryAPI(this.apiRequester, this.paths.treasury);
             this.tx = new TxAPI(this.apiRequester, this.paths.tx);
 

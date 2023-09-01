@@ -1,20 +1,46 @@
 import { FCDclient } from "../fcd/FCDclient";
+import { LCDclient } from "../lcd/LCDclient";
 
 
 export const loadLatestBlockHeightAndDateTimeFromFCD = async () => {
 
-    // Instanciation d'une classe de requetage FCD
-    const fcd = FCDclient.getSingleton();
+    // Variables
+    let latestHeightFromLCD;
+    // let latestDatetimeFromLCD;
 
-    // Récupération du numéro de dernier block
-    const rawLatestBlockInfo = await fcd.tendermint.getBlockInfos('latest').catch(handleError);
-    if(rawLatestBlockInfo?.data) {
-        return {
-            height : rawLatestBlockInfo.data.height,
-            datetime: rawLatestBlockInfo.data.timestamp
-        }
+    let latestHeightFromFCD;
+    let latestDatetimeFromFCD;
+
+    
+    // Récupération du numéro de dernier block via ld LCD
+    const client_lcd = LCDclient.getSingleton();
+    const rawLatestBlockInfoLCD = await client_lcd.tendermint.getBlockInfos('latest').catch(handleError);
+    if(rawLatestBlockInfoLCD?.data) {
+        latestHeightFromLCD = rawLatestBlockInfoLCD.data.block.header.height;
+        // latestDatetimeFromLCD = rawLatestBlockInfoLCD.data.block.header.time;
     } else
-        return { "erreur": "Failed to fetch [latest block infos] ..." }
+        return { "erreur": "Failed to fetch [latest block infos from LCD] ..." }
+
+    
+    // Récupération du numéro de dernier block via le FCD
+    const fcd = FCDclient.getSingleton();
+    const rawLatestBlockInfoFCD = await fcd.tendermint.getBlockInfos('latest').catch(handleError);
+    if(rawLatestBlockInfoFCD?.data) {
+        latestHeightFromFCD = rawLatestBlockInfoFCD.data.height;
+        latestDatetimeFromFCD = rawLatestBlockInfoFCD.data.timestamp;
+    } else
+        return { "erreur": "Failed to fetch [latest block infos from FCD] ..." }
+
+
+    // Check si écart important entre LCD et FCD
+    if((latestHeightFromLCD - latestHeightFromFCD) > 10)
+        return { "erreur": "WARNING : synchronization problem detected, between FCD and LCD. The displayed datas could be incorrect." }
+
+
+    return {
+        height : latestHeightFromFCD,
+        datetime: latestDatetimeFromFCD
+    }
 
 }
 
