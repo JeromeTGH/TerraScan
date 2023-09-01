@@ -1,6 +1,7 @@
 
 .animContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -15,13 +16,13 @@
 
         .logo {
             position: absolute;
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             background: url('../../public/terra-classic-logo-200x200.png') no-repeat;
             background-size: cover;
         }
 
-        .texte {
+        .texteAnimON {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -34,7 +35,6 @@
                 100% {
                     transform: rotate(360deg);
                 }
-                
             }
 
             span {
@@ -42,6 +42,27 @@
                 left: 50%;
                 transform-origin: 0 100px;
             }
+        }
+
+        .texteAnimOFF {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            span {
+                position: absolute;
+                left: 50%;
+                transform-origin: 0 100px;
+            }
+        }
+    }
+
+    .message {
+        padding: 2rem;
+        text-align: center;
+
+        p {
+            padding: 1rem 0rem;
         }
     }
 }

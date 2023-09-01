@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { tblValidators } from '../../application/AppData';
 
-const BlockValidatorsV2 = (props) => {
+const BlockValidatorsV2 = () => {
 
     // Variables react
-    const [ loadingOrNot, setLoadingOrNot ] = useState(true);
     const [ validatorsListPagination, setValidatorsListPagination ] = useState(0);
 
     // Autres variables/constantes
@@ -22,14 +21,8 @@ const BlockValidatorsV2 = (props) => {
 
     // À exécuter au démarrage
     useEffect(() => {
-        setLoadingOrNot(true);
         setValidatorsListPagination(0);
-
-        if(props.globalDataLoaded) {
-            setLoadingOrNot(false);
-        }
-
-    }, [props.globalDataLoaded])
+    }, [])
 
     // Affichage
     return (
@@ -49,10 +42,7 @@ const BlockValidatorsV2 = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                {loadingOrNot ?
-                    <tr><td colSpan="5">Loading data from blockchain (fcd), please wait ...</td></tr>
-                :   
-                    Object.entries(tblValidators).filter(element => element[1].status === "active").sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).slice(validatorsListPagination*nbElementsParPagination, validatorsListPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, clef) => {
+                {Object.entries(tblValidators).filter(element => element[1].status === "active").sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).slice(validatorsListPagination*nbElementsParPagination, validatorsListPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, clef) => {
                         return <tr key={clef}>
                             <td>{clef+1 + validatorsListPagination*nbElementsParPagination}</td>
                             <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>

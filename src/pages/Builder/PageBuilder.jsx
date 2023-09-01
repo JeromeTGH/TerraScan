@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
@@ -27,13 +27,42 @@ import AppBar from '../../elements/AppBar';
 import { AppScrollToTop } from '../../application/AppScrollToTop'
 import PageDonate from '../PageDonate/PageDonate';
 import LoadingAnim from '../../elements/LoadingAnim';
+import { loadValidators } from '../../dataloaders/loadValidators';
 
 
 const PageBuilder = (props) => {
 
     // Variable React
-                                            // eslint-disable-next-line
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ animActivated, setAnimActivated ] = useState(true);
+    const [ animMessage, setAnimMessage ] = useState();
+
+    // Exécution à chaque changement de page (ici, nous sommes "juste après" le routeur)
+    useEffect(() => {
+        setIsLoading(true);
+    }, [props.targetPage])
+
+
+    useEffect(() => {
+        if(isLoading) {
+            setAnimActivated(true);
+            loadValidators().then(res => {
+                if(res['erreur']) {
+                    // Erreur de lecture FCD (chargement de la liste des validateurs, en l'occurence)
+                    setAnimMessage(['failed to load datas from FCD of Terra Classic blockchain.', 'Perhaps it is a network issue, or a chain upgrade. Please retry later, thanks.']);
+                    setAnimActivated(false);
+                } else {
+                    // Liste des validateurs chargée, sans message d'erreur
+    
+    
+    
+                    setIsLoading(false);
+                }
+            })
+
+        }
+
+    }, [isLoading])
 
     // Récupération des paramètres d'appel
     const withHeader = props.withHeader;
@@ -88,7 +117,7 @@ const PageBuilder = (props) => {
     return (
         <>
             {isLoading ?
-                <LoadingAnim />
+                <LoadingAnim anim={animActivated} message={animMessage} />
             :
                 <>
                     <div className={styles.site}>

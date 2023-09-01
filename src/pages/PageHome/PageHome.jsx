@@ -9,15 +9,12 @@ import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
 import BlockBurn from './BlockBurn';
-import { loadGlobalAppDatas } from '../../dataloaders/loadGlobalAppDatas';
 import { loadCommonAppDatas } from './PageHome.loader';
 
 const PageHome = () => {
 
     // Variables react
-    const [globalDataLoaded, setGlobalDataLoaded] = useState(false);
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
-
     const [totalSupplies, setTotalSupplies] = useState();
     const [latestBlockHeightAndDatetime, setLatestBlockHeightAndDatetime] = useState();
 
@@ -28,11 +25,6 @@ const PageHome = () => {
         // Mémorisation de la date/heure de chargement de cette page
         const maDate = Date.now();
         setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
-
-        // Chargement des données globales, si ce n'est pas déjà fait
-        loadGlobalAppDatas().then(() => {
-            setGlobalDataLoaded(true);
-        })
 
         // Chargement des données communes
         loadCommonAppDatas().then((res) => {
@@ -53,10 +45,10 @@ const PageHome = () => {
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 <BlockBurn />
-                <BlockOverview globalDataLoaded={globalDataLoaded} totalSupplies={totalSupplies} latestBlockHeightAndDatetime={latestBlockHeightAndDatetime} />
+                <BlockOverview totalSupplies={totalSupplies} latestBlockHeightAndDatetime={latestBlockHeightAndDatetime} />
                 <BlockLatestBlocksV2 latestBlockHeightAndDatetime={latestBlockHeightAndDatetime} />
                 <BlockAccounts />
-                <BlockValidatorsV2 globalDataLoaded={globalDataLoaded} />
+                <BlockValidatorsV2 />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />
             </div>
         </>
