@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
@@ -26,9 +26,14 @@ import AppBar from '../../elements/AppBar';
 
 import { AppScrollToTop } from '../../application/AppScrollToTop'
 import PageDonate from '../PageDonate/PageDonate';
+import LoadingAnim from '../../elements/LoadingAnim';
 
 
 const PageBuilder = (props) => {
+
+    // Variable React
+                                            // eslint-disable-next-line
+    const [ isLoading, setIsLoading ] = useState(false);
 
     // Récupération des paramètres d'appel
     const withHeader = props.withHeader;
@@ -82,16 +87,22 @@ const PageBuilder = (props) => {
     // Affichage
     return (
         <>
-            <div className={styles.site}>
-                <SideBar />
-                <AppBar />
-                <div id="pageContent" className={styles.content}>
-                    <header>{withHeader === "no" ? null : <Header />}</header>
-                    <main>{renderSwitch(targetPage)}</main>
-                    <footer>{withFooter === "no" ? null : <Footer />}</footer>
-                </div>
-            </div>
-            <AppScrollToTop />
+            {isLoading ?
+                <LoadingAnim />
+            :
+                <>
+                    <div className={styles.site}>
+                        <SideBar />
+                        <AppBar />
+                        <div id="pageContent" className={styles.content}>
+                            <header>{withHeader === "no" ? null : <Header />}</header>
+                            <main>{renderSwitch(targetPage)}</main>
+                            <footer>{withFooter === "no" ? null : <Footer />}</footer>
+                        </div>
+                    </div>
+                    <AppScrollToTop />
+                </>
+            }
         </>
     );
 };

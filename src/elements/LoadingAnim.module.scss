@@ -1,0 +1,47 @@
+
+.animContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    .cercle {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: url('../../public/terra-classic-logo-200x200.png') no-repeat;
+            background-size: cover;
+        }
+
+        .texte {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotateText 10s linear infinite;
+
+            @keyframes rotateText {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+                
+            }
+
+            span {
+                position: absolute;
+                left: 50%;
+                transform-origin: 0 100px;
+            }
+        }
+    }
+}
