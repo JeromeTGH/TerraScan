@@ -55,26 +55,22 @@ export const tblValidators = {};
 export const tblValidatorsAccounts = {};
 
 
+// ********************************
+// Infos sur le latest block obtenu
+// ********************************
+// Structure :
+//      latestBlockInfo = {
+//          height,
+//          datetime
+//      }
+export const latestBlockInfo = {};
+
+
 
 // **********************************************************************************************
 // Liste contenant des paramètres généraux, figurant sur la homepage, et ne bougeant que rarement
 // **********************************************************************************************
 // Structure :
 //      tblHomeData = {
-//          up_time,
-//          status,
-//          terra1_account_address,
-//          description_moniker,
-//          description_website,
-//          description_security_contact,
-//          description_details,
-//          profile_icon,
-//          voting_power_amount,
-//          voting_power_pourcentage,
-//          commission_actual_pourcentage,
-//          commission_max_pourcentage,
-//          commission_max_change_pourcentage,
-//          self_delegation_amount,
-//          self_delegation_pourcentage
 //      }
 export const tblHomeData = {};

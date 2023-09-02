@@ -27,7 +27,7 @@ import AppBar from '../../elements/AppBar';
 import { AppScrollToTop } from '../../application/AppScrollToTop'
 import PageDonate from '../PageDonate/PageDonate';
 import LoadingAnim from '../../elements/LoadingAnim';
-import { loadValidators } from '../../dataloaders/loadValidators';
+import { preloads } from './PageBuilder.loader';
 
 
 const PageBuilder = (props) => {
@@ -35,7 +35,7 @@ const PageBuilder = (props) => {
     // Variable React
     const [ isLoading, setIsLoading ] = useState(true);
     const [ animActivated, setAnimActivated ] = useState(true);
-    const [ isLoadingError, setIsLoadingError ] = useState();
+    const [ preloadErrorMessage, setpreloadErrorMessage ] = useState();
 
     // Exécution à chaque changement de page (ici, nous sommes "juste après" le routeur)
     useEffect(() => {
@@ -44,25 +44,17 @@ const PageBuilder = (props) => {
 
 
     useEffect(() => {
-
         if(isLoading) {
             setAnimActivated(true);
-            loadValidators().then(res => {
+            preloads().then(res => {
                 if(res['erreur']) {
-                    // Erreur de lecture FCD (chargement de la liste des validateurs, en l'occurence)
-                    console.warn('ERROR : failed to fetch [validators list] from FCD');
-                    setIsLoadingError(true);
+                    setpreloadErrorMessage(res['erreur']);
                     setAnimActivated(false);
                 } else {
-                    // Liste des validateurs chargée, sans message d'erreur
-    
-    
-    
                     setIsLoading(false);
                 }
             })
         }
-
     }, [isLoading])
 
     // Récupération des paramètres d'appel
@@ -118,7 +110,7 @@ const PageBuilder = (props) => {
     return (
         <>
             {isLoading ?
-                <LoadingAnim anim={animActivated} isError={isLoadingError} />
+                <LoadingAnim anim={animActivated} message={preloadErrorMessage} />
             :
                 <>
                     <div className={styles.site}>
