@@ -1,7 +1,7 @@
 import { LCDclient } from '../../lcd/LCDclient';
 import { tblValidators } from '../../application/AppData';
 
-export const getOverviewInfos = async (totalSupplies, latestBlockHeightAndDatetime) => {
+export const getOverviewInfos = async (totalSupplies) => {
 
     // Tableau à retourner
     const tblAretourner = {
@@ -42,27 +42,6 @@ export const getOverviewInfos = async (totalSupplies, latestBlockHeightAndDateti
     // Récupération du nombre total de validateurs ayant un status "bonded"
     tblAretourner['NbBondedValidators'] = Object.values(tblValidators).filter(element => element.status === 'active').length;
 
-
-    // Récupération des infos concernant le dernier block
-        // Paramètres de calcul
-        const nbBlocksPerEpoch = 100800;        // Sur la base de 100 800 block par epoch
-        const nbSecondsPerBlock = 6;            // Sur la base "moyenne" d'un nouveau bloc toutes les 6 secondes
-
-        // Récupération des données qui nous intéresse ici
-        const lastBlockHeight = latestBlockHeightAndDatetime.height;
-        const lastBlockDateTime = latestBlockHeightAndDatetime.datetime;
-
-        // Calculs (pour retrouver le n° de l'epoch en cours, le % d'avancement dans celle-ci, et la date de la prochaine)
-        const estimatedCurrentEpoch = parseInt(lastBlockHeight/nbBlocksPerEpoch);
-        const pourcentageAvancementDansEpoch = ((lastBlockHeight % nbBlocksPerEpoch)/nbBlocksPerEpoch*100).toFixed(1);
-        const estimatedNbSecondsLeftUntilNextEpoch = ((estimatedCurrentEpoch+1)*nbBlocksPerEpoch - lastBlockHeight)*nbSecondsPerBlock;
-        const dateTimeLastBlock = new Date(lastBlockDateTime);
-        const estimatedNextEpochStart = new Date(dateTimeLastBlock.getTime() + estimatedNbSecondsLeftUntilNextEpoch*1000);  // *1000 pour conversion sec => millisecondes
-
-        tblAretourner['LastBlockHeight'] = lastBlockHeight;
-        tblAretourner['LastBlockEpoch'] = estimatedCurrentEpoch;
-        tblAretourner['PourcentageAvancementDansEpoch'] = pourcentageAvancementDansEpoch;
-        tblAretourner['DateEstimativeProchaineEpoch'] = estimatedNextEpochStart.toLocaleString();
 
     // Calcul du Coefficient de Nakamoto (c'est à dire le nombre de validateurs minimum, qui s'ils s'allient, atteignent les 33,33% de VP, et peuvent halt la chaine)
     let coeffNakamoto = 0;

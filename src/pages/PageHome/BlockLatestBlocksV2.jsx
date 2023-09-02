@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styles from './BlockLatestBlocksV2.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
-import { tblBlocks } from '../../application/AppData';
+import { latestBlockInfo, tblBlocks } from '../../application/AppData';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
 
-const BlockLatestBlocksV2 = (props) => {
+const BlockLatestBlocksV2 = () => {
 
     const { liveViewState, changeLiveViewStateTo } = AppContext();
 
@@ -28,15 +28,13 @@ const BlockLatestBlocksV2 = (props) => {
 
     // Exécution au démarrage
     useEffect(() => {
-        if(props.latestBlockHeightAndDatetime) {
-            // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
-            refreshBlockList(props.latestBlockHeightAndDatetime.height);
-            setTimeout(() => {
-                setRefreshBlocks(true);
-                setPreloadingPending(false);
-            }, 6000);
-        }
-    }, [props.latestBlockHeightAndDatetime])
+        // Chargement des blocks, au démarrage, que la checkbox "liveview" soit cochée ou non
+        refreshBlockList(latestBlockInfo.height);
+        setTimeout(() => {
+            setRefreshBlocks(true);
+            setPreloadingPending(false);
+        }, 6000);
+    }, [])
 
 
 

@@ -16,7 +16,6 @@ const PageHome = () => {
     // Variables react
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
     const [totalSupplies, setTotalSupplies] = useState();
-    const [latestBlockHeightAndDatetime, setLatestBlockHeightAndDatetime] = useState();
 
     useEffect(() => {
         // Changement du "title" de la page web
@@ -29,7 +28,6 @@ const PageHome = () => {
         // Chargement des données communes
         loadCommonAppDatas().then((res) => {
             setTotalSupplies(res['totalSupplies']);
-            setLatestBlockHeightAndDatetime(res['latestBlockHeightAndDatetime']);
         })
 
     }, [])
@@ -41,12 +39,11 @@ const PageHome = () => {
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
             <p className="datetimeupdate">→ Last data update : {datetimeDernierUpdate}</p>
             <br />
-            {(latestBlockHeightAndDatetime?.erreur) ? <><div className="errorBlock">{latestBlockHeightAndDatetime.erreur}</div><br /></> : null}
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 <BlockBurn />
-                <BlockOverview totalSupplies={totalSupplies} latestBlockHeightAndDatetime={latestBlockHeightAndDatetime} />
-                <BlockLatestBlocksV2 latestBlockHeightAndDatetime={latestBlockHeightAndDatetime} />
+                <BlockOverview totalSupplies={totalSupplies} />
+                <BlockLatestBlocksV2 />
                 <BlockAccounts />
                 <BlockValidatorsV2 />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />
