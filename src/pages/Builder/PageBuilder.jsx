@@ -37,10 +37,10 @@ const PageBuilder = (props) => {
     const [ animActivated, setAnimActivated ] = useState(true);
     const [ preloadErrorMessage, setpreloadErrorMessage ] = useState();
 
-    // Exécution à chaque changement de page (ici, nous sommes "juste après" le routeur)
+    // Exécution au démarrage (une fois seulement, donc, même s'il y a des changements de page ultérieurs)
     useEffect(() => {
         setIsLoading(true);
-    }, [props.targetPage])
+    }, [])
 
 
     useEffect(() => {

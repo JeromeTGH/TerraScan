@@ -16,6 +16,7 @@ const PageHome = () => {
     // Variables react
     const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
     const [totalSupplies, setTotalSupplies] = useState();
+    const [lastblockInfos, setLastblockInfos] = useState();
 
     useEffect(() => {
         // Changement du "title" de la page web
@@ -28,6 +29,7 @@ const PageHome = () => {
         // Chargement des données communes
         loadCommonAppDatas().then((res) => {
             setTotalSupplies(res['totalSupplies']);
+            setLastblockInfos(res['latestBlock']);
         })
 
     }, [])
@@ -42,8 +44,8 @@ const PageHome = () => {
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 <BlockBurn />
-                <BlockOverview totalSupplies={totalSupplies} />
-                <BlockLatestBlocksV2 />
+                <BlockOverview totalSupplies={totalSupplies} lastblockInfos={lastblockInfos} />
+                <BlockLatestBlocksV2 lastblockInfos={lastblockInfos} />
                 <BlockAccounts />
                 <BlockValidatorsV2 />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />

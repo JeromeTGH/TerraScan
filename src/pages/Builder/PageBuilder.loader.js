@@ -1,4 +1,4 @@
-import { latestBlockInfo } from "../../application/AppData";
+
 import { loadValidators } from "../../dataloaders/loadValidators"
 import { FCDclient } from "../../fcd/FCDclient";
 import { LCDclient } from "../../lcd/LCDclient";
@@ -9,7 +9,6 @@ export const preloads = async () => {
     // Variables
     let latestHeightFromLCD;
     let latestHeightFromFCD;
-    let latestDatetimeFromFCD;
 
     // Chargement de la liste de tous les validateurs
     const validatorsPreload = await loadValidators();
@@ -33,7 +32,6 @@ export const preloads = async () => {
     const rawLatestBlockInfoFCD = await fcd.tendermint.getBlockInfos('latest').catch(handleError);
     if(rawLatestBlockInfoFCD?.data) {
         latestHeightFromFCD = rawLatestBlockInfoFCD.data.height;
-        latestDatetimeFromFCD = rawLatestBlockInfoFCD.data.timestamp;
     } else {
         console.warn("ERROR : failed to fetch [latest block] from FCD");
         return { "erreur" : "failed to load datas from Terra\u00a0Classic\u00a0blockchain"};
@@ -53,10 +51,6 @@ export const preloads = async () => {
         return { "erreur" : "synchronization problem detected in Terra\u00a0Classic\u00a0blockchain"};
     }
 
-
-    // Enregistrement des données, au niveau global
-    latestBlockInfo.height = latestHeightFromFCD;
-    latestBlockInfo.datetime = latestDatetimeFromFCD;
 
     // Si pas d'erreur, renvoi d'un objet vide
     return {}

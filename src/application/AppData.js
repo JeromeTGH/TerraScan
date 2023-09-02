@@ -55,18 +55,6 @@ export const tblValidators = {};
 export const tblValidatorsAccounts = {};
 
 
-// ********************************
-// Infos sur le latest block obtenu
-// ********************************
-// Structure :
-//      latestBlockInfo = {
-//          height,
-//          datetime
-//      }
-export const latestBlockInfo = {};
-
-
-
 // **********************************************************************************************
 // Liste contenant des paramètres généraux, figurant sur la homepage, et ne bougeant que rarement
 // **********************************************************************************************

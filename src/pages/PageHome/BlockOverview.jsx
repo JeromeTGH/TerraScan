@@ -4,7 +4,6 @@ import { getOverviewInfos } from './getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
-import { latestBlockInfo } from '../../application/AppData';
 import { calculateNextEpochDateTime } from './calculateNextEpochDateTime';
 
 const BlockOverview = (props) => {
@@ -18,9 +17,9 @@ const BlockOverview = (props) => {
 
     // Exécution au démarrage
     useEffect(() => {
-        if(props.totalSupplies) {
+        if(props.totalSupplies && props.lastblockInfos) {
 
-            const tblDateTimeInfos = calculateNextEpochDateTime(latestBlockInfo);
+            const tblDateTimeInfos = calculateNextEpochDateTime(props.lastblockInfos);
             setDatetimeInfos(tblDateTimeInfos);
     
             getOverviewInfos(props.totalSupplies).then((res) => {
@@ -36,7 +35,7 @@ const BlockOverview = (props) => {
                 }
             })
         }
-    }, [props.totalSupplies])
+    }, [props.totalSupplies, props.lastblockInfos])
 
 
     // Affichage

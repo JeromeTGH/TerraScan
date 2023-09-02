@@ -1,4 +1,4 @@
-import { latestBlockInfo, tblBlocks } from "../application/AppData";
+import { tblBlocks } from "../application/AppData";
 import { FCDclient } from "../fcd/FCDclient";
 import { BlockInfo } from "../fcd/classes/BlockInfo";
 
@@ -19,9 +19,6 @@ export const loadLatestBlocks = async (nbre_de_block_a_charger, given_height = -
         if(rawlastBlockInfo) {
             const lastBlockInfo = BlockInfo.extractFromTendermintBlockInfos(rawlastBlockInfo);    
             last_block_height = lastBlockInfo.height;
-            // Mise à jour des données globales
-            latestBlockInfo.height = lastBlockInfo.height;
-            latestBlockInfo.datetime = lastBlockInfo.timestamp;
         } else
             return { "erreur": "Failed to fetch [latest block] ..." }
     } else {

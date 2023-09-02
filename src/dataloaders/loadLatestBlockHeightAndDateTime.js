@@ -2,7 +2,7 @@ import { FCDclient } from "../fcd/FCDclient";
 import { LCDclient } from "../lcd/LCDclient";
 
 
-export const loadLatestBlockHeightAndDateTimeFromFCD = async () => {
+export const loadLatestBlockHeightAndDateTime = async () => {
 
     // Variables
     let latestHeightFromLCD;
