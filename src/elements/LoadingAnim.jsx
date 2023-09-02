@@ -17,9 +17,9 @@ const LoadingAnim = (props) => {
                     })}</p>
                 </div>
             </div>
-            <div className={styles.message}>
-                {props.message && props.message[0] ? <p><strong>ERROR</strong> : {props.message[0]}</p> : null}
-                {props.message && props.message[1] ? <p>{props.message[1]}</p> : null}
+            <div className={styles.isError}>
+                <div className={styles.mainTextError}>{props.isError ? <strong>ERROR : failed to load datas from Terra&nbsp;Classic&nbsp;blockchain</strong> : <strong>Loading datas from blockchain, please&nbsp;wait...</strong>}</div>
+                <div className={styles.subTextError}>{props.isError ? <>There is a network issue, or a chain upgrade.<br /><u>Just wait, then retry a bit later</u> ! Thanks ;)</> : <>If nothing appears, it could be a network&nbsp;issue or a chain upgrade.<br />In these cases, just try again a bit later&nbsp;! Thanks ;)</>}</div>
             </div>
         </div>
     );

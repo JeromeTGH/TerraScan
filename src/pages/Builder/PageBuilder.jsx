@@ -35,7 +35,7 @@ const PageBuilder = (props) => {
     // Variable React
     const [ isLoading, setIsLoading ] = useState(true);
     const [ animActivated, setAnimActivated ] = useState(true);
-    const [ animMessage, setAnimMessage ] = useState();
+    const [ isLoadingError, setIsLoadingError ] = useState();
 
     // Exécution à chaque changement de page (ici, nous sommes "juste après" le routeur)
     useEffect(() => {
@@ -44,12 +44,14 @@ const PageBuilder = (props) => {
 
 
     useEffect(() => {
+
         if(isLoading) {
             setAnimActivated(true);
             loadValidators().then(res => {
                 if(res['erreur']) {
                     // Erreur de lecture FCD (chargement de la liste des validateurs, en l'occurence)
-                    setAnimMessage(['failed to load datas from FCD of Terra Classic blockchain.', 'Perhaps it is a network issue, or a chain upgrade. Please retry later, thanks.']);
+                    console.warn('ERROR : failed to fetch [validators list] from FCD');
+                    setIsLoadingError(true);
                     setAnimActivated(false);
                 } else {
                     // Liste des validateurs chargée, sans message d'erreur
@@ -59,7 +61,6 @@ const PageBuilder = (props) => {
                     setIsLoading(false);
                 }
             })
-
         }
 
     }, [isLoading])
@@ -117,7 +118,7 @@ const PageBuilder = (props) => {
     return (
         <>
             {isLoading ?
-                <LoadingAnim anim={animActivated} message={animMessage} />
+                <LoadingAnim anim={animActivated} isError={isLoadingError} />
             :
                 <>
                     <div className={styles.site}>

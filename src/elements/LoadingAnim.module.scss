@@ -57,12 +57,18 @@
         }
     }
 
-    .message {
-        padding: 2rem;
+    .isError {
+        padding: 2rem 1rem;
         text-align: center;
 
-        p {
-            padding: 1rem 0rem;
+        .mainTextError {
+            padding: 1rem 1rem;
         }
+
+        .subTextError {
+            padding: 1rem 0.8rem;
+            font-size: 0.9em;
+        }
+
     }
 }
