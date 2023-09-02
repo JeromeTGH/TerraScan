@@ -31,7 +31,7 @@ export const getValDelegators = async (valAddress) => {
             totalOfStakedLUNC += amountOfLUNCstaked;
         })
     } else
-        return { "erreur": "Failed to fetch [delegations] ..." }
+        return { "erreur": "Failed to fetch [delegations] from blockchain LCD ..." }
 
 
     // Triage par "delegator shares"
@@ -54,5 +54,8 @@ export const getValDelegators = async (valAddress) => {
 
 
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

@@ -31,7 +31,10 @@ const BlockTopDelegators = (props) => {
         <>
             <div className={"boxContainer " + styles.otherTopDelegatorsBlock}>
                 <h2><strong><AccountIcon /></strong><span>Top delegators (stakers)</span></h2>
-                    {tblOfTopDelegators ? 
+                {msgErreurTblOfTopDelegators ? 
+                    <div className="erreur">{msgErreurTblOfTopDelegators}</div>
+                :
+                    tblOfTopDelegators ? 
                         tblOfTopDelegators.length > 0 ? (
                             <table className={styles.tblTopDelegators}>
                             <thead>
@@ -59,8 +62,8 @@ const BlockTopDelegators = (props) => {
                         )
                     : (
                         <p>Loading data from blockchain (lcd), please wait ...</p>
-                    )}
-                <div className="erreur">{msgErreurTblOfTopDelegators}</div>
+                    )
+                }
                 {tblOfTopDelegators ?
                     <div className={styles.comments}>
                         <u>Note</u> : only a maximum of {tblOfTopDelegators.length} delegators are presented here
