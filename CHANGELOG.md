@@ -2,7 +2,8 @@
 
 | Version | Description |
 | - | - |
-| 1.2.3 | (working on) |
+| 1.2.4 | (working on) |
+| 1.2.3 | - Adding a preloader, for loading some global data |
 | 1.2.2 | - Added pie charts for weighted/unweighted validators votes, in proposals pages<br />- Added "Nakamoto Coefficient calculator", for homepage<br />- Added a pagination for validators votes table<br />- Added pagination for tables, in homepage too |
 | 1.2.1 | - Added "Live view" for "latests blocks", in homepage and blocks page<br />- Added "validator votes & history", on each proposal's page<br />- <u>Presented version to the community</u><br />- Added basic meta for Twitter/Fb |
 | 1.2.0 | First version, fully operational |

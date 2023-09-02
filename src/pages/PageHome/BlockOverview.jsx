@@ -4,25 +4,31 @@ import { getOverviewInfos } from './getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
-import { calculateNextEpochDateTime } from './calculateNextEpochDateTime';
+// import { calculateNextEpochDateTime } from './calculateNextEpochDateTime';
 
 const BlockOverview = (props) => {
 
     // Variables React
     const [overviewInfos, setOverviewInfos] = useState();
-    const [datetimeInfos, setDatetimeInfos] = useState();
+    // const [datetimeInfos, setDatetimeInfos] = useState();
     const [msgErreurOverviewInfos, setMsgErreurOverviewInfos] = useState();
     const [stakingRatio, setStakingRatio] = useState(-1);
+    const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
 
 
     // Exécution au démarrage
     useEffect(() => {
         if(props.totalSupplies && props.lastblockInfos) {
 
-            const tblDateTimeInfos = calculateNextEpochDateTime(props.lastblockInfos);
-            setDatetimeInfos(tblDateTimeInfos);
+            // Mémorisation de la date/heure de chargement de cette page
+            const maDate = Date.now();
+            setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
+
+            // const tblDateTimeInfos = calculateNextEpochDateTime(props.lastblockInfos);
+            // setDatetimeInfos(tblDateTimeInfos);
     
-            getOverviewInfos(props.totalSupplies).then((res) => {
+            // Récupération des infos communes
+            getOverviewInfos(props.totalSupplies, props.lastblockInfos).then((res) => {
                 if(res['erreur']) {
                     setMsgErreurOverviewInfos(res['erreur']);
                     setOverviewInfos([]);
@@ -41,21 +47,21 @@ const BlockOverview = (props) => {
     // Affichage
     return (
         <div className={"boxContainer " + styles.overviewBlock}>
-            <h2><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
-
+            <h2 className={styles.h2overview}><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
+            <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
             <div className={styles.overviews}>
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Last block height :</div>
-                        <div><strong># {datetimeInfos ? datetimeInfos['LastBlockHeight'] : "..."}</strong></div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Current epoch :</div>
-                        <div><strong># {datetimeInfos ? datetimeInfos['LastBlockEpoch'] : "..."}</strong></div>
+                        <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Next epoch :</div>
-                        <div><strong>{datetimeInfos ? "~ " + datetimeInfos['DateEstimativeProchaineEpoch'] : "..."}</strong></div>
+                        <div><strong>{overviewInfos ? "~ " + overviewInfos['DateEstimativeProchaineEpoch'] : "..."}</strong></div>
                     </div>
                 </div>
                 <br />
@@ -65,14 +71,14 @@ const BlockOverview = (props) => {
                             <td className={styles.progressbartext}>Current&nbsp;epoch&nbsp;:</td>
                             <td className={styles.progressbarcontent}>
                                 <div className={styles.progressbar}>
-                                    {datetimeInfos ? 
-                                        (datetimeInfos['PourcentageAvancementDansEpoch'] < 15) ? (
+                                    {overviewInfos ? 
+                                        (overviewInfos['PourcentageAvancementDansEpoch'] < 15) ? (
                                             <>
-                                                <div className={styles.barre} style={{width: datetimeInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>&nbsp;</span></div>
-                                                <div className={styles.apresbarre}><span>&nbsp;&nbsp;←&nbsp;&nbsp;{datetimeInfos['PourcentageAvancementDansEpoch']}%</span></div>
+                                                <div className={styles.barre} style={{width: overviewInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>&nbsp;</span></div>
+                                                <div className={styles.apresbarre}><span>&nbsp;&nbsp;←&nbsp;&nbsp;{overviewInfos['PourcentageAvancementDansEpoch']}%</span></div>
                                             </>
                                         ) : (
-                                            <div className={styles.barre} style={{width: datetimeInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>{datetimeInfos['PourcentageAvancementDansEpoch']}%</span></div>
+                                            <div className={styles.barre} style={{width: overviewInfos['PourcentageAvancementDansEpoch'] + "%"}}><span>{overviewInfos['PourcentageAvancementDansEpoch']}%</span></div>
                                         )
                                      : (
                                         <>
@@ -104,17 +110,6 @@ const BlockOverview = (props) => {
                     </div>
                 </div>
                 <br />
-                <div className={styles.boxed}>
-                    <div className={styles.descThenValue}>
-                        <div>→&nbsp;Nb validators (active/max) :</div>
-                        <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong></div>
-                    </div>
-                    <div className={styles.descThenValue}>
-                        <div>→&nbsp;Nakamoto Coefficient (33,33% VP) :</div>
-                        <div><strong>{overviewInfos ? overviewInfos['NakamotoCoefficient'] : "..."}</strong></div>
-                    </div>
-                </div>
-                <br />
                 <table className={styles.progressbartbl}>
                     <tbody>
                         <tr>
@@ -130,6 +125,37 @@ const BlockOverview = (props) => {
                                         ) : (
                                             <div className={styles.barre} style={{width: stakingRatio + "%"}}><span>{stakingRatio}%</span></div>
                                         )
+                                     : (
+                                        <>
+                                            <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>
+                                            <div className={styles.apresbarre}><span>&nbsp;Loading...</span></div>
+                                        </>
+                                    )}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <div className={styles.boxed}>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;Nb validators (active/max) :</div>
+                        <div><strong>{overviewInfos ? overviewInfos['NbBondedValidators'] : "..."}/{overviewInfos ? overviewInfos['NbMaxValidators'] : "..."}</strong></div>
+                    </div>
+                    <div className={styles.descThenValue}>
+                        <div>→&nbsp;Nakamoto Coefficient (33,33% VP) :</div>
+                        <div><strong>{overviewInfos ? overviewInfos['NakamotoCoefficient'] : "..."}</strong></div>
+                    </div>
+                </div>
+                <br />
+                <table className={styles.progressbartbl}>
+                    <tbody>
+                        <tr>
+                            <td className={styles.progressbartext}>Nakamoto&nbsp;coeff&nbsp;:</td>
+                            <td className={styles.progressbarcontent}>
+                                <div className={styles.progressbar}>
+                                    {overviewInfos && overviewInfos['NakamotoCoefficient'] ? 
+                                            <div className={styles.barre} style={{width: (overviewInfos['NakamotoCoefficient']*1.5) + "%"}}><span>{overviewInfos['NakamotoCoefficient']}</span></div>
                                      : (
                                         <>
                                             <div className={styles.barre} style={{width: "0%"}}><span>&nbsp;</span></div>

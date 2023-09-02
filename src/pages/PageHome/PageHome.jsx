@@ -14,17 +14,12 @@ import { loadCommonAppDatas } from './PageHome.loader';
 const PageHome = () => {
 
     // Variables react
-    const [datetimeDernierUpdate, setDatetimeDernierUpdate] = useState('...');
     const [totalSupplies, setTotalSupplies] = useState();
     const [lastblockInfos, setLastblockInfos] = useState();
 
     useEffect(() => {
         // Changement du "title" de la page web
         document.title = 'Home - ' + appName;
-
-        // Mémorisation de la date/heure de chargement de cette page
-        const maDate = Date.now();
-        setDatetimeDernierUpdate(new Date(maDate).toLocaleString());
 
         // Chargement des données communes
         loadCommonAppDatas().then((res) => {
@@ -39,7 +34,6 @@ const PageHome = () => {
     return (
         <>
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
-            <p className="datetimeupdate">→ Last data update : {datetimeDernierUpdate}</p>
             <br />
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
