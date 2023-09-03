@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CalculatorIcon } from '../../application/AppIcons';
+import { CalculatorIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageValidators.module.scss';
 import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
@@ -11,6 +11,7 @@ const PageValidators = () => {
     // Variables React
     const [filtre, setFiltre] = useState();
     const [filteredTblValidators, setFilteredTblValidators] = useState();
+    const [searchName, setSearchName] = useState('');
 
     // Autres variables/constantes
     const nbActiveValidators = Object.values(tblValidators).filter(element => element.status === "active").length;
@@ -27,6 +28,13 @@ const PageValidators = () => {
         setFiltre(val);
 
         filtreValidateurs(val);
+    }
+
+
+    // Fonction de filtrage par nom
+    const handleBtnClick = (e) => {
+        e.preventDefault();
+
     }
 
     // Fonction de filtrage de liste validateurs
@@ -49,8 +57,8 @@ const PageValidators = () => {
         document.title = 'Validators - ' + appName;
 
         // Chargement de liste des validateurs actifs, par défaut
-        filtreValidateurs(0);
-        setFiltre(0);
+        filtreValidateurs(2);
+        setFiltre(2);
 
     }, [])
 
@@ -60,9 +68,22 @@ const PageValidators = () => {
             <h1><span><CalculatorIcon /><strong>Validators</strong></span></h1>
             <br />
             <div className={styles.tblFilters}>
+                <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}><strong>All</strong> ({nbValidators})<br />↓</button>
                 <button className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}><strong>Active</strong> ({nbActiveValidators})<br />↓</button>
                 <button className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}><strong>Inactive</strong> ({nbInactiveValidators})<br />↓</button>
-                <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}><strong>All</strong> ({nbValidators})<br />↓</button>
+            </div>
+            <div className={styles.searchBar}>
+                <form>
+                    <input
+                        type='search'
+                        placeholder='Filter by name ...'
+                        onChange={(e) => setSearchName(e.target.value)}
+                        value={searchName}
+                    />
+                    <button onClick={(e) => {handleBtnClick(e)}}>
+                        <SearchIcon />
+                    </button>
+                </form>
             </div>
             <table className={styles.tblValidators}>
                 <thead>
@@ -77,19 +98,18 @@ const PageValidators = () => {
                 <tbody>
                 {filteredTblValidators ?
                     filteredTblValidators.map((valeur, clef) => {
-                    // if((filtre === 0 && valeur[1].status === "active") ||
-                    //    (filtre === 1 && valeur[1].status !== "active") ||
-                    //    (filtre === 2)
-                    // )
+                        if((searchName === '' || searchName === undefined) ||
+                           (searchName && valeur[1].description_moniker.toLowerCase().includes(searchName.toLowerCase()))
+                        )
                         return <tr key={clef}>
                             <td>{clef+1}</td>
                             <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                             <td>{valeur[1].commission_actual_pourcentage}%</td>
                             <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
-                            <td><strong>{valeur[1].voting_power_pourcentage.toFixed(2)}%</strong></td>
+                            <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
                         </tr>
-                    // else
-                    //     return null;
+                    else
+                        return null;
                 }) : null }
                 </tbody>
             </table>

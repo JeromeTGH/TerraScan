@@ -38,6 +38,46 @@
     }
 }
 
+.searchBar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+    
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--primary-text-color);
+        padding: 0.2rem 0.4rem;
+        
+        &>* {
+            background: none;
+            color: var(--primary-text-color);
+            border: none;
+
+            font-size: 1.2rem;
+            @media (max-width: var(--breakpoint)) {
+                font-size: 1.1rem;
+            }
+        }
+
+        input {
+            width: 100%;
+        }
+
+        button {
+            display: flex;
+        }
+
+    }
+
+}
+
 .tblValidators {
 
     width: 100%;
@@ -78,7 +118,7 @@
 }
 
 .comments {
-    font-size: 0.7rem;
-    padding-top: 0.4rem;
+    font-size: 0.65rem;
+    padding-top: 0.8rem;
     text-align: center;
 }
