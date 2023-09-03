@@ -37,6 +37,36 @@ export const getProposals = async (governanceInfos) => {
 
     // Ajout de champs "tally", pour les votes en cours
     for(let i=0 ; i<tblProposals.length ; i++) {
+        if(tblProposals[i].status === 1) {
+            // console.log(tblProposals[i]);
+            if(tblProposals[i].total_deposit.toString() !== "") {
+                tblProposals[i]['totalDeposit'] = parseInt(tblProposals[i].total_deposit.toString().replace('uluna', ''))/1000000;
+                tblProposals[i]['pourcentageDeposit'] = tblProposals[i]['totalDeposit'] / governanceInfos['nbMinDepositLunc'] * 100;
+            } else {
+                tblProposals[i]['totalDeposit'] = 0;
+                tblProposals[i]['pourcentageDeposit'] = 0;
+            }
+            tblProposals[i]['nbMinDepositLunc'] = governanceInfos['nbMinDepositLunc'];
+
+            // Calcul du pourcentage d'avancement, dans la période de deposit
+            let startDatetime = new Date(tblProposals[i]['submit_time']);
+            let endDatetime = new Date(tblProposals[i]['deposit_end_time']);
+            let actualDatetime = new Date();
+            tblProposals[i]['pourcentageOfDepositPeriod'] = (actualDatetime.getTime()/1000 - startDatetime.getTime()/1000) / (endDatetime.getTime()/1000 - startDatetime.getTime()/1000) * 100;
+            
+        }
+        if(tblProposals[i].status === 3 || tblProposals[i].status === 4) {              // 3 = proposition adopté et 4 = proposition rejetée
+            // console.log(tblProposals[i].final_tally_result);
+            const qteLuncAbstain = parseInt(tblProposals[i].final_tally_result.abstain)/1000000;
+            const qteLuncNo = parseInt(tblProposals[i].final_tally_result.no)/1000000;
+            const qteLuncNoWithVeto = parseInt(tblProposals[i].final_tally_result.no_with_veto)/1000000;
+            const qteLuncYes = parseInt(tblProposals[i].final_tally_result.yes)/1000000;
+            const qteLuncTotal = qteLuncAbstain + qteLuncNo + qteLuncNoWithVeto + qteLuncYes;
+            tblProposals[i]['pourcentageOfYes'] = (qteLuncYes/qteLuncTotal*100).toFixed(2);
+            tblProposals[i]['pourcentageOfAbstain'] = (qteLuncAbstain/qteLuncTotal*100).toFixed(2);
+            tblProposals[i]['pourcentageOfNo'] = (qteLuncNo/qteLuncTotal*100).toFixed(2);
+            tblProposals[i]['pourcentageOfNoWithVeto'] = (qteLuncNoWithVeto/qteLuncTotal*100).toFixed(2);
+        }
         if(tblProposals[i].status === 2) {              // 2 = vote en cours
             const rawTally = await lcd.gov.tally(tblProposals[i].id).catch(handleError);
             if(rawTally) {

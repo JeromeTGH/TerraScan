@@ -259,7 +259,7 @@ export const getProposal = async (propID) => {
                                 let voter = rawTxs.data.tx_responses[i].tx.body.messages[j].voter;          // Adresse "terra1..."
                                 let voteoption = rawTxs.data.tx_responses[i].tx.body.messages[j].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
                                 // Si c'est le vote d'un validateur ...
-                                if(tblValidatorsAccounts[voter] && tblValidatorsAccounts[voter].vote) {
+                                if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                     tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                     tblHistoriqueDesVotesValidateur.push({
                                         // array of { txHash, datetime, valoperaddress, valmoniker, vote }
@@ -288,7 +288,7 @@ export const getProposal = async (propID) => {
                                         let voter = rawTxs.data.tx_responses[i].tx.body.messages[j].msgs[k].voter;          // Adresse "terra1..."
                                         let voteoption = rawTxs.data.tx_responses[i].tx.body.messages[j].msgs[k].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
                                         // Si c'est le vote d'un validateur ...
-                                        if(tblValidatorsAccounts[voter] && tblValidatorsAccounts[voter].vote) {
+                                        if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                             tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                             tblHistoriqueDesVotesValidateur.push({
                                                 // array of { txHash, datetime, valoperaddress, valmoniker, vote }
@@ -343,7 +343,7 @@ export const getProposal = async (propID) => {
                                         let voter = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].voter;          // Adresse "terra1..."
                                         let voteoption = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
                                         // Si c'est le vote d'un validateur ...
-                                        if(tblValidatorsAccounts[voter]) {
+                                        if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                             tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                             tblHistoriqueDesVotesValidateur.push({
                                                 // array of { txHash, datetime, valoperaddress, valmoniker, vote }
@@ -372,7 +372,7 @@ export const getProposal = async (propID) => {
                                                 let voter = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs[k].voter;          // Adresse "terra1..."
                                                 let voteoption = rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs[k].option;    // du type "VOTE_OPTION_NO_WITH_VETO", no, abstain, ou yes
                                                 // Si c'est le vote d'un validateur ...
-                                                if(tblValidatorsAccounts[voter]) {
+                                                if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                                     tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                                     tblHistoriqueDesVotesValidateur.push({
                                                         // array of { txHash, datetime, valoperaddress, valmoniker, vote }

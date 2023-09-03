@@ -19,7 +19,8 @@
     --outline-box-color: #{$darkTheme_outlineBoxColor};
     --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$darkTheme_headTableLineFillColor};
-    --boxed-fill-color: #{$darkTheme_boxerFillColor};
+    --boxed-fill-color: #{$darkTheme_boxedFillColor};
+    --boxed-fill-color2: #{$darkTheme_boxedFillColor2};
     --pagination-selected-page-fill-color: #{$darkTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$darkTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$darkTheme_paginationPageNumberTextColor};
@@ -44,7 +45,8 @@
     --outline-box-color: #{$lightTheme_outlineBoxColor};
     --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$lightTheme_headTableLineFillColor};
-    --boxed-fill-color: #{$lightTheme_boxerFillColor};
+    --boxed-fill-color: #{$lightTheme_boxedFillColor};
+    --boxed-fill-color2: #{$lightTheme_boxedFillColor2};
     --pagination-selected-page-fill-color: #{$lightTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$lightTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$lightTheme_paginationPageNumberTextColor};

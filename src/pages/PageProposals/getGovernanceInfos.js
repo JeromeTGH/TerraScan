@@ -1,6 +1,5 @@
-import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins, LCDClient } from '@terra-money/terra.js';
-import { formateLeNombre } from '../../application/AppUtils';
+import { chainID, chainLCDurl } from '../../application/AppParams';
+import { LCDClient } from '@terra-money/terra.js';
 
 
 export const getGovernanceInfos = async () => {
@@ -27,7 +26,7 @@ export const getGovernanceInfos = async () => {
     // Récupération des infos concernant les dépôts (qté de LUNC nécessaire pour lancer le vote, et durée max de deposit)
     const rawDepositParameters = await lcd.gov.depositParameters().catch(handleError);
     if(rawDepositParameters) {
-        governanceInfos['nbMinDepositLunc'] = coinsListToFormatedText(rawDepositParameters.min_deposit);
+        governanceInfos['nbMinDepositLunc'] = parseInt(rawDepositParameters.min_deposit)/1000000; // coinsListToFormatedText(rawDepositParameters.min_deposit);
         governanceInfos['nbJoursMaxDeposit'] = rawDepositParameters.max_deposit_period / 3600 / 24;
     } else
         return { "erreur": "Failed to fetch [deposit parameters] ..." }
@@ -68,24 +67,24 @@ const handleError = (err) => {
 }
 
 
-// ======================================================================
-// Créé un STRING avec montant+devise, séparé de virgules si multidevises
-// ======================================================================
-const coinsListToFormatedText = (coinsList) => {
-    const dataCoinsList = (new Coins(coinsList)).toData();
-    let retour = "";
+// // ======================================================================
+// // Créé un STRING avec montant+devise, séparé de virgules si multidevises
+// // ======================================================================
+// const coinsListToFormatedText = (coinsList) => {
+//     const dataCoinsList = (new Coins(coinsList)).toData();
+//     let retour = "";
     
-    if(dataCoinsList.length > 0) {
-        for(let i=0 ; i < dataCoinsList.length ; i++) {
-            const msgAmount = formateLeNombre(dataCoinsList[i].amount/1000000, ' ');
-            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
-            if(retour !== "")
-                retour += ", ";
-            retour += (msgAmount + "\u00a0" + msgCoin);
-        }
-    } else {
-        retour = "---";
-    }
+//     if(dataCoinsList.length > 0) {
+//         for(let i=0 ; i < dataCoinsList.length ; i++) {
+//             const msgAmount = formateLeNombre(dataCoinsList[i].amount/1000000, ' ');
+//             const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
+//             if(retour !== "")
+//                 retour += ", ";
+//             retour += (msgAmount + "\u00a0" + msgCoin);
+//         }
+//     } else {
+//         retour = "---";
+//     }
 
-    return retour;
-}
+//     return retour;
+// }
