@@ -20,8 +20,10 @@ const PageBlocksV2 = () => {
     const [ searchFieldValue, setSearchFieldValue ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState("");
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
+    const [ derniersBlocksAgo, setDerniersBlocksAgo ] = useState();
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
     const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
+    const [ refreshDatetime, setRefreshDatetimes] = useState(true);
     const [ preloadingPending, setPreloadingPending] = useState(true);
 
     // Fonction de traitement de changement d'état de la checkbox "live view"
@@ -56,6 +58,31 @@ const PageBlocksV2 = () => {
     }, [preloadingPending, liveViewState, refreshBlocks])
 
 
+    useEffect(() => {
+        if(refreshDatetime) {
+            setRefreshDatetimes(false);
+            refreshDatetimeAgo();
+            setTimeout(() => {
+                setRefreshDatetimes(true);
+            }, 1000);
+        }
+        // eslint-disable-next-line
+    }, [refreshDatetime])
+
+
+    // Exécution toutes les Y secondes
+    const refreshDatetimeAgo = () => {
+        if(derniersBlocks) {
+            const tmpTbl = [];
+            tmpTbl.push(...derniersBlocks);
+            for(let i=0 ; i<tmpTbl.length ; i++) {
+                tmpTbl[i][5] = datetime_ago(tmpTbl[i][4]);
+            }
+            setDerniersBlocksAgo(tmpTbl);
+        }
+    }
+
+
     // Récupération des X derniers blocks
     const refreshBlockList = () => {
         loadLatestBlocks(nbBlocksAafficher).then((res) => {
@@ -67,7 +94,14 @@ const PageBlocksV2 = () => {
                 const lastHeight = res;
                 const tblData = [];
                 for(let i=lastHeight ; i>(lastHeight-nbBlocksAafficher) ; i--) {
-                    tblData.push([i, tblBlocks[i.toString()].nb_tx, tblBlocks[i.toString()].validator_moniker, tblBlocks[i.toString()].validator_address, tblBlocks[i.toString()].datetime ])
+                    tblData.push([
+                        i,
+                        tblBlocks[i.toString()].nb_tx,
+                        tblBlocks[i.toString()].validator_moniker,
+                        tblBlocks[i.toString()].validator_address,
+                        tblBlocks[i.toString()].datetime,
+                        ''
+                    ])
                 }
                 setDerniersBlocks(tblData);
                 setMsgErreurGetDerniersBlocks('');
@@ -143,13 +177,13 @@ const PageBlocksV2 = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {derniersBlocks ? derniersBlocks.map((valeur, clef) => {
+                    {derniersBlocksAgo ? derniersBlocksAgo.map((valeur, clef) => {
                         return (
                             <tr key={clef}>
                                 <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                 <td>{valeur[1]}</td>
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
-                                <td>{datetime_ago(valeur[4])}</td>
+                                <td>{valeur[5]}</td>
                             </tr> 
                     )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
                 </tbody>
