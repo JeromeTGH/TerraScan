@@ -2,15 +2,11 @@ import { tblCorrespondanceMessages, tblCorrespondanceValeurs } from '../../appli
 import { AccAddress, Coins } from '@terra-money/terra.js';
 import { FCDclient } from "../../fcd/FCDclient";
 import { tblValidators } from '../../application/AppData';
-import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
 import { Tx } from '../../fcd/classes/Tx';
 import { CoinsList } from '../../fcd/classes/CoinsList';
 import { LCDclient } from '../../lcd/LCDclient';
 
-export const getTxDatasV2 = async (txHash) => {
-
-    // Charge la liste des validateurs, si ce n'est pas encore fait
-    await loadValidatorsList();
+export const getTxDatas = async (txHash) => {
     
     // Les 2 variables de retour
     const txMessages = [];

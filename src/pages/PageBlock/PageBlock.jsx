@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BlocksIcon, ExchangeIcon } from '../../application/AppIcons';
-import styles from './PageBlockV2.module.scss';
+import styles from './PageBlock.module.scss';
 // import BlockDetail from './BlockDetail';
 // import BlockTransactions from './BlockTransactions';
 import { appName } from '../../application/AppParams';
-import { getBlockInfoV2 } from './getBlockInfoV2';
+import { getBlockInfo } from './getBlockInfo';
 import { tblBlocks } from '../../application/AppData';
 import { isValidTerraAddressFormat, metEnFormeDateTime } from '../../application/AppUtils';
 
@@ -24,7 +24,7 @@ const PageBlock = () => {
 
         // Récupération des infos concernant ce block
         setLoadingOrNot(true);
-        getBlockInfoV2(blockNum).then((res) => {
+        getBlockInfo(blockNum).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetBlock(res['erreur']);
             }

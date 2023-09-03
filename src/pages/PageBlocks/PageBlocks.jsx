@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BlocksIcon, SearchIcon } from '../../application/AppIcons';
-import styles from './PageBlocksV2.module.scss';
+import styles from './PageBlocks.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidBlockNumberFormat, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';

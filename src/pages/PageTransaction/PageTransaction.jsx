@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ExchangeIcon } from '../../application/AppIcons';
-import styles from './PageTransactionV2.module.scss';
+import styles from './PageTransaction.module.scss';
 import BlockTxInfos from './BlockTxInfos';
 import BlockTxMessages from './BlockTxMessages';
-import { getTxDatasV2 } from './getTxDatasV2';
+import { getTxDatas } from './getTxDatas';
 import { appName } from '../../application/AppParams';
 
 const PageTransactionV2 = () => {
@@ -22,7 +22,7 @@ const PageTransactionV2 = () => {
         document.title = 'Transaction #' + txHash + ' - ' + appName;
 
         // Récupération de la transaction ciblée
-        getTxDatasV2(txHash).then((res) => {
+        getTxDatas(txHash).then((res) => {
             if(res['erreur']) {
                 setMsgErreurTxDatas(res['erreur']);
                 setTxDatas({});

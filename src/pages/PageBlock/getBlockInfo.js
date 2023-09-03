@@ -2,16 +2,12 @@ import { tblBlocks, tblValidators } from "../../application/AppData";
 import { tblCorrespondanceMessages } from "../../application/AppParams";
 import { FCDclient } from "../../fcd/FCDclient";
 import { BlockInfo } from "../../fcd/classes/BlockInfo";
-import { loadValidatorsList } from "../../sharedFunctions/getValidatorsV2";
 
 
-export const getBlockInfoV2 = async (blockNum) => {
+export const getBlockInfo = async (blockNum) => {
     
     // Interroge le FCD, seulement si ce bloc n'a pas déjà été téléchargé en mémoire, précédemment
     if(!tblBlocks[blockNum.toString()] || !tblBlocks[blockNum.toString()].txs) {
-
-        // Charge la liste des validateurs, si elle est vide
-        await loadValidatorsList();
 
         // Récupération du singleton de la classe FCDclient
         const fcd = FCDclient.getSingleton();

@@ -1,14 +1,10 @@
 import { chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
-import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
 import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
 import { LCDclient } from '../../lcd/LCDclient';
 
 export const getProposal = async (propID) => {
-
-    // Charge la liste des validateurs, si elle est vide
-    await loadValidatorsList();
 
     // Idée de la structure de retour
     const proposalInfos = {

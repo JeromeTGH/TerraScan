@@ -4,14 +4,14 @@ import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
-import PageAccountV2 from '../PageAccount/PageAccountV2';
+import PageAccount from '../PageAccount/PageAccount';
 import PageAccounts from '../PageAccounts/PageAccounts';
-import PageBlockV2 from '../PageBlock/PageBlockV2';
-import PageBlocksV2 from '../PageBlocks/PageBlocksV2';
-import PageTransactionV2 from '../PageTransaction/PageTransactionV2';
+import PageBlock from '../PageBlock/PageBlock';
+import PageBlocks from '../PageBlocks/PageBlocks';
+import PageTransaction from '../PageTransaction/PageTransaction';
 import PageTransactions from '../PageTransactions/PageTransactions';
 import PageValidator from '../PageValidator/PageValidator';
-import PageValidatorsV2 from '../PageValidators/PageValidatorsV2';
+import PageValidators from '../PageValidators/PageValidators';
 import PageProposals from '../PageProposals/PageProposals';
 import PageProposal from '../PageProposal/PageProposal';
 import PageBurns from '../PageBurns/PageBurns';
@@ -68,21 +68,21 @@ const PageBuilder = (props) => {
             case 'home':
                 return <PageHome />;
             case 'account':
-                return <PageAccountV2 />;
+                return <PageAccount />;
             case 'accounts':
                 return <PageAccounts />;
             case 'block':
-                return <PageBlockV2 />;
+                return <PageBlock />;
             case 'blocks':
-                return <PageBlocksV2 />;
+                return <PageBlocks />;
             case 'transaction':
-                return <PageTransactionV2 />;
+                return <PageTransaction />;
             case 'transactions':
                 return <PageTransactions />;
             case 'validator':
                 return <PageValidator />;
             case 'validators':
-                return <PageValidatorsV2 />;
+                return <PageValidators />;
             case 'about':
                 return <PageAbout />;
             case 'proposal':

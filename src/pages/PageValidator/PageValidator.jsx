@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
@@ -6,31 +6,17 @@ import BlockValHeaderV2 from './BlockValHeaderV2';
 import BlockValLeftV2 from './BlockValLeftV2';
 import BlockTopDelegators from './BlockTopDelegators';
 import { appName } from '../../application/AppParams';
-import { loadValidatorsList } from '../../sharedFunctions/getValidatorsV2';
+
 
 const PageValidator = () => {
 
     // Récupération de l'adresse du validateur, éventuellement passé en argument
     const { valAdr } = useParams();         // Ne rien mettre revient à demander à voir le "latest" (le dernier)
 
-    // Variables react
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ msgErreurGetValidator, setMsgErreurGetValidator ] = useState();
-
 
     // Changement du "title" de la page web
     useEffect(() => {
         document.title = 'Validator "' + valAdr + '" - ' + appName;
-
-        loadValidatorsList().then((res) => {
-            if(res['erreur']) {
-                setMsgErreurGetValidator(res['erreur']);
-            }
-            else {
-                setIsLoading(false);
-                setMsgErreurGetValidator('');
-            }
-        });
     }, [valAdr])
     
 
@@ -40,18 +26,9 @@ const PageValidator = () => {
             <p className={styles.validatorAddress}>→ Address : <strong>{valAdr}</strong></p>
             <br />
             <div className={styles.blocksValidatorPage}>
-                {msgErreurGetValidator ?
-                    <div className="erreur">{msgErreurGetValidator}</div>
-                    :
-                    isLoading ?
-                        <p>Loading data from blockchain (fcd), please wait ...</p>
-                        :
-                        <>
-                            <BlockValHeaderV2 valAddress={valAdr} />
-                            <BlockValLeftV2 valAddress={valAdr} />
-                            <BlockTopDelegators valAddress={valAdr} />
-                        </>
-                    }
+                <BlockValHeaderV2 valAddress={valAdr} />
+                <BlockValLeftV2 valAddress={valAdr} />
+                <BlockTopDelegators valAddress={valAdr} />
             </div>
         </>
     );
