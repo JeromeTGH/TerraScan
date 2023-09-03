@@ -8,7 +8,7 @@ import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
 
-const BlockLatestBlocksV2 = (props) => {
+const BlockLatestBlocks = (props) => {
 
     const { liveViewState, changeLiveViewStateTo } = AppContext();
 
@@ -146,4 +146,4 @@ const BlockLatestBlocksV2 = (props) => {
     );
 };
 
-export default BlockLatestBlocksV2;
+export default BlockLatestBlocks;

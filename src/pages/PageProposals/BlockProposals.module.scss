@@ -7,7 +7,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         column-gap: 0.2rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
 
         @media (max-width: 480px) {
             column-gap: 0.1rem;
@@ -39,6 +39,13 @@
                 background-color: var(--tertiary-fill);
             }
         }
+    }
+
+    .tblProposals {
+        display: grid;
+        grid-template-columns: 48% 48%;
+        column-gap: 4%;
+        row-gap: 2rem;
     }
 
     .proposalBox {

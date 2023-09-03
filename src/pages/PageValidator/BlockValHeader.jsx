@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './BlockValHeaderV2.module.scss';
+import styles from './BlockValHeader.module.scss';
 import { tblValidators } from '../../application/AppData';
 
 
-const BlockValHeaderV2 = (props) => {
+const BlockValHeader = (props) => {
 
     // Affichage
     return (
@@ -60,4 +60,4 @@ const BlockValHeaderV2 = (props) => {
     );
 };
 
-export default BlockValHeaderV2;
+export default BlockValHeader;

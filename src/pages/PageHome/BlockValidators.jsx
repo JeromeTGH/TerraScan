@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { tblValidators } from '../../application/AppData';
 
-const BlockValidatorsV2 = () => {
+const BlockValidators = () => {
 
     // Variables react
     const [ validatorsListPagination, setValidatorsListPagination ] = useState(0);
@@ -64,4 +64,4 @@ const BlockValidatorsV2 = () => {
     );
 };
 
-export default BlockValidatorsV2;
+export default BlockValidators;

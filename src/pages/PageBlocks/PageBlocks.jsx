@@ -10,7 +10,7 @@ import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
 
-const PageBlocksV2 = () => {
+const PageBlocks = () => {
 
     const navigate = useNavigate();
     const { liveViewState, changeLiveViewStateTo } = AppContext();
@@ -198,4 +198,4 @@ const PageBlocksV2 = () => {
     );
 };
 
-export default PageBlocksV2;
+export default PageBlocks;

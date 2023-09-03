@@ -1,0 +1,109 @@
+@import '../../style/variables';
+
+.cardContainer {
+    border: 1px solid var(--outline-box-color);
+    padding: 0.6rem 0.6rem;
+    border-radius: 8px;
+    background-color: var(--boxed-fill-color);
+    cursor: pointer;
+
+    .cardHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--outline-box-color);
+
+        .cardProposalID {
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .cardProposalStatusOrange, .cardProposalStatusBlue, .cardProposalStatusGreen, .cardProposalStatusRed, .cardProposalStatusGray {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .cardProposalStatusOrange {
+            border: 1px solid var(--orange-color);
+            background-color: color-mix(in srgb, var(--orange-color), transparent 90%);
+            color: var(--orange-color);
+        }
+        .cardProposalStatusBlue {
+            border: 1px solid var(--blue-color);
+            background-color: color-mix(in srgb, var(--blue-color), transparent 90%);
+            color: var(--blue-color);
+        }
+        .cardProposalStatusGreen {
+            border: 1px solid var(--green-color);
+            background-color: color-mix(in srgb, var(--green-color), transparent 90%);
+            color: var(--green-color);
+        }
+        .cardProposalStatusRed {
+            border: 1px solid var(--red-color);
+            background-color: color-mix(in srgb, var(--red-color), transparent 90%);
+            color: var(--red-color);
+        }
+        .cardProposalStatusGray {
+            border: 1px solid var(--gray-color);
+            background-color: color-mix(in srgb, var(--gray-color), transparent 90%);
+            color: var(--gray-color);
+        }
+
+    }
+
+    .cardBody {
+
+        padding-top: 0.6rem;
+        padding-bottom: 1.6rem;
+
+        .cardProposalTitle {
+            font-weight: bold;
+            padding-top: 0.6rem;
+            padding-bottom: 1.6rem;
+        }
+
+        .cardProposalTable {
+            width: 100%;
+            border-spacing: 0;
+            border-collapse: collapse;
+
+            td, th {
+                padding: 0.2rem 0.2rem;
+                font-size: 0.9rem;
+        
+                @media (max-width: $primary-breakpoint) {
+                    font-size: 0.8rem;
+                }
+            }
+            
+            td:nth-child(1) {
+                width: 1%;
+                white-space: nowrap;
+                vertical-align: top;
+            }
+    
+            .supportBar {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                border: 1px solid var(--outline-box-color);
+                font-size: 0.4rem;
+            }
+        }
+    }
+
+    .cardFooter {
+        border-top: 1px solid var(--outline-box-color);
+        padding-top: 0.6rem;
+        font-size: 0.7rem;
+        font-style: italic;
+    }
+}

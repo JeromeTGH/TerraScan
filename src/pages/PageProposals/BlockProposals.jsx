@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
 import { Coins } from '@terra-money/terra.js';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
+import ProposalCard from './ProposalCard';
 
 const BlockProposals = (props) => {
 
@@ -39,66 +40,70 @@ const BlockProposals = (props) => {
                 <button className={filtre === 3 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(3)}>Show ADOPTED proposals<br />↓</button>
                 <button className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals<br />↓</button>
             </div>
-            <div>
+            <div className={styles.tblProposals}>
                 {props.tblProposals.filter(element => (filtre === 0 || element.status === filtre)).map((element, index) => {
-                    return <div className={"boxContainer " + styles.proposalBox} key={index} onClick={() => handleClickOnProposal(element.id)}>
-                                <table className={styles.tblProposals}>
-                                    <tbody>
-                                        <tr>
-                                            <td>Proposal ID :</td>
-                                            <td><strong><Link to={"/proposals/"+element.id}>#{element.id} (see details)</Link></strong></td>
-                                        </tr>
-                                        {element.status !== 1 ? <>
-                                            <tr>
-                                                <td>Voting start time :</td>
-                                                <td>{metEnFormeDateTime(element.voting_start_time)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Voting end time :</td>
-                                                <td>{metEnFormeDateTime(element.voting_end_time)}</td>
-                                            </tr>
-                                        </> : null}
-                                        <tr>
-                                            <td>Title :</td>
-                                            <td><strong>{element.content.title}</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status :</td>
-                                            <td><u>{proposalStatus[element.status]}</u></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total deposit :</td>
-                                            <td>{coinsListToFormatedText(element.total_deposit)}</td>
-                                        </tr>
-                                        {element.statutVote ? <tr>
-                                                <td>Vote status :</td>
-                                                <td>
-                                                    {/* <div>{element.noteOnVoting}</div> */}
-                                                    <div>
-                                                        <span>{element.pourcentageOfVoters}% of voters</span>
-                                                        <span> | </span>
-                                                        <span className='textVoteYes'>{element.pourcentageOfYes}% of YES</span>
-                                                        <span> | </span>
-                                                        <span className='textVoteAbstain'>{element.pourcentageOfAbstain}% of ABSTAIN</span>
-                                                        <span> | </span>
-                                                        <span className='textVoteNo'>{element.pourcentageOfNo}% of NO</span>
-                                                        <span> | </span>
-                                                        <span className='textVoteNowithveto'>{element.pourcentageOfNoWithVeto}% of VETO </span>
-                                                    </div>
-                                                    <div className={styles.supportBar}>
-                                                        <div style={{ width: element.pourcentageOfYes + "%"}} className='barVoteYes'>&nbsp;</div>
-                                                        <div style={{ width: element.pourcentageOfAbstain + "%"}} className='barVoteAbstain'>&nbsp;</div>
-                                                        <div style={{ width: element.pourcentageOfNo + "%"}} className='barVoteNo'>&nbsp;</div>
-                                                        <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
-                                                    </div>
-                                                    <br />
-                                                    <div className={styles.txtStatus}><span className='textBrillant'>===&gt; {element.statutVote}</span></div>
-                                                </td>
-                                            </tr> : null
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+
+                    return <div key={index} onClick={() => handleClickOnProposal(element.id)}><ProposalCard card={element} /></div>
+
+
+
+                    // return <div className={"boxContainer " + styles.proposalBox} key={index} onClick={() => handleClickOnProposal(element.id)}>
+                    //             <table className={styles.tblProposals}>
+                    //                 <tbody>
+                    //                     <tr>
+                    //                         <td>Proposal ID :</td>
+                    //                         <td><strong><Link to={"/proposals/"+element.id}>#{element.id} (see details)</Link></strong></td>
+                    //                     </tr>
+                    //                     {element.status !== 1 ? <>
+                    //                         <tr>
+                    //                             <td>Voting start time :</td>
+                    //                             <td>{metEnFormeDateTime(element.voting_start_time)}</td>
+                    //                         </tr>
+                    //                         <tr>
+                    //                             <td>Voting end time :</td>
+                    //                             <td>{metEnFormeDateTime(element.voting_end_time)}</td>
+                    //                         </tr>
+                    //                     </> : null}
+                    //                     <tr>
+                    //                         <td>Title :</td>
+                    //                         <td><strong>{element.content.title}</strong></td>
+                    //                     </tr>
+                    //                     <tr>
+                    //                         <td>Status :</td>
+                    //                         <td><u>{proposalStatus[element.status]}</u></td>
+                    //                     </tr>
+                    //                     <tr>
+                    //                         <td>Total deposit :</td>
+                    //                         <td>{coinsListToFormatedText(element.total_deposit)}</td>
+                    //                     </tr>
+                    //                     {element.statutVote ? <tr>
+                    //                             <td>Vote status :</td>
+                    //                             <td>
+                    //                                 <div>
+                    //                                     <span>{element.pourcentageOfVoters}% of voters</span>
+                    //                                     <span> | </span>
+                    //                                     <span className='textVoteYes'>{element.pourcentageOfYes}% of YES</span>
+                    //                                     <span> | </span>
+                    //                                     <span className='textVoteAbstain'>{element.pourcentageOfAbstain}% of ABSTAIN</span>
+                    //                                     <span> | </span>
+                    //                                     <span className='textVoteNo'>{element.pourcentageOfNo}% of NO</span>
+                    //                                     <span> | </span>
+                    //                                     <span className='textVoteNowithveto'>{element.pourcentageOfNoWithVeto}% of VETO </span>
+                    //                                 </div>
+                    //                                 <div className={styles.supportBar}>
+                    //                                     <div style={{ width: element.pourcentageOfYes + "%"}} className='barVoteYes'>&nbsp;</div>
+                    //                                     <div style={{ width: element.pourcentageOfAbstain + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                    //                                     <div style={{ width: element.pourcentageOfNo + "%"}} className='barVoteNo'>&nbsp;</div>
+                    //                                     <div style={{ width: element.pourcentageOfNoWithVeto + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                    //                                 </div>
+                    //                                 <br />
+                    //                                 <div className={styles.txtStatus}><span className='textBrillant'>===&gt; {element.statutVote}</span></div>
+                    //                             </td>
+                    //                         </tr> : null
+                    //                     }
+                    //                 </tbody>
+                    //             </table>
+                    //         </div>
                 })}
             </div>
         </div>

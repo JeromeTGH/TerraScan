@@ -7,7 +7,7 @@ import BlockTxMessages from './BlockTxMessages';
 import { getTxDatas } from './getTxDatas';
 import { appName } from '../../application/AppParams';
 
-const PageTransactionV2 = () => {
+const PageTransaction = () => {
 
     // Récupération du hash de transaction, éventuellement passé en argument
     const { txHash } = useParams();
@@ -56,4 +56,4 @@ const PageTransactionV2 = () => {
     );
 };
 
-export default PageTransactionV2;
+export default PageTransaction;

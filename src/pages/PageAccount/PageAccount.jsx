@@ -13,7 +13,7 @@ import BlockTransactions from './BlockTransactions';
 import { tblValidators } from '../../application/AppData';
 import { AppContext } from '../../application/AppContext';
 
-const PageAccountV2 = () => {
+const PageAccount = () => {
 
     // Récupération du numéro de compte, passé en argument
     const { cptNum } = useParams();
@@ -71,4 +71,4 @@ const PageAccountV2 = () => {
     );
 };
 
-export default PageAccountV2;
+export default PageAccount;

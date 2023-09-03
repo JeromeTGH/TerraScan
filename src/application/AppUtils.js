@@ -174,6 +174,7 @@ export const datetime_ago = (datetime) => {
 
     // Variables
     let secondsLeft = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+    let datetimeInReturn = "";
 
     // Constantes
     const datetime_formats = [
@@ -196,17 +197,22 @@ export const datetime_ago = (datetime) => {
     // Logique de calcul
     if (secondsLeft === 0) {
         // Test si le datetime correspond au datetime actuel
-        return 'Just now';
+        datetimeInReturn = 'Just now';
     } else {
         // Sinon, calcul la différence, entre cette date et maintenant
         for(let index = 0 ; index < datetime_formats.length ; index++) {
             if(secondsLeft < datetime_formats[index].nbsecondes) {
-                if(datetime_formats[index].diviseur === null)
-                    return datetime_formats[index].texte;
-                else
-                    return Math.floor(secondsLeft / datetime_formats[index].diviseur) + '\u00a0' + datetime_formats[index].texte + '\u00a0ago';
+                if(datetime_formats[index].diviseur === null) {
+                    datetimeInReturn = datetime_formats[index].texte;
+                    break;
+                } else {
+                    datetimeInReturn = Math.floor(secondsLeft / datetime_formats[index].diviseur) + '\u00a0' + datetime_formats[index].texte + '\u00a0ago';
+                    break;
+                }
             }
         }
     }
+
+    return datetimeInReturn.replace(' ', '\u00a0');
 
 }
