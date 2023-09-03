@@ -3,8 +3,8 @@ import { HomeIcon } from '../../application/AppIcons';
 import styles from './PageHome.module.scss';
 import BlockSearch from './BlockSearch';
 import BlockOverview from './BlockOverview';
-import BlockLatestBlocksV2 from './BlockLatestBlocksV2';
-import BlockValidatorsV2 from './BlockValidatorsV2';
+import BlockLatestBlocks from './BlockLatestBlocks';
+import BlockValidators from './BlockValidators';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
@@ -39,9 +39,9 @@ const PageHome = () => {
                 <BlockSearch />
                 <BlockBurn />
                 <BlockOverview totalSupplies={totalSupplies} lastblockInfos={lastblockInfos} />
-                <BlockLatestBlocksV2 lastblockInfos={lastblockInfos} />
+                <BlockLatestBlocks lastblockInfos={lastblockInfos} />
                 <BlockAccounts />
-                <BlockValidatorsV2 />
+                <BlockValidators />
                 <BlockTotalSupplies totalSupplies={totalSupplies} />
             </div>
         </>

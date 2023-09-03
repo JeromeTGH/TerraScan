@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalculatorIcon } from '../../application/AppIcons';
-import styles from './BlockValidatorsV2.module.scss';
+import styles from './BlockValidators.module.scss';
 import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { tblValidators } from '../../application/AppData';

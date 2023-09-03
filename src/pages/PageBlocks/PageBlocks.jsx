@@ -58,6 +58,7 @@ const PageBlocksV2 = () => {
     }, [preloadingPending, liveViewState, refreshBlocks])
 
 
+    // Exécution toutes les Y secondes
     useEffect(() => {
         if(refreshDatetime) {
             setRefreshDatetimes(false);
@@ -70,7 +71,7 @@ const PageBlocksV2 = () => {
     }, [refreshDatetime])
 
 
-    // Exécution toutes les Y secondes
+    // Stockage des Z valeurs à afficher, avec recalcul du "time ago" systématique
     const refreshDatetimeAgo = () => {
         if(derniersBlocks) {
             const tmpTbl = [];

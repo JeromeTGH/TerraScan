@@ -204,7 +204,7 @@ export const datetime_ago = (datetime) => {
                 if(datetime_formats[index].diviseur === null)
                     return datetime_formats[index].texte;
                 else
-                    return Math.floor(secondsLeft / datetime_formats[index].diviseur) + ' ' + datetime_formats[index].texte + ' ago';
+                    return Math.floor(secondsLeft / datetime_formats[index].diviseur) + '\u00a0' + datetime_formats[index].texte + '\u00a0ago';
             }
         }
     }

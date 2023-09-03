@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './BlockLatestBlocksV2.module.scss';
+import styles from './BlockLatestBlocks.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { tblBlocks } from '../../application/AppData';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { datetime_ago } from '../../application/AppUtils';
 import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
 
@@ -15,8 +15,10 @@ const BlockLatestBlocksV2 = (props) => {
     // Variables react
     const nbBlocksAafficher = 10;
     const [ derniersBlocks, setDerniersBlocks ] = useState();           // Ici les 'n' derniers blocks [height, nbtx, proposerAddress]
+    const [ derniersBlocksAgo, setDerniersBlocksAgo ] = useState();
     const [ msgErreurGetDerniersBlocks, setMsgErreurGetDerniersBlocks ] = useState();
     const [ refreshBlocks, setRefreshBlocks] = useState(liveViewState);
+    const [ refreshDatetime, setRefreshDatetimes] = useState(true);
     const [ preloadingPending, setPreloadingPending] = useState(true);
 
     // Fonction de traitement de changement d'état de la checkbox "live view"
@@ -50,6 +52,32 @@ const BlockLatestBlocksV2 = (props) => {
             }, 6000);
         }
     }, [preloadingPending, liveViewState, refreshBlocks])
+
+
+    // Exécution toutes les Y secondes
+    useEffect(() => {
+        if(refreshDatetime) {
+            setRefreshDatetimes(false);
+            refreshDatetimeAgo();
+            setTimeout(() => {
+                setRefreshDatetimes(true);
+            }, 1000);
+        }
+        // eslint-disable-next-line
+    }, [refreshDatetime])
+
+
+    // Stockage des Z valeurs à afficher, avec recalcul du "time ago" systématique
+    const refreshDatetimeAgo = () => {
+        if(derniersBlocks) {
+            const tmpTbl = [];
+            tmpTbl.push(...derniersBlocks);
+            for(let i=0 ; i<tmpTbl.length ; i++) {
+                tmpTbl[i][5] = datetime_ago(tmpTbl[i][4]);
+            }
+            setDerniersBlocksAgo(tmpTbl);
+        }
+    }
 
 
     // Récupération des X derniers blocks
@@ -98,19 +126,19 @@ const BlockLatestBlocksV2 = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {derniersBlocks ? derniersBlocks.map((valeur, clef) => {
+                    {derniersBlocksAgo ? derniersBlocksAgo.map((valeur, clef) => {
                         return (
                             <tr key={clef}>
                                 <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                 <td>{valeur[1]}</td>
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
-                                <td>{metEnFormeDateTime(valeur[4])}</td>
+                                <td>{valeur[5]}</td>
                             </tr> 
                     )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
                 </tbody>
             </table>
             <div className={styles.comments}>
-                <u>Nb Tx</u> = number of transactions made in a block<br />
+                <u>Nb Tx</u> = quantity of transactions made in a particular block<br />
                 <u>Validator</u> = proposer (tendermint)
             </div>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
