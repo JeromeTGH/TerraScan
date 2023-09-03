@@ -49,13 +49,15 @@ export const getProposals = async (governanceInfos) => {
                 const seuilQuorum = governanceInfos['quorum'];
                 const seuilVeto = governanceInfos['seuilDeVeto'];
                 const seuilAcceptation = governanceInfos['seuilDacceptation'];
-                const seuilDeRejet = governanceInfos['seuilDeRefus'];
+                // const seuilDeRejet = governanceInfos['seuilDeRefus'];
 
-                const statutVote = pourcentageOfVoters < seuilQuorum ? "Quorum not reached, for the moment (" + pourcentageOfVoters.toFixed(2) + "% voted, but " + seuilQuorum + "% needed)" :
-                                        pourcentageOfNoWithVeto > seuilVeto ? "VETO threshold reached, for the moment (veto threshold = " + seuilVeto + "%)" :
-                                        pourcentageOfYes < (pourcentageOfNo + pourcentageOfNoWithVeto) ? "Majority of NO, for the moment (reject threshold = " + seuilDeRejet + "%, vs YES)" :
-                                                                              "Majority of YES, for the moment (acceptation threshold = " + seuilAcceptation + "%, vs NO+VETO)";
-                                      
+
+                const statutVote = pourcentageOfVoters < seuilQuorum ? "quorum not reached (" + pourcentageOfVoters.toFixed(2) + "% voted, but " + seuilQuorum + "% needed)" :
+                pourcentageOfNoWithVeto > seuilVeto ? "VETO threshold reached (threshold = " + seuilVeto + "%)" :
+                pourcentageOfYes < (pourcentageOfNo + pourcentageOfNoWithVeto) ? "majority of NO, for the moment" :
+                                                    "majority of YES, for the moment";
+                
+
                 tblProposals[i]['pourcentageOfYes'] = pourcentageOfYes.toFixed(2);
                 tblProposals[i]['pourcentageOfAbstain'] = pourcentageOfAbstain.toFixed(2);
                 tblProposals[i]['pourcentageOfNo'] = pourcentageOfNo.toFixed(2);
@@ -65,6 +67,21 @@ export const getProposals = async (governanceInfos) => {
                 tblProposals[i]['pourcentageOfAllNo'] = (pourcentageOfNo + pourcentageOfNoWithVeto).toFixed(2);
 
                 tblProposals[i]['statutVote'] = statutVote;
+
+
+                // Calcul du pourcentage d'avancement, dans la période de vote
+                let startDatetime = new Date(tblProposals[i]['voting_start_time']);
+                let endDatetime = new Date(tblProposals[i]['voting_end_time']);
+                let actualDatetime = new Date();
+                tblProposals[i]['pourcentageOfVotePeriod'] = (actualDatetime.getTime()/1000 - startDatetime.getTime()/1000) / (endDatetime.getTime()/1000 - startDatetime.getTime()/1000) * 100;
+
+                // Infos supplémentaires
+                tblProposals[i]['isQuorumReached'] = pourcentageOfVoters >= seuilQuorum;
+                tblProposals[i]['seuilQuorum'] = seuilQuorum;
+                tblProposals[i]['isVetoReached'] = tblProposals[i]['isQuorumReached'] && (pourcentageOfNoWithVeto > seuilVeto);
+                tblProposals[i]['seuilVeto'] = seuilVeto * pourcentageOfVoters / 100;
+                tblProposals[i]['seuilAcceptation'] = seuilAcceptation * (pourcentageOfYes + pourcentageOfNo + pourcentageOfNoWithVeto) / 100;
+
             } else
                 return { "erreur": "Failed to fetch [tally of proposal #" + tblProposals[i].id + "] ..." }
         }

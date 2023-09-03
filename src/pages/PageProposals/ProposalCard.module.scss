@@ -7,6 +7,10 @@
     background-color: var(--boxed-fill-color);
     cursor: pointer;
 
+    &:hover {
+        transform: scale(1.02);
+    }
+
     .cardHeader {
         display: flex;
         flex-direction: row;
@@ -87,7 +91,16 @@
             td:nth-child(1) {
                 width: 1%;
                 white-space: nowrap;
-                vertical-align: top;
+                vertical-align: bottom;
+            }
+
+            .quorumCursor, .voteCursor, .vetoCursor {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.6rem;
+                font-weight: bold;
             }
     
             .supportBar {
@@ -98,7 +111,12 @@
                 font-size: 0.4rem;
             }
         }
-    }
+
+        .cardVoteText {
+            padding: 2.8rem 0.2rem 1.4rem 0.2rem;
+            font-size: 0.8rem;
+        }
+}
 
     .cardFooter {
         border-top: 1px solid var(--outline-box-color);

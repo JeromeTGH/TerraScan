@@ -43,9 +43,15 @@
 
     .tblProposals {
         display: grid;
-        grid-template-columns: 48% 48%;
-        column-gap: 4%;
-        row-gap: 2rem;
+        grid-template-columns: 49% 49%;
+        column-gap: 2%;
+        row-gap: 1.8rem;
+
+        @media (max-width: 680px) {
+            grid-template-columns: 100%;
+            column-gap: 0;
+        }
+
     }
 
     .proposalBox {
