@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BlocksIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageBlocks.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { isValidBlockNumberFormat, metEnFormeDateTime } from '../../application/AppUtils';
+import { datetime_ago, isValidBlockNumberFormat } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 
 import { tblBlocks } from '../../application/AppData';
@@ -149,7 +149,7 @@ const PageBlocksV2 = () => {
                                 <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
                                 <td>{valeur[1]}</td>
                                 <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
-                                <td>{metEnFormeDateTime(valeur[4])}</td>
+                                <td>{datetime_ago(valeur[4])}</td>
                             </tr> 
                     )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
                 </tbody>

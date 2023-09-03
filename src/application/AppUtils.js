@@ -148,3 +148,65 @@ export const metEnFormeGrandNombre = (nombre, precision) => {
         return nombre.toFixed(precision);
 
 }
+
+
+// =======================
+// Fonction "datetime_ago"
+// =======================
+/**
+ * 
+ * @param datetime valeur texte ou timestamp, à comparer au datetime actuel
+ * @returns Valeur texte à afficher
+ */
+export const datetime_ago = (datetime) => {
+
+    // Sélecteur/mise en forme
+    let datetimeAanalyser;
+    switch (typeof datetime) {
+        case 'number':
+            break;
+        case 'string':
+            datetimeAanalyser = new Date(datetime);
+            break;
+        default:
+            datetimeAanalyser = new Date();
+    }
+
+    // Variables
+    let secondsLeft = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+
+    // Constantes
+    const datetime_formats = [
+        {nbsecondes: 60, texte: 'seconds', diviseur: 1},
+        {nbsecondes: 120, texte: '1 minute ago', diviseur: null},
+        {nbsecondes: 3600, texte: 'minutes', diviseur: 60},
+        {nbsecondes: 7200, texte: '1 hour ago', diviseur: null},
+        {nbsecondes: 86400, texte: 'hours', diviseur: 3600},
+        {nbsecondes: 172800, texte: 'Yesterday', diviseur: null},
+        {nbsecondes: 604800, texte: 'days', diviseur: 86400},
+        {nbsecondes: 1209600, texte: 'Last week', diviseur: null},
+        {nbsecondes: 2419200, texte: 'weeks', diviseur: 604800},
+        {nbsecondes: 4838400, texte: 'Last month', diviseur: null},
+        {nbsecondes: 29030400, texte: 'months', diviseur: 2419200},
+        {nbsecondes: 58060800, texte: 'Last year', diviseur: null},
+        {nbsecondes: 2903040000, texte: 'years', diviseur: 29030400}
+    ];
+
+    
+    // Logique de calcul
+    if (secondsLeft === 0) {
+        // Test si le datetime correspond au datetime actuel
+        return 'Just now';
+    } else {
+        // Sinon, calcul la différence, entre cette date et maintenant
+        for(let index = 0 ; index < datetime_formats.length ; index++) {
+            if(secondsLeft < datetime_formats[index].nbsecondes) {
+                if(datetime_formats[index].diviseur === null)
+                    return datetime_formats[index].texte;
+                else
+                    return Math.floor(secondsLeft / datetime_formats[index].diviseur) + ' ' + datetime_formats[index].texte + ' ago';
+            }
+        }
+    }
+
+}
