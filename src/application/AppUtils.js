@@ -143,7 +143,7 @@ export const metEnFormeGrandNombre = (nombre, precision) => {
     const seuilLePlusGrandPourCeNombre = tableauDesUnites.find((ligne) => Math.abs(nombre) >= ligne.seuil);
 
     if (seuilLePlusGrandPourCeNombre)
-        return (nombre / seuilLePlusGrandPourCeNombre.seuil).toFixed(precision) + "\u00A0" + seuilLePlusGrandPourCeNombre.suffixe;  // \u00A0 = &nbsp;
+        return (nombre / seuilLePlusGrandPourCeNombre.seuil).toFixed(precision) + (seuilLePlusGrandPourCeNombre.suffixe ? ("\u00A0" + seuilLePlusGrandPourCeNombre.suffixe) : '') ;  // \u00A0 = &nbsp;
     else  
         return nombre.toFixed(precision);
 

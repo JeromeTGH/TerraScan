@@ -46,7 +46,7 @@ export const loadValidators = async () => {
                     'description_security_contact':  validatorInfo.description.security_contact,
                     'description_details': validatorInfo.description.details,
                     'profile_icon': validatorInfo.description.profile_icon,
-                    'voting_power_amount': validatorInfo.votingPower.amount,
+                    'voting_power_amount': validatorInfo.delegator_shares,    // validatorInfo.votingPower.amount,
                     'voting_power_pourcentage': validatorInfo.votingPower.pourcentage,
                     'commission_actual_pourcentage': validatorInfo.commissionInfo.actual_pourcentage,
                     'commission_max_pourcentage': validatorInfo.commissionInfo.max_pourcentage,

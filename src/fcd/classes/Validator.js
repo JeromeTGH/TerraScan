@@ -5,7 +5,7 @@ export class Validator {
 
         this.operator_address = objetAvecVariables.operatorAddress;
         // this.tokens = objetAvecVariables.tokens;                         // Nota : doublon avec "delegator_shares" ?
-        // this.delegator_shares = parseInt(objetAvecVariables.delegator_shares);
+        this.delegator_shares = parseInt(objetAvecVariables.delegatorShares);
         this.up_time = parseFloat((objetAvecVariables.upTime*100).toFixed(2));
         this.status = objetAvecVariables.status;    // = "jailed" ou "active"
         this.terra1_account_address = objetAvecVariables.accountAddress;
