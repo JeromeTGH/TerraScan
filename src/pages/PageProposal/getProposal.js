@@ -172,10 +172,18 @@ export const getProposal = async (propID) => {
                 proposalInfos['pourcentageOfVoters'] = proposalInfos['nbVotersLunc'] / proposalInfos['nbStakedLunc'] * 100;
 
 
+            proposalInfos['seuilQuorum'] = proposalInfos['seuilDuQuorum'];
+            proposalInfos['seuilVeto'] = proposalInfos['seuilDeVeto'] * (proposalInfos['pourcentageOfYes'] + proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) / 100;
+            proposalInfos['seuilAcceptation'] = proposalInfos['seuilDacceptation'] * (proposalInfos['pourcentageOfYes'] + proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) / 100;
+
+            proposalInfos['isQuorumReached'] = proposalInfos['pourcentageOfVoters'] >= proposalInfos['seuilDuQuorum'];
+            proposalInfos['isVetoReached'] = proposalInfos['isQuorumReached'] && (proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilVeto']);
+                
+
             const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['pourcentageOfVoters'].toFixed(2) + "% have voted, but " + proposalInfos['seuilDuQuorum'] + "% of voters is required)" :
-                                    proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilDeVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "%)" :
-                                    proposalInfos['pourcentageOfYes'] < (proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "%, vs YES)" :
-                                                                                                             "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "%, vs NO+VETO)";
+                                    proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "% of YES+NO+VETO)" :
+                                    proposalInfos['pourcentageOfYes'] < (proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "% of YES+NO+VETO)" :
+                                                                                                             "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "% of YES+NO+VETO)";
 
             proposalInfos['statutVote'] = statutVote;
 
