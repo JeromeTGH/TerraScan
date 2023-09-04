@@ -22,7 +22,7 @@ const SideBar = () => {
             <div id={styles["sidebar-title"]}>
                 <div id={styles["sidebar-title-text"]}>
                     <Link to="/">
-                        <img src='/terra_luna_classic_logo.png' alt="Terra Luna Classic logo" />
+                        <img src='/images/terra_luna_classic_logo.png' alt="Terra Luna Classic logo" />
                         <span>{appName}</span>
                     </Link>
                 </div>

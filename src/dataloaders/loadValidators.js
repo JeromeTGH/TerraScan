@@ -35,7 +35,8 @@ export const loadValidators = async () => {
                 //          commission_max_pourcentage,
                 //          commission_max_change_pourcentage,
                 //          self_delegation_amount,
-                //          self_delegation_pourcentage
+                //          self_delegation_pourcentage,
+                //          vote
                 //      }
                 tblValidators[validatorInfo.operator_address] = {
                     'up_time': validatorInfo.up_time,
@@ -52,7 +53,8 @@ export const loadValidators = async () => {
                     'commission_max_pourcentage': validatorInfo.commissionInfo.max_pourcentage,
                     'commission_max_change_pourcentage': validatorInfo.commissionInfo.max_change_pourcentage,
                     'self_delegation_amount': validatorInfo.selfDelegation.amount,
-                    'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage
+                    'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage,
+                    'vote': ''      // Champ non utilisé de manière directe (cf. pages Proposal/Proposals)
                 }
                 tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
             }

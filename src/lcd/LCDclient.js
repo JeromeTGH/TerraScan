@@ -24,6 +24,7 @@ export class LCDclient {
             this.apiRequester = new APIrequester(url_of_LCD);
             this.paths = {
                 bank: {
+                    getAccountDetails: '/cosmos/bank/v1beta1/balances/',
                     getOraclePoolBalance: '/cosmos/bank/v1beta1/balances/',
                     getTotalSupplies: '/cosmos/bank/v1beta1/supply'
                 },

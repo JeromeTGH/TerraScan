@@ -17,4 +17,9 @@ export class BankAPI {
         return await this.apiRequester.get(this.paths.getOraclePoolBalance + accountAddress, params);
     }
 
+    // Exemple d'appel : /cosmos/bank/v1beta1/balances/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd
+    async getAccountDetails(accountAdr, params = new URLSearchParams()) {
+        return await this.apiRequester.get(this.paths.getAccountDetails + accountAdr, params);
+    }
+
 }

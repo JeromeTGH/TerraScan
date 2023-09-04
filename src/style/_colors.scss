@@ -17,6 +17,7 @@
     --success-color: #{$darkTheme_successColor};
     // --link-weight: normal;
     --outline-box-color: #{$darkTheme_outlineBoxColor};
+    --light-outline-box-color: #{$darkTheme_lightOutlineBoxColor};
     --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$darkTheme_headTableLineFillColor};
     --boxed-fill-color: #{$darkTheme_boxedFillColor};
@@ -43,6 +44,7 @@
     --success-color: #{$lightTheme_successColor};
     // --link-weight: bold;
     --outline-box-color: #{$lightTheme_outlineBoxColor};
+    --light-outline-box-color: #{$lightTheme_lightOutlineBoxColor};
     --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
     --head-table-line-fill-color: #{$lightTheme_headTableLineFillColor};
     --boxed-fill-color: #{$lightTheme_boxedFillColor};

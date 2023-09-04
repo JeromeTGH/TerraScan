@@ -12,6 +12,7 @@ import BlockUndelegations from './BlockUndelegations';
 import BlockTransactions from './BlockTransactions';
 import { tblValidators } from '../../application/AppData';
 import { AppContext } from '../../application/AppContext';
+import AvailableCoins from './AvailableCoins';
 
 const PageAccount = () => {
 
@@ -59,6 +60,8 @@ const PageAccount = () => {
             <h1><span><AccountIcon /><strong>{cptDesignation}</strong></span></h1>
             <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
             {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This is the account of <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link> validator.</p> : null}
+            <br />
+            <AvailableCoins accountAddress={cptNum} />
             <br />
             <div className={styles.blocksAccountPage} style={imgAccount}>
                 <BlockBalances accountAddress={cptNum} />

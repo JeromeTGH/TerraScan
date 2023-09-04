@@ -10,7 +10,7 @@ const LoadingAnim = (props) => {
     return (
         <div className={styles.animContainer}>
             <div className={styles.cercle}>
-                <img className={styles.logo} src='/terra-classic-logo-200x200.png' alt='TerraScan loading' />
+                <img className={styles.logo} src='/images/terra-classic-logo-200x200.png' alt='TerraScan loading' />
                 <div className={props.anim ? styles.texteAnimON : styles.texteAnimOFF}>
                     <p>{texteAafficher.split('').map((element, index) => {
                         return <span key={index} style={{transform: 'rotate(' + (index*6.85) + 'deg)'}}>{element}</span>
