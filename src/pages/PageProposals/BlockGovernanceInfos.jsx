@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './BlockGovernanceInfos.module.scss';
 import { BlocksIcon } from '../../application/AppIcons';
+import { formateLeNombre } from '../../application/AppUtils';
 
 const BlockGovernanceInfos = (props) => {
 
@@ -34,7 +35,7 @@ const BlockGovernanceInfos = (props) => {
                 <tbody>
                     <tr>
                         <td><strong>Min deposit of coins</strong><span className={styles.notes}>(to allow vote start)&nbsp;:</span></td>
-                        <td>{props.tblGovernanceInfos['nbMinDepositLunc']}</td>
+                        <td>{formateLeNombre(props.tblGovernanceInfos['nbMinDepositLunc'], '\u00a0')} LUNC</td>
                     </tr>
                     <tr>
                         <td><strong>Max deposit period</strong><span className={styles.notes}>(to allow vote start)&nbsp;:</span></td>

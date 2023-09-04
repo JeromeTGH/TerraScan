@@ -111,6 +111,21 @@ const PageProposal = () => {
                             <h2 className={styles.h2titles}><strong>Proposal : </strong>{proposalInfos['contentTitle']}</h2>
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </div>
+                        {(proposalInfos['contentAmount'] && proposalInfos['contentRecipient']) ?
+                            <div className={"boxContainer " + styles.propContainer}>
+                                <h2 className={styles.h2titles}><strong>Details</strong></h2>
+                                <p><strong>Send</strong> : {proposalInfos['contentAmount']}</p>
+                                <p><strong>To</strong> : <Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
+                                <br />
+                            </div>
+                        : null}
+                        {proposalInfos['contentChanges'] ?
+                            <div className={"boxContainer " + styles.propContainer}>
+                                <h2 className={styles.h2titles}><strong>Changes</strong></h2>
+                                <p><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></p>
+                                <br />
+                            </div>
+                        : null}
                         {proposalInfos['status'] === 1 ?
                             <div className="boxContainer">
                                 <h2 className={styles.h2titles}><strong>Votes</strong> (pending for enough deposits)</h2>
@@ -405,7 +420,7 @@ const PageProposal = () => {
                                 }
                             </div>
                         : null}
-                        {(proposalInfos['status'] === 2) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                        {(proposalInfos['status'] === 2) && proposalInfos['tblHistoriqueDesVotesValidateur'] && (proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) > 0 ?
                             <div className="boxContainer">
                                 <h2 className={styles.h2titles}><strong>Validators votes & sentiment</strong></h2>
                                 <div className={styles.comments}>

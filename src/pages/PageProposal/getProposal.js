@@ -1,8 +1,9 @@
-import { chainID, chainLCDurl } from '../../application/AppParams';
+import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import Decimal from 'decimal.js';
 import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
 import { LCDclient } from '../../lcd/LCDclient';
+import { formateLeNombre } from '../../application/AppUtils';
 
 export const getProposal = async (propID) => {
 
@@ -27,14 +28,18 @@ export const getProposal = async (propID) => {
         // Etc... (inutile de vraiment lister quoi que ce soit ici, en fait)
     }
 
-   
     // Connexion au LCD
     const lcd = new LCDClient({
         URL: chainLCDurl,
         chainID: chainID,
         isClassic: true
     });
+    
+    
+    // Création/récupération d'une instance de requétage LCD
+    const client_lcd = LCDclient.getSingleton();
 
+       
 
     // Effacement mémoire, en cas d'erreur non bloquante ensuite
     let tblDesVotesDeValidateur = {};
@@ -46,8 +51,12 @@ export const getProposal = async (propID) => {
     // Récupération des infos concernant cette proposition
     const rawProposal = await lcd.gov.proposal(propID).catch(handleError);
     if(rawProposal) {
-        proposalInfos['contentTitle'] = rawProposal.content.title;
+        // console.log(rawProposal);
+        proposalInfos['contentAmount'] = rawProposal.content.amount ? coinsListToFormatedText(rawProposal.content.amount) : null;
+        proposalInfos['contentChanges'] = rawProposal.content.changes ? rawProposal.content.changes : null;
         proposalInfos['contentDescription'] = rawProposal.content.description;
+        proposalInfos['contentRecipient'] = rawProposal.content.recipient ? rawProposal.content.recipient : null;
+        proposalInfos['contentTitle'] = rawProposal.content.title;
         proposalInfos['depositEndTime'] = rawProposal.deposit_end_time;
             proposalInfos['finalVotesYes'] = parseFloat(rawProposal.final_tally_result.yes.toString())*100;
             proposalInfos['finalVotesAbstain'] = parseFloat(rawProposal.final_tally_result.abstain.toString())*100;
@@ -210,9 +219,6 @@ export const getProposal = async (propID) => {
     
     
     if(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
-
-        // Création/récupération d'une instance de requétage LCD
-        const client_lcd = LCDclient.getSingleton();
 
         // Montage des paramètres nécessaires ici
         const params = new URLSearchParams();
@@ -515,4 +521,26 @@ const returnLUNCfromCoinList = (coinsList) => {
         return parseInt(dataCoinsList[idxLunc].amount/1000000);
     } else
         return 0;
+}
+
+// ======================================================================
+// Créé un STRING avec montant+devise, séparé de virgules si multidevises
+// ======================================================================
+const coinsListToFormatedText = (coinsList) => {
+    const dataCoinsList = (new Coins(coinsList)).toData();
+    let retour = "";
+    
+    if(dataCoinsList.length > 0) {
+        for(let i=0 ; i < dataCoinsList.length ; i++) {
+            const msgAmount = formateLeNombre(dataCoinsList[i].amount/1000000, ' ');
+            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
+            if(retour !== "")
+                retour += ", ";
+            retour += (msgAmount + "\u00a0" + msgCoin);
+        }
+    } else {
+        retour = "---";
+    }
+
+    return retour;
 }
