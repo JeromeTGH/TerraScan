@@ -213,6 +213,6 @@ export const datetime_ago = (datetime) => {
         }
     }
 
-    return datetimeInReturn.replace(' ', '\u00a0');
+    return datetimeInReturn.replaceAll(' ', '\u00a0');
 
 }

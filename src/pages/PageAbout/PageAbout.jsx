@@ -1,13 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import packageJson from '../../../package.json';
 import { FCDurl, appName, chainID, chainLCDurl } from '../../application/AppParams';
 import { CircleQuestionIcon } from '../../application/AppIcons';
+import { LCDclient } from '../../lcd/LCDclient';
 
 const PageAbout = () => {
 
+    // Variables React
+    const [versionTerrad, setVersionTerrad] = useState("...");
+    const [versionCosmosSDK, setVersionCosmosSDK] = useState("...");
+
+    // Exécution au démarrage
     useEffect(() => {
         // Changement du "title" de la page web
         document.title = 'About - ' + appName;
+
+        // Chargement "node_info"
+        const client_lcd = LCDclient.getSingleton();
+        client_lcd.tendermint.getNodeInfos().then((res) => {
+            if(res.data?.application_version) {
+                setVersionTerrad(res.data.application_version.version);
+                setVersionCosmosSDK(res.data.application_version.cosmos_sdk_version);
+            } else {
+                console.warn("data > application_version : not found, in node_info response");
+            }
+
+        }).catch((err) => {
+            setVersionTerrad("(LCD error)");
+            setVersionCosmosSDK("(LCD error)");
+            if(err.response && err.response.data)
+                console.warn("err.response.data", err.response.data);
+            else
+                console.warn("err", err);
+        })
     }, [])
 
     return (
@@ -19,11 +44,11 @@ const PageAbout = () => {
             <p><u>Project sources</u> : <a href="https://github.com/JeromeTGH/Terra-Scan" target="_blank" rel="noreferrer noopener">https://github.com/JeromeTGH/Terra-Scan</a></p>
             <p><u>Licence</u> : <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noreferrer noopener">Creative Commons "BY-NC-ND 4.0"</a></p>
             <br />
-            <p>Version = {packageJson.version}</p>
+            <p><strong>TerraScan version = {packageJson.version}</strong></p>
             <br />
             <p><u>Network</u> : {chainID}</p>
-            <p><u>LCD</u> : {chainLCDurl.replace('https://', '')}</p>
-            <p><u>FCD</u> : {FCDurl.replace('https://', '')}</p>
+            <p><u>LCD</u> : {chainLCDurl}</p>
+            <p><u>FCD</u> : {FCDurl}</p>
             <br />
             <div className='erreur'>
                 <p>Very important :</p>
@@ -33,6 +58,10 @@ const PageAbout = () => {
                 <p>- there is no guarantee of accuracy on this site, particularly on data extracted from the blockchain</p>
                 <p>- no responsibility can be engaged (against this site or its creator), as to the use of this data and its consequences, in any way</p>
             </div>
+            <br />
+            <p><u>Node infos</u> :</p>
+            <p>- terrad version = {versionTerrad}</p>
+            <p>- Cosmos SDK version = {versionCosmosSDK}</p>
             <br />
             <br />
             <p>Created by <a href="https://twitter.com/jerometomski" target="_blank" rel="noreferrer noopener">Jerome TOMSKI</a>, @2023</p>
