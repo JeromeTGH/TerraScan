@@ -1,19 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './StakedLunc.module.scss';
-import { DelegationIcon } from '../../application/AppIcons';
+import { getDelegations } from './getDelegations';
+import { Link } from 'react-router-dom';
+import { tblValidators } from '../../application/AppData';
 
-const StakedLunc = () => {
+const StakedLunc = (props) => {
 
     // Variables
     const [isLoading, setIsLoading] = useState(true);
-    const [tblCoins, setTblCoins] = useState();
+    const [tblDelegations, setTblDelegations] = useState();
     const [msgErreur, setMsgErreur] = useState();
 
+    const [isMinorCoinsVisible, setIsMinorCoinsVisible] = useState();
+
+
+    // Exécution au chargement de ce component, et à chaque changement de "accountAddress"
+    useEffect(() => {
+        setIsLoading(true);
+        // Récupération de la balance de ce compte
+        getDelegations(props.accountAddress).then((res) => {
+            if(res['erreur']) {
+                setTblDelegations(null);
+                setIsLoading(false);
+                setMsgErreur(res['erreur']);
+            }
+            else {
+                setIsMinorCoinsVisible(new Array(res.length).fill(false))
+                setTblDelegations(res);
+                setIsLoading(false);
+                setMsgErreur("");                
+            }
+        })
+    }, [props.accountAddress])
+
+
+    // HandleClick pour l'expansion/rétrécissement de l'affichage des "minor coins"
+    const handleClickShowHide = (index) => {
+        const tblCoinsVisibles = [];
+        tblCoinsVisibles.push(...isMinorCoinsVisible);
+        tblCoinsVisibles[index] = !tblCoinsVisibles[index];
+        setIsMinorCoinsVisible(tblCoinsVisibles);
+    }
 
     // Affichage
     return (
         <>
-            <h2 className={styles.h2title}><strong><DelegationIcon />Delegations</strong>&nbsp;(staking)</h2>
+            <br />
             {msgErreur ?
                 <div className="erreur">{msgErreur}</div>
                 :
@@ -21,34 +53,47 @@ const StakedLunc = () => {
                     <div>Loading data from blockchain (lcd), please wait ...</div>
                 :
                     <>
-                        {/* <div className={styles.container}>
-                            <div className={styles.coin}>
-                                <div className={styles.coinImageAndLabel}>
-                                    <img src={'/images/coins/LUNC.png'} alt='' />
-                                    <span><strong>LUNC</strong></span>
-                                </div>
-                                <div className={styles.coinValue}><strong>{tblCoins[0][0]}</strong></div>
-                            </div>
-                            <div className={styles.coin}>
-                                <div className={styles.coinImageAndLabel}>
-                                    <img src={'/images/coins/USTC.png'} alt='' />
-                                    <span><strong>USTC</strong></span>
-                                </div>
-                                <div className={styles.coinValue}><strong>{tblCoins[1][0]}</strong></div>
-                            </div>
-                            {isMinorCoinsVisible ? tblCoins.map((element, index) => {
-                                return (index > 1) ? <div key={index} className={styles.coin}>
-                                    <div className={styles.coinImageAndLabel}>
-                                        <img src={'/images/coins/' + element[1] + '.png'} alt='' />
-                                        <span>{element[1]}</span>
+                        <div className={styles.container}>
+                            {tblDelegations.map((element, index) => {
+                                return <div key={index} className={styles.delegation}>
+                                    <div className={styles.titreDelegation}>
+                                        <div className={styles.numeroDelegation}>Delegation #{index+1}/{tblDelegations.length}</div>
                                     </div>
-                                    <div className={styles.coinValue}>{element[0]}</div>
-                                </div> : null
-                            }) : null}
-                            <div className={styles.otherCoins}>
-                                <span onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "«" : "..."}</span>
-                            </div>
-                        </div> */}
+                                    <div>Delegated <strong>{element.amountStaked}</strong> LUNC</div>
+                                    <div>To validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>
+                                    <br />
+                                    <div><u>Staking rewards (pending) :</u></div>
+                                    <div className={isMinorCoinsVisible[index] ? styles.containerEtendu : styles.containerRestreint}>
+                                        <div className={styles.coin}>
+                                            <div className={styles.coinImageAndLabel}>
+                                                <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                                <span><strong>LUNC</strong></span>
+                                            </div>
+                                            <div className={styles.coinValue}><strong>{element.rewards[0][0]}</strong></div>
+                                        </div>
+                                        <div className={styles.coin}>
+                                            <div className={styles.coinImageAndLabel}>
+                                                <img src={'/images/coins/USTC.png'} alt='USTC logo' />
+                                                <span><strong>USTC</strong></span>
+                                            </div>
+                                            <div className={styles.coinValue}><strong>{element.rewards[1][0]}</strong></div>
+                                        </div>
+                                        {isMinorCoinsVisible && isMinorCoinsVisible[index] ? element.rewards.map((element2, index2) => {
+                                            return (index2 > 1) ? <div key={index2} className={styles.coin}>
+                                                <div className={styles.coinImageAndLabel}>
+                                                    <img src={'/images/coins/' + element2[1] + '.png'} alt={element2[1] + ' logo'} />
+                                                    <span>{element2[1]}</span>
+                                                </div>
+                                                <div className={styles.coinValue}>{element2[0]}</div>
+                                            </div> : null
+                                        }) : null}
+                                        <div className={styles.otherCoins}>
+                                            <span onClick={() => handleClickShowHide(index)}>{isMinorCoinsVisible[index] ? "«" : "..."}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            })}
+                        </div>
                     </>
             }
         </>

@@ -18,5 +18,10 @@ export class DistributionAPI {
         return this.apiRequester.get(this.paths.getDistributionCommunityPool, params);
     }
 
+    // Exemple d'appel : /cosmos/distribution/v1beta1/delegators/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd/rewards
+    async getDistributionRewards(accountAdr, params = new URLSearchParams()) {
+        return this.apiRequester.get(this.paths.getDistributionRewards.replace('***', accountAdr), params);
+    }
+
 
 }

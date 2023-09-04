@@ -1,0 +1,69 @@
+
+import { LCDclient } from '../../lcd/LCDclient';
+import { tblCorrespondanceValeurs } from '../../application/AppParams';
+import { tblValidators } from '../../application/AppData';
+
+
+export const getDelegations = async (accountAddress) => {
+
+    // Préparation du tableau réponse en retour
+    const tblRetour = [];
+
+    // Récupération instance LCD
+    const client_lcd = LCDclient.getSingleton();
+
+    // Récupération des delegations de ce compte
+    const rawDelegations = await client_lcd.staking.getDelegations(accountAddress).catch(handleError);
+    if(rawDelegations?.data) {
+        if(rawDelegations.data.delegation_responses) {
+            for(const delegation of rawDelegations.data.delegation_responses) {
+                if(delegation.balance.amount > 0)
+                    tblRetour.push({
+                        amountStaked: delegation.balance.amount/1000000,
+                        valoperAddress: delegation.delegation.validator_address,
+                        valMoniker: tblValidators[delegation.delegation.validator_address].description_moniker,
+                        rewards: []
+                    })
+            }
+        } else
+            return { "erreur": "Failed to fetch [data.delegation_responses] from LCD response, sorry" }
+    } else
+        return { "erreur": "Failed to fetch [delegations] from LCD, sorry" }
+
+
+    // Récupération des rewards de ce compte
+    const rawRewards = await client_lcd.distribution.getDistributionRewards(accountAddress).catch(handleError);
+    if(rawRewards?.data) {
+        if(rawRewards.data.rewards) {
+            for(const rewards of rawRewards.data.rewards) {
+                const idxDansTblRetour = tblRetour.findIndex(element => element.valoperAddress === rewards.validator_address);
+                if(idxDansTblRetour > -1) {
+                    const tblRewards = [];
+                    for(const [denom, coinName] of Object.entries(tblCorrespondanceValeurs)) {
+                        const idxCoin = rewards.reward.findIndex(element => element.denom === denom);
+                        if(idxCoin > -1)
+                            tblRewards.push([(rewards.reward[idxCoin].amount / 1000000).toFixed(6), coinName])
+                        else
+                            tblRewards.push(["0.000000", coinName])
+                    }
+                    tblRetour[idxDansTblRetour].rewards.push(...tblRewards);
+                }
+            }
+        } else
+            return { "erreur": "Failed to fetch [data.rewards] from LCD response, sorry" }
+    } else
+        return { "erreur": "Failed to fetch [rewards] from LCD, sorry" }
+
+
+    // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
+    return tblRetour;
+}
+
+
+
+const handleError = (err) => {
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
+}

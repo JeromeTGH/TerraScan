@@ -65,8 +65,6 @@ const PageAccount = () => {
             <StakedLunc accountAddress={cptNum} />
             {/* <br />
             <div className={styles.blocksAccountPage} style={imgAccount}>
-                <BlockBalances accountAddress={cptNum} />
-                <BlockOtherAssets accountAddress={cptNum} />
                 <BlockDelegations accountAddress={cptNum} />
                 <BlockUndelegations accountAddress={cptNum} />
                 <BlockTransactions accountAddress={cptNum} />

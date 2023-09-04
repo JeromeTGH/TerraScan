@@ -34,7 +34,7 @@ const PageDonate = () => {
                 <i>For donations, thank you !</i>
             </h2>
             <div>
-                <img src='/terra-scan-qr.png' alt="Terra Scan Qr" />
+                <img src='/images/terra-scan-qr.png' alt="Terra Scan Qr" />
             </div>
             <div className={styles.txtAddress}>
                 <p>Or copy/paste this address : </p>

@@ -30,7 +30,8 @@ export class LCDclient {
                 },
                 distribution: {
                     getDistributionCommunityPool: '/cosmos/distribution/v1beta1/community_pool',
-                    getDistributionParameters: '/cosmos/distribution/v1beta1/params'
+                    getDistributionParameters: '/cosmos/distribution/v1beta1/params',
+                    getDistributionRewards: '/cosmos/distribution/v1beta1/delegators/***/rewards'
                 },
                 gov: {
                     getProposalInfos: '/cosmos/gov/v1beta1/proposals/'
@@ -39,6 +40,7 @@ export class LCDclient {
                     getMintParameters: '/cosmos/mint/v1beta1/params'
                 },
                 staking: {
+                    getDelegations: '/cosmos/staking/v1beta1/delegations/',
                     getStakingParameters: '/cosmos/staking/v1beta1/params',
                     getStakingPool: '/cosmos/staking/v1beta1/pool'
                 },

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AvailableCoins.module.scss';
-import { CoinsIcon } from '../../application/AppIcons';
 import { getAvailableCoins } from './getAvailableCoins';
 
 
@@ -44,7 +43,7 @@ const AvailableCoins = (props) => {
     // Affichage
     return (
         <>
-            <h2 className={styles.h2title}><strong><CoinsIcon />Available coins</strong>&nbsp;(not staked)</h2>
+            <br />
             {msgErreur ?
                 <div className="erreur">{msgErreur}</div>
                 :
@@ -52,32 +51,40 @@ const AvailableCoins = (props) => {
                     <div>Loading data from blockchain (lcd), please wait ...</div>
                 :
                     <>
-                        <div className={isMinorCoinsVisible ? styles.containerEtendu : styles.containerRestreint}>
-                            <div className={styles.coin}>
-                                <div className={styles.coinImageAndLabel}>
-                                    <img src={'/images/coins/LUNC.png'} alt='' />
-                                    <span><strong>LUNC</strong></span>
+                        <div className={styles.container}>
+                            <div className={styles.available}>
+                                <div className={styles.titreAvailable}>
+                                    <div className={styles.texteAvailable}>Available</div>
                                 </div>
-                                <div className={styles.coinValue}><strong>{tblCoins[0][0]}</strong></div>
-                            </div>
-                            <div className={styles.coin}>
-                                <div className={styles.coinImageAndLabel}>
-                                    <img src={'/images/coins/USTC.png'} alt='' />
-                                    <span><strong>USTC</strong></span>
-                                </div>
-                                <div className={styles.coinValue}><strong>{tblCoins[1][0]}</strong></div>
-                            </div>
-                            {isMinorCoinsVisible ? tblCoins.map((element, index) => {
-                                return (index > 1) ? <div key={index} className={styles.coin}>
-                                    <div className={styles.coinImageAndLabel}>
-                                        <img src={'/images/coins/' + element[1] + '.png'} alt='' />
-                                        <span>{element[1]}</span>
+                                <div><u>Available coins (not staked) :</u></div>
+                                <div className={isMinorCoinsVisible ? styles.containerEtendu : styles.containerRestreint}>
+                                    <div className={styles.coin}>
+                                        <div className={styles.coinImageAndLabel}>
+                                            <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                            <span><strong>LUNC</strong></span>
+                                        </div>
+                                        <div className={styles.coinValue}><strong>{tblCoins[0][0]}</strong></div>
                                     </div>
-                                    <div className={styles.coinValue}>{element[0]}</div>
-                                </div> : null
-                            }) : null}
-                            <div className={styles.otherCoins}>
-                                <span onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "«" : "..."}</span>
+                                    <div className={styles.coin}>
+                                        <div className={styles.coinImageAndLabel}>
+                                            <img src={'/images/coins/USTC.png'} alt='USTC logo' />
+                                            <span><strong>USTC</strong></span>
+                                        </div>
+                                        <div className={styles.coinValue}><strong>{tblCoins[1][0]}</strong></div>
+                                    </div>
+                                    {isMinorCoinsVisible ? tblCoins.map((element, index) => {
+                                        return (index > 1) ? <div key={index} className={styles.coin}>
+                                            <div className={styles.coinImageAndLabel}>
+                                                <img src={'/images/coins/' + element[1] + '.png'} alt={element[1] + ' logo'} />
+                                                <span>{element[1]}</span>
+                                            </div>
+                                            <div className={styles.coinValue}>{element[0]}</div>
+                                        </div> : null
+                                    }) : null}
+                                    <div className={styles.otherCoins}>
+                                        <span onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "«" : "..."}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </>

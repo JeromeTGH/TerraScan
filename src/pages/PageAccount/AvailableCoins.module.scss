@@ -1,12 +1,32 @@
-
-.h2title {
+.container {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 1.4rem;
-    border-bottom: 1px solid var(--outline-box-color);
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1rem;
+
+
+    .available {
+        border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color2);
+        padding: 0.4rem 0.6rem;
+        border-radius: 2px;
+
+        .titreAvailable {
+            position: relative;
+            margin-bottom: 0.6rem;
+
+            .texteAvailable {
+                font-size: 0.9rem;
+                background-color: #10B070;
+                color: white;
+                position: absolute;
+                top: -1.2rem;
+                padding: 0.1rem 0.4rem;
+            }
+        }
+    }
 }
+
 
 
 .containerEtendu, .containerRestreint {

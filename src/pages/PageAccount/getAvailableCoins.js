@@ -12,7 +12,7 @@ export const getAvailableCoins = async (accountAddress) => {
     const client_lcd = LCDclient.getSingleton();
     const rawAccountDetails = await client_lcd.bank.getAccountDetails(accountAddress).catch(handleError);
 
-    if(rawAccountDetails.data) {
+    if(rawAccountDetails?.data) {
         if(rawAccountDetails.data.balances) {
             // Enregistrement des coins, dans l'ordre de la liste (LUNC, USTC, puis les autres)
             for(const [denom, coinName] of Object.entries(tblCorrespondanceValeurs)) {
