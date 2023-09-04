@@ -235,6 +235,10 @@ export const getProposal = async (propID) => {
                 if(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
                     tblDesVotesDeValidateur = {...tblValidators};
                             // On effacera ensuite ceux qui n'ont pas voté, du fait qu'on ne saurait distinguer s'ils étaient là à l'époquer, pour voter ou non
+
+                    for (const valoperAdr of Object.keys(tblDesVotesDeValidateur)) {
+                        tblDesVotesDeValidateur[valoperAdr].vote = '***';
+                    }
                 }
                 if(proposalInfos['status'] === 2) {
                     for (const [valoperAdr, validator] of Object.entries(tblValidators)) {

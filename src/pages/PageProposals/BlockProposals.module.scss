@@ -7,7 +7,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         column-gap: 0.2rem;
-        padding-bottom: 2rem;
 
         @media (max-width: 480px) {
             column-gap: 0.1rem;
@@ -46,10 +45,13 @@
         grid-template-columns: 49% 49%;
         column-gap: 2%;
         row-gap: 1.8rem;
+        padding-top: 2rem;
 
         @media (max-width: 680px) {
             grid-template-columns: 100%;
             column-gap: 0;
+            row-gap: 0.8rem;
+            padding-top: 1rem;
         }
 
     }
