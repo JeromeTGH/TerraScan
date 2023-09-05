@@ -12,8 +12,8 @@ import { tblCorrespondanceCompte } from '../../application/AppParams';
 // import BlockTransactions from './BlockTransactions';
 import { tblValidators } from '../../application/AppData';
 // import { AppContext } from '../../application/AppContext';
-import AvailableCoins from './AvailableCoins';
-import StakedLunc from './StakedLunc';
+import AvailableCoins from './_AvailableCoins';
+import StakedLunc from './_StakedLunc';
 
 const PageAccount = () => {
 

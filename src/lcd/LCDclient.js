@@ -24,29 +24,29 @@ export class LCDclient {
             this.apiRequester = new APIrequester(url_of_LCD);
             this.paths = {
                 bank: {
-                    getAccountDetails: '/cosmos/bank/v1beta1/balances/',
-                    getOraclePoolBalance: '/cosmos/bank/v1beta1/balances/',
+                    getAccountDetails: '/cosmos/bank/v1beta1/balances/***',
+                    getOraclePoolBalance: '/cosmos/bank/v1beta1/balances/***',
                     getTotalSupplies: '/cosmos/bank/v1beta1/supply'
                 },
                 distribution: {
                     getDistributionCommunityPool: '/cosmos/distribution/v1beta1/community_pool',
                     getDistributionParameters: '/cosmos/distribution/v1beta1/params',
-                    getDistributionRewards: '/cosmos/distribution/v1beta1/delegators/***/rewards'
+                    getPendingRewards: '/cosmos/distribution/v1beta1/delegators/***/rewards'
                 },
                 gov: {
-                    getProposalInfos: '/cosmos/gov/v1beta1/proposals/'
+                    getProposalInfos: '/cosmos/gov/v1beta1/proposals/***'
                 },
                 mint: {
                     getMintParameters: '/cosmos/mint/v1beta1/params'
                 },
                 staking: {
-                    getDelegations: '/cosmos/staking/v1beta1/delegations/',
+                    getDelegations: '/cosmos/staking/v1beta1/delegations/***',
                     getStakingParameters: '/cosmos/staking/v1beta1/params',
                     getStakingPool: '/cosmos/staking/v1beta1/pool'
                 },
                 tendermint: {
                     getNodeInfos: '/cosmos/base/tendermint/v1beta1/node_info',
-                    getBlockInfos: '/cosmos/base/tendermint/v1beta1/blocks/'
+                    getBlockInfos: '/cosmos/base/tendermint/v1beta1/blocks/***'
                 },
                 treasury : {
                     getTreasuryParameters: '/terra/treasury/v1beta1/params'

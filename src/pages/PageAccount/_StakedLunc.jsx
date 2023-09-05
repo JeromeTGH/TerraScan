@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './StakedLunc.module.scss';
+import styles from './_StakedLunc.module.scss';
 import { getDelegations } from './getDelegations';
 import { Link } from 'react-router-dom';
 import { tblValidators } from '../../application/AppData';
@@ -51,14 +51,14 @@ const StakedLunc = (props) => {
                 <div className="erreur">{msgErreur}</div>
                 :
                 isLoading ?
-                    <div>Loading data from blockchain (lcd), please wait ...</div>
+                    <div>Loading "delegations" from blockchain (lcd), please wait ...</div>
                 :
                     <>
                         <div className={styles.container}>
                             {tblDelegations.map((element, index) => {
                                 return <div key={index} className={styles.delegation}>
                                     <div className={styles.titreDelegation}>
-                                        <div className={styles.numeroDelegation}>Delegation #{index+1}/{tblDelegations.length}</div>
+                                        <div className={styles.numeroDelegation}>Delegation {index+1}/{tblDelegations.length}</div>
                                     </div>
                                     <div>Delegated <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amountStaked)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amountStaked)}</span> LUNC</div>
                                     <div>To validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>

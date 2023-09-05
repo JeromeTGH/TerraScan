@@ -19,7 +19,7 @@ export class StakingAPI {
 
     // Exemple d'appel : /cosmos/staking/v1beta1/delegations/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd
     async getDelegations(accountAdr, params = new URLSearchParams()) {
-        return await this.apiRequester.get(this.paths.getDelegations + accountAdr, params);
+        return await this.apiRequester.get(this.paths.getDelegations.replace('***', accountAdr), params);
     }
 
 }

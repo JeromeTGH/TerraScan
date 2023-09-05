@@ -32,7 +32,7 @@ export const getDelegations = async (accountAddress) => {
 
 
     // Récupération des rewards de ce compte
-    const rawRewards = await client_lcd.distribution.getDistributionRewards(accountAddress).catch(handleError);
+    const rawRewards = await client_lcd.distribution.getPendingRewards(accountAddress).catch(handleError);
     if(rawRewards?.data) {
         if(rawRewards.data.rewards) {
             for(const rewards of rawRewards.data.rewards) {

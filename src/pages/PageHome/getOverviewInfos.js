@@ -154,8 +154,8 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
         return { "erreur": "Failed to fetch [distribution community pool] ..." }
 
 
-    // Récupération des infos concernant le "oracle pool" (adresse = terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f)
-    const rawOraclePoolBalance = await client_lcd.bank.getOraclePoolBalance('terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f').catch(handleError);
+    // Récupération des infos concernant le "oracle pool"
+    const rawOraclePoolBalance = await client_lcd.bank.getOraclePoolBalance().catch(handleError);
     if(rawOraclePoolBalance?.data?.balances) {
         const idxLuncInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uluna");
         const idxUstcInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uusd");

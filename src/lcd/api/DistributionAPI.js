@@ -19,8 +19,8 @@ export class DistributionAPI {
     }
 
     // Exemple d'appel : /cosmos/distribution/v1beta1/delegators/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd/rewards
-    async getDistributionRewards(accountAdr, params = new URLSearchParams()) {
-        return this.apiRequester.get(this.paths.getDistributionRewards.replace('***', accountAdr), params);
+    async getPendingRewards(accountAdr, params = new URLSearchParams()) {
+        return this.apiRequester.get(this.paths.getPendingRewards.replace('***', accountAdr), params);
     }
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './AvailableCoins.module.scss';
+import styles from './_AvailableCoins.module.scss';
 import { getAvailableCoins } from './getAvailableCoins';
 import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 
@@ -11,7 +11,7 @@ const AvailableCoins = (props) => {
     const [tblCoins, setTblCoins] = useState();
     const [msgErreur, setMsgErreur] = useState();
 
-    const [isMinorCoinsVisible, setIsMinorCoinsVisible] = useState(true);
+    // const [isMinorCoinsVisible, setIsMinorCoinsVisible] = useState(true);
 
 
     // Exécution au chargement de ce component, et à chaque changement de "accountAddress"
@@ -36,10 +36,10 @@ const AvailableCoins = (props) => {
     }, [props.accountAddress])
 
 
-    // HandleClick pour l'expansion/rétrécissement de l'affichage des "minor coins"
-    const handleClickShowHide = () => {
-        setIsMinorCoinsVisible(!isMinorCoinsVisible);
-    }
+    // // HandleClick pour l'expansion/rétrécissement de l'affichage des "minor coins"
+    // const handleClickShowHide = () => {
+    //     setIsMinorCoinsVisible(!isMinorCoinsVisible);
+    // }
 
 
     // Affichage
@@ -50,7 +50,7 @@ const AvailableCoins = (props) => {
                 <div className="erreur">{msgErreur}</div>
                 :
                 isLoading ?
-                    <div>Loading data from blockchain (lcd), please wait ...</div>
+                    <div>Loading "available coins" from blockchain (lcd), please wait ...</div>
                 :
                     <>
                         <div className={styles.container}>
@@ -83,7 +83,8 @@ const AvailableCoins = (props) => {
                                             </strong>
                                         </div>
                                     </div>
-                                    {isMinorCoinsVisible ? tblCoins.map((element, index) => {
+                                    {/* {isMinorCoinsVisible ? tblCoins.map((element, index) => { */}
+                                    {tblCoins.map((element, index) => {
                                         return (index > 1) ? <div key={index} className={styles.coin}>
                                             <div className={styles.coinImageAndLabel}>
                                                 <img src={'/images/coins/' + element[1] + '.png'} alt={element[1] + ' logo'} />
@@ -94,9 +95,10 @@ const AvailableCoins = (props) => {
                                                 <span className='partieDecimale'>{retournePartieDecimaleFixed6(element[0])}</span>
                                             </div>
                                         </div> : null
-                                    }) : null}
+                                    })}
+                                    {/* }) : null} */}
                                 </div>
-                                <span className={styles.showhide} onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "<< hide minor coins" : "Show other coins >>"}</span>
+                                {/* <span className={styles.showhide} onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "<< hide minor coins" : "Show other coins >>"}</span> */}
                             </div>
                         </div>
                     </>
