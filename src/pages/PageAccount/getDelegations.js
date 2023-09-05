@@ -22,7 +22,8 @@ export const getDelegations = async (accountAddress) => {
                         amountStaked: delegation.balance.amount/1000000,
                         valoperAddress: delegation.delegation.validator_address,
                         valMoniker: tblValidators[delegation.delegation.validator_address].description_moniker,
-                        rewards: []
+                        rewards: [],
+                        isJailedValidator: tblValidators[delegation.delegation.validator_address].status !== 'active'
                     })
             }
         } else

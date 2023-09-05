@@ -159,7 +159,7 @@ export const metEnFormeGrandNombre = (nombre, precision) => {
  * @param reverse valeur qui indique si on veut travailler en "time ago" ou "time later"
  * @returns Valeur texte à afficher
  */
-export const datetime_ago = (datetime, reverse=false) => {
+export const datetime_ago = (datetime, reverse=false, disableExtension=false) => {
 
     // Sélecteur/mise en forme
     let datetimeAanalyser;
@@ -188,13 +188,13 @@ export const datetime_ago = (datetime, reverse=false) => {
         {nbsecondes: 3600, texte: 'minutes', diviseur: 60},
         {nbsecondes: 7200, texte: '1 hour ago', diviseur: null},
         {nbsecondes: 86400, texte: 'hours', diviseur: 3600},
-        {nbsecondes: 172800, texte: 'Yesterday', diviseur: null},
+        {nbsecondes: 172800, texte: '1 day ago', diviseur: null},
         {nbsecondes: 604800, texte: 'days', diviseur: 86400},
-        {nbsecondes: 1209600, texte: 'Last week', diviseur: null},
+        {nbsecondes: 1209600, texte: '1 week ago', diviseur: null},
         {nbsecondes: 2419200, texte: 'weeks', diviseur: 604800},
-        {nbsecondes: 4838400, texte: 'Last month', diviseur: null},
+        {nbsecondes: 4838400, texte: '1 month ago', diviseur: null},
         {nbsecondes: 29030400, texte: 'months', diviseur: 2419200},
-        {nbsecondes: 58060800, texte: 'Last year', diviseur: null},
+        {nbsecondes: 58060800, texte: '1 year ago', diviseur: null},
         {nbsecondes: 2903040000, texte: 'years', diviseur: 29030400}
     ];
 
@@ -218,12 +218,16 @@ export const datetime_ago = (datetime, reverse=false) => {
         }
     }
 
+    // Traitement de sortie
+    if(disableExtension) {
+        datetimeInReturn = datetimeInReturn.replace(' ago', '');
+        datetimeInReturn = datetimeInReturn.replace('ago', '');
+    }
     if(reverse) {
-        datetimeInReturn = datetimeInReturn.replace('ago', 'from now'); 
-        datetimeInReturn = datetimeInReturn.replace('Last', 'Next'); 
-        datetimeInReturn = datetimeInReturn.replace('Yesterday', 'Tomorrow'); 
+        datetimeInReturn = datetimeInReturn.replace('ago', 'from now');
     }
 
+    // Renvoi du texte formaté
     return datetimeInReturn.replaceAll(' ', '\u00a0');
 }
 

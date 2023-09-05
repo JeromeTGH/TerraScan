@@ -90,7 +90,7 @@ const Undelegations = (props) => {
                                     </div>
                                     <div>undelegating from validator <Link to={'/validators/' + tblUndelegation.valoperAddress}>{tblUndelegation.valMoniker}</Link> {tblValidators[tblUndelegation.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>
                                     <br />
-                                    <div>They will be <strong>released in {datetime_ago(tblUndelegation.releaseDatetime, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
+                                    <div>They will be <strong>released in {datetime_ago(tblUndelegation.releaseDatetime, true, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
                                 </div>
                             </>
                         :

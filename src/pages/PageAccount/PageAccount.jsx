@@ -68,7 +68,6 @@ const PageAccount = () => {
             <Undelegations accountAddress={cptNum} />
             {/* <br />
             <div className={styles.blocksAccountPage} style={imgAccount}>
-                <BlockUndelegations accountAddress={cptNum} />
                 <BlockTransactions accountAddress={cptNum} />
             </div> */}
         </>
