@@ -31,8 +31,8 @@ export const getUndelegations = async (accountAddress) => {
         return { "erreur": "Failed to fetch [undelegations] from LCD, sorry" }
 
 
+    // Tri des dates de release, de la plus proche à la plus lointaine
     tblRetour.sort((a, b) => new Date(a.releaseDatetime) - new Date(b.releaseDatetime));
-    console.log("tblRetour", tblRetour);
 
     // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
     return tblRetour;

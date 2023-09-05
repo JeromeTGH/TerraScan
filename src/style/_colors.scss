@@ -26,6 +26,8 @@
     --pagination-selected-page-fill-color: #{$darkTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$darkTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$darkTheme_paginationPageNumberTextColor};
+    --arrow-nav-fill-color: #{$darkTheme_arrowNavFillColor};
+    --arrow-nav-text-color: #{$darkTheme_arrowNavTextColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -54,6 +56,8 @@
     --pagination-selected-page-fill-color: #{$lightTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$lightTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$lightTheme_paginationPageNumberTextColor};
+    --arrow-nav-fill-color: #{$lightTheme_arrowNavFillColor};
+    --arrow-nav-text-color: #{$lightTheme_arrowNavTextColor};
 }
 
 body {

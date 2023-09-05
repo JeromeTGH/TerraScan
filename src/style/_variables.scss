@@ -22,7 +22,8 @@ $lightTheme_brillantTextColor: #404090;
 $lightTheme_paginationSelectedPageFillColor: #002A50;
 $lightTheme_paginationUnselectedPageFillColor: #0072EE;
 $lightTheme_paginationPageNumberTextColor: #F1F1F1;
-
+$lightTheme_arrowNavFillColor: #606060;
+$lightTheme_arrowNavTextColor: #E1E1E1;
 
 // Dark Theme Colors
 $darkTheme_backgroundColor: #181822;
@@ -48,6 +49,8 @@ $darkTheme_brillantTextColor: #D1D1FF;
 $darkTheme_paginationSelectedPageFillColor: #005FC4;
 $darkTheme_paginationUnselectedPageFillColor: #103A60;
 $darkTheme_paginationPageNumberTextColor: #F1F1F1;
+$darkTheme_arrowNavFillColor: #404040;
+$darkTheme_arrowNavTextColor: #E1E1E1;
 
 // Largeurs
 $primary-breakpoint: 1024px;        // Moment à partir duquel on passe d'un "menu latéral gauche" à un "burger menu"
