@@ -61,6 +61,10 @@ export const getDelegations = async (accountAddress) => {
         return { "erreur": "Failed to fetch [rewards] from LCD, sorry" }
 
 
+    // Tri des montants stakés, du "plus gros" au "plus petit"
+    tblRetour.sort((a, b) => b.amountStaked - a.amountStaked);
+
+
     // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
     return tblRetour;
 }
