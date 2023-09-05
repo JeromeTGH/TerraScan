@@ -18,6 +18,7 @@ const AvailableCoins = (props) => {
     useEffect(() => {
 
         setIsLoading(true);
+        setTblCoins([]);
 
         // Récupération de la balance de ce compte
         getAvailableCoins(props.accountAddress).then((res) => {
@@ -44,20 +45,19 @@ const AvailableCoins = (props) => {
 
     // Affichage
     return (
-        <>
-            <br />
-            {msgErreur ?
-                <div className="erreur">{msgErreur}</div>
+        <div className={styles.container}>
+            <div className={styles.available}>
+                <div className={styles.blockTitle}>
+                    <div className={styles.textTitle}>Available</div>
+                </div>
+                {msgErreur ?
+                    <div className={"erreur " + styles.message}>{msgErreur}</div>
                 :
-                isLoading ?
-                    <div>Loading "available coins" from blockchain (lcd), please wait ...</div>
-                :
-                    <>
-                        <div className={styles.container}>
-                            <div className={styles.available}>
-                                <div className={styles.blockTitle}>
-                                    <div className={styles.textTitle}>Available</div>
-                                </div>
+                    isLoading ?
+                        <div className={styles.message}>Loading "available coins" from blockchain (lcd), please wait ...</div>
+                    :
+                        tblCoins.length > 0 ?
+                            <>
                                 <div className={styles.coinContainer}>
                                     <div className={styles.coin}>
                                         <div className={styles.coinImageAndLabel}>
@@ -98,12 +98,13 @@ const AvailableCoins = (props) => {
                                     })}
                                     {/* }) : null} */}
                                 </div>
-                                {/* <span className={styles.showhide} onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "<< hide minor coins" : "Show other coins >>"}</span> */}
-                            </div>
-                        </div>
-                    </>
-            }
-        </>
+                            </>
+                        :
+                            <div className={styles.message}>No coins.</div>
+                }
+                {/* <span className={styles.showhide} onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "<< hide minor coins" : "Show other coins >>"}</span> */}
+            </div>
+        </div>
     );
 };
 

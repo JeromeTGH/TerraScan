@@ -58,7 +58,7 @@ export const getDelegations = async (accountAddress) => {
         } else
             return { "erreur": "Failed to fetch [data.rewards] from LCD response, sorry" }
     } else
-        return { "erreur": "Failed to fetch [rewards] from LCD, sorry" }
+        return { "erreur": "Failed to fetch [delegations rewards] from LCD, sorry" }
 
 
     // Tri des montants stakés, du "plus gros" au "plus petit"

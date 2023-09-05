@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding-top: 1rem;
+    padding-top: 2.4rem;
 
 
     .undelegation {
@@ -11,6 +11,11 @@
         background-color: var(--boxed-fill-color2);
         padding: 0.4rem 0.6rem;
         border-radius: 2px;
+
+        .message {
+            padding: 1rem;
+            padding-top: 0.6rem;
+        }
 
         .blockTitle {
             display: flex;
@@ -56,12 +61,7 @@
             }
         }
 
-        .fromValidator {
-            padding-bottom: 0.8rem;
-        }
-
         .releaseDatetime {
-            padding-left: 1.4rem;
             padding-bottom: 0.6rem;
             font-size: 0.7em;
             font-weight: 400;
