@@ -60,8 +60,8 @@ const Delegations = (props) => {
                                     <div className={styles.blockTitle}>
                                         <div className={styles.textTitle}>Delegation {index+1}/{tblDelegations.length}</div>
                                     </div>
-                                    <div>Delegated <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amountStaked)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amountStaked)}</span> LUNC</div>
                                     <div>To validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>
+                                    <div>→ Are delegated <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amountStaked)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amountStaked)}</span> LUNC</div>
                                     {tblValidators[element.valoperAddress].status === 'active' ?
                                         <>
                                             <div className={styles.coinContainer}>

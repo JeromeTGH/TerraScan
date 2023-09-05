@@ -1,7 +1,6 @@
 
 import { LCDclient } from '../../lcd/LCDclient';
-// import { tblCorrespondanceValeurs } from '../../application/AppParams';
-// import { tblValidators } from '../../application/AppData';
+import { tblValidators } from '../../application/AppData';
 
 
 export const getUndelegations = async (accountAddress) => {
@@ -12,27 +11,28 @@ export const getUndelegations = async (accountAddress) => {
     // Récupération instance LCD
     const client_lcd = LCDclient.getSingleton();
 
-    // Récupération des delegations de ce compte
+    // Récupération des undelegations de ce compte
     const rawUndelegations = await client_lcd.staking.getUndelegations(accountAddress).catch(handleError);
     if(rawUndelegations?.data) {
-        console.log("rawUndelegations.data", rawUndelegations.data);
-        // if(rawDelegations.data.delegation_responses) {
-        //     for(const delegation of rawDelegations.data.delegation_responses) {
-        //         if(delegation.balance.amount > 0)
-        //             tblRetour.push({
-        //                 amountStaked: delegation.balance.amount/1000000,
-        //                 valoperAddress: delegation.delegation.validator_address,
-        //                 valMoniker: tblValidators[delegation.delegation.validator_address].description_moniker,
-        //                 rewards: []
-        //             })
-        //     }
-        // } else
-        //     return { "erreur": "Failed to fetch [data.delegation_responses] from LCD response, sorry" }
+        if(rawUndelegations.data.unbonding_responses) {
+            for(const undelegation of rawUndelegations.data.unbonding_responses) {
+                for(const entrie of undelegation.entries) {
+                    tblRetour.push({
+                        valoperAddress: undelegation.validator_address,
+                        valMoniker: tblValidators[undelegation.validator_address].description_moniker,
+                        // entries: tblEntries
+                        balance: entrie.balance/1000000,
+                        releaseDatetime: entrie.completion_time
+                    })
+                }
+            }
+        }
     } else
         return { "erreur": "Failed to fetch [undelegations] from LCD, sorry" }
 
 
-
+    tblRetour.sort((a, b) => new Date(a.releaseDatetime) - new Date(b.releaseDatetime));
+    console.log("tblRetour", tblRetour);
 
     // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
     return tblRetour;
