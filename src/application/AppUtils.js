@@ -156,9 +156,10 @@ export const metEnFormeGrandNombre = (nombre, precision) => {
 /**
  * 
  * @param datetime valeur texte ou timestamp, à comparer au datetime actuel
+ * @param reverse valeur qui indique si on veut travailler en "time ago" ou "time later"
  * @returns Valeur texte à afficher
  */
-export const datetime_ago = (datetime) => {
+export const datetime_ago = (datetime, reverse=false) => {
 
     // Sélecteur/mise en forme
     let datetimeAanalyser;
@@ -173,8 +174,12 @@ export const datetime_ago = (datetime) => {
     }
 
     // Variables
-    let secondsLeft = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
     let datetimeInReturn = "";
+    let secondsLeft;
+    if(reverse)
+        secondsLeft = (datetimeAanalyser - new Date()) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+    else
+        secondsLeft = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
 
     // Constantes
     const datetime_formats = [
@@ -206,15 +211,22 @@ export const datetime_ago = (datetime) => {
                     datetimeInReturn = datetime_formats[index].texte;
                     break;
                 } else {
-                    datetimeInReturn = Math.floor(secondsLeft / datetime_formats[index].diviseur) + '\u00a0' + datetime_formats[index].texte + '\u00a0ago';
+                    datetimeInReturn = Math.floor(secondsLeft / datetime_formats[index].diviseur) + ' ' + datetime_formats[index].texte + ' ago';
                     break;
                 }
             }
         }
     }
 
+    if(reverse) {
+        datetimeInReturn = datetimeInReturn.replace('ago', 'from now'); 
+        datetimeInReturn = datetimeInReturn.replace('Last', 'Next'); 
+        datetimeInReturn = datetimeInReturn.replace('Yesterday', 'Tomorrow'); 
+    }
+
     return datetimeInReturn.replaceAll(' ', '\u00a0');
 }
+
 
 
 // ========================================
