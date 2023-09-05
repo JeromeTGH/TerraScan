@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AvailableCoins.module.scss';
 import { getAvailableCoins } from './getAvailableCoins';
+import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 
 
 const AvailableCoins = (props) => {
@@ -10,7 +11,8 @@ const AvailableCoins = (props) => {
     const [tblCoins, setTblCoins] = useState();
     const [msgErreur, setMsgErreur] = useState();
 
-    const [isMinorCoinsVisible, setIsMinorCoinsVisible] = useState(false);
+    const [isMinorCoinsVisible, setIsMinorCoinsVisible] = useState(true);
+
 
     // Exécution au chargement de ce component, et à chaque changement de "accountAddress"
     useEffect(() => {
@@ -56,21 +58,30 @@ const AvailableCoins = (props) => {
                                 <div className={styles.titreAvailable}>
                                     <div className={styles.texteAvailable}>Available</div>
                                 </div>
-                                <div><u>Available coins (not staked) :</u></div>
-                                <div className={isMinorCoinsVisible ? styles.containerEtendu : styles.containerRestreint}>
+                                <div className={styles.coinContainer}>
                                     <div className={styles.coin}>
                                         <div className={styles.coinImageAndLabel}>
                                             <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
                                             <span><strong>LUNC</strong></span>
                                         </div>
-                                        <div className={styles.coinValue}><strong>{tblCoins[0][0]}</strong></div>
+                                        <div className={styles.coinValue}>
+                                            <strong>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[0][0])}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[0][0])}</span>
+                                            </strong>
+                                        </div>
                                     </div>
                                     <div className={styles.coin}>
                                         <div className={styles.coinImageAndLabel}>
                                             <img src={'/images/coins/USTC.png'} alt='USTC logo' />
                                             <span><strong>USTC</strong></span>
                                         </div>
-                                        <div className={styles.coinValue}><strong>{tblCoins[1][0]}</strong></div>
+                                        <div className={styles.coinValue}>
+                                            <strong>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[1][0])}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[1][0])}</span>
+                                            </strong>
+                                        </div>
                                     </div>
                                     {isMinorCoinsVisible ? tblCoins.map((element, index) => {
                                         return (index > 1) ? <div key={index} className={styles.coin}>
@@ -78,13 +89,14 @@ const AvailableCoins = (props) => {
                                                 <img src={'/images/coins/' + element[1] + '.png'} alt={element[1] + ' logo'} />
                                                 <span>{element[1]}</span>
                                             </div>
-                                            <div className={styles.coinValue}>{element[0]}</div>
+                                            <div className={styles.coinValue}>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element[0])}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(element[0])}</span>
+                                            </div>
                                         </div> : null
                                     }) : null}
-                                    <div className={styles.otherCoins}>
-                                        <span onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "«" : "..."}</span>
-                                    </div>
                                 </div>
+                                <span className={styles.showhide} onClick={() => handleClickShowHide()}>{isMinorCoinsVisible ? "<< hide minor coins" : "Show other coins >>"}</span>
                             </div>
                         </div>
                     </>

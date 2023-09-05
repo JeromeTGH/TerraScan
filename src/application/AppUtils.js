@@ -214,5 +214,34 @@ export const datetime_ago = (datetime) => {
     }
 
     return datetimeInReturn.replaceAll(' ', '\u00a0');
+}
 
+
+// ========================================
+// Fonction "metEnFormeAmountPartieEntiere"
+// ========================================
+/**
+ * 
+ * @param amount Valeur à traiter
+ * @param sep Séparateur des milliers (virgule, espace, ...)
+ * @returns Valeur avec partie entière formatée
+ */
+export const metEnFormeAmountPartieEntiere = (amount, sep = ',') => {
+    const partieEntiere = parseInt(amount);
+    const partieEntiereFormatee = partieEntiere.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+    return partieEntiereFormatee;
+}
+// =======================================
+// Fonction "retournePartieDecimaleFixed6"
+// =======================================
+/**
+ * 
+ * @param amount Valeur à traiter
+ * @returns Valeur avec partie décimale formatée (6 chiffres "après la virgule")
+ */
+export const retournePartieDecimaleFixed6 = (amount) => {
+    const partieDecimale = amount % 1;
+    const partieDecimaleFormatee = partieDecimale.toFixed(6).replace('0.', '.');
+    // const partieDecimaleFormatee = partieDecimale === 0 ? '' : partieDecimale.toFixed(6).replace('0.', '.');
+    return partieDecimaleFormatee;
 }
