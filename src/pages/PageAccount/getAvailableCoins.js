@@ -18,9 +18,15 @@ export const getAvailableCoins = async (accountAddress) => {
             for(const [denom, coinName] of Object.entries(tblCorrespondanceValeurs)) {
                 const idxCoin = rawAccountDetails.data.balances.findIndex(element => element.denom === denom);
                 if(idxCoin > -1)
-                    tblRetour.push([(rawAccountDetails.data.balances[idxCoin].amount / 1000000).toFixed(6), coinName])
+                    tblRetour.push({
+                        amount: (rawAccountDetails.data.balances[idxCoin].amount / 1000000).toFixed(6),
+                        denom: coinName
+                    })
                 else
-                    tblRetour.push(["0.000000", coinName])
+                    tblRetour.push({
+                        amount: "0.000000",
+                        denom: coinName
+                    })
             }
         } else
             return { "erreur": "Failed to fetch [data.balances] from LCD response, sorry" }

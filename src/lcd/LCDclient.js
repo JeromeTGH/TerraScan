@@ -42,7 +42,8 @@ export class LCDclient {
                 staking: {
                     getDelegations: '/cosmos/staking/v1beta1/delegations/***',
                     getStakingParameters: '/cosmos/staking/v1beta1/params',
-                    getStakingPool: '/cosmos/staking/v1beta1/pool'
+                    getStakingPool: '/cosmos/staking/v1beta1/pool',
+                    getUndelegations: '/cosmos/staking/v1beta1/delegators/***/unbonding_delegations'
                 },
                 tendermint: {
                     getNodeInfos: '/cosmos/base/tendermint/v1beta1/node_info',

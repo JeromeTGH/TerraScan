@@ -6,6 +6,7 @@ import BlockValHeader from './BlockValHeader';
 import BlockValLeft from './BlockValLeft';
 import BlockTopDelegators from './BlockTopDelegators';
 import { appName } from '../../application/AppParams';
+import { tblValidators } from '../../application/AppData';
 
 
 const PageValidator = () => {
@@ -25,11 +26,15 @@ const PageValidator = () => {
             <h1><span><CalculatorIcon /><strong>Validator</strong></span></h1>
             <p className={styles.validatorAddress}>→ Address : <strong>{valAdr}</strong></p>
             <br />
-            <div className={styles.blocksValidatorPage}>
-                <BlockValHeader valAddress={valAdr} />
-                <BlockValLeft valAddress={valAdr} />
-                <BlockTopDelegators valAddress={valAdr} />
-            </div>
+            {tblValidators[valAdr] ?
+                <div className={styles.blocksValidatorPage}>
+                    <BlockValHeader valAddress={valAdr} />
+                    <BlockValLeft valAddress={valAdr} />
+                    <BlockTopDelegators valAddress={valAdr} />
+                </div>
+            :
+                <div className='erreur'>Address not found, sorry ...</div>
+            }
         </>
     );
 };

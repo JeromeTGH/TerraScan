@@ -55,8 +55,8 @@ const AvailableCoins = (props) => {
                     <>
                         <div className={styles.container}>
                             <div className={styles.available}>
-                                <div className={styles.titreAvailable}>
-                                    <div className={styles.texteAvailable}>Available</div>
+                                <div className={styles.blockTitle}>
+                                    <div className={styles.textTitle}>Available</div>
                                 </div>
                                 <div className={styles.coinContainer}>
                                     <div className={styles.coin}>
@@ -66,8 +66,8 @@ const AvailableCoins = (props) => {
                                         </div>
                                         <div className={styles.coinValue}>
                                             <strong>
-                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[0][0])}</span>
-                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[0][0])}</span>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[0].amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[0].amount)}</span>
                                             </strong>
                                         </div>
                                     </div>
@@ -78,8 +78,8 @@ const AvailableCoins = (props) => {
                                         </div>
                                         <div className={styles.coinValue}>
                                             <strong>
-                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[1][0])}</span>
-                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[1][0])}</span>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[1].amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[1].amount)}</span>
                                             </strong>
                                         </div>
                                     </div>
@@ -87,12 +87,12 @@ const AvailableCoins = (props) => {
                                     {tblCoins.map((element, index) => {
                                         return (index > 1) ? <div key={index} className={styles.coin}>
                                             <div className={styles.coinImageAndLabel}>
-                                                <img src={'/images/coins/' + element[1] + '.png'} alt={element[1] + ' logo'} />
-                                                <span>{element[1]}</span>
+                                                <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom + ' logo'} />
+                                                <span>{element.denom}</span>
                                             </div>
                                             <div className={styles.coinValue}>
-                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element[0])}</span>
-                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(element[0])}</span>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
                                             </div>
                                         </div> : null
                                     })}

@@ -13,7 +13,9 @@ import { tblCorrespondanceCompte } from '../../application/AppParams';
 import { tblValidators } from '../../application/AppData';
 // import { AppContext } from '../../application/AppContext';
 import AvailableCoins from './_AvailableCoins';
-import StakedLunc from './_StakedLunc';
+import Undelegations from './_Undelegations';
+import Delegations from './_Delegations';
+
 
 const PageAccount = () => {
 
@@ -62,10 +64,10 @@ const PageAccount = () => {
             <p className={styles.accountAddress}>→ Address : <strong>{cptNum}</strong></p>
             {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This is the account of <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link> validator.</p> : null}
             <AvailableCoins accountAddress={cptNum} />
-            <StakedLunc accountAddress={cptNum} />
+            <Delegations accountAddress={cptNum} />
+            <Undelegations accountAddress={cptNum} />
             {/* <br />
             <div className={styles.blocksAccountPage} style={imgAccount}>
-                <BlockDelegations accountAddress={cptNum} />
                 <BlockUndelegations accountAddress={cptNum} />
                 <BlockTransactions accountAddress={cptNum} />
             </div> */}

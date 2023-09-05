@@ -1,0 +1,49 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1rem;
+
+
+    .undelegation {
+        border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color2);
+        padding: 0.4rem 0.6rem;
+        border-radius: 2px;
+
+        .blockTitle {
+            position: relative;
+            margin-bottom: 1.4rem;
+
+            .textTitle {
+                font-size: 1rem;
+                background-color: #F08000;
+                color: white;
+                position: absolute;
+                top: -1.2rem;
+                padding: 0.1rem 0.6rem;
+            }
+        }
+
+        .jailed, .active {
+            font-size: 0.7rem;
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-left: 0.4rem;
+            position: relative;
+            top: -0.15rem;
+        }
+        .jailed {
+            padding: 0.1rem 0.4rem 0.2rem 0.5rem;
+            background-color: var(--red-color);
+        }
+        .active {
+            padding: 0.1rem 0.4rem 0.2rem 0.4rem;
+            background-color: var(--green-color);
+        }
+        
+    }
+
+}

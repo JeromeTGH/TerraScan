@@ -42,9 +42,15 @@ export const getDelegations = async (accountAddress) => {
                     for(const [denom, coinName] of Object.entries(tblCorrespondanceValeurs)) {
                         const idxCoin = rewards.reward.findIndex(element => element.denom === denom);
                         if(idxCoin > -1)
-                            tblRewards.push([(rewards.reward[idxCoin].amount / 1000000).toFixed(6), coinName])
+                            tblRewards.push({
+                                amount: (rewards.reward[idxCoin].amount / 1000000).toFixed(6),
+                                denom: coinName
+                            })
                         else
-                            tblRewards.push(["0.000000", coinName])
+                            tblRewards.push({
+                                amount: "0.000000",
+                                denom: coinName
+                            })
                     }
                     tblRetour[idxDansTblRetour].rewards.push(...tblRewards);
                 }
