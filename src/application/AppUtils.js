@@ -349,16 +349,16 @@ export const expanded_datetime_ago = (datetime, reverse=false, referenceDatetime
     // Traitement de sortie
     let chaineAretourner;
     if(structureDeSortie.premierNombre !== null) {
-        chaineAretourner = structureDeSortie.premierNombre + ' ' + structureDeSortie.premierLibelle;
+        chaineAretourner = structureDeSortie.premierNombre + '\u00a0' + structureDeSortie.premierLibelle;
         if(structureDeSortie.secondNombre !== null)
-            chaineAretourner += ' and ' + structureDeSortie.secondNombre + ' ' + structureDeSortie.secondLibelle;
+            chaineAretourner += ' and ' + structureDeSortie.secondNombre + '\u00a0' + structureDeSortie.secondLibelle;
     } else {
-        chaineAretourner = 'less than a minute';
+        chaineAretourner = 'less than a\u00a0minute';
     }
 
 
     // Renvoi du texte formaté
-    return chaineAretourner.replaceAll(' ', '\u00a0');
+    return chaineAretourner;
 }
 
 

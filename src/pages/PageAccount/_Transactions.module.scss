@@ -13,8 +13,8 @@
         border-radius: 2px;
 
         .message {
-            padding: 1rem;
-            padding-top: 0.6rem;
+            padding: 0.8rem;
+            padding-top: 0rem;
         }
 
         .blockTitle {
@@ -74,11 +74,8 @@
                 }
             }
 
-            button {
-                border: none;
-                background: transparent;
+            .view {
                 font-size: 1rem;
-
                 svg {
                     margin-top: 0.4rem;
                 }

@@ -3,16 +3,12 @@ import styles from './_Transactions.module.scss';
 import { getTransactions } from './getTransactions';
 import { metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { tblCorrespondanceMessages } from '../../application/AppParams';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { EyeIcon } from '../../application/AppIcons';
-// import { Link } from 'react-router-dom';
-// import { tblValidators } from '../../application/AppData';
-// import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
-// import { LeftArrowIcon, RightArrowIcon } from '../../application/AppIcons';
+
 
 const Transactions = (props) => {
 
-    const navigate = useNavigate();
 
     // Variables
     const [isLoading, setIsLoading] = useState(true);
@@ -42,11 +38,6 @@ const Transactions = (props) => {
     }, [props.accountAddress])
 
 
-    // Fonction exécutée à chaque click sur un bouton view donné
-    const handleClickViewTx = (txHash) => {
-        navigate('/transactions/' + txHash);
-    }
-
     // Affichage
     return (
         <div className={styles.container}>
@@ -60,7 +51,7 @@ const Transactions = (props) => {
                     isLoading ?
                         <div className={styles.message}>Loading "transactions" from blockchain (lcd), please wait ...</div>
                     :
-                        tblTransactions ?
+                        (tblTransactions && tblTransactions.length > 0) ?
                             <table className={styles.tblTransactions}>
                                 <thead>
                                     <tr>
@@ -89,7 +80,7 @@ const Transactions = (props) => {
                                                     <>&nbsp;</>
                                                 }
                                             </td>
-                                            <td><button onClick={() => handleClickViewTx(element.txHash)}><EyeIcon /></button></td>
+                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
                                         </tr>
                                     })}
                                 </tbody>
