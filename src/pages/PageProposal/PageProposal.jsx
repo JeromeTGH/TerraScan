@@ -115,7 +115,7 @@ const PageProposal = () => {
                             <div className={"boxContainer " + styles.propContainer}>
                                 <h2 className={styles.h2titles}><strong>Details</strong></h2>
                                 <p><strong>Send</strong> : {proposalInfos['contentAmount']}</p>
-                                <p><strong>To</strong> : <Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
+                                <p><strong>To</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
                                 <br />
                             </div>
                         : null}

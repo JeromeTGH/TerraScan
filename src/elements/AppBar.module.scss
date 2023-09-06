@@ -3,7 +3,8 @@
 #appbar {
     display: none;                                  // Si largeur du viewport > breakpoint
     color: var(--primary-text-color-on-fill);
-    background-color: var(--primary-fill);
+    background: rgb(7,116,193);
+    background: linear-gradient(135deg, rgba(7,116,193,1) 0%, rgba(1,61,103,1) 100%);
     z-index: 10;
 
     @media (max-width: $primary-breakpoint) {
@@ -88,6 +89,7 @@ $hiddenMenuPadding: 0.4rem;
             padding: 0.6rem 0.8rem;
             color: var(--primary-text-color-on-fill);
             background-color: var(--primary-fill);
+            background: rgb(5,107,179);
             border: none;
         }
     }
@@ -100,7 +102,8 @@ $hiddenMenuPadding: 0.4rem;
         ul {
             li {
                 margin: 0.4rem;
-                background-color: var(--primary-fill);
+                background: rgb(7,116,193);
+                background: linear-gradient(90deg, rgba(1,61,103,1) 0%, rgba(5,107,179,1) 100%);
                 width: 100%;
                 display: flex;
                 flex-direction: row;
@@ -108,7 +111,6 @@ $hiddenMenuPadding: 0.4rem;
                 transition: transform .25s,-webkit-transform .25s;
 
                 &:hover {
-                    background-color: var(--secondary-fill);
                     transform: translateX(10px);
                 }
 
@@ -131,10 +133,10 @@ $hiddenMenuPadding: 0.4rem;
             }
 
             .donate {
-                background-color: var(--donate-btn-fill-color);
+                background: rgb(233,198,24);
+                background: linear-gradient(90deg, rgba(233,198,24,1) 0%, rgba(236,222,7,1) 100%);
 
                 &:hover {
-                    background-color: var(--donate-btn-hover-fill-color);
                     transform: translateX(10px);
                 }
 

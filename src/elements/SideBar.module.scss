@@ -1,14 +1,15 @@
 @import '../style/variables';
 
 $titleSize: 2rem;
-$titleBlocHeight: 6rem;
+$titleBlocHeight: 4.2rem;
 
 #sidebar {
     display: block;                                 // Si largeur du viewport > breakpoint
     width: $sidebar-width;
     height: 100vh;
     color: var(--primary-text-color-on-fill);
-    background-color: var(--primary-fill);
+    background: rgb(7,116,193);
+    background: linear-gradient(135deg, rgba(7,116,193,1) 0%, rgba(1,61,103,1) 100%);
 
     @media (max-width: $primary-breakpoint) {
         display: none;                              // Si largeur du viewport <= breakpoint
@@ -29,7 +30,7 @@ $titleBlocHeight: 6rem;
         font-size: $titleSize;
         font-weight: 500;
         width: $sidebar-width;
-        height: calc(#{$titleBlocHeight} * 0.7);
+        height: #{$titleBlocHeight};
         
         a {
             display: flex;
@@ -46,19 +47,6 @@ $titleBlocHeight: 6rem;
             }
 
         }
-    }
-
-    #sidebar-title-subtext {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.7rem;
-        font-weight: 400;
-        width: $sidebar-width;
-        font-style: italic;
-        background-color: var(--secondary-fill);
-        height: calc(#{$titleBlocHeight} * 0.3);
     }
     
 }
@@ -102,7 +90,8 @@ $titleBlocHeight: 6rem;
             background-color: var(--tertiary-fill);
         }
         .sidebar_content_mnu_inactive {
-            background-color: var(--secondary-fill);
+            background: rgb(5,107,179);
+            background: linear-gradient(90deg, rgba(1,61,103,1) 0%, rgba(5,107,179,1) 100%);
         }
     }
 
@@ -114,22 +103,26 @@ $titleBlocHeight: 6rem;
 
         button {
             margin: 0.8rem;
-            padding: 0.4rem 1rem;
+            padding: 0.3rem 0.8rem;
             border: 1px solid var(--donate-btn-border-color);
             border-radius: 0.6rem;
             background-color: var(--donate-btn-fill-color);
+
+            background: rgb(203,168,14);
+            background: linear-gradient(90deg, rgba(226,212,7,1) 0%, rgba(203,168,14,1) 100%);
+
             font-weight: 600;
             color: var(--donate-btn-text-color);
 
             svg {
                 vertical-align: middle;
                 margin-right: 0.6rem;
-                font-size: 2rem;
+                font-size: 1.6rem;
             }
 
             span {
                 vertical-align: middle;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
         }
     }
