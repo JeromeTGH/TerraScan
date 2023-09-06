@@ -100,7 +100,7 @@ const Delegations = (props) => {
                             tblDelegations && tblDelegation ?
                                 <>
                                     <div>There are <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.amountStaked)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.amountStaked)}</span> LUNC</div>
-                                    <div>staked with validator <Link to={'/validators/' + tblDelegation.valoperAddress}>{tblDelegation.valMoniker}</Link> {tblValidators[tblDelegation.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>
+                                    <div>staked with validator <Link to={'/validators/' + tblDelegation.valoperAddress}>{tblDelegation.valMoniker}</Link> {tblValidators[tblDelegation.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
                                     {tblValidators[tblDelegation.valoperAddress].status === 'active' ?
                                         <>
                                             <div className={styles.coinContainer}>

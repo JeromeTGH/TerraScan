@@ -64,24 +64,6 @@
         .amountAndReleaseInfos {
             padding-bottom: 0.8rem;
         }
-
-        .jailed, .active {
-            font-size: 0.7rem;
-            color: white;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-left: 0.4rem;
-            position: relative;
-            top: -0.15rem;
-        }
-        .jailed {
-            padding: 0.1rem 0.4rem 0.2rem 0.5rem;
-            background-color: var(--red-color);
-        }
-        .active {
-            padding: 0.1rem 0.4rem 0.2rem 0.4rem;
-            background-color: var(--green-color);
-        }
         
     }
 

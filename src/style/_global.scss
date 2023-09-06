@@ -127,3 +127,23 @@ h2, .h2like {
     font-size: 0.7em;
     font-weight: 600;
 }
+
+
+.failed, .jailed, .active {
+    font-size: 0.9em;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.failed {
+    padding: 0rem 0.2rem 0.1rem 0.2rem;
+    background-color: var(--red-color);
+}
+.jailed {
+    padding: 0rem 0.3rem 0.1rem 0.4rem;
+    background-color: var(--red-color);
+}
+.active {
+    padding: 0rem 0.3rem 0.1rem 0.3rem;
+    background-color: var(--green-color);
+}

@@ -68,6 +68,22 @@
                 text-align: center;
             }
 
+            .amounts {
+                span {
+                    font-weight: normal;
+                }
+            }
+
+            button {
+                border: none;
+                background: transparent;
+                font-size: 1rem;
+
+                svg {
+                    margin-top: 0.4rem;
+                }
+            }
+
         }
     }
 

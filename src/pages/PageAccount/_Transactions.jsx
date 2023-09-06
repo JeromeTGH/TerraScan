@@ -4,6 +4,7 @@ import { getTransactions } from './getTransactions';
 import { metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { tblCorrespondanceMessages } from '../../application/AppParams';
 import { useNavigate } from 'react-router-dom';
+import { EyeIcon } from '../../application/AppIcons';
 // import { Link } from 'react-router-dom';
 // import { tblValidators } from '../../application/AppData';
 // import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
@@ -73,13 +74,22 @@ const Transactions = (props) => {
                                     {tblTransactions.map((element, index) => {
                                         return <tr key={index}>
                                             <td>{metEnFormeDateTime(element.datetime)}</td>
-                                            <td>{tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}</td>
                                             <td>
-                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
-                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
-                                                <span> {element.unit}</span>
+                                                {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
+                                                {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
                                             </td>
-                                            <td><button onClick={() => handleClickViewTx(element.txHash)}>View</button></td>
+                                            <td className={styles.amounts}>
+                                                {element.amount ? 
+                                                    <>
+                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
+                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
+                                                        <span> {element.unit}</span>
+                                                    </>
+                                                :
+                                                    <>&nbsp;</>
+                                                }
+                                            </td>
+                                            <td><button onClick={() => handleClickViewTx(element.txHash)}><EyeIcon /></button></td>
                                         </tr>
                                     })}
                                 </tbody>

@@ -511,6 +511,8 @@ export const LeftArrowIcon = (props) => {
     </svg>
   );
 }
+
+
 // Right arrow Icon
 export const RightArrowIcon = (props) => {
   return (
@@ -522,6 +524,27 @@ export const RightArrowIcon = (props) => {
       {...props}
     >
       <path d="M5.536 21.886a1.004 1.004 0 001.033-.064l13-9a1 1 0 000-1.644l-13-9A1 1 0 005 3v18a1 1 0 00.536.886z" />
+    </svg>
+  );
+}
+
+
+// Eye Icon
+export const EyeIcon = (props) => {
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+      <path d="M15 12 A3 3 0 0 1 12 15 A3 3 0 0 1 9 12 A3 3 0 0 1 15 12 z" />
     </svg>
   );
 }

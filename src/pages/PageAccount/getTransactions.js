@@ -49,7 +49,7 @@ export const getTransactions = async (accountAddress) => {
                         }
                     }
                 } else 
-                    msgType = 'Multiple (' + messages.length + ' messages)';
+                    msgType = 'Multiple (' + messages.length + '\u00a0messages)';
 
                     tblRetour.push({
                         datetime: txDatetime,
