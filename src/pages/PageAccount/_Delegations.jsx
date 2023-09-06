@@ -26,7 +26,8 @@ const Delegations = (props) => {
         setIdxDelegationToShow(0);
         setTblDelegation(null);
         setNbJailedValidators(0);
-        // Récupération de la balance de ce compte
+
+        // Récupération des délégations ce compte
         getDelegations(props.accountAddress).then((res) => {
             if(res['erreur']) {
                 setTblDelegations(null);

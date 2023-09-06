@@ -22,7 +22,8 @@ const Undelegations = (props) => {
         setIsLoading(true);
         setIdxUndelegationToShow(0);
         setTblUndelegation([]);
-        // Récupération de la balance de ce compte
+
+        // Récupération des undelegations ce compte
         getUndelegations(props.accountAddress).then((res) => {
             if(res['erreur']) {
                 setTblUndelegations(null);

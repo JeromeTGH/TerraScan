@@ -1,0 +1,64 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2.4rem;
+
+    .transactions {
+        border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color1);
+        padding: 0.4rem 0.6rem;
+        border-radius: 2px;
+
+        .message {
+            padding: 1rem;
+            padding-top: 0.6rem;
+        }
+
+        .blockTitle {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .textTitle, .textAdd {
+                font-size: 1rem;
+                position: relative;
+                top: -1.2rem;
+            }
+            .textTitle {
+                background-color: var(--blue-color);
+                color: white;
+                padding: 0.1rem 0.6rem;
+                border-top-left-radius: 8px;
+                border-bottom-right-radius: 6px;
+            }
+
+        }
+
+        // .amountAndReleaseInfos {
+        //     padding-bottom: 0.8rem;
+        // }
+
+        // .jailed, .active {
+        //     font-size: 0.7rem;
+        //     color: white;
+        //     border-radius: 8px;
+        //     font-weight: 600;
+        //     margin-left: 0.4rem;
+        //     position: relative;
+        //     top: -0.15rem;
+        // }
+        // .jailed {
+        //     padding: 0.1rem 0.4rem 0.2rem 0.5rem;
+        //     background-color: var(--red-color);
+        // }
+        // .active {
+        //     padding: 0.1rem 0.4rem 0.2rem 0.4rem;
+        //     background-color: var(--green-color);
+        // }
+        
+    }
+
+}

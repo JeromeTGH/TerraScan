@@ -273,7 +273,7 @@ export const retournePartieDecimaleFixed6 = (amount) => {
  * @param reverse valeur qui indique si on veut travailler en "time ago" ou "time later"
  * @returns Valeur texte à afficher
  */
-export const expanded_datetime_ago = (datetime, reverse=false) => {
+export const expanded_datetime_ago = (datetime, reverse=false, referenceDatetime = new Date()) => {
 
     // Formatage de la date d'entrée, au besoin
     let datetimeAanalyser;
@@ -291,9 +291,9 @@ export const expanded_datetime_ago = (datetime, reverse=false) => {
     // Calcul du nombre de secondes d'écart, entre la date passée en argument, et maintenant
     let differenceInSeconds;
     if(reverse)
-        differenceInSeconds = (datetimeAanalyser - new Date()) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+        differenceInSeconds = (datetimeAanalyser - referenceDatetime) / 1000;          // Conversion millisecondes → secondes, dans la foulée
     else
-        differenceInSeconds = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+        differenceInSeconds = (referenceDatetime - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
 
 
     // Définition de la structure de sortie
