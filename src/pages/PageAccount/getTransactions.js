@@ -1,6 +1,6 @@
 
+import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import { FCDclient } from '../../fcd/FCDclient';
-// import { tblValidators } from '../../application/AppData';
 
 
 export const getTransactions = async (accountAddress) => {
@@ -19,38 +19,51 @@ export const getTransactions = async (accountAddress) => {
     // Récupération des undelegations de ce compte
     const rawTransactions = await fcd.tx.getAccountTxs(params).catch(handleError);
     if(rawTransactions?.data) {
-        console.log(rawTransactions.data);
-
         if(rawTransactions.data.txs) {
+            // console.log(rawTransactions.data.txs);
+
             for(const transaction of rawTransactions.data.txs) {
-                const txHash = transaction.hash;
+                const txHash = transaction.txhash;
                 const txCode = transaction.code ? transaction.code : 0;     // = 0 si tout s'est bien passé
                 const txDatetime = transaction.timestamp;
                 const messages = transaction.tx.value.msg;      // Liste de tous les messages que contient cette transaction
-
-                // for(const message of messages) {
-                //     const msgType = message.type;       // Par ex : bank/MsgSend
-                //     const tblCoins = message.value?.amount;
-                // }
                 
-                let txMessage = '';
-                let txAmount = '';
+                let msgType = '';
+                let msgAmount = '';
+                let msgUnit = '';
                 if(messages.length === 0)
-                    txMessage = 'Nothing';
-                else if(messages.length > 1) {
-                    txMessage = 'Multiple (' + messages.length + ' messages)';
-                    txAmount = messages[0].amount ? messages[0].amount : '';
+                    msgType = 'Nothing';
+                else if(messages.length === 1) {
+                    msgType = messages[0].type.split('/')[1];
+                    if(messages[0].value?.amount) {
+                        if(Array.isArray(messages[0].value.amount)) {
+                            if(messages[0].value.amount.length === 1) {
+                                msgAmount = (messages[0].value.amount[0].amount/1000000).toFixed(6);
+                                msgUnit = tblCorrespondanceValeurs[messages[0].value.amount[0].denom] ? tblCorrespondanceValeurs[messages[0].value.amount[0].denom] : messages[0].value.amount[0].denom;
+                            }
+                        } else {
+                            if(messages[0].value.amount?.amount && messages[0].value.amount?.denom) {
+                                msgAmount = (messages[0].value.amount.amount/1000000).toFixed(6);
+                                msgUnit = tblCorrespondanceValeurs[messages[0].value.amount.denom] ? tblCorrespondanceValeurs[messages[0].value.amount.denom] : messages[0].value.amount.denom;
+                            }
+                        }
+                    }
                 } else 
-                    txMessage = messages[0].type.split('/')[1];
+                    msgType = 'Multiple (' + messages.length + ' messages)';
 
+                    tblRetour.push({
+                        datetime: txDatetime,
+                        msgType: msgType,
+                        errorCode: txCode,
+                        amount: msgAmount,
+                        unit: msgUnit,
+                        txHash: txHash
+                    });
             }
         }
     } else
         return { "erreur": "Failed to fetch [transactions] from FCD, sorry" }
 
-
-    // // Tri des dates de release, de la plus proche à la plus lointaine
-    // tblRetour.sort((a, b) => new Date(a.releaseDatetime) - new Date(b.releaseDatetime));
 
     // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
     return tblRetour;

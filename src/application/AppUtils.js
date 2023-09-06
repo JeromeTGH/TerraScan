@@ -2,6 +2,9 @@
 // =======================================
 // Fonction "isValidTransactionHashFormat"
 // =======================================
+
+import { tblCorrespondanceValeurs } from "./AppParams";
+
 /**
  * Indique si la valeur passée est oui ou non au format d'un "transaction hash"
  * @param stringToTest Value to test (string)
@@ -243,6 +246,9 @@ export const datetime_ago = (datetime, reverse=false, disableExtension=false) =>
  * @returns Valeur avec partie entière formatée
  */
 export const metEnFormeAmountPartieEntiere = (amount, sep = ',') => {
+    if(amount === undefined || amount === '')
+        return '';
+
     const partieEntiere = parseInt(amount);
     const partieEntiereFormatee = partieEntiere.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
     return partieEntiereFormatee;
@@ -256,6 +262,9 @@ export const metEnFormeAmountPartieEntiere = (amount, sep = ',') => {
  * @returns Valeur avec partie décimale formatée (6 chiffres "après la virgule")
  */
 export const retournePartieDecimaleFixed6 = (amount) => {
+    if(amount === undefined || amount === '')
+        return '';
+
     const partieDecimale = amount % 1;
     const partieDecimaleFormatee = partieDecimale.toFixed(6).replace('0.', '.');
     // const partieDecimaleFormatee = partieDecimale === 0 ? '' : partieDecimale.toFixed(6).replace('0.', '.');
@@ -350,4 +359,38 @@ export const expanded_datetime_ago = (datetime, reverse=false, referenceDatetime
 
     // Renvoi du texte formaté
     return chaineAretourner.replaceAll(' ', '\u00a0');
+}
+
+
+
+// ================================
+// Fonction "coinsListToLinearText"
+// ================================
+/**
+ * 
+ * @param coinsList array of coins
+ * @returns texte amount+denom, avec des virgules de séparation si plusieurs coins dans la liste
+ */
+export const coinsListToLinearText = (coinsList, bShowExoticsCoins = false) => {
+
+    // Si liste absente, on quitte
+    if(coinsList === undefined)
+        return '';
+
+    // Si liste vide, on quitte
+    if(coinsList.length === 0)
+        return '';
+
+
+    // Exploration de la liste fournie
+    let texteAretourner = "";    
+    for(const coin of coinsList) {
+        const amount = (coin.amount/1000000).toFixed(6);
+        const denom = tblCorrespondanceValeurs[coin.denom] ? tblCorrespondanceValeurs[coin.denom] : bShowExoticsCoins ? coin.denom : '';
+        if(texteAretourner !== "")
+            texteAretourner += ", ";
+        texteAretourner += (amount + "\u00a0" + denom);
+    }
+
+    return texteAretourner;
 }
