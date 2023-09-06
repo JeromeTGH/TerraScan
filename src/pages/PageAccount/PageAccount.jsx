@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { appName } from '../../application/AppParams';
-
 import { AccountIcon } from '../../application/AppIcons';
 import { Link, useParams } from 'react-router-dom';
 import styles from './PageAccount.module.scss';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import { tblValidators } from '../../application/AppData';
-// import { AppContext } from '../../application/AppContext';
 import AvailableCoins from './_AvailableCoins';
 import Undelegations from './_Undelegations';
 import Delegations from './_Delegations';

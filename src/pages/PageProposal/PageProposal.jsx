@@ -122,7 +122,14 @@ const PageProposal = () => {
                         {proposalInfos['contentChanges'] ?
                             <div className={"boxContainer " + styles.propContainer}>
                                 <h2 className={styles.h2titles}><strong>Changes</strong></h2>
-                                <p><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></p>
+                                <div><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></div>
+                                <br />
+                            </div>
+                        : null}
+                        {proposalInfos['contentPlan'] ?
+                            <div className={"boxContainer " + styles.propContainer}>
+                                <h2 className={styles.h2titles}><strong>Changes</strong></h2>
+                                <div><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'], null, 2))), null, 2)}</pre></div>
                                 <br />
                             </div>
                         : null}

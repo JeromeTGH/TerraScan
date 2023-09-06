@@ -52,8 +52,13 @@ export const getProposal = async (propID) => {
     const rawProposal = await lcd.gov.proposal(propID).catch(handleError);
     if(rawProposal) {
         // console.log(rawProposal);
+
+        
         proposalInfos['contentAmount'] = rawProposal.content.amount ? coinsListToFormatedText(rawProposal.content.amount) : null;
         proposalInfos['contentChanges'] = rawProposal.content.changes ? rawProposal.content.changes : null;
+        proposalInfos['contentPlan'] = rawProposal.content.plan ? rawProposal.content.plan : null;
+
+
         proposalInfos['contentDescription'] = rawProposal.content.description;
         proposalInfos['contentRecipient'] = rawProposal.content.recipient ? rawProposal.content.recipient : null;
         proposalInfos['contentTitle'] = rawProposal.content.title;

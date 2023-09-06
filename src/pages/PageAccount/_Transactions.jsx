@@ -49,7 +49,7 @@ const Transactions = (props) => {
                     <div className={"erreur " + styles.message}>{msgErreur}</div>
                 :
                     isLoading ?
-                        <div className={styles.message}>Loading "transactions" from blockchain (lcd), please wait ...</div>
+                        <div className={styles.message}>Loading "transactions" from blockchain (fcd), please wait ...</div>
                     :
                         (tblTransactions && tblTransactions.length > 0) ?
                             <table className={styles.tblTransactions}>
