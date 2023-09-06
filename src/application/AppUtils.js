@@ -261,3 +261,93 @@ export const retournePartieDecimaleFixed6 = (amount) => {
     // const partieDecimaleFormatee = partieDecimale === 0 ? '' : partieDecimale.toFixed(6).replace('0.', '.');
     return partieDecimaleFormatee;
 }
+
+
+
+// ================================
+// Fonction "expanded_datetime_ago"
+// ================================
+/**
+ * 
+ * @param datetime valeur texte ou timestamp, à comparer au datetime actuel
+ * @param reverse valeur qui indique si on veut travailler en "time ago" ou "time later"
+ * @returns Valeur texte à afficher
+ */
+export const expanded_datetime_ago = (datetime, reverse=false) => {
+
+    // Formatage de la date d'entrée, au besoin
+    let datetimeAanalyser;
+    switch (typeof datetime) {
+        case 'number':
+            break;
+        case 'string':
+            datetimeAanalyser = new Date(datetime);
+            break;
+        default:
+            datetimeAanalyser = new Date();
+    }
+
+
+    // Calcul du nombre de secondes d'écart, entre la date passée en argument, et maintenant
+    let differenceInSeconds;
+    if(reverse)
+        differenceInSeconds = (datetimeAanalyser - new Date()) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+    else
+        differenceInSeconds = (new Date() - datetimeAanalyser) / 1000;          // Conversion millisecondes → secondes, dans la foulée
+
+
+    // Définition de la structure de sortie
+    const structureDeSortie = {
+        premierNombre: null,
+        premierLibelle: null,
+        secondNombre: null,
+        secondLibelle: null
+    }
+
+
+    // Jalons
+    const datetime_milestones = [
+        {nbsecondes: 3600 * 24 * 365, unit: 'year'},    // 1 an = 3600 secondes par heure, 24h par jour, et 365 jours par an (environ)
+        {nbsecondes: 3600 * 24 * 30, unit: 'month'},    // 1 mois = 3600 secondes par heure, 24h par jour, et 30 jours par mois (environ)
+        {nbsecondes: 3600 * 24 * 7, unit: 'week'},      // 1 semaine = 3600 secondes par heure, 24h par jour, et 7 jours par semaine
+        {nbsecondes: 3600 * 24, unit: 'day'},           // 1 jour = 3600 secondes par heure, et 24h par jour
+        {nbsecondes: 3600, unit: 'hour'},               // 1 heure = 3600 secondes par heure
+        {nbsecondes: 60, unit: 'minute'}                // 1 minute = 60 secondes par minute
+    ]
+
+
+    // Exploration des différents cas
+    let premierNombreFound = false;
+    let differenceInSecondsRestant = differenceInSeconds;
+
+    for(let index = 0 ; index < datetime_milestones.length ; index++) {
+        if(differenceInSecondsRestant > datetime_milestones[index].nbsecondes) {
+            let nbUnit = parseInt(differenceInSecondsRestant / datetime_milestones[index].nbsecondes);
+            if(!premierNombreFound) {
+                structureDeSortie.premierNombre = nbUnit;
+                structureDeSortie.premierLibelle = datetime_milestones[index].unit + (nbUnit > 1 ? 's' : '');
+                differenceInSecondsRestant -= nbUnit * datetime_milestones[index].nbsecondes;
+                premierNombreFound = true;
+            } else {
+                structureDeSortie.secondNombre = nbUnit;
+                structureDeSortie.secondLibelle = datetime_milestones[index].unit + (nbUnit > 1 ? 's' : '');
+                break;
+            }
+        }
+    }
+
+
+    // Traitement de sortie
+    let chaineAretourner;
+    if(structureDeSortie.premierNombre !== null) {
+        chaineAretourner = structureDeSortie.premierNombre + ' ' + structureDeSortie.premierLibelle;
+        if(structureDeSortie.secondNombre !== null)
+            chaineAretourner += ' and ' + structureDeSortie.secondNombre + ' ' + structureDeSortie.secondLibelle;
+    } else {
+        chaineAretourner = 'less than a minute';
+    }
+
+
+    // Renvoi du texte formaté
+    return chaineAretourner.replaceAll(' ', '\u00a0');
+}

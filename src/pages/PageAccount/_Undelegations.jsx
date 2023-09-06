@@ -3,7 +3,7 @@ import styles from './_Undelegations.module.scss';
 import { getUndelegations } from './getUndelegations';
 import { Link } from 'react-router-dom';
 import { tblValidators } from '../../application/AppData';
-import { datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
+import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { LeftArrowIcon, RightArrowIcon } from '../../application/AppIcons';
 
 const Undelegations = (props) => {
@@ -90,7 +90,7 @@ const Undelegations = (props) => {
                                     </div>
                                     <div>undelegating from validator <Link to={'/validators/' + tblUndelegation.valoperAddress}>{tblUndelegation.valMoniker}</Link> {tblValidators[tblUndelegation.valoperAddress].status !== 'active' ? <span className={styles.jailed}>JAILED</span> : null}</div>
                                     <br />
-                                    <div>They will be <strong>released in {datetime_ago(tblUndelegation.releaseDatetime, true, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
+                                    <div>They will be <strong>released in {expanded_datetime_ago(tblUndelegation.releaseDatetime, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
                                 </div>
                             </>
                         :
