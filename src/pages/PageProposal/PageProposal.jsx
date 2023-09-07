@@ -372,18 +372,19 @@ const PageProposal = () => {
                             <div className='styledBlocContainer'>
                                 <div className='styledBlocContent'>
                                     <div className='styledBlocTitleContainer'>
-                                        <div className='styledBlocTitleText styledGreenBlock'>Validators votes</div>
+                                        <div className='styledBlocTitleText styledBlueBlock'>Validators votes</div>
                                     </div>                        
                                     {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
                                         <div>No data returned by the LCD, sorry.</div>
                                     :
                                         <>
+                                            <br />
                                             <div className={styles.tblPendingVotesFilter}>
-                                                <button className={filtre === "DID_NOT_VOTE" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("DID_NOT_VOTE")}><strong>Did not vote</strong><span>(&nbsp;{proposalInfos['validator_DID_NOT_VOTE']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
+                                                <button className={filtre === "DID_NOT_VOTE" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("DID_NOT_VOTE")}><strong>Did not vote</strong>&nbsp;({proposalInfos['validator_DID_NOT_VOTE']})</button>
+                                                <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_YES']})</button>
+                                                <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_ABSTAIN']})</button>
+                                                <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_NO']})</button>
+                                                <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']})</button>
                                             </div>
                                             <table className={styles.tblPendingValidatorsVotes}>
                                                 <thead>
@@ -500,11 +501,12 @@ const PageProposal = () => {
                                         <div><br />No data returned by the LCD, sorry.<br /><br /></div>
                                     :
                                         <>
+                                            <br />
                                             <div className={styles.tblClosedVotesFilter}>
-                                                <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_YES']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_ABSTAIN']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO']}&nbsp;)<br />↓</span></button>
-                                                <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong><span>(&nbsp;{proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']}&nbsp;)<br />↓</span></button>
+                                                <button className={filtre === "VOTE_OPTION_YES" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_YES")}><strong>YES</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_YES']})</button>
+                                                <button className={filtre === "VOTE_OPTION_ABSTAIN" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_ABSTAIN")}><strong>ABSTAIN</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_ABSTAIN']})</button>
+                                                <button className={filtre === "VOTE_OPTION_NO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO")}><strong>NO</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_NO']})</button>
+                                                <button className={filtre === "VOTE_OPTION_NO_WITH_VETO" ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter("VOTE_OPTION_NO_WITH_VETO")}><strong>VETO</strong>&nbsp;({proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']})</button>
                                             </div>
                                             <table className={styles.tblPendingValidatorsVotes}>
                                                 <thead>
@@ -559,7 +561,7 @@ const PageProposal = () => {
                             <div className='styledBlocContainer'>
                                 <div className='styledBlocContent'>
                                     <div className='styledBlocTitleContainer'>
-                                        <div className='styledBlocTitleText styledBlueBlock'>HISTORY of validators votes</div>
+                                        <div className='styledBlocTitleText styledGreenBlock'>HISTORY of validators votes</div>
                                     </div>
                                     {Object.keys(proposalInfos['tblHistoriqueDesVotesValidateur']).length === 0 ?
                                         <div><br />No data returned by the LCD, sorry.<br /><br /></div>
