@@ -296,7 +296,7 @@ export const expanded_datetime_ago = (datetime, reverse=false, referenceDatetime
             datetimeAanalyser = new Date();
     }
 
-
+    
     // Calcul du nombre de secondes d'écart, entre la date passée en argument, et maintenant
     let differenceInSeconds;
     if(reverse)
