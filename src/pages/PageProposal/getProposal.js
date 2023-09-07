@@ -76,7 +76,7 @@ export const getProposal = async (propID) => {
         proposalInfos['submitDatetime'] = rawProposal.submit_time;
         proposalInfos['totalDeposit'] = returnLUNCfromCoinList(rawProposal.total_deposit);
         proposalInfos['votingStartTime'] = rawProposal.voting_start_time;
-        proposalInfos['votingEndTime'] = rawProposal.voting_end_time;
+        proposalInfos['votingEndTime'] = new Date(rawProposal.voting_end_time).toISOString();
     } else
         return { "erreur": "Failed to fetch this proposal from blockchain (LCD), sorry ..." }
 
@@ -190,12 +190,19 @@ export const getProposal = async (propID) => {
             proposalInfos['isVetoReached'] = proposalInfos['isQuorumReached'] && (proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilVeto']);
                 
 
-            const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['pourcentageOfVoters'].toFixed(2) + "% have voted, but " + proposalInfos['seuilDuQuorum'] + "% of voters is required)" :
+            const statutVote = proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ? "Quorum not reached, for the moment (" + proposalInfos['pourcentageOfVoters'].toFixed(2) + "% have voted, but " + proposalInfos['seuilDuQuorum'] + "% of voting power is required)" :
                                     proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilVeto'] ? "VETO threshold reached, for the moment (veto threshold = " + proposalInfos['seuilDeVeto'] + "% of YES+NO+VETO)" :
                                     proposalInfos['pourcentageOfYes'] < (proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) ? "Majority of NO, for the moment (reject threshold = " + proposalInfos['seuilDeRefus'] + "% of YES+NO+VETO)" :
                                                                                                              "Majority of YES, for the moment (acceptation threshold = " + proposalInfos['seuilDacceptation'] + "% of YES+NO+VETO)";
 
             proposalInfos['statutVote'] = statutVote;
+
+            // Calcul du pourcentage d'avancement, dans la période de vote
+            let startDatetime = new Date(proposalInfos['votingStartTime']);
+            let endDatetime = new Date(proposalInfos['votingEndTime']);
+            let actualDatetime = new Date();
+            proposalInfos['pourcentageOfVotePeriod'] = (actualDatetime.getTime()/1000 - startDatetime.getTime()/1000) / (endDatetime.getTime()/1000 - startDatetime.getTime()/1000) * 100;
+            
 
         } else
             return { "erreur": "Failed to fetch [tally] ..." }

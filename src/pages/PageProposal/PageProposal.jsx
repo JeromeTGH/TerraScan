@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EyeIcon, VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
-import { formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
+import { expanded_datetime_ago, formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 // import Chart from 'react-apexcharts';
 // import { getDelegatorsParticipation } from './getDelegatorsParticipation';
@@ -208,74 +208,92 @@ const PageProposal = () => {
                                     <div className='styledBlocTitleContainer'>
                                         <div className='styledBlocTitleText styledVioletBlock'>Votes (in progress)</div>
                                     </div>
-                                    <table className={styles.tblInfos}>
+                                    <div className={styles.infos}>
+                                        <div><strong>Proposal ID</strong> : #{propID}</div>
+                                        <div><strong>Voting start time</strong> : {metEnFormeDateTime(proposalInfos['votingStartTime'])}</div>
+                                    </div>
+                                    <br />
+                                    <div className={styles.tblVotes}>
+                                        <div className={styles.yesVote}>
+                                            <div>YES</div>
+                                            <div>{proposalInfos['pourcentageOfYes'].toFixed(2)}%</div>
+                                            <div>{(proposalInfos['nbVotesYesLunc']/1000000) > 1 ? metEnFormeAmountPartieEntiere(proposalInfos['nbVotesYesLunc']/1000000) + '\u00a0LUNC' : '-'}</div>
+                                        </div>
+                                        <div className={styles.abstainVote}>
+                                            <div>ABSTAIN</div>
+                                            <div>{proposalInfos['pourcentageOfAbstain'].toFixed(2)}%</div>
+                                            <div>{(proposalInfos['nbVotesAbstainLunc']/1000000) > 1 ? metEnFormeAmountPartieEntiere(proposalInfos['nbVotesAbstainLunc']/1000000) + '\u00a0LUNC' : '-'}</div>
+                                        </div>
+                                        <div className={styles.noVote}>
+                                            <div>NO</div>
+                                            <div>{proposalInfos['pourcentageOfNo'].toFixed(2)}%</div>
+                                            <div>{(proposalInfos['nbVotesNoLunc']/1000000) > 1 ? metEnFormeAmountPartieEntiere(proposalInfos['nbVotesNoLunc']/1000000) + '\u00a0LUNC' : '-'}</div>
+                                        </div>
+                                        <div className={styles.vetoVote}>
+                                            <div>VETO</div>
+                                            <div>{proposalInfos['pourcentageOfNoWithVeto'].toFixed(2)}%</div>
+                                            <div>{(proposalInfos['nbVotesNowithvetoLunc']/1000000) > 1 ? metEnFormeAmountPartieEntiere(proposalInfos['nbVotesNowithvetoLunc']/1000000) + '\u00a0LUNC' : '-'}</div>
+                                        </div>
+                                    </div>
+                                    <table className={styles.cardProposalTable}>
                                         <tbody>
                                             <tr>
-                                                <td>Proposal ID :</td>
-                                                <td><strong>#{propID}</strong></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Voting start time :</td>
-                                                <td>{metEnFormeDateTime(proposalInfos['votingStartTime'])}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total of staked LUNC :</td>
-                                                <td>{metEnFormeAmountPartieEntiere(proposalInfos['nbStakedLunc']/1000000)} LUNC</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total voted :</td>
-                                                <td>{proposalInfos['pourcentageOfVoters'].toFixed(2)}% (of Voting Power)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Quorum :</td>
-                                                <td>
-                                                    {proposalInfos['pourcentageOfVoters'] < proposalInfos['seuilDuQuorum'] ?
-                                                    <span className='erreur'><strong>Quorum not reached</strong></span>
-                                                    :
-                                                    <span className='succes'><strong>Quorum reached</strong></span>}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total power of YES votes :</td>
-                                                <td>{proposalInfos['pourcentageOfYes'].toFixed(2)}%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total power of ABSTAIN votes :</td>
-                                                <td>{proposalInfos['pourcentageOfAbstain'].toFixed(2)}%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total power of NO votes :</td>
-                                                <td>{proposalInfos['pourcentageOfNo'].toFixed(2)}%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total power of VETO votes :</td>
-                                                <td>{proposalInfos['pourcentageOfNoWithVeto'].toFixed(2)}%</td>
-                                            </tr>
-                                            <tr>
                                                 <td>Votes :</td>
+                                                {proposalInfos['isQuorumReached'] ? 
+                                                    proposalInfos['isVetoReached'] ?
+                                                        <td>
+                                                            <div className={styles.vetoCursor} style={{ width: proposalInfos['seuilVeto']*2 + "%"}}>
+                                                                <div>Threshold</div>
+                                                                <div>|</div>
+                                                            </div>
+                                                            <div className={styles.supportBar}>
+                                                                <div style={{ width: proposalInfos['pourcentageOfNoWithVeto'] + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfNo'] + "%"}} className='barVoteNo'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfYes'] + "%"}} className='barVoteYes'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfAbstain'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                            </div>
+                                                        </td>
+                                                    :
+                                                        <td>
+                                                            <div className={styles.voteCursor} style={{ width: proposalInfos['seuilAcceptation']*2 + "%"}}>
+                                                                <div>Threshold</div>
+                                                                <div>|</div>
+                                                            </div>
+                                                            <div className={styles.supportBar}>
+                                                                <div style={{ width: proposalInfos['pourcentageOfYes'] + "%"}} className='barVoteYes'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfNo'] + "%"}} className='barVoteNo'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfNoWithVeto'] + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                                                                <div style={{ width: proposalInfos['pourcentageOfAbstain'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                            </div>
+                                                        </td>         
+                                                    :
+                                                    <td>
+                                                        <div className={styles.quorumCursor} style={{ width: proposalInfos['seuilQuorum']*2 + "%"}}>
+                                                            <div>Quorum</div>
+                                                            <div>|</div>
+                                                        </div>
+                                                        <div className={styles.supportBar}>
+                                                            <div style={{ width: proposalInfos['pourcentageOfYes'] + "%"}} className='barVoteYes'>&nbsp;</div>
+                                                            <div style={{ width: proposalInfos['pourcentageOfNo'] + "%"}} className='barVoteNo'>&nbsp;</div>
+                                                            <div style={{ width: proposalInfos['pourcentageOfNoWithVeto'] + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                                                            <div style={{ width: proposalInfos['pourcentageOfAbstain'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                        </div>
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td>Vote period :</td>
                                                 <td>
                                                     <div className={styles.supportBar}>
-                                                        <div style={{ width: proposalInfos['pourcentageOfYes'] + "%"}} className='barVoteYes'>&nbsp;</div>
-                                                        <div style={{ width: proposalInfos['pourcentageOfAbstain'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
-                                                        <div style={{ width: proposalInfos['pourcentageOfNo'] + "%"}} className='barVoteNo'>&nbsp;</div>
-                                                        <div style={{ width: proposalInfos['pourcentageOfNoWithVeto'] + "%"}} className='barVoteNowithveto'>&nbsp;</div>
+                                                        <div style={{ width: proposalInfos['pourcentageOfVotePeriod'] + "%"}} className='barNeutral'>&nbsp;</div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>YES vs NO+VETO :</td>
-                                                <td><strong><span className='succes'>{proposalInfos['pourcentageOfYESvsNOs'].toFixed(2)}%</span> YES</strong> / <strong><span className='erreur'>{proposalInfos['pourcentageOfNOsvsYES'].toFixed(2)}%</span> NO</strong> (if abstain votes are excluded)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Voting end time :</td>
-                                                <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Status :</td>
-                                                <td><span className='colore'><strong>{proposalInfos['statutVote']}</strong></span></td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                    <div className={styles.status}><span className='colore'><strong>{proposalInfos['statutVote']}</strong></span></div>
+                                    <br />
+                                    <div className={styles.note}>Note : this vote will approximatively <strong>end in {expanded_datetime_ago(proposalInfos['votingEndTime'], true)}</strong> ({metEnFormeDateTime(proposalInfos['votingEndTime'])})</div>
                                 </div>
                             </div>
                         : null}
@@ -403,12 +421,17 @@ const PageProposal = () => {
                                                     })}
                                                 </tbody>
                                             </table>
-                                            <div className='pagination'>
-                                                <span>Page :</span>
-                                                {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + ((Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination)%1 > 0 ? 1 : 0)).fill(1).map((el, i) =>
-                                                    <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
-                                                )}
-                                            </div>
+                                            {((filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['validator_VOTE_OPTION_ABSTAIN'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_NO" && proposalInfos['validator_VOTE_OPTION_NO'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] !== 0)) ?
+                                                <div className='pagination'>
+                                                    <span>Page :</span>
+                                                    {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + ((Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination)%1 > 0 ? 1 : 0)).fill(1).map((el, i) =>
+                                                        <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
+                                                    )}
+                                                </div>
+                                            : null }
                                         </>
                                     }
                                     {/* {(proposalInfos['status'] === 2) && proposalInfos['tblHistoriqueDesVotesValidateur'] && (proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) > 0 ?
@@ -516,12 +539,17 @@ const PageProposal = () => {
                                                     })}
                                                 </tbody>
                                             </table>
-                                            <div className='pagination'>
-                                                <span>Page :</span>
-                                                {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + ((Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination)%1 > 0 ? 1 : 0)).fill(1).map((el, i) =>
-                                                    <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
-                                                )}
-                                            </div>
+                                            {((filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['validator_VOTE_OPTION_ABSTAIN'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_NO" && proposalInfos['validator_VOTE_OPTION_NO'] !== 0) ||
+                                              (filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] !== 0)) ?
+                                                <div className='pagination'>
+                                                    <span>Page :</span>
+                                                    {Array(parseInt(Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination) + ((Object.entries(proposalInfos['tblDesVotesDeValidateur']).filter(element => element[1].vote === filtre).length/nbElementsParPagination)%1 > 0 ? 1 : 0)).fill(1).map((el, i) =>
+                                                        <span key={i} className={i === validatorVotesPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsVotesList(i)}>{i+1}</span>
+                                                    )}
+                                                </div>
+                                            : null}
                                         </>
                                     }
                                 </div>

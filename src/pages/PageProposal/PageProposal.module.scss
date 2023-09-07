@@ -37,6 +37,21 @@
 
     }
 
+    .infos {
+        font-size: 0.9rem;
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.8rem;
+        }
+    }
+    .status {
+        text-align: center;
+        padding: 1rem;
+    }
+    .note {
+        border-top: 1px solid var(--outline-box-color);
+        font-size: 0.9rem;
+    }
+
     .tblInfos {
         width: 100%;
         border-spacing: 0;
@@ -44,10 +59,10 @@
         
         td, th {
             padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
     
             @media (max-width: $primary-breakpoint) {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
             }
         }
         
@@ -70,6 +85,86 @@
     .comments {
         font-size: 0.9rem;
         margin-bottom: 1rem;
+    }
+
+
+    .tblVotes {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+
+        @media (max-width: 680px) {
+            grid-template-columns: repeat(2, 1fr);
+            font-size: 0.9rem;
+        }
+
+        .yesVote, .abstainVote, .noVote, .vetoVote {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            padding: 0.6rem 0rem;
+
+            div:nth-child(1) { font-weight: bold; padding-bottom: 0.4rem; }
+            div:nth-child(2) { font-weight: 600; padding-bottom: 0.2rem; }
+            div:nth-child(3) { font-style: italic; font-size: 0.7em; }
+        }
+        .yesVote {
+            border: 1px solid var(--green-color);
+            div:nth-child(1) { color: var(--green-color);}
+        }
+        .abstainVote {
+            border: 1px solid var(--blue-color);
+            div:nth-child(1) { color: var(--blue-color);}
+        }
+        .noVote {
+            border: 1px solid var(--red-color);
+            div:nth-child(1) { color: var(--red-color);}
+        }
+        .vetoVote {
+            border: 1px solid var(--orange-color);
+            div:nth-child(1) { color: var(--orange-color);}
+        }
+    }
+
+    .cardProposalTable {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+        margin: 1rem 0rem;
+
+        td, th {
+            padding: 0.2rem 0.2rem;
+            font-size: 0.9rem;
+    
+            @media (max-width: $primary-breakpoint) {
+                font-size: 0.8rem;
+            }
+        }
+        
+        td:nth-child(1) {
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: bottom;
+        }
+
+        .quorumCursor, .voteCursor, .vetoCursor {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .supportBar {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            border: 1px solid var(--outline-box-color);
+            font-size: 0.4rem;
+        }
     }
 
 
@@ -145,8 +240,6 @@
             text-align: right;
         }
         td:nth-child(2) {
-            width: 1%;
-            white-space: nowrap;
             vertical-align: top;
             text-align: right;
             font-weight: bold;
@@ -155,7 +248,7 @@
         .noVoteRow {
             font-weight: bold;
             text-align: center;
-            padding: 2rem 0;
+            padding: 2rem 0 1rem 0;
         }
     }
 
