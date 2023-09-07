@@ -82,11 +82,11 @@ const Delegations = (props) => {
     // Affichage
     return (
         <>
-            <div className={styles.container}>
-                <div className={styles.delegation}>
-                    <div className={styles.blockTitle}>
-                        <div className={styles.textTitle}>{tblDelegations && tblDelegation ? <>Delegation {idxDelegationToShow+1}/{tblDelegations.length}</> : "Delegations"}</div>
-                        <div className={styles.textAdd}>
+            <div className='styledBlocContainer'>
+                <div className='styledBlocContent'>
+                    <div className='styledBlocTitleContainer'>
+                        <div className='styledBlocTitleText styledOrangeBlock'>{tblDelegations && tblDelegation ? <>Delegation {idxDelegationToShow+1}/{tblDelegations.length}</> : "Delegations"}</div>
+                        <div className='styledBlocBtns'>
                             <button onClick={() => handleClickOnNavigationButtons(-1)}><LeftArrowIcon /></button>
                             <button onClick={() => handleClickOnNavigationButtons(1)}><RightArrowIcon /></button>
                         </div>

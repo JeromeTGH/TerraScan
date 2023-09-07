@@ -1,86 +1,46 @@
 @import '../../style/variables';
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding-top: 2.4rem;
 
-    .transactions {
-        border: 1px solid var(--light-outline-box-color);
-        background-color: var(--boxed-fill-color1);
-        padding: 0.4rem 0.6rem;
-        border-radius: 2px;
+.tblTransactions {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
 
-        .message {
-            padding: 0.8rem;
-            padding-top: 0rem;
+    tbody tr {
+        border-top: 1px solid var(--light-outline-box-color);
+    }
+    
+    td, th {
+        padding: 0.2rem 0.2rem;
+        font-size: 0.9rem;
+        text-align: left;
+
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.8rem;        
+            @media (max-width: 480px) {
+                font-size: 0.7rem;
+            }
+        }            
+    }
+
+    td:nth-child(3), th:nth-child(3) {
+        text-align: right;
+    }
+
+    td:nth-child(4), th:nth-child(4) {
+        text-align: center;
+    }
+
+    .amounts {
+        span {
+            font-weight: normal;
         }
+    }
 
-        .blockTitle {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-
-            .textTitle, .textAdd {
-                font-size: 1rem;
-                position: relative;
-                top: -1.2rem;
-            }
-            .textTitle {
-                background-color: var(--blue-color);
-                color: white;
-                padding: 0.1rem 0.6rem;
-                border-top-left-radius: 8px;
-                border-bottom-right-radius: 6px;
-            }
-
-        }
-
-        .tblTransactions {
-            width: 100%;
-            border-spacing: 0;
-            border-collapse: collapse;
-        
-            tbody tr {
-                border-top: 1px solid var(--light-outline-box-color);
-            }
-            
-            td, th {
-                padding: 0.2rem 0.2rem;
-                font-size: 0.9rem;
-                text-align: left;
-
-                @media (max-width: $primary-breakpoint) {
-                    font-size: 0.8rem;        
-                    @media (max-width: 480px) {
-                        font-size: 0.7rem;
-                    }
-                }            
-            }
-
-            td:nth-child(3), th:nth-child(3) {
-                text-align: right;
-            }
-
-            td:nth-child(4), th:nth-child(4) {
-                text-align: center;
-            }
-
-            .amounts {
-                span {
-                    font-weight: normal;
-                }
-            }
-
-            .view {
-                font-size: 1rem;
-                svg {
-                    margin-top: 0.4rem;
-                }
-            }
-
+    .view {
+        font-size: 1rem;
+        svg {
+            margin-top: 0.4rem;
         }
     }
 

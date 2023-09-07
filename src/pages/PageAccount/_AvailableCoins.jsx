@@ -45,10 +45,10 @@ const AvailableCoins = (props) => {
 
     // Affichage
     return (
-        <div className={styles.container}>
-            <div className={styles.available}>
-                <div className={styles.blockTitle}>
-                    <div className={styles.textTitle}>Available</div>
+        <div className='styledBlocContainer'>
+            <div className='styledBlocContent'>
+                <div className='styledBlocTitleContainer'>
+                    <div className='styledBlocTitleText styledGreenBlock'>Available</div>
                 </div>
                 {msgErreur ?
                     <div className={"erreur " + styles.message}>{msgErreur}</div>

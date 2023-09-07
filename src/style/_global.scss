@@ -189,7 +189,7 @@ h2, .h2like {
             justify-content: space-between;
             align-items: center;
 
-            .styledBlocTitleText, .styledBlocTitleAdd {
+            .styledBlocTitleText, .styledBlocBtns {
                 font-size: 1rem;
                 position: relative;
                 top: -1.2rem;
@@ -200,6 +200,30 @@ h2, .h2like {
                 border-top-left-radius: 8px;
                 border-bottom-right-radius: 6px;
             }
+            .styledBlocBtns {
+                display: flex;
+                gap: 0.15rem;
+                
+                button {
+                    border: none;
+                    background-color: var(--arrow-nav-fill-color);
+                    color: var(--arrow-nav-text-color);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    svg {
+                        margin: 0.4rem 0.4rem;
+                    }
+                }
+
+                button:nth-child(1) {
+                    border-top-left-radius: 6px;
+                }
+                button:nth-child(2) {
+                    border-top-right-radius: 6px;
+                }
+            }
 
             .styledBlueBlock { background-color: var(--blue-color); }
             .styledRedBlock { background-color: var(--red-color); }
@@ -209,6 +233,10 @@ h2, .h2like {
             .styledBrownBlock { background-color: var(--brown-color); }
             .styledTurquoiseBlock { background-color: var(--turquoise-color); }
 
+            .styledMessageBlock {
+                padding: 0.8rem;
+                padding-top: 0rem;
+            }
         }
 
     }

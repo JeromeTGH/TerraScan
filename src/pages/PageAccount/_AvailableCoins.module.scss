@@ -1,38 +1,4 @@
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding-top: 2.4rem;
-
-    .available {
-        border: 1px solid var(--light-outline-box-color);
-        background-color: var(--boxed-fill-color1);
-        padding: 0.4rem 0.6rem;
-        border-radius: 2px;
-
-        .blockTitle {
-            position: relative;
-            margin-bottom: 1rem;
-
-            .textTitle {
-                font-size: 1rem;
-                background-color: #10B070;
-                color: white;
-                position: absolute;
-                top: -1.2rem;
-                padding: 0.1rem 0.6rem;
-                border-top-left-radius: 8px;
-                border-bottom-right-radius: 6px;
-            }
-        }
-    }
-
-    .message {
-        padding: 0.8rem;
-        padding-top: 0rem;
-    }
-}
 
 .coinContainer {
     display: grid;

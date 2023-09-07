@@ -40,10 +40,10 @@ const Transactions = (props) => {
 
     // Affichage
     return (
-        <div className={styles.container}>
-            <div className={styles.transactions}>
-                <div className={styles.blockTitle}>
-                    <div className={styles.textTitle}>Latest transactions</div>
+        <div className='styledBlocContainer'>
+            <div className='styledBlocContent'>
+                <div className='styledBlocTitleContainer'>
+                    <div className='styledBlocTitleText styledBlueBlock'>Latest transactions</div>
                 </div>
                 {msgErreur ?
                     <div className={"erreur " + styles.message}>{msgErreur}</div>

@@ -65,11 +65,11 @@ const Undelegations = (props) => {
 
     // Affichage
     return (
-        <div className={styles.container}>
-            <div className={styles.undelegation}>
-                <div className={styles.blockTitle}>
-                    <div className={styles.textTitle}>{tblUndelegations && tblUndelegation ? <>Undelegation {idxUndelegationToShow+1}/{tblUndelegations.length}</> : "Undelegations"}</div>
-                    <div className={styles.textAdd}>
+        <div className='styledBlocContainer'>
+            <div className='styledBlocContent'>
+                <div className='styledBlocTitleContainer'>
+                    <div className='styledBlocTitleText styledVioletBlock'>{tblUndelegations && tblUndelegation ? <>Undelegation {idxUndelegationToShow+1}/{tblUndelegations.length}</> : "Undelegations"}</div>
+                    <div className='styledBlocBtns'>
                         <button onClick={() => handleClickOnNavigationButtons(-1)}><LeftArrowIcon /></button>
                         <button onClick={() => handleClickOnNavigationButtons(1)}><RightArrowIcon /></button>
                     </div>
