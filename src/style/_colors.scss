@@ -15,7 +15,6 @@
     --link-color: #{$darkTheme_linkColor};
     --error-color: #{$darkTheme_errorColor};
     --success-color: #{$darkTheme_successColor};
-    // --link-weight: normal;
     --outline-box-color: #{$darkTheme_outlineBoxColor};
     --light-outline-box-color: #{$darkTheme_lightOutlineBoxColor};
     --even-table-line-fill-color: #{$darkTheme_evenTableLineFillColor};
@@ -27,6 +26,10 @@
     --pagination-page-number-text-color: #{$darkTheme_paginationPageNumberTextColor};
     --arrow-nav-fill-color: #{$darkTheme_arrowNavFillColor};
     --arrow-nav-text-color: #{$darkTheme_arrowNavTextColor};
+    --green-annonce-border-color: #{$darkTheme_greenAnnonceBorderColor};
+    --green-annonce-fill-color: #{$darkTheme_greenAnnonceFillColor};
+    --green-annonce-text-color: #{$darkTheme_greenAnnonceTextColor};
+    --green-annonce-link-color: #{$darkTheme_greenAnnonceLinkColor};
 }
 
 // Switch de couleurs, si changement de thème (vers le thème plus clair)
@@ -44,7 +47,6 @@
     --link-color: #{$lightTheme_linkColor};
     --error-color: #{$lightTheme_errorColor};
     --success-color: #{$lightTheme_successColor};
-    // --link-weight: bold;
     --outline-box-color: #{$lightTheme_outlineBoxColor};
     --light-outline-box-color: #{$lightTheme_lightOutlineBoxColor};
     --even-table-line-fill-color: #{$lightTheme_evenTableLineFillColor};
@@ -56,6 +58,10 @@
     --pagination-page-number-text-color: #{$lightTheme_paginationPageNumberTextColor};
     --arrow-nav-fill-color: #{$lightTheme_arrowNavFillColor};
     --arrow-nav-text-color: #{$lightTheme_arrowNavTextColor};
+    --green-annonce-border-color: #{$lightTheme_greenAnnonceBorderColor};
+    --green-annonce-fill-color: #{$lightTheme_greenAnnonceFillColor};
+    --green-annonce-text-color: #{$lightTheme_greenAnnonceTextColor};
+    --green-annonce-link-color: #{$lightTheme_greenAnnonceLinkColor};
 }
 
 body {

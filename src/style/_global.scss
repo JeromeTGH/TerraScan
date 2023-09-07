@@ -99,9 +99,9 @@ h2, .h2like {
 }
 
 .annonce {
-    background-color : #D0E8DD;
-    border : 1px solid #A0D1BA;
-    color : #0A6644;
+    background-color : var(--green-annonce-fill-color);
+    border : 1px solid var(--green-annonce-border-color);
+    color : var(--green-annonce-text-color);
     border-radius : 4px;
     padding: 0.4rem 0.6rem;
     font-size: 0.9rem;
@@ -116,6 +116,7 @@ h2, .h2like {
 
     a {
         font-weight: bold;
+        color: var(--green-annonce-link-color);
     }
 
 }
