@@ -1,4 +1,5 @@
 
+import { tblLatestBlockAtAppLoading } from "../../application/AppData";
 import { loadValidators } from "../../dataloaders/loadValidators"
 import { FCDclient } from "../../fcd/FCDclient";
 import { LCDclient } from "../../lcd/LCDclient";
@@ -22,6 +23,9 @@ export const preloads = async () => {
     const rawLatestBlockInfoLCD = await lcd.tendermint.getBlockInfos('latest').catch(handleError);
     if(rawLatestBlockInfoLCD?.data) {
         latestHeightFromLCD = rawLatestBlockInfoLCD.data.block.header.height;
+
+        tblLatestBlockAtAppLoading['height'] = rawLatestBlockInfoLCD.data.block.header.height;
+        tblLatestBlockAtAppLoading['datetime'] = rawLatestBlockInfoLCD.data.block.header.time;
     } else {
         console.warn("ERROR : failed to fetch [latest block] from LCD");
         return { "erreur" : "failed to load datas from Terra\u00a0Classic\u00a0blockchain"};

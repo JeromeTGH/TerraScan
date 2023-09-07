@@ -1,9 +1,10 @@
 import React from 'react';
+import ChainUpgrade from './ChainUpgrade';
 
 const Header = () => {
     return (
         <>
-            {/* <div className='annonce'>Blockchain upgrade at ...</div> */}
+            <ChainUpgrade />
         </>
     );
 }

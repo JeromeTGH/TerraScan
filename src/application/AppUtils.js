@@ -121,9 +121,9 @@ export const metEnFormeDateTime = (valDateTime) => {
 }
 
 
-// =============================
-// Fonction "metEnFormeDateTime"
-// =============================
+// ================================
+// Fonction "metEnFormeGrandNombre"
+// ================================
 /**
  * 
  * @param nombre nombre réel (donc positif ou négatif, et pas forcément entier)

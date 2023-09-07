@@ -104,7 +104,18 @@ h2, .h2like {
     color : #0A6644;
     border-radius : 4px;
     padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+
+    .annonce_image {
+        float: left;
+        height: 2.2rem;
+        padding-right: 0.6rem;
+    }
+
+    a {
+        font-weight: bold;
+    }
+
 }
 
 .textBrillant {
