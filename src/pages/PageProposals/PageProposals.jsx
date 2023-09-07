@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposals.module.scss';
-import BlockGovernanceInfos from './BlockGovernanceInfos';
+// import BlockGovernanceInfos from './BlockGovernanceInfos';
 import BlockProposals from './BlockProposals';
 import { getGovernanceInfos } from './getGovernanceInfos';
 import { getProposals } from './getProposals';
@@ -53,21 +53,50 @@ const PageProposals = () => {
             <h1><span><VoteIcon /><strong>Governance</strong></span><span className={styles.txtAdd}> (rules & proposals)</span></h1>
             <br />
             <div className={styles.blocksProposalPage}>
-                {msgErreurGovernanceInfos ? 
-                    <div className="erreur boxContainer">{msgErreurGovernanceInfos}</div>
+                {msgErreurGovernanceInfos ?
+                    <div className='styledBlocContainer'>
+                        <div className='styledBlocContent'>
+                            <div className='styledBlocTitleContainer'>
+                                <div className='styledBlocTitleText styledRedBlock'>ERROR</div>
+                            </div>
+                            <div className='erreur'>{msgErreurGovernanceInfos}</div>
+                        </div>
+                    </div>
                     :
-                    tableGovernanceInfos && tableGovernanceInfos['nbJoursMaxDeposit'] ?
-                        <BlockGovernanceInfos tblGovernanceInfos={tableGovernanceInfos} />
-                        :
-                        <div className="boxContainer">Loading data from blockchain (lcd) ...</div>
+                    null
+                    // tableGovernanceInfos && tableGovernanceInfos['nbJoursMaxDeposit'] ?
+                    //     <BlockGovernanceInfos tblGovernanceInfos={tableGovernanceInfos} />
+                    //     :
+                    //     <div className='styledBlocContainer'>
+                    //         <div className='styledBlocContent'>
+                    //             <div className='styledBlocTitleContainer'>
+                    //                 <div className='styledBlocTitleText styledBlueBlock'>Loading</div>
+                    //             </div>
+                    //             <div>Loading data from blockchain (lcd), please wait ...</div>
+                    //         </div>
+                    //     </div>
                 }
-                {msgErreurProposals ? 
-                    <div className="erreur boxContainer">{msgErreurProposals}</div>
+                {msgErreurProposals ?
+                    <div className='styledBlocContainer'>
+                        <div className='styledBlocContent'>
+                            <div className='styledBlocTitleContainer'>
+                                <div className='styledBlocTitleText styledRedBlock'>ERROR</div>
+                            </div>
+                            <div className='erreur'>{msgErreurProposals}</div>
+                        </div>
+                    </div>
                     :
                     tableProposals && (tableProposals.length > 0) ?
                         <BlockProposals tblProposals={tableProposals} tblGovernanceInfos={tableGovernanceInfos} />
                         :
-                        <div className="boxContainer">Loading data from blockchain (lcd), please wait ...</div>
+                        <div className='styledBlocContainer'>
+                            <div className='styledBlocContent'>
+                                <div className='styledBlocTitleContainer'>
+                                    <div className='styledBlocTitleText styledBlueBlock'>Loading</div>
+                                </div>
+                                <div>Loading data from blockchain (lcd), please wait ...</div>
+                            </div>
+                        </div>
                 }
             </div>
         </>
