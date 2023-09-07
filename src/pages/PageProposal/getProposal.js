@@ -57,6 +57,11 @@ export const getProposal = async (propID) => {
         proposalInfos['contentAmount'] = rawProposal.content.amount ? coinsListToFormatedText(rawProposal.content.amount) : null;
         proposalInfos['contentChanges'] = rawProposal.content.changes ? rawProposal.content.changes : null;
         proposalInfos['contentPlan'] = rawProposal.content.plan ? rawProposal.content.plan : null;
+        // console.log("proposalInfos['contentPlan']", proposalInfos['contentPlan']);
+        // console.log("proposalInfos['contentPlan']", JSON.stringify(proposalInfos['contentPlan']));
+        // console.log("proposalInfos['contentPlan']", JSON.parse(JSON.stringify(proposalInfos['contentPlan'])));
+        // console.log("proposalInfos['contentPlan']", JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan']))));
+        // console.log("proposalInfos['contentPlan']", JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'])))));
 
 
         proposalInfos['contentDescription'] = rawProposal.content.description;
@@ -73,7 +78,7 @@ export const getProposal = async (propID) => {
         proposalInfos['votingStartTime'] = rawProposal.voting_start_time;
         proposalInfos['votingEndTime'] = rawProposal.voting_end_time;
     } else
-        return { "erreur": "Failed to fetch [proposal] ..." }
+        return { "erreur": "Failed to fetch this proposal from blockchain (LCD), sorry ..." }
 
 
     // Ajout d'un "status texte", pour que ce soit plus parlant

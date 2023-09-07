@@ -161,3 +161,55 @@ h2, .h2like {
     padding: 0rem 0.3rem 0.1rem 0.3rem;
     background-color: var(--green-color);
 }
+
+
+
+
+.styledBlocContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2.4rem;
+
+    .styledBlocContent {
+        border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color1);
+        padding: 0.4rem 0.6rem;
+        padding-bottom: 1.4rem;
+        border-radius: 2px;
+
+        .styledMessage {
+            padding: 0.8rem;
+            padding-top: 0rem;
+        }
+
+        .styledBlocTitleContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .styledBlocTitleText, .styledBlocTitleAdd {
+                font-size: 1rem;
+                position: relative;
+                top: -1.2rem;
+            }
+            .styledBlocTitleText {
+                color: white;
+                padding: 0.1rem 0.6rem;
+                border-top-left-radius: 8px;
+                border-bottom-right-radius: 6px;
+            }
+
+            .styledBlueBlock { background-color: var(--blue-color); }
+            .styledRedBlock { background-color: var(--red-color); }
+            .styledGreenBlock { background-color: var(--green-color); }
+            .styledOrangeBlock { background-color: var(--orange-color); }
+            .styledVioletBlock { background-color: var(--violet-color); }
+            .styledBrownBlock { background-color: var(--brown-color); }
+            .styledTurquoiseBlock { background-color: var(--turquoise-color); }
+
+        }
+
+    }
+}
