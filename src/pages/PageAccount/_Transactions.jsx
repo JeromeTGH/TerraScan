@@ -5,10 +5,11 @@ import { metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecima
 import { tblCorrespondanceMessages } from '../../application/AppParams';
 import { Link } from 'react-router-dom';
 import { EyeIcon } from '../../application/AppIcons';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 
 const Transactions = (props) => {
-
+    
 
     // Variables
     const [isLoading, setIsLoading] = useState(true);
@@ -40,60 +41,55 @@ const Transactions = (props) => {
 
     // Affichage
     return (
-        <div className='styledBlocContainer'>
-            <div className='styledBlocContent'>
-                <div className='styledBlocTitleContainer'>
-                    <div className='styledBlocTitleText styledBlueBlock'>Latest transactions</div>
-                </div>
-                {msgErreur ?
-                    <div className={"erreur " + styles.message}>{msgErreur}</div>
+        <StyledBox title="Available" color="blue">
+            {msgErreur ?
+                <div className="erreur">{msgErreur}</div>
+            :
+                isLoading ?
+                    <div>
+                        <div>Loading "transactions" from blockchain (fcd), please wait ...</div>
+                        <br />
+                        <div><strong><u>Note</u> : this may sometimes take longer than normal, here</strong></div>
+                    </div>
                 :
-                    isLoading ?
-                        <div className={styles.message}>
-                            <div>Loading "transactions" from blockchain (fcd), please wait ...</div>
-                            <br />
-                            <div><strong><u>Note</u> : this may sometimes take longer than normal, here</strong></div>
-                        </div>
-                    :
-                        (tblTransactions && tblTransactions.length > 0) ?
-                            <table className={styles.tblTransactions}>
-                                <thead>
-                                    <tr>
-                                        <th>Date/Time</th>
-                                        <th>Operation</th>
-                                        <th>Amount</th>
-                                        <th>View</th>
+                    (tblTransactions && tblTransactions.length > 0) ?
+                        <table className={styles.tblTransactions}>
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Operation</th>
+                                    <th>Amount</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tblTransactions.map((element, index) => {
+                                    return <tr key={index}>
+                                        <td>{metEnFormeDateTime(element.datetime)}</td>
+                                        <td>
+                                            {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
+                                            {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
+                                        </td>
+                                        <td className={styles.amounts}>
+                                            {element.amount ? 
+                                                <>
+                                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
+                                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
+                                                    <span> {element.unit}</span>
+                                                </>
+                                            :
+                                                <>&nbsp;</>
+                                            }
+                                        </td>
+                                        <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {tblTransactions.map((element, index) => {
-                                        return <tr key={index}>
-                                            <td>{metEnFormeDateTime(element.datetime)}</td>
-                                            <td>
-                                                {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
-                                                {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
-                                            </td>
-                                            <td className={styles.amounts}>
-                                                {element.amount ? 
-                                                    <>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
-                                                        <span> {element.unit}</span>
-                                                    </>
-                                                :
-                                                    <>&nbsp;</>
-                                                }
-                                            </td>
-                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
-                                        </tr>
-                                    })}
-                                </tbody>
-                            </table>
-                        :
-                            <div className={styles.message}>No transaction found.</div>
-                }
-            </div>
-        </div>
+                                })}
+                            </tbody>
+                        </table>
+                    :
+                        <div>No transaction found.</div>
+            }
+        </StyledBox>
     );
 };
 

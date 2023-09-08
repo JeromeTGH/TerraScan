@@ -1,0 +1,67 @@
+.styledBoxContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2.4rem;
+
+    .styledBoxContent {
+        border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color1);
+        padding: 0.4rem 0.6rem;
+        padding-bottom: 1.4rem;
+        border-radius: 2px;
+
+        .styledBoxHeadContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .styledBoxTitle, .styledBoxBtns {
+                font-size: 1rem;
+                position: relative;
+                top: -1.2rem;
+            }
+            .styledBoxTitle {
+                color: white;
+                padding: 0.1rem 0.6rem;
+                border-top-left-radius: 8px;
+                border-bottom-right-radius: 6px;
+            }
+            .styledBoxBtns {
+                display: flex;
+                gap: 0.15rem;
+                
+                button {
+                    border: none;
+                    background-color: var(--arrow-nav-fill-color);
+                    color: var(--arrow-nav-text-color);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    svg {
+                        margin: 0.4rem 0.4rem;
+                    }
+                }
+
+                button:nth-child(1) {
+                    border-top-left-radius: 6px;
+                }
+                button:nth-child(2) {
+                    border-top-right-radius: 6px;
+                }
+            }
+
+            .blueStyledBox { background-color: var(--blue-color); }
+            .redStyledBox { background-color: var(--red-color); }
+            .greenStyledBox { background-color: var(--green-color); }
+            .orangeStyledBox { background-color: var(--orange-color); }
+            .violetStyledBox { background-color: var(--violet-color); }
+            .brownStyledBox { background-color: var(--brown-color); }
+            .turquoiseStyledBox { background-color: var(--turquoise-color); }
+
+        }
+
+    }
+}

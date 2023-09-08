@@ -53,17 +53,9 @@
     }
 
     .tblInfos {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
-        
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.8rem;
-    
-            @media (max-width: $primary-breakpoint) {
-                font-size: 0.7rem;
-            }
+
+        tbody tr {
+            border: none;
         }
         
         td:nth-child(1) {
@@ -128,21 +120,13 @@
         }
     }
 
-    .cardProposalTable {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
+    .votesTable {
         margin: 1rem 0rem;
 
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
-    
-            @media (max-width: $primary-breakpoint) {
-                font-size: 0.8rem;
-            }
+        tbody tr {
+            border: none;
         }
-        
+       
         td:nth-child(1) {
             width: 1%;
             white-space: nowrap;
@@ -215,23 +199,6 @@
     }
 
     .tblPendingValidatorsVotes {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
-
-        tbody tr {
-            border-top: 1px solid var(--light-outline-box-color);
-        }
-        
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
-            text-align: left;
-    
-            @media (max-width: $primary-breakpoint) {
-                font-size: 0.8rem;
-            }
-        }
 
         td:nth-child(1) {
             word-break: break-word;
@@ -272,31 +239,13 @@
     }
 
     .tblHistoricalValidatorsVotes, .tblHistoricalNonValidatorsVotes {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
-
-        tbody tr {
-            border-top: 1px solid var(--light-outline-box-color);
-        }
     
         th {
             text-align: center;
         }
+
         th:nth-child(1) {
             text-align: left;
-        }
-        
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
-    
-            @media (max-width: $primary-breakpoint) {
-                font-size: 0.8rem;
-                @media (max-width: 600px) {
-                    font-size: 0.7rem;
-                }
-            }
         }
 
         td:nth-child(4) {

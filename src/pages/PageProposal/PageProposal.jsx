@@ -235,7 +235,7 @@ const PageProposal = () => {
                                             <div>{(proposalInfos['nbVotesNowithvetoLunc']/1000000) > 1 ? metEnFormeAmountPartieEntiere(proposalInfos['nbVotesNowithvetoLunc']/1000000) + '\u00a0LUNC' : '-'}</div>
                                         </div>
                                     </div>
-                                    <table className={styles.cardProposalTable}>
+                                    <table className={styles.votesTable}>
                                         <tbody>
                                             <tr>
                                                 <td>Votes :</td>

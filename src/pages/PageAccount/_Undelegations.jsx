@@ -4,7 +4,7 @@ import { getUndelegations } from './getUndelegations';
 import { Link } from 'react-router-dom';
 import { tblValidators } from '../../application/AppData';
 import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
-import { LeftArrowIcon, RightArrowIcon } from '../../application/AppIcons';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const Undelegations = (props) => {
 
@@ -65,40 +65,37 @@ const Undelegations = (props) => {
 
     // Affichage
     return (
-        <div className='styledBlocContainer'>
-            <div className='styledBlocContent'>
-                <div className='styledBlocTitleContainer'>
-                    <div className='styledBlocTitleText styledVioletBlock'>{tblUndelegations && tblUndelegation ? <>Undelegation {idxUndelegationToShow+1}/{tblUndelegations.length}</> : "Undelegations"}</div>
-                    <div className='styledBlocBtns'>
-                        <button onClick={() => handleClickOnNavigationButtons(-1)}><LeftArrowIcon /></button>
-                        <button onClick={() => handleClickOnNavigationButtons(1)}><RightArrowIcon /></button>
-                    </div>
-                </div>
-                {msgErreur ?
-                    <div className={"erreur " + styles.message}>{msgErreur}</div>
+        <StyledBox
+            title={tblUndelegations && tblUndelegation ? <>Undelegation {idxUndelegationToShow+1}/{tblUndelegations.length}</> : "Undelegations"}
+            color="violet"
+            showBtnNav="yes"
+            onPrevious={() => handleClickOnNavigationButtons(-1)}
+            onNext={() => handleClickOnNavigationButtons(1)}
+        >
+            {msgErreur ?
+                <div className="erreur">{msgErreur}</div>
+            :
+                isLoading ?
+                    <div>Loading "undelegations" from blockchain (lcd), please wait ...</div>
                 :
-                    isLoading ?
-                        <div className={styles.message}>Loading "undelegations" from blockchain (lcd), please wait ...</div>
-                    :
-                        tblUndelegations && tblUndelegation ?
-                            <>
-                                <div className={styles.amountAndReleaseInfos}>
-                                    <div>
-                                        <span>There are </span>
-                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblUndelegation.balance)}</span>
-                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblUndelegation.balance)}</span>
-                                        <span> LUNC</span>
-                                    </div>
-                                    <div>undelegating from validator <Link to={'/validators/' + tblUndelegation.valoperAddress}>{tblUndelegation.valMoniker}</Link> {tblValidators[tblUndelegation.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
-                                    <br />
-                                    <div>They will be <strong>released in {expanded_datetime_ago(tblUndelegation.releaseDatetime, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
+                    tblUndelegations && tblUndelegation ?
+                        <>
+                            <div className={styles.amountAndReleaseInfos}>
+                                <div>
+                                    <span>There are </span>
+                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblUndelegation.balance)}</span>
+                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblUndelegation.balance)}</span>
+                                    <span> LUNC</span>
                                 </div>
-                            </>
-                        :
-                            <div className={styles.message}>No undelegation, currently.</div>
-                }
-            </div>
-        </div>
+                                <div>undelegating from validator <Link to={'/validators/' + tblUndelegation.valoperAddress}>{tblUndelegation.valMoniker}</Link> {tblValidators[tblUndelegation.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
+                                <br />
+                                <div>They will be <strong>released in {expanded_datetime_ago(tblUndelegation.releaseDatetime, true)}</strong> ({metEnFormeDateTime(tblUndelegation.releaseDatetime)})</div>
+                            </div>
+                        </>
+                    :
+                        <div>No undelegation, currently.</div>
+            }
+        </StyledBox>
     );
 };
 
