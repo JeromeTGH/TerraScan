@@ -32,6 +32,7 @@ const ChainUpgrade = () => {
 
             // Calcul d'écart de temps entre les deux (qui nous donnera le nombre de seconde moyen de génération d'un nouveau bloc, combiné à leurs heights)
             const calculateNbSecondsPerBlock = (latestBlockTimestamp - oldBlockTimestamp) / nbBlockEnArrierePourEstimationVitesse / 1000;
+            // console.log("calculateNbSecondsPerBlock", calculateNbSecondsPerBlock);
            
             // Calcul de la date/heure à laquelle l'upgrade aura lieu
             const nbBlocksLeft = blockUpgrade - tblLatestBlockAtAppLoading['height'];

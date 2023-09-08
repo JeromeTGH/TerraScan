@@ -6,14 +6,10 @@
 }
 
 .tblStaking {
-    border-spacing: 0;
-    border-collapse: collapse;
-    
-    td {
-        padding: 0.2rem;
-        @media (max-width: $primary-breakpoint) {
-            font-size: 0.9rem;
-        }
+    width: auto;
+
+    tbody tr {
+        border: none;
     }
 
     td:nth-child(1) {

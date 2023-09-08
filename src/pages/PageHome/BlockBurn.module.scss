@@ -23,18 +23,6 @@
     }
 
     .tblOfLastBurns {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
-        text-align: left;
-    
-        thead tr {
-            background-color: var(--head-table-line-fill-color);
-        }
-    
-        tbody tr:nth-child(odd) {
-            background-color: var(--even-table-line-fill-color);
-        }
     
         th {
             text-align: center;
@@ -42,11 +30,6 @@
 
         th:nth-child(5), th:nth-child(6) {
             text-align: left;
-        }
-
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
         }
 
         td:nth-child(1) {

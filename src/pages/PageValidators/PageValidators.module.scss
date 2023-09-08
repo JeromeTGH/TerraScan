@@ -80,25 +80,6 @@
 
 .tblValidators {
 
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-    
-    thead tr {
-        background-color: var(--head-table-line-fill-color);
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: var(--even-table-line-fill-color);
-    }
-    
-    td, th {
-        padding: 0.2rem 0.1rem;
-        @media (max-width: $primary-breakpoint) {
-            font-size: 0.9rem;
-        }
-    }
-
     th {
         text-align: center;
     }

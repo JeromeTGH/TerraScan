@@ -5,42 +5,26 @@
 }
 
 .tblTopDelegators {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
 
     display: block;
     height: 360px;
     overflow-y: scroll;
 
+    .smallPart { font-size: 0.7rem; }
+    @media (max-width: $primary-breakpoint) {
+        .smallPart { font-size: 0.4rem; }
+    }
+
+    th {
+        text-align: center;
+    }
+
     td:nth-child(1) {
         width: 100%;
-    }
-    
-    thead tr {
-        background-color: var(--head-table-line-fill-color);
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: var(--even-table-line-fill-color);
-    }
-    
-    td, th {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.9rem;
-        .smallPart { font-size: 0.7rem; }
-
-        @media (max-width: $primary-breakpoint) {
-            font-size: 0.8rem;
-            .smallPart { font-size: 0.4rem; }
-        }
-    }
-
-    td:first-child {
         text-align: left;
         word-break: break-all;
     }
-
+    
     td:nth-child(2) {
         text-align: right;
         white-space: nowrap;

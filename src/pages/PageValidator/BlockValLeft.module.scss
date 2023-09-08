@@ -5,19 +5,14 @@
 }
 
 .tblDetails {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
     
-    td, th {
-        padding: 0.2rem 0.2rem;
-        font-size: 0.9rem;
-        .smallPart { font-size: 0.7rem; }
+    .smallPart { font-size: 0.7rem; }
+    @media (max-width: $primary-breakpoint) {
+        .smallPart { font-size: 0.4rem; }
+    }
 
-        @media (max-width: $primary-breakpoint) {
-            font-size: 0.8rem;
-            .smallPart { font-size: 0.4rem; }
-        }
+    tbody tr {
+        border: none;
     }
 
     td:nth-child(1) {
@@ -29,6 +24,5 @@
         text-align: right;
         word-break: break-all;
     }
-
 
 }
