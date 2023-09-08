@@ -6,6 +6,7 @@ import BlockProposals from './BlockProposals';
 import { getGovernanceInfos } from './getGovernanceInfos';
 import { getProposals } from './getProposals';
 import { appName } from '../../application/AppParams';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageProposals = () => {
 
@@ -54,49 +55,25 @@ const PageProposals = () => {
             <br />
             <div className={styles.blocksProposalPage}>
                 {msgErreurGovernanceInfos ?
-                    <div className='styledBlocContainer'>
-                        <div className='styledBlocContent'>
-                            <div className='styledBlocTitleContainer'>
-                                <div className='styledBlocTitleText styledRedBlock'>ERROR</div>
-                            </div>
-                            <div className='erreur'>{msgErreurGovernanceInfos}</div>
-                        </div>
-                    </div>
-                    :
+                    <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreurGovernanceInfos}</div></StyledBox>
+                :
                     null
                     // tableGovernanceInfos && tableGovernanceInfos['nbJoursMaxDeposit'] ?
                     //     <BlockGovernanceInfos tblGovernanceInfos={tableGovernanceInfos} />
                     //     :
-                    //     <div className='styledBlocContainer'>
-                    //         <div className='styledBlocContent'>
-                    //             <div className='styledBlocTitleContainer'>
-                    //                 <div className='styledBlocTitleText styledBlueBlock'>Loading</div>
-                    //             </div>
-                    //             <div>Loading data from blockchain (lcd), please wait ...</div>
-                    //         </div>
-                    //     </div>
+                    //     <StyledBox title="Loading" color="blue">
+                    //         <div>Loading data from blockchain (lcd), please wait ...</div>
+                    //     </StyledBox>
                 }
                 {msgErreurProposals ?
-                    <div className='styledBlocContainer'>
-                        <div className='styledBlocContent'>
-                            <div className='styledBlocTitleContainer'>
-                                <div className='styledBlocTitleText styledRedBlock'>ERROR</div>
-                            </div>
-                            <div className='erreur'>{msgErreurProposals}</div>
-                        </div>
-                    </div>
-                    :
+                    <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreurProposals}</div></StyledBox>
+                :
                     tableProposals && (tableProposals.length > 0) ?
                         <BlockProposals tblProposals={tableProposals} tblGovernanceInfos={tableGovernanceInfos} />
-                        :
-                        <div className='styledBlocContainer'>
-                            <div className='styledBlocContent'>
-                                <div className='styledBlocTitleContainer'>
-                                    <div className='styledBlocTitleText styledBlueBlock'>Loading</div>
-                                </div>
-                                <div>Loading data from blockchain (lcd), please wait ...</div>
-                            </div>
-                        </div>
+                    :
+                        <StyledBox title="Loading" color="blue">
+                            <div>Loading data from blockchain (lcd), please wait ...</div>
+                        </StyledBox>
                 }
             </div>
         </>

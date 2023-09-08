@@ -5,23 +5,14 @@
 }
 
 .tblMessages {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-    
-    td, th {
-        padding: 0.2rem 0.2rem;
-        font-size: 0.9rem;
 
-        @media (max-width: $primary-breakpoint) {
-            font-size: 0.8rem;
-        }
+    tbody tr {
+        border: none;
+    }
 
-        pre {
-            white-space: pre-wrap;
-            padding-top: 0.15rem;
-        }
-
+    pre {
+        white-space: pre-wrap;
+        padding-top: 0.15rem;
     }
 
     td:nth-child(1) {

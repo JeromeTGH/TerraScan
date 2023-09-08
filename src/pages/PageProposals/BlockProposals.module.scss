@@ -63,64 +63,6 @@
 
     }
 
-    .proposalBox {
-        margin-bottom: 1rem;
-        cursor: pointer;
-        overflow-x: auto;
-        transition: transform .2s;
-
-        &:hover {
-            transform: scale(1.02);
-        }
-
-        @media (max-width: $primary-breakpoint) {
-            max-width: calc(100vw - 1.4rem);
-        }
-
-        .tblProposals {
-            width: 100%;
-            border-spacing: 0;
-            border-collapse: collapse;
-            
-            td, th {
-                padding: 0.2rem 0.2rem;
-                font-size: 0.9rem;
-        
-                @media (max-width: $primary-breakpoint) {
-                    font-size: 0.8rem;
-                }
-            }
-        
-            td:nth-child(1) {
-                width: 1%;
-                white-space: nowrap;
-                font-weight: bold;
-                vertical-align: top;
-            }
-        
-            td:nth-child(2) {
-                white-space: pre-wrap;
-            }
-
-            .supportBar {
-                display: flex;
-                align-items: center;
-                flex-direction: row;
-                border: 1px solid var(--outline-box-color);
-                font-size: 0.4rem;
-            }
-        }
-
-        .txtStatus {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-
-            span {
-                border-radius: 8px;
-            }
-        }
-    }
 }
 
 

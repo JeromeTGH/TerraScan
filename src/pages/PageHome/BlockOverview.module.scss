@@ -20,11 +20,11 @@
     }
     
     .progressbartbl {
-        font-size: 0.8rem;
-        border-spacing: 0;
-        border-collapse: collapse;
-        width: 100%;
-    
+
+        tbody tr {
+            border: none;
+        }
+
         .progressbartext {
             padding-right: 0.4rem;
         }

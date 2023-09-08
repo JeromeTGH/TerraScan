@@ -22,9 +22,10 @@
     }
 
     .tblInfos {
-        width: 100%;
-        border-spacing: 0;
-        border-collapse: collapse;
+
+        tbody tr {
+            border: none;
+        }
 
         .notes {
             padding-left: 0.4rem;
@@ -32,16 +33,7 @@
                 padding-left: 0;
                 display: block;
             }
-        }
-        
-        td, th {
-            padding: 0.2rem 0.2rem;
-            font-size: 0.9rem;
-    
-            @media (max-width: $primary-breakpoint) {
-                font-size: 0.8rem;
-            }
-        }
+        }        
         
         td:nth-child(2) {
             white-space: nowrap;
