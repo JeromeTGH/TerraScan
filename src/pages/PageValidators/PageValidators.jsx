@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import { tblValidators } from '../../application/AppData';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageValidators = () => {
 
@@ -68,9 +69,9 @@ const PageValidators = () => {
             <h1><span><CalculatorIcon /><strong>Validators</strong></span></h1>
             <br />
             <div className={styles.tblFilters}>
-                <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}><strong>All</strong> ({nbValidators})<br />↓</button>
-                <button className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}><strong>Active</strong> ({nbActiveValidators})<br />↓</button>
-                <button className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}><strong>Inactive</strong> ({nbInactiveValidators})<br />↓</button>
+                <button className={filtre === 2 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(2)}><strong>All</strong> ({nbValidators})</button>
+                <button className={filtre === 0 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(0)}><strong>Active</strong> ({nbActiveValidators})</button>
+                <button className={filtre === 1 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(1)}><strong>Inactive</strong> ({nbInactiveValidators})</button>
             </div>
             <div className={styles.searchBar}>
                 <form>
@@ -85,34 +86,36 @@ const PageValidators = () => {
                     </button>
                 </form>
             </div>
-            <table className={styles.tblValidators}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Com.</th>
-                        <th>Staked</th>
-                        <th>Voting power</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {filteredTblValidators ?
-                    filteredTblValidators.map((valeur, clef) => {
-                        if((searchName === '' || searchName === undefined) ||
-                           (searchName && valeur[1].description_moniker.toLowerCase().includes(searchName.toLowerCase()))
-                        )
-                        return <tr key={clef}>
-                            <td>{clef+1}</td>
-                            <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
-                            <td>{valeur[1].commission_actual_pourcentage}%</td>
-                            <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
-                            <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
+            <StyledBox title="Validators" color="blue">
+                <table className={styles.tblValidators}>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Com.</th>
+                            <th>Staked</th>
+                            <th>Voting power</th>
                         </tr>
-                    else
-                        return null;
-                }) : null }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {filteredTblValidators ?
+                        filteredTblValidators.map((valeur, clef) => {
+                            if((searchName === '' || searchName === undefined) ||
+                            (searchName && valeur[1].description_moniker.toLowerCase().includes(searchName.toLowerCase()))
+                            )
+                            return <tr key={clef}>
+                                <td>{clef+1}</td>
+                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
+                                <td>{valeur[1].commission_actual_pourcentage}%</td>
+                                <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
+                                <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
+                            </tr>
+                        else
+                            return null;
+                    }) : null }
+                    </tbody>
+                </table>
+            </StyledBox>
             <div className={styles.comments}>
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
             </div>
