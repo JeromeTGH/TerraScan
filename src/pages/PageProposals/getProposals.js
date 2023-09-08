@@ -38,7 +38,9 @@ export const getProposals = async (governanceInfos) => {
     // Ajout de champs "tally", pour les votes en cours
     for(let i=0 ; i<tblProposals.length ; i++) {
         if(tblProposals[i].status === 1) {
+
             // console.log(tblProposals[i]);
+            
             if(tblProposals[i].total_deposit.toString() !== "") {
                 tblProposals[i]['totalDeposit'] = parseInt(tblProposals[i].total_deposit.toString().replace('uluna', ''))/1000000;
                 tblProposals[i]['pourcentageDeposit'] = tblProposals[i]['totalDeposit'] / governanceInfos['nbMinDepositLunc'] * 100;

@@ -30,12 +30,18 @@ const BlockProposals = (props) => {
                 <button className={filtre === 4 ? styles.selectedFilter : ""} onClick={() => handleClickOnFilter(4)}>Show REJECTED proposals</button>
             </div>
             <div className={styles.tblProposals}>
-                {props.tblProposals.filter(element => (filtre === 0 || element.status === filtre)).map((element, index) => {
-
+                {filtre === 0 ? props.tblProposals.map((element, index) => {
                     return <div key={index}><Link to={'/proposals/' + element.id}><ProposalCard card={element} /></Link></div>
-                    // return <div key={index} onClick={() => handleClickOnProposal(element.id)}><ProposalCard card={element} /></div>
-
-                })}
+                }) : null}
+                {filtre === 1  ? props.tblProposals.filter(element => (element.status === filtre)).map((element, index) => {
+                    return <div key={index}><Link to={'/proposals/' + element.id}><ProposalCard card={element} /></Link></div>
+                }) : null}
+                {filtre === 2  ? props.tblProposals.filter(element => (element.status === filtre)).sort((a, b) => b.voting_start_time - a.voting_start_time).map((element, index) => {
+                    return <div key={index}><Link to={'/proposals/' + element.id}><ProposalCard card={element} /></Link></div>
+                }) : null}
+                {(filtre === 3 || filtre === 4)  ? props.tblProposals.filter(element => (element.status === filtre)).sort((a, b) => b.voting_end_time - a.voting_end_time).map((element, index) => {
+                    return <div key={index}><Link to={'/proposals/' + element.id}><ProposalCard card={element} /></Link></div>
+                }) : null}
             </div>
         </div>
     );
