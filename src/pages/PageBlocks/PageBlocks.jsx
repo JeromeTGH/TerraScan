@@ -4,10 +4,10 @@ import styles from './PageBlocks.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { datetime_ago, isValidBlockNumberFormat } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
-
 import { tblBlocks } from '../../application/AppData';
 import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 
 const PageBlocks = () => {
@@ -130,70 +130,67 @@ const PageBlocks = () => {
     return (
         <>
             <h1><span><BlocksIcon /><strong>Blocks</strong></span></h1>
-            <br />
-            <h2 className={styles.h2blocksA}><strong><SearchIcon /></strong><span><strong>Search a specific block</strong></span></h2>
-            <p className={styles.note}>
-            Enter the number of the block you are looking for below.<br />
-            <br />
-            <u>Note</u> :<br />
-            - a Terra Classic block number <strong>must only include decimal digits</strong> (no letters)<br />
-            - this search module only searches for <strong>exact matches</strong>
-            </p>
-            <br />
-            <div className={styles.searchBar}>
-                <form>
-                    <input
-                        type='search'
-                        placeholder='Enter a block number here'
-                        onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
-                        value={searchFieldValue}
-                    />
-                    <button onClick={(e) => {handleBtnClick(e)}}>
-                        <SearchIcon />
-                    </button>
-                </form>
-                <div className={"erreur " + styles.message}>{errorMessage}</div>
-            </div>
-            <br />
-            <br />
-            <h2 className={styles.h2blocksB}>
-                <span><strong><BlocksIcon />{nbBlocksAafficher} Latest blocks</strong></span>
-                <span className={styles.liveview}>
-                    <input 
-                        type="checkbox"
-                        id="checkboxLiveView"
-                        checked={liveViewState}
-                        onChange={(e) => handleCheckboxChange(e)}
-                    />
-                    <label htmlFor='checkboxLiveView'>&nbsp;live&nbsp;view</label>
-                </span>
-            </h2>
-            <table className={styles.tblListOfBlocks}>
-                <thead>
-                    <tr>
-                        <th>Height</th>
-                        <th>Nb&nbsp;Tx</th>
-                        <th>Validator</th>
-                        <th>Date/Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {derniersBlocksAgo ? derniersBlocksAgo.map((valeur, clef) => {
-                        return (
-                            <tr key={clef}>
-                                <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
-                                <td>{valeur[1]}</td>
-                                <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
-                                <td>{valeur[5]}</td>
-                            </tr> 
-                    )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
-                </tbody>
-            </table>
-            <div className={styles.comments}>
-                <u>Nb Tx</u> = number of transactions made in a block<br />
-                <u>Validator</u> = proposer (tendermint)
-            </div>
-            <div className="erreur">{msgErreurGetDerniersBlocks}</div>
+
+            <StyledBox title="Search a specific block" color="green">
+                <p className={styles.note}>
+                Enter the number of the block you are looking for below.<br />
+                <br />
+                <u>Note</u> :<br />
+                - a Terra Classic block number <strong>must only include decimal digits</strong> (no letters)<br />
+                - this search module only searches for <strong>exact matches</strong>
+                </p>
+                <br />
+                <div className={styles.searchBar}>
+                    <form>
+                        <input
+                            type='search'
+                            placeholder='Enter a block number here'
+                            onChange={(e) => setSearchFieldValue(e.target.value.trim())}    // Retrait des éventuels espaces dans la foulée (début/fin) ; très utile en cas de copier/coller
+                            value={searchFieldValue}
+                        />
+                        <button onClick={(e) => {handleBtnClick(e)}}>
+                            <SearchIcon />
+                        </button>
+                    </form>
+                    <div className={"erreur " + styles.message}>{errorMessage}</div>
+                </div>
+            </StyledBox>
+
+            <StyledBox
+                title="20 Latest blocks"
+                color="orange"
+                showCheckbox="yes"
+                checkboxLabel="live view"
+                inCheckState={liveViewState}
+                onCheckChange={(e) => handleCheckboxChange(e)}
+            >
+                <table className={styles.tblListOfBlocks}>
+                    <thead>
+                        <tr>
+                            <th>Height</th>
+                            <th>Nb&nbsp;Tx</th>
+                            <th>Validator</th>
+                            <th>Date/Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {derniersBlocksAgo ? derniersBlocksAgo.map((valeur, clef) => {
+                            return (
+                                <tr key={clef}>
+                                    <td><Link to={'/blocks/' + valeur[0]}>{valeur[0]}</Link></td>
+                                    <td>{valeur[1]}</td>
+                                    <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
+                                    <td>{valeur[5]}</td>
+                                </tr> 
+                        )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
+                    </tbody>
+                </table>
+                <div className={styles.comments}>
+                    <u>Nb Tx</u> = number of transactions made in a block<br />
+                    <u>Validator</u> = proposer (tendermint)
+                </div>
+                <div className="erreur">{msgErreurGetDerniersBlocks}</div>
+            </StyledBox>
         </>
     );
 };

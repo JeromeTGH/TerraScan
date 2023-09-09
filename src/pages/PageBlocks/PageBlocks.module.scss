@@ -1,25 +1,6 @@
 @import '../../style/variables';
 
 
-.h2blocksA, .h2blocksB {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid var(--outline-box-color);
-}
-
-.h2blocksB {
-    justify-content: space-between;
-
-    .liveview {
-        font-size: 0.6em;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 0.2rem;
-    }
-}
-
 .note {
     font-size: 0.9rem;
 }
@@ -37,7 +18,8 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        border: 1px solid var(--primary-text-color);
+        // border: 1px solid var(--light-outline-box-color);
+        background-color: var(--boxed-fill-color2);
         border-radius: 4px;
         padding: 0.2rem;
 

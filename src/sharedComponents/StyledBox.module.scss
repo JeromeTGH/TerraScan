@@ -13,11 +13,12 @@
         .styledBoxHeadContainer {
             position: relative;
 
-            .styledBoxTitle, .styledBoxBtns {
+            .styledBoxTitle, .styledBoxBtns, .styledBoxCheckbox {
                 font-size: 1rem;
                 position: absolute;
                 top: -1.2rem;
             }
+
             .styledBoxTitle {
                 left: 0;
                 color: white;
@@ -25,9 +26,13 @@
                 border-top-left-radius: 8px;
                 border-bottom-right-radius: 6px;
             }
-            .styledBoxBtns {
+
+            .styledBoxBtns, .styledBoxCheckbox {
                 right: 0;
                 display: flex;
+            }
+
+            .styledBoxBtns {
                 gap: 0.15rem;
                 
                 button {
@@ -48,6 +53,20 @@
                 }
                 button:nth-child(2) {
                     border-top-right-radius: 6px;
+                }
+            }
+
+            .styledBoxCheckbox {
+                border: none;
+                background-color: var(--arrow-nav-fill-color);
+                color: var(--arrow-nav-text-color);
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8em;
+
+                label {
+                    margin-left: 0.4rem;                    
                 }
             }
 
