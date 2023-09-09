@@ -31,6 +31,8 @@ export const getTxDatas = async (txHash) => {
     const rawTxInfo = new Tx(rawFullTxInfo.data);
     if(rawTxInfo) {
 
+        // console.log("rawTxInfo", rawTxInfo);
+
         // ====== Code
         txInfos["errCode"] = rawTxInfo.code.toString();          // 0 = success
         if(txInfos["errCode"] === '0')
@@ -62,21 +64,27 @@ export const getTxDatas = async (txHash) => {
 
         // ====== Taxes
         const logsTbl = rawTxInfo.logs;
+        // console.log("logsTbl", logsTbl);
+
         let totalOfTaxes = '---';
         for(const lgLog of logsTbl) {
             if(lgLog.log && lgLog.log.tax) {
-                const denom = lgLog.log.tax.replace(/[0-9]/g, '');
-                const value = lgLog.log.tax.replace(denom, '');
-                
-                let logTaxe = '';
-                if(tblCorrespondanceValeurs[denom])
-                    logTaxe = (parseInt(value)/1000000).toFixed(6) + '\u00a0' + tblCorrespondanceValeurs[denom];
-                else
-                    logTaxe = value + '\u00a0' + denom;
-                if(totalOfTaxes === '---')
-                    totalOfTaxes = logTaxe;
-                else
-                    totalOfTaxes = ', ' + logTaxe;
+                const coins = lgLog.log.tax.split(',');
+                for (const coin of coins) {
+                    const denom = coin.replace(/[0-9]/g, '');
+                    const value = coin.replace(denom, '');
+                    
+                    let logTaxe = '';
+                    if(tblCorrespondanceValeurs[denom])
+                        logTaxe = (parseInt(value)/1000000).toFixed(6) + '\u00a0' + tblCorrespondanceValeurs[denom];
+                    else
+                        logTaxe = value + '\u00a0' + denom;
+
+                    if(totalOfTaxes === '---')
+                        totalOfTaxes = logTaxe;
+                    else
+                        totalOfTaxes += ', ' + logTaxe;
+                }
             }
         }
         txInfos["taxes"] = totalOfTaxes;

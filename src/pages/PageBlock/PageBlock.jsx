@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BlocksIcon, ExchangeIcon } from '../../application/AppIcons';
+import { BlocksIcon } from '../../application/AppIcons';
 import styles from './PageBlock.module.scss';
 // import BlockDetail from './BlockDetail';
 // import BlockTransactions from './BlockTransactions';
@@ -8,6 +8,7 @@ import { appName } from '../../application/AppParams';
 import { getBlockInfo } from './getBlockInfo';
 import { tblBlocks } from '../../application/AppData';
 import { isValidTerraAddressFormat, metEnFormeDateTime } from '../../application/AppUtils';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageBlock = () => {
 
@@ -39,13 +40,11 @@ const PageBlock = () => {
     return (
         <>
             <h1><span><BlocksIcon /><strong>Block</strong> #{blockNum}</span></h1>
-            <br />
-            
             {msgErreurGetBlock ?
-                <div className="boxContainer "><div className="erreur">{msgErreurGetBlock}</div></div>
+                <StyledBox title="ERROR" color="red"><span className='erreur'>{msgErreurGetBlock}</span></StyledBox>
             :
             <>
-                <div className="boxContainer ">
+                <StyledBox title="Block infos" color="green">
                     <table className={styles.tblInfos}>
                         <tbody>
                         {loadingOrNot ?
@@ -72,10 +71,8 @@ const PageBlock = () => {
                         }
                         </tbody>
                     </table>
-                </div>
-                <br />
-                <div className="boxContainer ">
-                    <h2><ExchangeIcon /><span>Transactions</span></h2>
+                </StyledBox>
+                <StyledBox title="Transactions" color="blue">
                     {tblBlocks && tblBlocks[blockNum] && tblBlocks[blockNum].txs ? 
                         <table className={styles.tblTransactions}>
                             <thead>
@@ -168,9 +165,10 @@ const PageBlock = () => {
                                 })}
                             </tbody>
                         </table>
-                    : <p>Loading data from blockchain (fcd), please wait ...</p>
-                }
-                </div>
+                    :
+                        <p>Loading data from blockchain (fcd), please wait ...</p>
+                    }
+                </StyledBox>
             </>
             }
         </>

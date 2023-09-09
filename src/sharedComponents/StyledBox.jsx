@@ -1,5 +1,6 @@
 import React from 'react';
 import { LeftArrowIcon, RightArrowIcon } from '../application/AppIcons';
+import styles from './StyledBox.module.scss';
 
 const StyledBox = ({
                     children,
@@ -10,12 +11,16 @@ const StyledBox = ({
                     onNext
                 }) => {
 
+    const determineClassAvecColor = (couleur) => {
+        return couleur + 'StyledBox';
+    }
+
     return (
-        <div className='styledBoxContainer'>
-            <div className='styledBoxContent'>
-                <div className='styledBoxHeadContainer'>
-                    <div className={'styledBoxTitle ' + color + 'StyledBox'}>{title}</div>
-                    <div className='styledBoxBtns'>
+        <div className={styles.styledBoxContainer}>
+            <div className={styles.styledBoxContent}>
+                <div className={styles.styledBoxHeadContainer}>
+                    <div className={styles.styledBoxTitle + ' ' + styles[determineClassAvecColor(color)]}>{title}</div>
+                    <div className={styles.styledBoxBtns}>
                         {showBtnNav ? 
                         <>
                             <button onClick={() => onPrevious()}><LeftArrowIcon /></button>
@@ -23,7 +28,7 @@ const StyledBox = ({
                         </> : null}
                     </div>
                 </div>
-                <div className='styledBoxWithPadding'>{children}</div>
+                <div className={styles.styledBoxWithPadding}>{children}</div>
             </div>
         </div>
     );

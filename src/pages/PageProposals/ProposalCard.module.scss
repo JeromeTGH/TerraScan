@@ -113,9 +113,10 @@
 
         .cardVoteText {
             padding: 2.8rem 0.2rem 1.4rem 0.2rem;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             @media (max-width: 600px) {
                 padding: 1.2rem 0.2rem 0rem 0.2rem;
+                font-size: 0.8rem;
             }
         }
     }

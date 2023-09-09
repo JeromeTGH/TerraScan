@@ -5,7 +5,7 @@
 | Version | Description |
 | - | - |
 | 1.3.2 | (working on) |
-| 1.3.2 | - Redesign of "Proposal" and "Proposals" pages<br />- Redesign of all tables in the app |
+| 1.3.2 | - Redesign of all tables in the app<br />- Redesign of "Proposal" and "Proposals" pages<br />- Redesign of "Block" page |
 | 1.3.1 | - Added banner for blockchain upgrade informations |
 | 1.3.0 | - Full redesign of account page |
 

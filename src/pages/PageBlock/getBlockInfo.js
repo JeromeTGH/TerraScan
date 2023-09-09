@@ -175,7 +175,7 @@ export const getBlockInfo = async (blockNum) => {
                 'txs': tblTxs
             }
         } else
-            return { "erreur": "Failed to fetch [block " +  + "] ..." }
+            return { "erreur": "Failed to fetch block number #" + blockNum + " ..." }
     }
 
 

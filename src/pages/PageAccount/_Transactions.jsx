@@ -49,7 +49,7 @@ const Transactions = (props) => {
                     <div>
                         <div>Loading "transactions" from blockchain (fcd), please wait ...</div>
                         <br />
-                        <div><strong><u>Note</u> : this may sometimes take longer than normal, here</strong></div>
+                        <div><strong><u>Note</u> : this may sometimes take longer than normal here, please wait ...</strong></div>
                     </div>
                 :
                     (tblTransactions && tblTransactions.length > 0) ?
