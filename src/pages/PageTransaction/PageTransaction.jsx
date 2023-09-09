@@ -6,6 +6,7 @@ import BlockTxInfos from './BlockTxInfos';
 import BlockTxMessages from './BlockTxMessages';
 import { getTxDatas } from './getTxDatas';
 import { appName } from '../../application/AppParams';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageTransaction = () => {
 
@@ -39,7 +40,6 @@ const PageTransaction = () => {
         <>
             <h1><span><ExchangeIcon /><strong>Transaction</strong></span></h1>
             <p className={styles.txHash}>→ TxHash : <strong>{txHash}</strong></p>
-            <br />
             {txDatas && txDatas['txInfos'] ?
                 txDatas['txInfos']['datetime'] ?
                     <div>
@@ -49,8 +49,8 @@ const PageTransaction = () => {
                         })}
                     </div>
                     : null
-                : msgErreurTxDatas ? <div className="boxContainer"><div className="erreur">{msgErreurTxDatas}</div></div>
-                : <div className="boxContainer"><p>Loading data from blockchain (lcd) ...</p></div>
+                : msgErreurTxDatas ? <StyledBox title="ERROR" color="red"><span className='erreur'>{msgErreurTxDatas}</span></StyledBox>
+                : <StyledBox title="Loading" color="blue">Loading data from blockchain (lcd), please wait ...</StyledBox>
             }
         </>
     );

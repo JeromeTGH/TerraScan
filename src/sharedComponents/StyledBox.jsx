@@ -4,6 +4,7 @@ import styles from './StyledBox.module.scss';
 
 const StyledBox = ({
                     children,
+                    className,
                     title,
                     color,
                     showBtnNav = false,
@@ -16,7 +17,7 @@ const StyledBox = ({
     }
 
     return (
-        <div className={styles.styledBoxContainer}>
+        <div className={styles.styledBoxContainer + (className ? ' ' + className : '')}>
             <div className={styles.styledBoxContent}>
                 <div className={styles.styledBoxHeadContainer}>
                     <div className={styles.styledBoxTitle + ' ' + styles[determineClassAvecColor(color)]}>{title}</div>

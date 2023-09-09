@@ -1,11 +1,15 @@
 @import '../../style/variables';
 
-.messagesBlock {
-    margin-top: 1rem;
+.h3tx {
+    padding-bottom: 0.8rem;
+
+    svg {
+        padding-top: 0.4rem;
+        padding-right: 0.4rem;
+    }
 }
 
 .tblMessages {
-
     tbody tr {
         border: none;
     }

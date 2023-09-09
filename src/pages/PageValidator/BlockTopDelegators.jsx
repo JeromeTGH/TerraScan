@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockTopDelegators.module.scss';
-import { AccountIcon } from '../../application/AppIcons';
 import { getValDelegators } from './getValDelegators';
 import { Link } from 'react-router-dom';
 import { formateLeNombre } from '../../application/AppUtils';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 
 const BlockTopDelegators = (props) => {
@@ -29,8 +29,7 @@ const BlockTopDelegators = (props) => {
     // Affichage    
     return (
         <>
-            <div className={"boxContainer " + styles.otherTopDelegatorsBlock}>
-                <h2><strong><AccountIcon /></strong><span>Top delegators (stakers)</span></h2>
+            <StyledBox title="Top delegators (stakers)" color="violet" className={styles.otherTopDelegatorsBlock}>
                 {msgErreurTblOfTopDelegators ? 
                     <div className="erreur">{msgErreurTblOfTopDelegators}</div>
                 :
@@ -69,7 +68,7 @@ const BlockTopDelegators = (props) => {
                         <u>Note</u> : only a maximum of {tblOfTopDelegators.length} delegators are presented here
                     </div>
                 : null}
-            </div>
+            </StyledBox>
         </>
     );
 };

@@ -16,9 +16,9 @@ table {
 
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;        
-            @media (max-width: 480px) {
-                font-size: 0.7rem;
-            }
+            // @media (max-width: 480px) {
+            //     font-size: 0.7rem;
+            // }
         }            
     }
 }

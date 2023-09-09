@@ -2,11 +2,12 @@ import React from 'react';
 import styles from './BlockTxInfos.module.scss';
 import { metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockTxInfos = (props) => {
     
     return (
-        <div className="boxContainer">
+        <StyledBox title="Details" color="green">
             <table className={styles.tblInfos}>
                 <tbody>
                     <tr>
@@ -56,7 +57,7 @@ const BlockTxInfos = (props) => {
                     : null }
                 </tbody>
             </table>
-        </div>
+        </StyledBox>
     );
 };
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './BlockValHeader.module.scss';
 import { tblValidators } from '../../application/AppData';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 
 const BlockValHeader = (props) => {
 
     // Affichage
     return (
-        <div className={"boxContainer " + styles.infosBlock}>
+        <StyledBox title="Presentation" color="green" className={styles.infosBlock}>
             <div className="h2like" style={{textAlign: "center"}}>{tblValidators[props.valAddress].description_moniker}</div>
             <div className={styles.headerBox}>
                 {tblValidators[props.valAddress].profile_icon ?
@@ -56,7 +57,7 @@ const BlockValHeader = (props) => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </StyledBox>
     );
 };
 

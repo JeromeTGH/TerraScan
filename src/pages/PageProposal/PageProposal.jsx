@@ -519,7 +519,7 @@ const PageProposal = () => {
                                                     <th>Date/Time</th>
                                                     <th>Validators</th>
                                                     <th>Votes (older to newer)</th>
-                                                    <th>TxHash</th>
+                                                    <th>Tx</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

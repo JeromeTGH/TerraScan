@@ -26,9 +26,7 @@
         }
     }
     
-    
     .tblInfos {        
-        
         .website, .email {
             word-break: break-all;
         }
@@ -40,12 +38,12 @@
         td:nth-child(1) {
             width: 1%;
             white-space: nowrap;
+            vertical-align: top;
         }
 
         td:nth-child(2) {
             word-break: break-word;
         }
-    
     }
 }
 

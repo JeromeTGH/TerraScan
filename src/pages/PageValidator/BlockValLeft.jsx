@@ -1,16 +1,15 @@
 import React from 'react';
 import styles from './BlockValLeft.module.scss';
-import { CalculatorIcon } from '../../application/AppIcons';
 import { formateLeNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblValidators } from '../../application/AppData';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockValLeft = (props) => {
    
     // Affichage
     return (
-        <div className={"boxContainer " + styles.detailsBlock}>
-            <h2><strong><CalculatorIcon /></strong><span>Summary</span></h2>
+        <StyledBox title="Details" color="orange" className={styles.detailsBlock}>
             <table className={styles.tblDetails}>
                 <tbody>
                     <tr>
@@ -64,7 +63,7 @@ const BlockValLeft = (props) => {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </StyledBox>
     );
 };
 

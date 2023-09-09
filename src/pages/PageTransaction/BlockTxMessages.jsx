@@ -33,13 +33,14 @@ import MsgWithdrawDelegatorReward from './Msgs/MsgWithdrawDelegatorReward';
 import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './Msgs/MsgWithdrawValidatorCommission';
 import MsgAggregateExchangeRatePrevote from './Msgs/MsgAggregateExchangeRatePrevote';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockTxMessages = (props) => {
 
     
     return (
-        <div className={"boxContainer " + styles.messagesBlock}>
-            <p className="h2like"><MessageIcon /><span>Operation {props.idxElement}/{props.nbElements} : <strong>{props.txMessage['MsgDesc']}</strong></span></p>
+        <StyledBox title={'Operation ' + props.idxElement + '/' + props.nbElements} color="orange">
+            <h3 className={styles.h3tx}><span><MessageIcon />{props.txMessage['MsgDesc']}</span></h3>
             <table className={styles.tblMessages}>
                 <tbody>
                     {props.txMessage['MsgType'] === 'MsgSend' ? <MsgSend txMessage={props.txMessage} /> : null}
@@ -80,7 +81,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgVoteWeighted' ? <MsgVoteWeighted txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
-        </div>
+        </StyledBox>
     );
 };
 
