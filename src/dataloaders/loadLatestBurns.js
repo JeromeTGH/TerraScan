@@ -61,9 +61,9 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
                             // Scanne les potentiels LUNC
                             if(coinDenom === 'LUNC' && coinRoundAmount >= minLuncToShow) {
                                 if(txAmount === '')
-                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0' + coinDenom;
+                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Lunc';
                                 else
-                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0' + coinDenom;
+                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Lunc';
                             }
 
                             // Nota : '\u00a0" = espace insécable, en javascript
@@ -71,9 +71,9 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
                             // Scanne les potentiels USTC
                             if(coinDenom === 'USTC' && coinRoundAmount >= minUstcToShow) {
                                 if(txAmount === '')
-                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0' + coinDenom;
+                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Ustc';
                                 else
-                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0' + coinDenom;
+                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Ustc';
                             }
                         }
                             

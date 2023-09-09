@@ -1,23 +1,15 @@
 @import '../../style/variables';
 
-.h2blocks {
-    text-align: left;
-    border-bottom: 1px solid var(--outline-box-color);
-}
-
 .note {
     font-size: 0.9rem;
+    @media (max-width: 680px) {
+        font-size: 0.8rem;
+    }
 }
 
-
 .burnDiv {
+    
     overflow-x: auto;
-
-    // Si hauteur limitée souhaitée :
-    // ==============================
-    // height: calc(100vh * 0.6);
-    // overflow-y: auto;
-
     @media (max-width: $primary-breakpoint) {
         max-width: calc(100vw - 2.4rem);
     }
@@ -27,7 +19,7 @@
             text-align: center;
         }
 
-        th:nth-child(5), th:nth-child(6) {
+        th:nth-child(5) {
             text-align: left;
         }
 
@@ -35,9 +27,20 @@
             white-space: nowrap;
         }
 
-        td:nth-child(3) {
+        td:nth-child(4) {
+            text-align: center;
+        }
+
+        td:nth-child(2) {
             text-align: right;
         }
+
+        @media (max-width: 480px) {
+            td, th {
+                font-size: 0.7rem;
+            }
+        }
+        
     }
 }
 

@@ -394,3 +394,21 @@ export const coinsListToLinearText = (coinsList, bShowExoticsCoins = false) => {
 
     return texteAretourner;
 }
+
+
+
+// =========================
+// Fonction "truncateString"
+// =========================
+/**
+ * 
+ * @param chaineDeCaracteres chaîne de caractère à tronquer, au besoin
+ * @param nbMaxCaracteres nombre maxi de caractères à garder
+ * @returns 
+ */
+export function truncateString(chaineDeCaracteres, nbMaxCaracteres) {
+    if (chaineDeCaracteres.length <= nbMaxCaracteres)
+        return chaineDeCaracteres;
+    else
+        return chaineDeCaracteres.slice(0, nbMaxCaracteres) + '...';
+  }
