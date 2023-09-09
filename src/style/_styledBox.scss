@@ -51,13 +51,13 @@
                 }
             }
 
-            .blueStyledBox { background-color: var(--blue-color); }
-            .redStyledBox { background-color: var(--red-color); }
-            .greenStyledBox { background-color: var(--green-color); }
-            .orangeStyledBox { background-color: var(--orange-color); }
-            .violetStyledBox { background-color: var(--violet-color); }
-            .brownStyledBox { background-color: var(--brown-color); }
-            .turquoiseStyledBox { background-color: var(--turquoise-color); }
+            .blueStyledBox { background-color: color-mix(in srgb, var(--blue-color) 90%, transparent); }
+            .redStyledBox { background-color: color-mix(in srgb, var(--red-color) 90%, transparent); }
+            .greenStyledBox { background-color: color-mix(in srgb, var(--green-color) 85%, transparent); }
+            .orangeStyledBox { background-color: color-mix(in srgb, var(--orange-color) 90%, transparent); }
+            .violetStyledBox { background-color: color-mix(in srgb, var(--violet-color) 75%, transparent); }
+            .brownStyledBox { background-color: color-mix(in srgb, var(--brown-color) 80%, transparent); }
+            .turquoiseStyledBox { background-color: color-mix(in srgb, var(--turquoise-color) 90%, transparent); }
 
         }
     }

@@ -73,14 +73,14 @@ body {
     --donate-btn-hover-fill-color: #FFCA00;
     --donate-btn-text-color : #771133;
 
-    --green-color: #10b040e0;       // 10B080E0
-    --blue-color: #4070F0E0;
-    --red-color: #F04040E0;
-    --orange-color: #F08000E0;
-    --gray-color: #C1C1C1E0;
-    --violet-color: #C62BFFE0;
-    --brown-color: #7F3300E0;
-    --turquoise-color: #0ec2dae0;
+    --green-color: #10C040;
+    --blue-color: #4070F0;
+    --red-color: #F04040;
+    --orange-color: #F08000;
+    --gray-color: #C1C1C1;
+    --violet-color: #C62BFF;
+    --brown-color: #7F3300;
+    --turquoise-color: #0EC2DA;
 }
 
 a, .colore {
@@ -96,15 +96,15 @@ a, .colore {
     color: var(--success-color);
 }
 
-.barVoteYes { background-color: #10B080; }
-.barVoteAbstain { background-color: #4070F0; }
-.barVoteNo { background-color: #F04040; }
+.barVoteYes { background-color: #10B060; }
+.barVoteAbstain { background-color: var(--blue-color); }
+.barVoteNo { background-color: var(--red-color); }
 .barVoteNowithveto { background-color: #F09000; }
 .barNeutral { background-color: #9090A0; }
 
-.textVoteYes { color: #10B080; }
-.textVoteAbstain { color: #4070F0; }
-.textVoteNo { color: #F04040; }
+.textVoteYes { color: var(--green-color); }
+.textVoteAbstain { color: var(--blue-color); }
+.textVoteNo { color: var(--red-color); }
 .textVoteNowithveto { color: #F09000; }
 
 
