@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ProposalCard.module.scss';
-import { metEnFormeDateTime } from '../../application/AppUtils';
+import { expanded_datetime_ago, metEnFormeDateTime } from '../../application/AppUtils';
 import { MessageIcon } from '../../application/AppIcons';
 
 const ProposalCard = (props) => {
@@ -153,8 +153,8 @@ const ProposalCard = (props) => {
             </div>
             {props.card.status === 2 ? 
                 <div className={styles.cardFooter}>
-                    <span>End : </span>
-                    <span>{metEnFormeDateTime(props.card.voting_end_time)}</span>
+                    <span>End in about <strong>{expanded_datetime_ago(new Date(props.card.voting_end_time).toISOString(), true)} </strong></span>
+                    <span>({metEnFormeDateTime(props.card.voting_end_time)})</span>
                 </div>
             : null }
         </div>
