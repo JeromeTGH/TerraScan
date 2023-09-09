@@ -82,14 +82,12 @@ const PageProposal = () => {
                     proposalInfos && proposalInfos['contentDescription'] ?
                     <>
                         <div className={styles.headInfos}>
-                            <p><u>Creation date/time</u> : {metEnFormeDateTime(proposalInfos['submitDatetime'])}</p>
-                            <p><u>Created by</u> : {
+                            <div><u>Creation date/time</u> : {metEnFormeDateTime(proposalInfos['submitDatetime'])}</div>
+                            <div><u>Created by</u> : {
                                 proposalInfos['proposerValAddress'] ?
                                     <>
                                         <Link to={"/validators/" + proposalInfos['proposerValAddress']}>{proposalInfos['proposerValMoniker']}</Link>
-                                        <br/><span>(through his account </span>
-                                        <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link>
-                                        <span>)</span>
+                                        <div><u>Through his account</u> : <Link to={"/accounts/" + proposalInfos['proposerAddress']}>{proposalInfos['proposerAddress']}</Link></div>
                                     </>
                                 :
                                     proposalInfos['proposerAddress'] ?
@@ -97,7 +95,7 @@ const PageProposal = () => {
                                     :
                                         <span>(unknown)</span>
                                 }
-                            </p>
+                            </div>
                         </div>
                         <br />
                         <div>Status : {proposalInfos['status'] === 3 ?

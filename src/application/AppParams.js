@@ -52,7 +52,8 @@ export const tblCorrespondanceCompte = {
     "terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e": "Kucoin wallet",
     "terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf": "Frag",
     "terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk": "Lunaclassic.com",
-    "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova"
+    "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova",
+    "terra1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8pm7utl": "Community Pool (shared)"
 }
 
 

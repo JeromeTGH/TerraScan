@@ -8,27 +8,25 @@
         border: 1px solid var(--light-outline-box-color);
         background-color: var(--boxed-fill-color1);
         padding: 0.4rem 0.6rem;
-        padding-bottom: 1.4rem;
         border-radius: 2px;
 
         .styledBoxHeadContainer {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+            position: relative;
 
             .styledBoxTitle, .styledBoxBtns {
                 font-size: 1rem;
-                position: relative;
+                position: absolute;
                 top: -1.2rem;
             }
             .styledBoxTitle {
+                left: 0;
                 color: white;
                 padding: 0.1rem 0.6rem;
                 border-top-left-radius: 8px;
                 border-bottom-right-radius: 6px;
             }
             .styledBoxBtns {
+                right: 0;
                 display: flex;
                 gap: 0.15rem;
                 
@@ -62,6 +60,11 @@
             .turquoiseStyledBox { background-color: var(--turquoise-color); }
 
         }
-
     }
+
+    .styledBoxWithPadding {
+        padding-top: 1rem;
+        padding-bottom: 0.4rem;
+    }
+
 }

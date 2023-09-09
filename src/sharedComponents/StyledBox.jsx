@@ -1,7 +1,14 @@
 import React from 'react';
 import { LeftArrowIcon, RightArrowIcon } from '../application/AppIcons';
 
-const StyledBox = ({children, title, color, showBtnNav = false, onPrevious, onNext}) => {
+const StyledBox = ({
+                    children,
+                    title,
+                    color,
+                    showBtnNav = false,
+                    onPrevious,
+                    onNext
+                }) => {
 
     return (
         <div className='styledBoxContainer'>
@@ -16,7 +23,7 @@ const StyledBox = ({children, title, color, showBtnNav = false, onPrevious, onNe
                         </> : null}
                     </div>
                 </div>
-                <div>{children}</div>
+                <div className='styledBoxWithPadding'>{children}</div>
             </div>
         </div>
     );

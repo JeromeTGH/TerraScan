@@ -2,7 +2,6 @@
 
 .blocksProposalInfos {
     padding-top: 0.4rem;
-    display: grid;
 
     .h2titles {
         text-align: left;
@@ -23,9 +22,17 @@
         }
     }
 
-    .headInfos p {
+    .headInfos {
         font-size: 0.8rem;
         font-style: italic;    
+
+        @media (max-width: $primary-breakpoint) {
+            font-size: 0.7rem;
+        }
+        
+        a {
+            word-break: break-all;
+        }
     }
 
     .propContainer {
