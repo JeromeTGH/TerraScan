@@ -67,7 +67,7 @@ const Undelegations = (props) => {
     return (
         <StyledBox
             title={tblUndelegations && tblUndelegation ? <>Undelegation {idxUndelegationToShow+1}/{tblUndelegations.length}</> : "Undelegations"}
-            color="violet"
+            color="purple"
             showBtnNav="yes"
             onPrevious={() => handleClickOnNavigationButtons(-1)}
             onNext={() => handleClickOnNavigationButtons(1)}

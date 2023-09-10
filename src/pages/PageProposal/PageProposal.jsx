@@ -116,25 +116,25 @@ const PageProposal = () => {
 
 
                         {(proposalInfos['contentAmount'] && proposalInfos['contentRecipient']) ?
-                            <StyledBox title="Send" color="orange">
+                            <StyledBox title="Send" color="purple">
                                 <p><strong>Amount</strong> : {proposalInfos['contentAmount']}</p>
                                 <p className={styles.addContent}><strong>To</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
                             </StyledBox>
                         : null}
                         {proposalInfos['contentChanges'] ?
-                            <StyledBox title="Changes" color="orange">
+                            <StyledBox title="Changes" color="purple">
                                 <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></div>
                             </StyledBox>
                         : null}
                         {proposalInfos['contentPlan'] ?
-                            <StyledBox title="Plan" color="orange">
+                            <StyledBox title="Plan" color="purple">
                                 <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'], null, 2))), null, 2)}</pre></div>
                             </StyledBox>
                         : null}
 
 
                         {proposalInfos['status'] === 1 ?
-                            <StyledBox title="Votes (pending for enough deposits)" color="violet">
+                            <StyledBox title="Votes (pending for enough deposits)" color="orange">
                                 <table className={styles.tblInfos}>
                                     <tbody>
                                         <tr>
@@ -170,7 +170,7 @@ const PageProposal = () => {
                             </StyledBox>
                         : null}
                         {proposalInfos['status'] === 2 ?
-                            <StyledBox title="Votes (in progress)" color="violet">
+                            <StyledBox title="Votes (in progress)" color="orange">
                                 <div className={styles.infos}>
                                     <div><strong>Proposal ID</strong> : #{propID}</div>
                                     <div><strong>Voting start time</strong> : {metEnFormeDateTime(proposalInfos['votingStartTime'])}</div>
@@ -260,7 +260,7 @@ const PageProposal = () => {
                             </StyledBox>
                         : null}
                         {(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) ?
-                            <StyledBox title="Votes (voting complete)" color="violet">
+                            <StyledBox title="Votes (voting complete)" color="orange">
                                 <table className={styles.tblInfos}>
                                     <tbody>
                                         <tr>

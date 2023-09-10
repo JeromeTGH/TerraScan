@@ -29,7 +29,7 @@ const BlockTopDelegators = (props) => {
     // Affichage    
     return (
         <>
-            <StyledBox title="Top delegators (stakers)" color="violet" className={styles.otherTopDelegatorsBlock}>
+            <StyledBox title="Top delegators (stakers)" color="purple" className={styles.otherTopDelegatorsBlock}>
                 {msgErreurTblOfTopDelegators ? 
                     <div className="erreur">{msgErreurTblOfTopDelegators}</div>
                 :

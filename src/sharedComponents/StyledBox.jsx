@@ -16,15 +16,38 @@ const StyledBox = ({
                     onCheckChange
                 }) => {
 
-    const determineClassAvecColor = (couleur) => {
-        return couleur + 'StyledBox';
+
+    // Sélecteur d'affichage
+    const colorRender = (couleur) => {
+        switch(couleur) {
+            case 'blue':
+                return styles.blueStyledBox;
+            case 'red':
+                return styles.redStyledBox;
+            case 'green':
+                return styles.greenStyledBox;
+            case 'orange':
+                return styles.orangeStyledBox;
+            case 'purple':
+                return styles.purpleStyledBox;
+            case 'brown':
+                return styles.brownStyledBox;
+            case 'turquoise':
+                return styles.turquoiseStyledBox;
+            case undefined:
+                return styles.neutralStyledBox;
+            default:
+                return styles.neutralStyledBox;
+        }
     }
 
+
+    // Rendu du component
     return (
         <div className={styles.styledBoxContainer + (className ? ' ' + className : '')}>
             <div className={styles.styledBoxContent}>
                 <div className={styles.styledBoxHeadContainer}>
-                    <div className={styles.styledBoxTitle + ' ' + styles[determineClassAvecColor(color)]}>{title}</div>
+                    <div className={styles.styledBoxTitle + ' ' + colorRender(color)}>{title}</div>
                     {showBtnNav ? 
                         <div className={styles.styledBoxBtns}>
                             <button onClick={() => onPrevious()}><LeftArrowIcon /></button>

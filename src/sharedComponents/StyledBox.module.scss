@@ -71,13 +71,14 @@
                 }
             }
 
-            .blueStyledBox { background-color: color-mix(in srgb, var(--blue-color) 90%, transparent); }
-            .redStyledBox { background-color: color-mix(in srgb, var(--red-color) 90%, transparent); }
-            .greenStyledBox { background-color: color-mix(in srgb, var(--green-color) 85%, transparent); }
-            .orangeStyledBox { background-color: color-mix(in srgb, var(--orange-color) 90%, transparent); }
-            .violetStyledBox { background-color: color-mix(in srgb, var(--violet-color) 75%, transparent); }
-            .brownStyledBox { background-color: color-mix(in srgb, var(--brown-color) 80%, transparent); }
-            .turquoiseStyledBox { background-color: color-mix(in srgb, var(--turquoise-color) 90%, transparent); }
+            .neutralStyledBox { background-color: transparent; }
+            .blueStyledBox { background-color: color-mix(in srgb, var(--blue-color) 90%, var(--background-color)); }
+            .redStyledBox { background-color: color-mix(in srgb, var(--red-color) 90%, var(--background-color)); }
+            .greenStyledBox { background-color: color-mix(in srgb, var(--green-color) 85%, var(--background-color)); }
+            .orangeStyledBox { background-color: color-mix(in srgb, var(--orange-color) 90%, var(--background-color)); }
+            .purpleStyledBox { background-color: color-mix(in srgb, var(--purple-color) 70%, var(--background-color)); }
+            .brownStyledBox { background-color: color-mix(in srgb, var(--brown-color) 80%, var(--background-color)); }
+            .turquoiseStyledBox { background-color: color-mix(in srgb, var(--turquoise-color) 90%, var(--background-color)); }
 
         }
     }

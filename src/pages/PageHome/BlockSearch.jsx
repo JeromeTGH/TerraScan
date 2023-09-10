@@ -32,7 +32,7 @@ const BlockSearch = () => {
     }
 
     return (
-        <StyledBox title="Search a specific block" color="green" className={styles.searchBlock}>
+        <StyledBox title="Global search" color="green" className={styles.searchBlock}>
             <div className={styles.searchBar}>
                 <form>
                     <input

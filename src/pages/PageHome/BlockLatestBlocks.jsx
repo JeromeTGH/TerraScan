@@ -104,7 +104,7 @@ const BlockLatestBlocks = (props) => {
     return (
         <StyledBox
             title={'The last ' + nbBlocksAafficher + ' blocks'}
-            color="violet"
+            color="purple"
             showCheckbox="yes"
             checkboxLabel="live view"
             inCheckState={liveViewState}
