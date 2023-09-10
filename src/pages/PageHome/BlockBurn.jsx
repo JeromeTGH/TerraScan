@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockBurn.module.scss';
 import { BurnIcon, EyeIcon } from '../../application/AppIcons';
-import { formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime, truncateString } from '../../application/AppUtils';
+import { formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import { loadLatestBurns } from '../../dataloaders/loadLatestBurns';
@@ -60,7 +60,7 @@ const BlockBurn = () => {
                         <table className={styles.tblOfLastBurns}>
                             <thead>
                                 <tr>
-                                    <th>Date/Time</th>
+                                    <th>Date&nbsp;&&nbsp;Time</th>
                                     <th>Amount/Coin</th>
                                     <th>Account</th>
                                     <th>Tx</th>
@@ -84,11 +84,11 @@ const BlockBurn = () => {
                                             </td>
                                             <td>
                                                 <Link to={"/accounts/" + valeur[1].account}>
-                                                {tblCorrespondanceCompte[valeur[1].account] ? <strong>{tblCorrespondanceCompte[valeur[1].account]}</strong> : valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}
+                                                {tblCorrespondanceCompte[valeur[1].account] ? <strong>{tblCorrespondanceCompte[valeur[1].account]}</strong> : valeur[1].account}
                                                 </Link>
                                             </td>
                                             <td><Link to={"/transactions/" + valeur[1].txHash}><EyeIcon /></Link></td>
-                                            <td>{valeur[1].memo ? truncateString(valeur[1].memo, 30) : '-'}</td>
+                                            <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
                                         </tr>
                                     })
                                 }

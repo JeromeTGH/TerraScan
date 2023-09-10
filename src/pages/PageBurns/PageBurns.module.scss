@@ -16,7 +16,7 @@
 
     .tblOfLastBurns {
 
-        th:nth-child(2), th:nth-child(3) {
+        th:nth-child(2) {
             text-align: right;
         }
 
@@ -24,13 +24,13 @@
             text-align: center;
         }
 
-
         td:nth-child(1) {
             white-space: nowrap;
         }
 
         td:nth-child(2) {
             text-align: right;
+            padding-inline: 0.4rem;
             img {
                 vertical-align: middle;
                 margin-left: 0.2rem;
@@ -39,10 +39,6 @@
                     height: 0.8rem;
                 }
             }
-        }
-
-        td:nth-child(3) {
-            text-align: right;
         }
 
         td:nth-child(4) {
