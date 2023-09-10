@@ -24,8 +24,10 @@
     --pagination-selected-page-fill-color: #{$darkTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$darkTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$darkTheme_paginationPageNumberTextColor};
-    --arrow-nav-fill-color: #{$darkTheme_arrowNavFillColor};
-    --arrow-nav-text-color: #{$darkTheme_arrowNavTextColor};
+    --styledbox-arrow-nav-fill-color: #{$darkTheme_styledboxArrowNavFillColor};
+    --styledbox-arrow-nav-text-color: #{$darkTheme_styledboxArrowNavTextColor};
+    --styledbox-checkbox-background-color: #{$darkTheme_styledboxCheckboxBackgroundColor};
+    --styledbox-checkbox-text-label-color: #{$darkTheme_styledboxCheckboxTextLabelColor};
     --green-annonce-border-color: #{$darkTheme_greenAnnonceBorderColor};
     --green-annonce-fill-color: #{$darkTheme_greenAnnonceFillColor};
     --green-annonce-text-color: #{$darkTheme_greenAnnonceTextColor};
@@ -56,8 +58,10 @@
     --pagination-selected-page-fill-color: #{$lightTheme_paginationSelectedPageFillColor};
     --pagination-unselected-page-fill-color: #{$lightTheme_paginationUnselectedPageFillColor};
     --pagination-page-number-text-color: #{$lightTheme_paginationPageNumberTextColor};
-    --arrow-nav-fill-color: #{$lightTheme_arrowNavFillColor};
-    --arrow-nav-text-color: #{$lightTheme_arrowNavTextColor};
+    --styledbox-arrow-nav-fill-color: #{$lightTheme_styledboxArrowNavFillColor};
+    --styledbox-arrow-nav-text-color: #{$lightTheme_styledboxArrowNavTextColor};
+    --styledbox-checkbox-background-color: #{$lightTheme_styledboxCheckboxBackgroundColor};
+    --styledbox-checkbox-text-label-color: #{$lightTheme_styledboxCheckboxTextLabelColor};
     --green-annonce-border-color: #{$lightTheme_greenAnnonceBorderColor};
     --green-annonce-fill-color: #{$lightTheme_greenAnnonceFillColor};
     --green-annonce-text-color: #{$lightTheme_greenAnnonceTextColor};

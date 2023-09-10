@@ -51,7 +51,7 @@ const PageProposals = () => {
     // Affichage
     return (
         <>
-            <h1><span><VoteIcon /><strong>Governance</strong></span><span className={styles.txtAdd}> (rules & proposals)</span></h1>
+            <h1><span><VoteIcon /><strong>Proposals</strong></span></h1>
             <div className={styles.blocksProposalPage}>
                 {msgErreurGovernanceInfos ?
                     <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreurGovernanceInfos}</div></StyledBox>
