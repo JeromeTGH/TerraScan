@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './BlockSearch.module.scss';
 import { SearchIcon } from '../../application/AppIcons';
 import { isValidTransactionHashFormat, isValidTerraAddressFormat, isValidBlockNumberFormat } from '../../application/AppUtils';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockSearch = () => {
 
@@ -31,7 +32,7 @@ const BlockSearch = () => {
     }
 
     return (
-        <div className={"boxContainer " + styles.searchBlock}>
+        <StyledBox title="Search a specific block" color="green" className={styles.searchBlock}>
             <div className={styles.searchBar}>
                 <form>
                     <input
@@ -46,7 +47,7 @@ const BlockSearch = () => {
                 </form>
                 <div className={"erreur " + styles.message}>{errorMessage}</div>
             </div>
-        </div>
+        </StyledBox>
     );
 };
 

@@ -157,7 +157,7 @@ const PageBlocks = () => {
             </StyledBox>
 
             <StyledBox
-                title="20 Latest blocks"
+                title={'The last ' + nbBlocksAafficher + ' blocks'}
                 color="orange"
                 showCheckbox="yes"
                 checkboxLabel="live view"

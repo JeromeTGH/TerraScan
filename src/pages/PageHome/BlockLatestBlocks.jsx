@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockLatestBlocks.module.scss';
-import { BlocksIcon } from '../../application/AppIcons';
 import { Link } from 'react-router-dom';
 import { tblBlocks } from '../../application/AppData';
 import { datetime_ago } from '../../application/AppUtils';
 import { AppContext } from '../../application/AppContext';
 import { loadLatestBlocks } from '../../dataloaders/loadLatestBlocks';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 
 const BlockLatestBlocks = (props) => {
@@ -102,20 +102,15 @@ const BlockLatestBlocks = (props) => {
 
     // Affichage
     return (
-        <div className={"boxContainer " + styles.blocksBlock}>
-            <h2 className={styles.h2blocks}>
-                <span>&nbsp;</span>
-                <span><strong><BlocksIcon />{nbBlocksAafficher} Latest Blocks</strong></span>
-                <span className={styles.liveview}>
-                    <input 
-                        type="checkbox"
-                        id="checkboxLiveView"
-                        checked={liveViewState}
-                        onChange={(e) => handleCheckboxChange(e)}
-                    />
-                    <label htmlFor='checkboxLiveView'>&nbsp;live&nbsp;view</label>
-                </span>
-            </h2>
+        <StyledBox
+            title={'The last ' + nbBlocksAafficher + ' blocks'}
+            color="violet"
+            showCheckbox="yes"
+            checkboxLabel="live view"
+            inCheckState={liveViewState}
+            onCheckChange={(e) => handleCheckboxChange(e)}
+            className={styles.blocksBlock}
+        >
             <table className={styles.tblListOfBlocks}>
                 <thead>
                     <tr>
@@ -142,7 +137,7 @@ const BlockLatestBlocks = (props) => {
                 <u>Validator</u> = proposer (tendermint)
             </div>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
-        </div>
+        </StyledBox>
     );
 };
 

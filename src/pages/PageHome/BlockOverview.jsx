@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewIcon } from '../../application/AppIcons';
 import { getOverviewInfos } from './getOverviewInfos';
 import styles from './BlockOverview.module.scss';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
+import StyledBox from '../../sharedComponents/StyledBox';
 // import { calculateNextEpochDateTime } from './calculateNextEpochDateTime';
 
 const BlockOverview = (props) => {
@@ -46,15 +46,14 @@ const BlockOverview = (props) => {
 
     // Affichage
     return (
-        <div className={"boxContainer " + styles.overviewBlock}>
-            <h2 className={styles.h2overview}><strong><OverviewIcon /></strong><span><strong>Overview</strong></span></h2>
-            <p className={styles.datetimeupdate}>→ Last data update : {datetimeDernierUpdate}</p>
+        <StyledBox title="Overview" color="orange" className={styles.overviewBlock}>
             <div className={styles.overviews}>
                 <div className={styles.boxed}>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Last block height :</div>
                         <div><strong># {overviewInfos ? overviewInfos['LastBlockHeight'] : "..."}</strong></div>
                     </div>
+                    <div className={styles.datetimeupdate}>(last update : {datetimeDernierUpdate})</div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;Current epoch :</div>
                         <div><strong># {overviewInfos ? overviewInfos['LastBlockEpoch'] : "..."}</strong></div>
@@ -242,7 +241,7 @@ const BlockOverview = (props) => {
                 <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
             </div>
             <div className="erreur">{msgErreurOverviewInfos}</div>
-        </div>
+        </StyledBox>
     );
 };
 

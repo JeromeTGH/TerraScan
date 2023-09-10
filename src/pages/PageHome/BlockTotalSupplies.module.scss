@@ -8,6 +8,10 @@
 }
 
 .tblTotalSupplies {
+
+    tr:nth-child(1) {
+        border: none;
+    }
     
     td:nth-child(2) {
         text-align: right;

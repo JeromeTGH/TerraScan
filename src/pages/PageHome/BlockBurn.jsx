@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockBurn.module.scss';
-import { BurnIcon, EyeIcon } from '../../application/AppIcons';
+import { EyeIcon } from '../../application/AppIcons';
 import { formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import { loadLatestBurns } from '../../dataloaders/loadLatestBurns';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockBurn = () => {
 
@@ -49,13 +50,11 @@ const BlockBurn = () => {
     
     // Affichage
     return (
-        <div className={"boxContainer " + styles.burnBlock}>
-            <h2 className={styles.h2burn}><strong><BurnIcon /></strong><span><strong>{nbLineToShow} Latest Burns</strong></span></h2>
+        <StyledBox title={'The last ' + nbLineToShow + ' burns'} color="orange" className={styles.burnBlock}>
             {msgErreurGettingTransactions ?
                 <div className="erreur ">{msgErreurGettingTransactions}</div>
             :
                 <>
-                    <div className={styles.comments}>(only MsgSend, with amounts &gt;{formateLeNombre(minLuncToShow, '.')} LUNC or &gt;{formateLeNombre(minUstcToShow,'.')} USTC, are shown here)</div>
                     <div className={styles.burnDiv}>
                         <table className={styles.tblOfLastBurns}>
                             <thead>
@@ -101,9 +100,10 @@ const BlockBurn = () => {
                             <span key={i} className={i === burnTblPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickBurnPagination(i)}>{i+1}</span>
                         )}
                     </div>
+                    <div className={styles.comments}>(only MsgSend, with amounts &gt;{formateLeNombre(minLuncToShow, '.')} LUNC or &gt;{formateLeNombre(minUstcToShow,'.')} USTC, are shown here)</div>
                 </>
             }
-        </div>
+        </StyledBox>
     );
 };
 

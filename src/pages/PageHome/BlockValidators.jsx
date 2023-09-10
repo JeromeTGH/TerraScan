@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './BlockValidators.module.scss';
 import { Link } from 'react-router-dom';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { tblValidators } from '../../application/AppData';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockValidators = () => {
 
@@ -26,11 +26,7 @@ const BlockValidators = () => {
 
     // Affichage
     return (
-        <div className={"boxContainer " + styles.validatorsBlock}>
-            <h2><strong><CalculatorIcon /></strong><span><strong>Validators</strong> (actives)</span></h2>
-            <div className={styles.comments}>
-                <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
-            </div>
+        <StyledBox title="Validators (actives)" color="blue" className={styles.validatorsBlock}>
             <table className={styles.tblValidators}>
                 <thead>
                     <tr>
@@ -60,7 +56,10 @@ const BlockValidators = () => {
                     <span key={i} className={i === validatorsListPagination ? 'paginationPageSelected' : 'paginationPageUnselected'} onClick={() => handleClickValidatorsList(i)}>{i+1}</span>
                 )}
             </div>
-        </div>
+            <div className={styles.comments}>
+                <u>Suffixes</u> : T=Trillion (10<sup>12</sup> or 1.000.000.000.000), B=Billion (10<sup>9</sup> or 1.000.000.000), M=Million (10<sup>6</sup> or 1.000.000), and K=Kilo (10<sup>3</sup> or 1.000)
+            </div>
+        </StyledBox>
     );
 };
 

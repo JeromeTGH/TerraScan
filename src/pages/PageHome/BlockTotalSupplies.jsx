@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Stack1Icon } from '../../application/AppIcons';
 import styles from './BlockTotalSupplies.module.scss';
 import { formateLeNombre } from '../../application/AppUtils';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const BlockTotalSupplies = (props) => {
 
@@ -58,8 +58,7 @@ const BlockTotalSupplies = (props) => {
     
     // Affichage
     return (
-        <div className={"boxContainer " + styles.suppliesBlock}>
-            <h2 className={styles.totalSupplyH2}><strong><Stack1Icon /></strong><span><strong>Total&nbsp;Supplies</strong> (latest)</span></h2>
+        <StyledBox title="Total supplies (latest)" color="green" className={styles.suppliesBlock}>
             {totalSupplies && totalSupplies['erreur'] ?
                 <div className="erreur">{totalSupplies['erreur']}</div>
             :
@@ -78,8 +77,7 @@ const BlockTotalSupplies = (props) => {
                     </tbody>
                 </table>
             }
-            
-        </div>
+        </StyledBox>
     );
 };
 

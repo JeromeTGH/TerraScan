@@ -34,7 +34,6 @@ const PageHome = () => {
     return (
         <>
             <h1><HomeIcon /><span><strong>Home</strong> (dashboard)</span></h1>
-            <br />
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 <BlockBurn />
