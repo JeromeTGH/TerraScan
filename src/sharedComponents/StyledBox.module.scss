@@ -22,6 +22,7 @@
 
             .styledBoxTitle {
                 left: 0;
+                background-color: var(--styledbox-checkbox-background-color);
                 color: white;
                 padding: 0.1rem 0.6rem;
                 border-top-left-radius: 8px;
@@ -71,7 +72,6 @@
                 }
             }
 
-            .neutralStyledBox { background-color: transparent; }
             .blueStyledBox { background-color: color-mix(in srgb, var(--blue-color) 90%, var(--background-color)); }
             .redStyledBox { background-color: color-mix(in srgb, var(--red-color) 90%, var(--background-color)); }
             .greenStyledBox { background-color: color-mix(in srgb, var(--green-color) 85%, var(--background-color)); }
