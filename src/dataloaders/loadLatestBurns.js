@@ -1,5 +1,4 @@
 import { tblCorrespondanceValeurs } from "../application/AppParams";
-import { formateLeNombre } from "../application/AppUtils";
 import { FCDclient } from "../fcd/FCDclient";
 
 export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow) => {
@@ -50,35 +49,25 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
                     // On ne garde que les transactions réussies de type 'MsgSend direct', en excluant les msgs multiples et send "indirects"
                     if(txCode === 0 && tx.tx.value.msg.length === 1 && tx.tx.value.msg[0].type.includes('MsgSend')) {
 
-                        // Calcul du nombre de LUNC ou autre envoyé au burn wallet (==> retourne une chaîne de string avec amount + denom)
-                        let txAmount = '';
+                        const tblAmount = []
+                        
+                        // Parcours de tous les coins présents, dans Amount
                         for(const coinAndDenom of tx.tx.value.msg[0].value.amount) {
-                            const coinRoundAmount = parseInt((parseInt(coinAndDenom.amount)/1000000));
-                            // const coinAmountUp = parseInt((parseInt(coinAndDenom.amount)/1000000));
-                            // const coinAmountDown = ((parseInt(coinAndDenom.amount)/1000000)%1).toFixed(6).replace('0.', '');
-                            const coinDenom = tblCorrespondanceValeurs[coinAndDenom.denom] ? tblCorrespondanceValeurs[coinAndDenom.denom] : coinAndDenom.denom;
 
-                            // Scanne les potentiels LUNC
-                            if(coinDenom === 'LUNC' && coinRoundAmount >= minLuncToShow) {
-                                if(txAmount === '')
-                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Lunc';
-                                else
-                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Lunc';
-                            }
+                            const coinRoundAmount = parseInt(coinAndDenom.amount/1000000);
+                            const coinDenom = tblCorrespondanceValeurs[coinAndDenom.denom] ? tblCorrespondanceValeurs[coinAndDenom.denom] : null;
 
-                            // Nota : '\u00a0" = espace insécable, en javascript
-
-                            // Scanne les potentiels USTC
-                            if(coinDenom === 'USTC' && coinRoundAmount >= minUstcToShow) {
-                                if(txAmount === '')
-                                    txAmount = formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Ustc';
-                                else
-                                    txAmount += ', ' + formateLeNombre(coinRoundAmount, '\u00a0') + '\u00a0Ustc';
+                            if((coinDenom === 'LUNC' && coinRoundAmount > minLuncToShow) ||
+                               (coinDenom === 'USTC' && coinRoundAmount > minUstcToShow) ) {
+                                tblAmount.push({
+                                    amount: coinRoundAmount,
+                                    denom: coinDenom
+                                })
                             }
                         }
                             
                         // On garde cette transaction, si elle est "bonne", après filtrage
-                        if(txAmount !== '') {
+                        if(tblAmount.length > 0) {
                             // Incrémentation du nombre de MsgSend lus (pour être ensuite comparé au "nbLineToShow")
                             nb_new_tx = nb_new_tx + 1;
 
@@ -93,7 +82,7 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
                             tblBurns[tx.id.toString()] = {
                                 'datetime': tx.timestamp,
                                 'txHash': tx.txhash,
-                                'amount': txAmount,
+                                'amount': tblAmount,
                                 'account': tx.tx.value.msg[0].value.from_address,
                                 'memo': tx.tx.value.memo
                             }

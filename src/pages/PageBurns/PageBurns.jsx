@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BurnIcon, EyeIcon } from '../../application/AppIcons';
-import { metEnFormeDateTime, truncateString } from '../../application/AppUtils';
+import { metEnFormeAmountPartieEntiere, metEnFormeDateTime, truncateString } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { appName, tblCorrespondanceCompte } from '../../application/AppParams';
 import styles from './PageBurns.module.scss';
@@ -65,8 +65,8 @@ const PageBurns = () => {
                         <table className={styles.tblOfLastBurns}>
                             <thead>
                                 <tr>
-                                    <th>Date/Time</th>
-                                    <th>Amount</th>
+                                    <th>Date & Time</th>
+                                    <th>Amount/Coin</th>
                                     <th>Account</th>
                                     <th>Tx</th>
                                     <th>Memo</th>
@@ -79,10 +79,17 @@ const PageBurns = () => {
                                     tblTxsBurn.map((valeur, index) => {
                                         return <tr key={index}>
                                             <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
-                                            <td>{valeur[1].amount}</td>
+                                            <td>
+                                                {valeur[1].amount.map((element, index) => {
+                                                    return <div key={index}>
+                                                        <span>{metEnFormeAmountPartieEntiere(element.amount, '\u00a0')}</span>
+                                                        <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom + ' logo'} />
+                                                    </div>
+                                                })}
+                                            </td>
                                             <td>
                                                 <Link to={"/accounts/" + valeur[1].account}>
-                                                {tblCorrespondanceCompte[valeur[1].account] ? tblCorrespondanceCompte[valeur[1].account] : valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}
+                                                {tblCorrespondanceCompte[valeur[1].account] ? <strong>{tblCorrespondanceCompte[valeur[1].account]}</strong> : valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}
                                                 </Link>
                                             </td>
                                             <td><Link to={"/transactions/" + valeur[1].txHash}><EyeIcon /></Link></td>

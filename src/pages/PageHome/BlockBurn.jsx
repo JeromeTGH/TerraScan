@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BlockBurn.module.scss';
-import { BurnIcon } from '../../application/AppIcons';
-import { formateLeNombre, metEnFormeDateTime } from '../../application/AppUtils';
+import { BurnIcon, EyeIcon } from '../../application/AppIcons';
+import { formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime, truncateString } from '../../application/AppUtils';
 import { Link } from 'react-router-dom';
 import { tblCorrespondanceCompte } from '../../application/AppParams';
 import { loadLatestBurns } from '../../dataloaders/loadLatestBurns';
@@ -61,10 +61,9 @@ const BlockBurn = () => {
                             <thead>
                                 <tr>
                                     <th>Date/Time</th>
-                                    <th>TxHash</th>
-                                    <th>Rounded&nbsp;amount</th>
+                                    <th>Amount/Coin</th>
                                     <th>Account</th>
-                                    <th>Owner</th>
+                                    <th>Tx</th>
                                     <th>Memo</th>
                                 </tr>
                             </thead>
@@ -75,13 +74,21 @@ const BlockBurn = () => {
                                     tblTxsBurn.slice(burnTblPagination*nbElementsParPagination, burnTblPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, index) => {
                                         return <tr key={index}>
                                             <td>{metEnFormeDateTime(valeur[1].datetime)}</td>
-                                            <td><Link to={"/transactions/" + valeur[1].txHash}>
-                                                {valeur[1].txHash.substring(0,8)}...{valeur[1].txHash.slice(-8)}
-                                            </Link></td>
-                                            <td>{valeur[1].amount}</td>
-                                            <td><Link to={"/accounts/" + valeur[1].account}>{valeur[1].account}</Link></td>
-                                            <td>{tblCorrespondanceCompte[valeur[1].account] ? tblCorrespondanceCompte[valeur[1].account] : '-'}</td>
-                                            <td>{valeur[1].memo ? valeur[1].memo : '-'}</td>
+                                            <td>
+                                                {valeur[1].amount.map((element, index) => {
+                                                    return <div key={index}>
+                                                        <span>{metEnFormeAmountPartieEntiere(element.amount, '\u00a0')}</span>
+                                                        <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom + ' logo'} />
+                                                    </div>
+                                                })}
+                                            </td>
+                                            <td>
+                                                <Link to={"/accounts/" + valeur[1].account}>
+                                                {tblCorrespondanceCompte[valeur[1].account] ? <strong>{tblCorrespondanceCompte[valeur[1].account]}</strong> : valeur[1].account.substring(0, 10) + "..." + valeur[1].account.slice(-10)}
+                                                </Link>
+                                            </td>
+                                            <td><Link to={"/transactions/" + valeur[1].txHash}><EyeIcon /></Link></td>
+                                            <td>{valeur[1].memo ? truncateString(valeur[1].memo, 30) : '-'}</td>
                                         </tr>
                                     })
                                 }

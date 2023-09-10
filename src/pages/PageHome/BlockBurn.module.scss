@@ -24,20 +24,46 @@
 
     .tblOfLastBurns {
     
-        th {
+        th:nth-child(2), th:nth-child(3) {
+            text-align: right;
+        }
+
+        th:nth-child(4) {
             text-align: center;
         }
 
-        th:nth-child(5), th:nth-child(6) {
-            text-align: left;
+
+        td:nth-child(1), td:nth-child(2), td:nth-child(5) {
+            white-space: nowrap;
         }
 
-        td:nth-child(1) {
-            white-space: nowrap;
+        td:nth-child(2) {
+            text-align: right;
+            img {
+                vertical-align: middle;
+                margin-left: 0.2rem;
+                height: 0.9rem;
+                @media (max-width: $primary-breakpoint) {
+                    height: 0.8rem;
+                }
+            }
         }
 
         td:nth-child(3) {
             text-align: right;
+        }
+
+        td:nth-child(4) {
+            text-align: center;
+            svg {
+                margin-top: 0.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            td, th {
+                font-size: 0.7rem;
+            }
         }
     
     }
