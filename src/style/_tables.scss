@@ -14,11 +14,15 @@ table {
         font-size: 0.9rem;
         text-align: left;
 
+        p {
+            font-size: 0.9rem;
+        }
+
         @media (max-width: $primary-breakpoint) {
             font-size: 0.8rem;        
-            // @media (max-width: 480px) {
-            //     font-size: 0.7rem;
-            // }
+            p {
+                font-size: 0.8rem;
+            }
         }            
     }
 }

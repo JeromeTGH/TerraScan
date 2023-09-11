@@ -1,19 +1,73 @@
 @import '../../style/variables';
 
-.tblInfos {
+.txOverflow {
+    overflow-x: auto;
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 2.4rem);
+    }
+}
 
-    tbody tr {
-        border: none;
+.txInfos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    .txDatetime, .txNbMsg, .txBlockHeight, .txGas, .txFees, .txTaxes {
+        .txTitle {
+            white-space: nowrap;
+            text-align: center;
+            font-size: 0.9rem;
+            padding-bottom: 1.2rem;
+            font-weight: bold;
+        }
+
+        .txValue {
+            text-align: center;
+            font-size: 0.9rem;
+
+            img {
+                vertical-align: middle;
+                margin-left: 0.4rem;
+                height: 0.9rem;
+            }
+        }
     }
 
-    td:nth-child(1) {
-        width: 1%;
-        white-space: nowrap;
-        font-weight: bold;
-        vertical-align: top;
+    .txDatetime, .txBlockHeight, .txNbMsg {
+        padding-bottom: 1rem;
     }
 
-    td:nth-child(2) {
-        word-break: break-all;
+    .txDatetime {
+        padding-right: 0.4rem;
+    }
+    .txBlockHeight {
+        border-inline: 1px solid var(--outline-box-color);
+        padding-inline: 0.4rem;
+    }
+    .txNbMsg {
+        padding-left: 0.4rem;
+    }
+
+
+    .txGas, .txFees, .txTaxes {
+        border-top: 1px solid var(--outline-box-color);
+        padding-top: 1rem;
+    }
+
+    .txGas {
+        padding-right: 0.4rem;
+    }
+    .txFees {
+        border-inline: 1px solid var(--outline-box-color);
+        padding-inline: 0.4rem;
+        .txValue {
+            white-space: nowrap;
+        }
+    }
+    .txTaxes {
+        padding-left: 0.4rem;
+        .txValue {
+            white-space: nowrap;
+        }
     }
 }

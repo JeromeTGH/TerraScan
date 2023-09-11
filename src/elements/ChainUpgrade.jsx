@@ -53,7 +53,7 @@ const ChainUpgrade = () => {
         <>
             <div className='annonce'>
                 <img className='annonce_image' src='/images/warning_icon_32x32.png' alt='Warning logo' />
-                <span>If L1TF <Link to='/proposals/11766'>proposal #11766</Link> is adopted, our blockchain will be <a href="https://twitter.com/TheVinhNguyen4/status/1698732222755512659" target='_blank' rel='noopener noreferrer'>upgraded to version v2.2.1</a>. </span>
+                <span>Following the adoption of proposition <Link to='/proposals/11766'>proposal #11766</Link>, our blockchain will be <a href="https://twitter.com/TheVinhNguyen4/status/1698732222755512659" target='_blank' rel='noopener noreferrer'>upgraded to version v2.2.1</a>. </span>
                 {estimatedDateTimeUpgrade ? <span>This upgrade would occur at block "{formateLeNombre(blockUpgrade, '.')}", so approximatively <strong>in {expanded_datetime_ago(estimatedDateTimeUpgrade, true)}</strong> ({metEnFormeDateTime(estimatedDateTimeUpgrade)}). Refresh this page as needed, to refresh these infos ! Thx ;)</span> : null}
             </div>
         </>

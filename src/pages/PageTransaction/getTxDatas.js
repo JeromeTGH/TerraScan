@@ -1,9 +1,8 @@
 import { tblCorrespondanceMessages, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { AccAddress, Coins } from '@terra-money/terra.js';
 import { FCDclient } from "../../fcd/FCDclient";
-import { tblValidators } from '../../application/AppData';
+import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
 import { Tx } from '../../fcd/classes/Tx';
-import { CoinsList } from '../../fcd/classes/CoinsList';
+    import { CoinsList } from '../../fcd/classes/CoinsList';
 import { LCDclient } from '../../lcd/LCDclient';
 
 export const getTxDatas = async (txHash) => {
@@ -51,43 +50,38 @@ export const getTxDatas = async (txHash) => {
         txInfos["datetime"] = rawTxInfo.timestamp;
 
         // ====== Fees
-        const fees = new CoinsList(rawTxInfo.tx.value.fee.amount);
-        if(fees.tbl.length > 0) {
-            for(let i=0 ; i < fees.tbl.length ; i++) {
-                const feesAmount = (fees.tbl[i].amount/1000000).toFixed(6);
-                const feesCoin = tblCorrespondanceValeurs[fees.tbl[i].denom] ? tblCorrespondanceValeurs[fees.tbl[i].denom] : fees.tbl[i].denom;
-                txInfos["feesAmountAndCoin"].push(feesAmount + "\u00a0" + feesCoin);
-            }
-        } else {
-            txInfos["feesAmountAndCoin"].push("---");
+        const tblFees = [];
+        for (const fee of rawTxInfo.tx.value.fee.amount) {
+            const feesAmount = (fee.amount/1000000).toFixed(6);
+            const feesDenom = tblCorrespondanceValeurs[fee.denom] ? tblCorrespondanceValeurs[fee.denom] : fee.denom;
+            tblFees.push({
+                amount: feesAmount,
+                denom: feesDenom
+            })
         }
+        txInfos["feesAmountAndCoin"] = tblFees;
+
 
         // ====== Taxes
         const logsTbl = rawTxInfo.logs;
         // console.log("logsTbl", logsTbl);
 
-        let totalOfTaxes = '---';
+        const tblTaxes = [];
         for(const lgLog of logsTbl) {
             if(lgLog.log && lgLog.log.tax) {
                 const coins = lgLog.log.tax.split(',');
                 for (const coin of coins) {
-                    const denom = coin.replace(/[0-9]/g, '');
-                    const value = coin.replace(denom, '');
-                    
-                    let logTaxe = '';
-                    if(tblCorrespondanceValeurs[denom])
-                        logTaxe = (parseInt(value)/1000000).toFixed(6) + '\u00a0' + tblCorrespondanceValeurs[denom];
-                    else
-                        logTaxe = value + '\u00a0' + denom;
-
-                    if(totalOfTaxes === '---')
-                        totalOfTaxes = logTaxe;
-                    else
-                        totalOfTaxes += ', ' + logTaxe;
+                    const taxeDenom = coin.replace(/[0-9]/g, '');
+                    const taxeValue = coin.replace(taxeDenom, '');
+                    tblTaxes.push({
+                        amount: (parseInt(taxeValue)/1000000).toFixed(6),
+                        denom: tblCorrespondanceValeurs[taxeDenom] ? tblCorrespondanceValeurs[taxeDenom] : taxeDenom
+                    })
                 }
             }
         }
-        txInfos["taxes"] = totalOfTaxes;
+        txInfos["taxes"] = tblTaxes;
+
 
         // ====== Nb Messages
         txInfos["nbMessages"] = rawTxInfo.tx.value.msg.length;
@@ -152,11 +146,9 @@ export const getTxDatas = async (txHash) => {
                 }
 
                 msgStructRet['VoterAddress'] = message.value.voter;
-
-                const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === message.value.voter);
-                if(isValidatorAccount) {
-                    msgStructRet['ValidatorAddress'] = isValidatorAccount[0];
-                    msgStructRet['ValidatorMoniker'] = isValidatorAccount[1].description_moniker;
+                if(tblValidatorsAccounts[message.value.voter]) {
+                    msgStructRet['ValidatorAddress'] = tblValidatorsAccounts[message.value.voter];
+                    msgStructRet['ValidatorMoniker'] = tblValidators[tblValidatorsAccounts[message.value.voter]].description_moniker;
                 }
             }
 
@@ -177,7 +169,7 @@ export const getTxDatas = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgWithdrawValidatorCommission') {
                 msgStructRet['ValidatorAddress'] = message.value.validator_address;
                 msgStructRet['ValidatorMoniker'] = tblValidators[message.value.validator_address].description_moniker ? tblValidators[message.value.validator_address].description_moniker : 'unknown';
-                msgStructRet['ToAddress'] = AccAddress.fromValAddress(message.value.validator_address);
+                msgStructRet['ToAddress'] = tblValidators[message.value.validator_address].terra1_account_address;
 
                 if(rawTxInfo.logs[i] !== undefined) {
                     let commission = findInTblLogEvents(rawTxInfo.logs[i].events, "withdraw_commission", "amount");
@@ -400,12 +392,11 @@ export const getTxDatas = async (txHash) => {
                 }
                 
                 msgStructRet['VoterAddress'] = message.value.voter;
-
-                const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === message.value.voter);
-                if(isValidatorAccount) {
-                    msgStructRet['ValidatorAddress'] = isValidatorAccount[0];
-                    msgStructRet['ValidatorMoniker'] = isValidatorAccount[1].description_moniker;
+                if(tblValidatorsAccounts[message.value.voter]) {
+                    msgStructRet['ValidatorAddress'] = tblValidatorsAccounts[message.value.voter];
+                    msgStructRet['ValidatorMoniker'] = tblValidators[tblValidatorsAccounts[message.value.voter]].description_moniker;
                 }
+
             }
 
 
@@ -465,21 +456,15 @@ const coinsListToFormatedText = (coinsList) => {
 // Extrait les infos ExchangeRate
 // ==============================
 const exchangeRatesToFormatedText = (coinsList) => {
-    const dataCoinsList = (new Coins(coinsList)).toData();
     let retour = "";
-    
-    if(dataCoinsList.length > 0) {
-        for(let i=0 ; i < dataCoinsList.length ; i++) {
-            const msgAmount = dataCoinsList[i].amount;
-            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
-            if(retour !== "")
-                retour += ", ";
-            retour += (msgAmount + "\u00a0" + msgCoin);
-        }
-    } else {
-        retour = "---";
-    }
+    for(const coin of coinsList.split(',')) {
+        let denom = coin.replace(/[0-9.]/g, '');
+        let amount = coin.replace(denom, '');
 
+        if(retour !== '')
+            retour += ', ';
+        retour += amount + '\u00a0' + (tblCorrespondanceValeurs[denom] ? tblCorrespondanceValeurs[denom] : denom);
+    }
     return retour;
 }
 
