@@ -6,6 +6,7 @@ import { getProposal } from './getProposal';
 import { expanded_datetime_ago, formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
+import ObjectViewer from '../../sharedComponents/ObjectViewer';
 // import Chart from 'react-apexcharts';
 // import { getDelegatorsParticipation } from './getDelegatorsParticipation';
 
@@ -123,12 +124,14 @@ const PageProposal = () => {
                         : null}
                         {proposalInfos['contentChanges'] ?
                             <StyledBox title="Changes" color="purple">
-                                <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></div>
+                                <ObjectViewer objetAvisualiser={proposalInfos['contentChanges']} className={styles.addContent} />
+                                {/* <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentChanges'], null, 2))), null, 2)}</pre></div> */}
                             </StyledBox>
                         : null}
                         {proposalInfos['contentPlan'] ?
                             <StyledBox title="Plan" color="purple">
-                                <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'], null, 2))), null, 2)}</pre></div>
+                                <ObjectViewer objetAvisualiser={proposalInfos['contentPlan']} className={styles.addContent} />
+                                {/* <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'], null, 2))), null, 2)}</pre></div> */}
                             </StyledBox>
                         : null}
 
