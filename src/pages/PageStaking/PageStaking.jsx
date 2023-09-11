@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CalculatorIcon, LockIcon, PieChartIcon } from '../../application/AppIcons';
+import { LockIcon } from '../../application/AppIcons';
 import styles from './PageStaking.module.scss';
 import Chart from 'react-apexcharts';
 
@@ -7,6 +7,7 @@ import { appName, chainID, chainLCDurl } from '../../application/AppParams';
 import { Coins, LCDClient } from '@terra-money/terra.js';
 import { formateLeNombre } from '../../application/AppUtils';
 import Decimal from 'decimal.js';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageStaking = () => {
 
@@ -83,57 +84,60 @@ const PageStaking = () => {
     return (
         <>
             <h1><span><LockIcon /><strong>Staking</strong></span></h1>
-            <br />
-            {luncTotalSupply && nbStakedLunc ?
-                <>
-                    <h2 className={styles.h2validators}><strong><CalculatorIcon /></strong><span><strong>Data</strong></span></h2>
-                    <table className={styles.tblStaking}>
-                        <tbody>
-                            <tr>
-                                <td>LUNC total supply : </td>
-                                <td><strong>{formateLeNombre(luncTotalSupply, ' ')}</strong> LUNC</td>
-                            </tr>
-                            <tr>
-                                <td>Staked LUNC : </td>
-                                <td><strong>{formateLeNombre(nbStakedLunc, ' ')}</strong> LUNC</td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2"><hr /></td>
-                            </tr>
+            <div className={styles.pgStaking}>
+                <StyledBox title="Data" color="green" className={styles.tblStaking}>
+                    {luncTotalSupply && nbStakedLunc ?
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>LUNC total supply : </td>
+                                    <td><strong>{formateLeNombre(luncTotalSupply, ' ')}</strong> LUNC</td>
+                                </tr>
+                                <tr>
+                                    <td>Staked LUNC : </td>
+                                    <td><strong>{formateLeNombre(nbStakedLunc, ' ')}</strong> LUNC</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="2"><hr /></td>
+                                </tr>
 
-                            <tr>
-                                <td>Staking rate : </td>
-                                <td><strong>{((nbStakedLunc/luncTotalSupply)*100).toFixed(2)} %</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br />
-                    <h2 className={styles.h2validators}><strong><PieChartIcon /></strong><span><strong>Chart</strong></span></h2>
-                    <div className={styles.stakingChart}>
-                        <Chart
-                            type="radialBar"
-                            width={"100%"}
-                            // height={300}
-                            series={[((nbStakedLunc/luncTotalSupply)*100).toFixed(2)]}
-                            options={{
-                                labels: ['Staked LUNC'],
-                                colors:['var(--primary-fill)', 'pink'],         // Couleurs de la série et textes labels associés (data-labels)
-                                chart: {
-                                    foreColor: 'var(--primary-text-color)'      // Couleur des valeurs (data-values)
-                                },
-                                plotOptions: {
-                                    radialBar: {
-                                        track: {
-                                        background: 'var(--unprimary-fill)'   // Couleur de fond de l'anneau, lorsque "non coloré"
+                                <tr>
+                                    <td>Staking rate : </td>
+                                    <td><strong>{((nbStakedLunc/luncTotalSupply)*100).toFixed(2)} %</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    : null }
+                </StyledBox>
+                <StyledBox title="Chart" color="blue" className={styles.stakingChart}>
+                    {luncTotalSupply && nbStakedLunc ?
+                            <div>
+                                <Chart
+                                    type="radialBar"
+                                    width={"100%"}
+                                    // height={300}
+                                    series={[((nbStakedLunc/luncTotalSupply)*100).toFixed(2)]}
+                                    options={{
+                                        labels: ['Staked LUNC'],
+                                        colors:['var(--primary-fill)', 'pink'],         // Couleurs de la série et textes labels associés (data-labels)
+                                        chart: {
+                                            foreColor: 'var(--primary-text-color)'      // Couleur des valeurs (data-values)
+                                        },
+                                        plotOptions: {
+                                            radialBar: {
+                                                track: {
+                                                background: 'var(--unprimary-fill)'   // Couleur de fond de l'anneau, lorsque "non coloré"
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            }}
-                        />
-                    </div>
-                </>
-            : msgErreur ? <p className="erreur">{msgErreur}</p> : <p>Loading data from blockchain (lcd) ...</p>}
-            
+                                    }}
+                                />
+                            </div>
+                        :
+                            msgErreur ? <p className="erreur">{msgErreur}</p> : <p>Loading data from blockchain (lcd) ...</p>
+                    }
+                </StyledBox>
+            </div>
         </>
     );
 };

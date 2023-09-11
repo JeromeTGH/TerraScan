@@ -2,8 +2,20 @@
 
 .tblTransactions {
 
-    td:nth-child(3), th:nth-child(3) {
+    th:nth-child(3) {
         text-align: right;
+    }
+
+    td:nth-child(3) {
+        text-align: right;
+        img {
+            vertical-align: middle;
+            margin-left: 0.4rem;
+            height: 0.9rem;
+            @media (max-width: $primary-breakpoint) {
+                height: 0.8rem;
+            }
+        }
     }
 
     td:nth-child(4), th:nth-child(4) {

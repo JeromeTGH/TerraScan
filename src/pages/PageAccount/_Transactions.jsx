@@ -75,7 +75,7 @@ const Transactions = (props) => {
                                                 <>
                                                     <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
                                                     <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
-                                                    <span> {element.unit}</span>
+                                                    <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />
                                                 </>
                                             :
                                                 <>&nbsp;</>

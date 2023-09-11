@@ -1,31 +1,34 @@
 @import '../../style/variables';
 
-.h2validators {
-    text-align: left;
-    border-bottom: 1px solid var(--outline-box-color);
-}
+.pgStaking {
 
-.tblStaking {
-    width: auto;
+    display: flex;
+    flex-direction: column;
 
-    tbody tr {
-        border: none;
+    .tblStaking {
+        width: fit-content;
+    
+        table {
+            tbody tr {
+                border: none;
+            }
+        
+            td:nth-child(1) {
+                white-space: nowrap;
+                vertical-align: top;
+            }
+        
+            td:nth-child(2) {
+                word-break: break-word;
+            }
+        }
+    
     }
-
-    td:nth-child(1) {
-        white-space: nowrap;
-        vertical-align: top;
-    }
-
-    td:nth-child(2) {
-        word-break: break-word;
-    }
-
-}
-
-.stakingChart {
-    max-width: 720px;
-    @media (max-width: $primary-breakpoint) {
-        max-width: 360px;
+    
+    .stakingChart {
+        max-width: 560px;
+        @media (max-width: $primary-breakpoint) {
+            max-width: 360px;
+        }
     }
 }
