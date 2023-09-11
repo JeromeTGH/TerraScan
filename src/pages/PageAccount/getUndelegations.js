@@ -20,7 +20,6 @@ export const getUndelegations = async (accountAddress) => {
                     tblRetour.push({
                         valoperAddress: undelegation.validator_address,
                         valMoniker: tblValidators[undelegation.validator_address].description_moniker,
-                        // entries: tblEntries
                         balance: entrie.balance/1000000,
                         releaseDatetime: entrie.completion_time
                     })

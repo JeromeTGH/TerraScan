@@ -1,38 +1,54 @@
 @import '../../style/variables';
 
-.tblTransactions {
+.blockTransactions {
 
-    th:nth-child(3) {
-        text-align: right;
+    overflow-x: auto;
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 3.8rem);        // Préférable sur "PC"
+        @media (max-width: 600px) {
+            max-width: calc(100vw - 2.4rem);     // Mais celui-là mieux sur mobile, car "barre de scroll toute fine"
+        }
+            // Amélioration possible : mettre en place une barre de scroll fine, systématiquement
     }
 
-    td:nth-child(3) {
-        text-align: right;
-        img {
-            vertical-align: middle;
-            margin-left: 0.4rem;
-            height: 0.9rem;
-            @media (max-width: $primary-breakpoint) {
-                height: 0.8rem;
+    
+    .tblTransactions {
+    
+    
+        th:nth-child(3) {
+            text-align: right;
+        }
+    
+        td:nth-child(3) {
+            text-align: right;
+            white-space: nowrap;
+            img {
+                vertical-align: middle;
+                margin-left: 0.4rem;
+                height: 0.9rem;
+                @media (max-width: $primary-breakpoint) {
+                    height: 0.8rem;
+                }
             }
         }
-    }
-
-    td:nth-child(4), th:nth-child(4) {
-        text-align: center;
-    }
-
-    .amounts {
-        span {
-            font-weight: normal;
+    
+        td:nth-child(4), th:nth-child(4) {
+            text-align: center;
         }
-    }
-
-    .view {
-        font-size: 1rem;
-        svg {
-            margin-top: 0.4rem;
+    
+        .amounts {
+            span {
+                font-weight: normal;
+            }
         }
+    
+        .view {
+            font-size: 1rem;
+            svg {
+                margin-top: 0.4rem;
+            }
+        }
+    
     }
 
 }

@@ -27,5 +27,9 @@ export class StakingAPI {
         return await this.apiRequester.get(this.paths.getUndelegations.replace('***', accountAdr), params);
     }
 
+    // Exemple d'appel : /cosmos/staking/v1beta1/delegators/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd/redelegations
+    async getRedelegations(accountAdr, params = new URLSearchParams()) {
+        return await this.apiRequester.get(this.paths.getRedelegations.replace('***', accountAdr), params);
+    }
 
 }

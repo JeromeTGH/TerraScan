@@ -9,6 +9,7 @@ import AvailableCoins from './_AvailableCoins';
 import Undelegations from './_Undelegations';
 import Delegations from './_Delegations';
 import Transactions from './_Transactions';
+import Redelegations from './_Redelegations';
 
 
 const PageAccount = () => {
@@ -51,6 +52,7 @@ const PageAccount = () => {
             {infosValidateur ? <p className={styles.valInfos}><br />=====&gt; This is the account of <Link to={"/validators/" + infosValidateur[0]}>{infosValidateur[1]}</Link> validator.</p> : null}
             <AvailableCoins accountAddress={cptNum} />
             <Delegations accountAddress={cptNum} />
+            <Redelegations accountAddress={cptNum} />
             <Undelegations accountAddress={cptNum} />
             <Transactions accountAddress={cptNum} />
         </>

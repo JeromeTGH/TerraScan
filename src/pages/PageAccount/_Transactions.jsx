@@ -53,39 +53,41 @@ const Transactions = (props) => {
                     </div>
                 :
                     (tblTransactions && tblTransactions.length > 0) ?
-                        <table className={styles.tblTransactions}>
-                            <thead>
-                                <tr>
-                                    <th>Date/Time</th>
-                                    <th>Operation</th>
-                                    <th>Amount</th>
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tblTransactions.map((element, index) => {
-                                    return <tr key={index}>
-                                        <td>{metEnFormeDateTime(element.datetime)}</td>
-                                        <td>
-                                            {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
-                                            {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
-                                        </td>
-                                        <td className={styles.amounts}>
-                                            {element.amount ? 
-                                                <>
-                                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
-                                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
-                                                    <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />
-                                                </>
-                                            :
-                                                <>&nbsp;</>
-                                            }
-                                        </td>
-                                        <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
+                        <div className={styles.blockTransactions}>
+                            <table className={styles.tblTransactions}>
+                                <thead>
+                                    <tr>
+                                        <th>Date/Time</th>
+                                        <th>Operation</th>
+                                        <th>Amount</th>
+                                        <th>View</th>
                                     </tr>
-                                })}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {tblTransactions.map((element, index) => {
+                                        return <tr key={index}>
+                                            <td>{metEnFormeDateTime(element.datetime)}</td>
+                                            <td>
+                                                {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
+                                                {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
+                                            </td>
+                                            <td className={styles.amounts}>
+                                                {element.amount ? 
+                                                    <>
+                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
+                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
+                                                        <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />
+                                                    </>
+                                                :
+                                                    <>&nbsp;</>
+                                                }
+                                            </td>
+                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
+                                        </tr>
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     :
                         <div>No transaction found.</div>
             }
