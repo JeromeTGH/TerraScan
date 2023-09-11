@@ -4,47 +4,66 @@
     grid-area: infos;
 }
 
-.h2Infos {
-    text-align: left;
-    font-weight: bold;
-    word-break: break-all;
-}
+.blockInfos {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: 100%;
 
-.headerBox {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    @media (max-width: 600px) {
+        grid-template-columns: 100%;
+        grid-template-rows: min-content auto;
+    }
 
-    .img {
-        text-align: center;
-        padding: 0.4rem;
-        max-width: 100px;
-
+    .valLogo {
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
         img {
-            width: 100%;
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            @media (max-width: 600px) {
+                width: 80px;
+                height: 80px;
+            }
         }
     }
-    
-    .tblInfos {        
-        .website, .email {
-            word-break: break-all;
-        }
 
-        tbody tr {
-            border: none;
-        }
-    
-        td:nth-child(1) {
-            width: 1%;
-            white-space: nowrap;
-            vertical-align: top;
-        }
-
-        td:nth-child(2) {
-            word-break: break-word;
+    .valMoniker {
+        font-weight: bold;
+        font-size: 1.6rem;
+        padding-bottom: 0.4rem;
+        @media (max-width: 600px) {
+            text-align: center;
         }
     }
+
+    .valWebsite, .valContactEmail {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        padding-bottom: 0.2rem;
+
+        a {
+            font-weight: 500;
+        }
+
+        svg {
+            color: var(--secondary-text-color);
+            margin-right: 0.4rem;
+        }
+    }
+
+    .valDescription {
+        padding-top: 1rem;
+        color: var(--secondary-text-color);
+        word-break: break-word;
+    }
+
+    .valStatus {
+        padding-top: 1rem;
+    }
+
 }
-
-

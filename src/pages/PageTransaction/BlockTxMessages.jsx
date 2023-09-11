@@ -39,7 +39,7 @@ const BlockTxMessages = (props) => {
 
     
     return (
-        <StyledBox title={'Operation ' + props.idxElement + '/' + props.nbElements} color="orange">
+        <StyledBox title={'Message ' + props.idxElement + '/' + props.nbElements} color="orange">
             <h3 className={styles.h3tx}><span><MessageIcon />{props.txMessage['MsgDesc']}</span></h3>
             <table className={styles.tblMessages}>
                 <tbody>
