@@ -68,7 +68,7 @@ const BlockBurn = () => {
                             </thead>
                             <tbody>
                                 {isLoading ?
-                                    <tr><td colSpan="6">Loading from blockchain (FCD), please wait ...</td></tr>
+                                    <tr><td colSpan="6" className='erreur'><br />Loading from blockchain (FCD), please wait ...</td></tr>
                                 :
                                     tblTxsBurn.slice(burnTblPagination*nbElementsParPagination, burnTblPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, index) => {
                                         return <tr key={index}>

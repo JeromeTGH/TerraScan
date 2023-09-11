@@ -74,7 +74,7 @@ const PageBurns = () => {
                             </thead>
                             <tbody>
                                 {isLoading ?
-                                    <tr><td colSpan="6"><br />Loading from blockchain (FCD), please wait ...<br /></td></tr>
+                                    <tr><td colSpan="6" className='erreur'><br />Loading from blockchain (FCD), please wait ...<br /><br /></td></tr>
                                 :
                                     tblTxsBurn.map((valeur, index) => {
                                         return <tr key={index}>

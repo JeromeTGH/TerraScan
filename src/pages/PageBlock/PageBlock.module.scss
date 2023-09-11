@@ -1,7 +1,39 @@
 @import '../../style/variables';
 
-.tblInfos {
+.blockInfos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 
+    .blockDatetime, .blockNbTxs, .blockProposer {
+        .blockTitle {
+            white-space: nowrap;
+            text-align: center;
+            font-size: 0.9rem;
+            padding-bottom: 1.2rem;
+            font-weight: bold;
+        }
+
+        .blockValue {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    }
+
+    .blockDatetime {
+        padding-right: 0.4rem;
+    }
+    .blockProposer {
+        border-inline: 1px solid var(--outline-box-color);
+        padding-inline: 0.4rem;
+    }
+    .blockProposer {
+        padding-left: 0.4rem;
+    }
+
+
+}
+
+.tblInfos {
     tbody tr {
         border: none;
     }
@@ -16,13 +48,55 @@
     td:nth-child(2) {
         word-break: break-all;
     }
-
 }
 
-.tblTransactions {
+.blockTransactions {
 
-    td:nth-child(1), td:nth-child(3), td:nth-child(4) {
-        text-align: left;
-        word-break: break-all;
+    overflow-x: auto;
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 3.8rem);        // Préférable sur "PC"
+        @media (max-width: 600px) {
+            max-width: calc(100vw - 2.4rem);     // Mais celui-là mieux sur mobile, car "barre de scroll toute fine"
+        }
     }
+    
+    .tblTransactions {
+    
+    
+        th:nth-child(3) {
+            text-align: right;
+        }
+    
+        td:nth-child(3) {
+            text-align: right;
+            white-space: nowrap;
+            img {
+                vertical-align: middle;
+                margin-left: 0.4rem;
+                height: 0.9rem;
+                @media (max-width: $primary-breakpoint) {
+                    height: 0.8rem;
+                }
+            }
+        }
+    
+        td:nth-child(4), th:nth-child(4) {
+            text-align: center;
+        }
+    
+        .amounts {
+            span {
+                font-weight: normal;
+            }
+        }
+    
+        .view {
+            font-size: 1rem;
+            svg {
+                margin-top: 0.4rem;
+            }
+        }
+    
+    }
+
 }

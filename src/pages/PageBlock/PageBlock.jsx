@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BlocksIcon } from '../../application/AppIcons';
+import { AccountIcon, BlocksIcon, ExchangeIcon, EyeIcon, TimeIcon } from '../../application/AppIcons';
 import styles from './PageBlock.module.scss';
-// import BlockDetail from './BlockDetail';
-// import BlockTransactions from './BlockTransactions';
-import { appName } from '../../application/AppParams';
-import { getBlockInfo } from './getBlockInfo';
+import { appName, tblCorrespondanceMessages } from '../../application/AppParams';
 import { tblBlocks } from '../../application/AppData';
-import { isValidTerraAddressFormat, metEnFormeDateTime } from '../../application/AppUtils';
+import { metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import StyledBox from '../../sharedComponents/StyledBox';
+import { getBlockInfos } from './getBlockInfos';
+
 
 const PageBlock = () => {
 
@@ -25,7 +24,7 @@ const PageBlock = () => {
 
         // Récupération des infos concernant ce block
         setLoadingOrNot(true);
-        getBlockInfo(blockNum).then((res) => {
+        getBlockInfos(blockNum).then((res) => {
             if(res['erreur']) {
                 setMsgErreurGetBlock(res['erreur']);
             }
@@ -45,126 +44,62 @@ const PageBlock = () => {
             :
             <>
                 <StyledBox title="Block infos" color="green">
-                    <table className={styles.tblInfos}>
-                        <tbody>
-                        {loadingOrNot ?
-                            <tr><td colSpan="5">Loading data from blockchain (fcd), please wait ...</td></tr>
-                        :  
-                            <>
-                                <tr>
-                                    <td>Height :</td>
-                                    <td>{blockNum}</td>
-                                </tr>
-                                <tr>
-                                    <td>Date/Time :</td>
-                                    <td>{metEnFormeDateTime(tblBlocks[blockNum].datetime)}</td>
-                                </tr>
-                                <tr>
-                                    <td>Number of transactions :</td>
-                                    <td>{tblBlocks[blockNum].nb_tx}</td>
-                                </tr>
-                                <tr>
-                                    <td>Proposer (this validator) :</td>
-                                    <td><Link to={"/validators/" + tblBlocks[blockNum].validator_address}>{tblBlocks[blockNum].validator_moniker}</Link></td>
-                                </tr>
-                            </>  
-                        }
-                        </tbody>
-                    </table>
+                    {loadingOrNot ?
+                        <div>Loading data from blockchain (fcd), please wait ...</div>
+                    :
+                        <div className={styles.blockInfos}>
+                            <div className={styles.blockDatetime}>
+                                <div className={styles.blockTitle}><TimeIcon />&nbsp;Date&nbsp;&&nbsp;Time</div>
+                                <div className={styles.blockValue}>{metEnFormeDateTime(tblBlocks[blockNum].datetime)}</div>
+                            </div>
+                            <div className={styles.blockProposer}>
+                                <div className={styles.blockTitle}><AccountIcon />&nbsp;Proposer</div>
+                                <div className={styles.blockValue}><Link to={"/validators/" + tblBlocks[blockNum].validator_address}>{tblBlocks[blockNum].validator_moniker}</Link></div>
+                            </div>
+                            <div className={styles.blockNbTxs}>
+                                <div className={styles.blockTitle}><ExchangeIcon />&nbsp;Nb&nbsp;Txs</div>
+                                <div className={styles.blockValue}>{tblBlocks[blockNum].nb_tx}&nbsp;Txs</div>
+                            </div>
+                        </div>
+                    }
                 </StyledBox>
                 <StyledBox title="Transactions" color="blue">
                     {tblBlocks && tblBlocks[blockNum] && tblBlocks[blockNum].txs ? 
-                        <table className={styles.tblTransactions}>
-                            <thead>
-                                <tr>
-                                    <th>Hash</th>
-                                    <th>Type</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tblBlocks[blockNum].txs.length === 0 ?
-                                <tr><td colSpan="4">No transaction.</td></tr>
-                                :
-                                tblBlocks[blockNum].txs.map((valeur, clef) => {
-                                    return <tr key={clef}>
-                                        <td><Link to={"/transactions/" + valeur.tx_hash}>{valeur.tx_hash}</Link></td>
-                                        <td>
-                                            {valeur.tx_description ? valeur.tx_description : valeur.tx_type}<br />
-                                            {valeur.tx_status === 0 ? <span className='succes'>(SUCCESS)</span> : <span className='erreur'>(FAILED)</span>}
-                                        </td>
-                                        <td>
-                                            {valeur.tx_type === 'MsgSend' ||
-                                             valeur.tx_type === 'MsgDelegate' ||
-                                             valeur.tx_type === 'MsgTransfer' ||
-                                             valeur.tx_type === 'MsgBeginRedelegate' ||
-                                             valeur.tx_type === 'MsgVote'
-                                             ?
-                                                <>
-                                                    Account : {isValidTerraAddressFormat(valeur.tx_from_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_from_account}>{valeur.tx_from_account}</Link> : valeur.tx_from_account}<br />
-                                                    {valeur.tx_from_valoper ? 
-                                                        <span>Of validator : <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link></span>
-                                                        : null
-                                                    }
-                                                </> : null
-                                            }
-                                            {valeur.tx_type === 'MsgUndelegate' ||
-                                             valeur.tx_type === 'MsgWithdrawDelegatorReward' ||
-                                             valeur.tx_type === 'MsgWithdrawDelegationReward' ||
-                                             valeur.tx_type === 'MsgWithdrawValidatorCommission'
-                                            ? <span>Validator : <Link to={"/validators/" + valeur.tx_from_valoper}>{valeur.tx_from_name}</Link></span> : null}
-                                            {valeur.tx_type !== 'MsgSend'
-                                                && valeur.tx_type !== 'MsgDelegate'
-                                                && valeur.tx_type !== 'MsgTransfer'
-                                                && valeur.tx_type !== 'MsgBeginRedelegate'
-                                                && valeur.tx_type !== 'MsgVote'
-                                                && valeur.tx_type !== 'MsgUndelegate'
-                                                && valeur.tx_type !== 'MsgWithdrawDelegatorReward'
-                                                && valeur.tx_type !== 'MsgWithdrawDelegationReward'
-                                                && valeur.tx_type !== 'MsgWithdrawValidatorCommission'
-                                                ? "--" : null
-                                            }
-                                        </td>
-                                        <td>
-                                            {valeur.tx_type === 'MsgSend' ||
-                                             valeur.tx_type === 'MsgUndelegate' || 
-                                             valeur.tx_type === 'MsgTransfer' ||
-                                             valeur.tx_type === 'MsgWithdrawDelegatorReward' ||
-                                             valeur.tx_type === 'MsgWithdrawDelegationReward' ||
-                                             valeur.tx_type === 'MsgWithdrawValidatorCommission'
-                                             ?
-                                                <>
-                                                    Account : {isValidTerraAddressFormat(valeur.tx_to_account, 'terra1') ? <Link to={"/accounts/" + valeur.tx_to_account}>{valeur.tx_to_account}</Link> : valeur.tx_to_account}<br />
-                                                    {valeur.tx_to_valoper ? 
-                                                        <span>Of validator : <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link></span>
-                                                        : null
-                                                    }
-                                                </> : null
-                                            }
-                                            {valeur.tx_type === 'MsgDelegate' ||
-                                             valeur.tx_type === 'MsgBeginRedelegate' 
-                                             ? <span>Validator : <Link to={"/validators/" + valeur.tx_to_valoper}>{valeur.tx_to_name}</Link></span> : null}
-                                            {valeur.tx_type === 'MsgVote' ? <>
-                                                Voted : <span className='colore'>{valeur.vote_choice}</span><br />
-                                                <span>On proposal : <Link to={"/proposals/" + valeur.proposal_id}>#{valeur.proposal_id}</Link></span>
-                                            </> : null}
-                                            {valeur.tx_type !== 'MsgSend'
-                                                && valeur.tx_type !== 'MsgDelegate'
-                                                && valeur.tx_type !== 'MsgTransfer'
-                                                && valeur.tx_type !== 'MsgBeginRedelegate'
-                                                && valeur.tx_type !== 'MsgVote'
-                                                && valeur.tx_type !== 'MsgUndelegate'
-                                                && valeur.tx_type !== 'MsgWithdrawDelegatorReward'
-                                                && valeur.tx_type !== 'MsgWithdrawDelegationReward'
-                                                && valeur.tx_type !== 'MsgWithdrawValidatorCommission'
-                                                ? "--" : null
-                                            }
-                                        </td>
+                        <div className={styles.blockTransactions}>
+                            <table className={styles.tblTransactions}>
+                                <thead>
+                                    <tr>
+                                        <th>Date/Time</th>
+                                        <th>Operation</th>
+                                        <th>Amount</th>
+                                        <th>View</th>
                                     </tr>
-                                })}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {tblBlocks[blockNum].txs.map((element, index) => {
+                                        return <tr key={index}>
+                                            <td>{metEnFormeDateTime(element.datetime)}</td>
+                                            <td>
+                                                {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
+                                                {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
+                                            </td>
+                                            <td className={styles.amounts}>
+                                                {element.amount ? 
+                                                    <>
+                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
+                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
+                                                        <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />
+                                                    </>
+                                                :
+                                                    <>&nbsp;</>
+                                                }
+                                            </td>
+                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
+                                        </tr>
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     :
                         <p>Loading data from blockchain (fcd), please wait ...</p>
                     }

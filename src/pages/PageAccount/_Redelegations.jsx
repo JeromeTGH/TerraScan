@@ -90,7 +90,7 @@ const Redelegations = (props) => {
                                 <div>redelegating from validator <Link to={'/validators/' + tblRedelegation.validator_src_address}>{tblRedelegation.validator_src_moniker}</Link> {tblValidators[tblRedelegation.validator_src_address].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
                                 <div>to validator <Link to={'/validators/' + tblRedelegation.validator_dst_address}>{tblRedelegation.validator_dst_moniker}</Link> {tblValidators[tblRedelegation.validator_dst_address].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
                                 <br />
-                                <div>Any "same redelegation" <strong>must wait {expanded_datetime_ago(tblRedelegation.releaseDatetime, true)}</strong> ({metEnFormeDateTime(tblRedelegation.releaseDatetime)})</div>
+                                <div>Any "same redelegation" <strong>must wait {expanded_datetime_ago(tblRedelegation.releaseDatetime, true)}</strong> approximately ({metEnFormeDateTime(tblRedelegation.releaseDatetime)})</div>
                             </div>
                         </>
                     :
