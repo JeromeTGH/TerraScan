@@ -182,7 +182,7 @@ const PageBlocks = () => {
                                     <td><Link to={'/validators/' + valeur[3]}>{valeur[2]}</Link></td>
                                     <td>{valeur[5]}</td>
                                 </tr> 
-                        )}) : <tr><td colSpan="4">Loading data from blockchain (fcd), please wait ...</td></tr> }
+                        )}) : <tr><td colSpan="4" className='erreur'><br />Loading data from blockchain (fcd), please wait ...<br /><br /></td></tr> }
                     </tbody>
                 </table>
                 <div className={styles.comments}>

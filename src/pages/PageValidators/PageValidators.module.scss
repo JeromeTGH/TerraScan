@@ -20,7 +20,7 @@
         background-color: transparent;
         cursor: pointer;
         font-size: 0.8rem;
-        padding: 0.3rem 0.8rem 0.4rem 0.8rem;
+        padding: 0.4rem 0.8rem;
         border-radius: 16px;
         font-weight: bold;
 
@@ -29,7 +29,7 @@
         }
 
         @media (max-width: 480px) {
-            padding: 0.2rem 0.4rem 0.3rem 0.4rem;
+            padding: 0.2rem 0.4rem;
             font-size: 0.7rem;
         }
     }
