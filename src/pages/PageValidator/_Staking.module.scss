@@ -1,0 +1,46 @@
+@import '../../style/variables';
+
+.stakingBlock {
+    grid-area: staking;
+}
+
+
+.stakingInfos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    .stakingCol1, .stakingCol2, .stakingCol3 {
+        .stakingTitle {
+            text-align: center;
+            font-size: 0.9rem;
+            padding-bottom: 1.2rem;
+            font-weight: bold;
+        }
+
+        .stakingValue {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    }
+
+    .stakingCol1 {
+        padding-right: 0.4rem;
+        .stakingTitle, .stakingValue {
+            font-weight: bold;
+            color: var(--orange-color);
+        }
+        .stakingValue {
+            font-size: 1.6rem;
+        }
+    }
+    .stakingCol2 {
+        border-inline: 1px solid var(--outline-box-color);
+        padding-inline: 0.4rem;
+        a {
+            word-break: break-word;
+        }
+    }
+    .stakingCol3 {
+        padding-left: 0.4rem;
+    }
+}

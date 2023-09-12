@@ -56,6 +56,23 @@
         }
     }
 
+    .valAccountAddress {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        padding-bottom: 0.2rem;
+
+        a {
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        svg {
+            color: var(--secondary-text-color);
+            margin-right: 0.4rem;
+        }
+    }
+
     .valDescription {
         padding-top: 1rem;
         color: var(--secondary-text-color);

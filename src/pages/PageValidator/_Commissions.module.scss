@@ -1,0 +1,46 @@
+@import '../../style/variables';
+
+.commissionsBlock {
+    grid-area: commissions;
+}
+
+
+.commissionsInfos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    .commissionsCol1, .commissionsCol2, .commissionsCol3 {
+        .commissionsTitle {
+            text-align: center;
+            font-size: 0.9rem;
+            padding-bottom: 1.2rem;
+            font-weight: bold;
+        }
+
+        .commissionsValue {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    }
+
+    .commissionsCol1 {
+        padding-right: 0.4rem;
+        .commissionsTitle, .commissionsValue {
+            font-weight: bold;
+            color: var(--purple-color);
+        }
+        .commissionsValue {
+            font-size: 1.6rem;
+        }
+    }
+    .commissionsCol2 {
+        border-inline: 1px solid var(--outline-box-color);
+        padding-inline: 0.4rem;
+        a {
+            word-break: break-word;
+        }
+    }
+    .commissionsCol3 {
+        padding-left: 0.4rem;
+    }
+}

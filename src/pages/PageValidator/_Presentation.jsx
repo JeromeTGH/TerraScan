@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './BlockValHeader.module.scss';
+import styles from './_Presentation.module.scss';
 import { tblValidators } from '../../application/AppData';
 import StyledBox from '../../sharedComponents/StyledBox';
-import { EmailIcon, WorldIcon } from '../../application/AppIcons';
+import { AccountIcon, EmailIcon, WorldIcon } from '../../application/AppIcons';
+import { Link } from 'react-router-dom';
 
 
-const BlockValHeader = (props) => {
+const Presentation = (props) => {
 
     // Affichage
     return (
@@ -46,13 +47,17 @@ const BlockValHeader = (props) => {
                             </a>
                         </div>
                     : null}
+                    <div className={styles.valAccountAddress}>
+                        <AccountIcon />
+                        <Link to={"/accounts/" + tblValidators[props.valAddress].terra1_account_address}>{tblValidators[props.valAddress].terra1_account_address}</Link>
+                    </div>
                     {tblValidators[props.valAddress].description_details ?
                          <div className={styles.valDescription}>
                             {tblValidators[props.valAddress].description_details}
                         </div>
                     : null}
                     <div className={styles.valStatus}>
-                        {tblValidators[props.valAddress].status === 'active' ? <span className='active'>active</span> : <span className='jailed'>Jailed</span>}
+                        {tblValidators[props.valAddress].status === 'active' ? <span className='active'>Active ({tblValidators[props.valAddress].up_time}% uptime)</span> : <span className='jailed'>Jailed</span>}
                     </div>
                 </div>
             </div>
@@ -60,4 +65,4 @@ const BlockValHeader = (props) => {
     );
 };
 
-export default BlockValHeader;
+export default Presentation;

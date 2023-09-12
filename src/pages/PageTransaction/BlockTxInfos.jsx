@@ -28,7 +28,7 @@ const BlockTxInfos = (props) => {
                             <div className={styles.txValue}>{props.txInfos['nbMessages']}&nbsp;message{props.txInfos['nbMessages'] > 1 ? 's' : null}</div>
                         </div>
                         <div className={styles.txGas}>
-                            <div className={styles.txTitle}><BurnIcon />&nbsp;Gas&nbsp;used/req</div>
+                            <div className={styles.txTitle}><BurnIcon />&nbsp;Gas&nbsp;used/req.</div>
                             <div className={styles.txValue}>{props.txInfos['gas_used']} / {props.txInfos['gas_wanted']}</div>
                         </div>
                         <div className={styles.txFees}>

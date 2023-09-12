@@ -1,10 +1,10 @@
 import React from 'react';
-import ChainUpgrade from './ChainUpgrade';
+// import ChainUpgrade from './ChainUpgrade';
 
 const Header = () => {
     return (
         <>
-            <ChainUpgrade />
+            {/* <ChainUpgrade /> */}
         </>
     );
 }

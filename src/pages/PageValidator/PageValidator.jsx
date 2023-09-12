@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalculatorIcon } from '../../application/AppIcons';
 import styles from './PageValidator.module.scss';
-import BlockValHeader from './BlockValHeader';
-import BlockValLeft from './BlockValLeft';
-import BlockTopDelegators from './BlockTopDelegators';
 import { appName } from '../../application/AppParams';
 import { tblValidators } from '../../application/AppData';
+import Presentation from './_Presentation';
+import Commissions from './_Commissions';
+import Staking from './_Staking';
 
 
 const PageValidator = () => {
@@ -27,9 +27,9 @@ const PageValidator = () => {
             <p className={styles.validatorAddress}>→ Address : <strong>{valAdr}</strong></p>
             {tblValidators[valAdr] ?
                 <div className={styles.blocksValidatorPage}>
-                    <BlockValHeader valAddress={valAdr} />
-                    <BlockValLeft valAddress={valAdr} />
-                    <BlockTopDelegators valAddress={valAdr} />
+                    <Presentation valAddress={valAdr} />
+                    <Staking valAddress={valAdr} />
+                    <Commissions valAddress={valAdr} />
                 </div>
             :
                 <div className='erreur'>Address not found, sorry ...</div>
