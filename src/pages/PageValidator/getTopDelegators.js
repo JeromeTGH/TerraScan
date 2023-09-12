@@ -35,8 +35,6 @@ export const getTopDelegators = async (valoperAddress, nbToShow) => {
     tblRetour.sort((a, b) => new Date(b.staked) - new Date(a.staked));
 
 
-console.log(tblRetour.slice(0, nbToShow));
-
     // Filtrage des X derniers, et renvoi
     return tblRetour.slice(0, nbToShow);
 }

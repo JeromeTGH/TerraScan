@@ -5,7 +5,7 @@
 | Version | Description |
 | - | - |
 | 1.3.4 | (working on) |
-| 1.3.3 | - Full redesign of "block" page |
+| 1.3.3 | - Full redesign of "block" page<br />- Makeover of "Staking" page | |
 | 1.3.2 | - Redesign of all tables in the app<br />- Makeover of "Proposal" and "Proposals" pages<br />- Makeover of "Block" page<br />- Makeover of "Transaction" page<br />- Makeover of "Validator" page<br />- Makeover of "Home" page |
 | 1.3.1 | - Added banner for blockchain upgrade informations |
 | 1.3.0 | - Full redesign of "account" page |

@@ -252,7 +252,7 @@ export const getProposal = async (propID) => {
 
         // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
         const rawTxs = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
-        if(rawTxs && rawTxs.data) {
+        if(rawTxs?.data?.pagination?.total) {
             const nbTotalDeTxs = parseInt(rawTxs.data.pagination.total);
 
             if(nbTotalDeTxs > 0) {
@@ -363,7 +363,7 @@ export const getProposal = async (propID) => {
 
                     // Exécution de la requête de recherche des 100 txs suivants
                     const rawTxsSuivants = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
-                    if(rawTxsSuivants && rawTxsSuivants.data) {
+                    if(rawTxsSuivants?.data?.txs) {
                         // Traitement des 100 premiers txs (ou moins, si y'en a moins, bien sûr)
                         for(let i=0 ; i < rawTxsSuivants.data.txs.length ; i++) {
                             let txcode = rawTxsSuivants.data.tx_responses[i].code;

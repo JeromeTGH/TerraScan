@@ -45,7 +45,7 @@ const Delegators = (props) => {
                 <div className="erreur">{msgErreur}</div>
             :
                 isLoading ?
-                    <div>Loading "top delegators" from blockchain (lcd), please wait ...</div>
+                    <div className='erreur'><br />Loading "top delegators" from blockchain (lcd), please wait ...<br /><br /></div>
                 :
                     tblTopDelegators ?
                         <div className={styles.contentTopDelegators}>
