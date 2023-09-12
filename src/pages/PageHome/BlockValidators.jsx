@@ -30,21 +30,21 @@ const BlockValidators = () => {
             <table className={styles.tblValidators}>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Com.</th>
-                        <th>Staked</th>
+                        <th>Rank</th>
                         <th>Voting power</th>
+                        <th>Name</th>
+                        <th>Comm</th>
+                        <th>Staked</th>
                     </tr>
                 </thead>
                 <tbody>
                 {Object.entries(tblValidators).filter(element => element[1].status === "active").sort((a, b) => {return b[1].voting_power_amount - a[1].voting_power_amount}).slice(validatorsListPagination*nbElementsParPagination, validatorsListPagination*nbElementsParPagination + nbElementsParPagination).map((valeur, clef) => {
                         return <tr key={clef}>
-                            <td>{clef+1 + validatorsListPagination*nbElementsParPagination}</td>
+                            <td>#{clef+1 + validatorsListPagination*nbElementsParPagination}</td>
+                            <td><strong>{valeur[1].voting_power_pourcentage.toFixed(2)}%</strong></td>
                             <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                             <td>{valeur[1].commission_actual_pourcentage}%</td>
                             <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
-                            <td><strong>{valeur[1].voting_power_pourcentage.toFixed(2)}%</strong></td>
                         </tr>
                     })
                 }

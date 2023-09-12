@@ -90,11 +90,11 @@ const PageValidators = () => {
                 <table className={styles.tblValidators}>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Com.</th>
-                            <th>Staked</th>
+                            <th>Rank</th>
                             <th>Voting power</th>
+                            <th>Name</th>
+                            <th>Comm</th>
+                            <th>Staked</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -104,11 +104,11 @@ const PageValidators = () => {
                             (searchName && valeur[1].description_moniker.toLowerCase().includes(searchName.toLowerCase()))
                             )
                             return <tr key={clef}>
-                                <td>{clef+1}</td>
+                                <td>#{clef+1}</td>
+                                <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
                                 <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                                 <td>{valeur[1].commission_actual_pourcentage}%</td>
                                 <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
-                                <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
                             </tr>
                         else
                             return null;

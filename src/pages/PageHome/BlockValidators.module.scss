@@ -6,20 +6,26 @@
 
 .tblValidators {
 
-    th {
+    th:nth-child(1), th:nth-child(3) {
         text-align: center;
     }
 
-    td:nth-child(1), td:nth-child(3) {
-        text-align: center;
+    th:nth-child(2), th:nth-child(4), th:nth-child(5) {
+        text-align: right;
     }
 
-    td:nth-child(2) a {
+    td:nth-child(1) {
+        text-align: center;
+        width: 1%;
+    }
+
+    td:nth-child(3) a {
         word-break: break-word;
     }
 
-    td:nth-child(4), td:nth-child(5) {
+    td:nth-child(2), td:nth-child(4), td:nth-child(5) {
         text-align: right;
+        width: 1%;
     }
 
 }

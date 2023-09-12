@@ -25,6 +25,9 @@
     .blockProposer {
         border-inline: 1px solid var(--outline-box-color);
         padding-inline: 0.4rem;
+        a {
+            word-break: break-word;
+        }
     }
     .blockProposer {
         padding-left: 0.4rem;

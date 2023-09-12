@@ -68,7 +68,7 @@ export class LCDclient {
             this.tx = new TxAPI(this.apiRequester, this.paths.tx);
 
             LCDclient._instance = this;
-            console.log('Instance LCD créée.');
+            // console.log('Instance LCD créée.');
         }
     }
 

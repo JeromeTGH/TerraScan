@@ -89,20 +89,30 @@
     th:nth-child(1), th:nth-child(3) {
         text-align: center;
     }
-    th:nth-child(4), th:nth-child(5) {
+    th:nth-child(2), th:nth-child(4), th:nth-child(5), th:nth-child(6) {
         text-align: right;
     }
 
-    td:nth-child(1), td:nth-child(3) {
+    td:nth-child(1) {
         text-align: center;
+        width: 1%;
     }
 
-    td:nth-child(2) a {
-        word-break: break-word;
-    }
-
-    td:nth-child(4), td:nth-child(5) {
+    td:nth-child(2) {
         text-align: right;
+        width: 10%;
+    }
+
+    td:nth-child(3) {
+        padding-left: 1rem;
+        a {
+            word-break: break-word;
+        }
+    }
+
+    td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+        text-align: right;
+        width: 1%;
     }
 
 }
