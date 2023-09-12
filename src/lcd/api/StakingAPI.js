@@ -22,6 +22,11 @@ export class StakingAPI {
         return await this.apiRequester.get(this.paths.getDelegations.replace('***', accountAdr), params);
     }
 
+    // Exemple d'appel : /cosmos/staking/v1beta1/validators/terravaloper120ppepaj2lh5vreadx42wnjjznh55vvktp78wk/delegations
+    async getValidatorDelegators(valoperAdr, params = new URLSearchParams()) {
+        return await this.apiRequester.get(this.paths.getValidatorDelegators.replace('***', valoperAdr), params);
+    }
+
     // Exemple d'appel : /cosmos/staking/v1beta1/delegators/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd/unbonding_delegations
     async getUndelegations(accountAdr, params = new URLSearchParams()) {
         return await this.apiRequester.get(this.paths.getUndelegations.replace('***', accountAdr), params);

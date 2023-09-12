@@ -41,6 +41,7 @@ export class LCDclient {
                 },
                 staking: {
                     getDelegations: '/cosmos/staking/v1beta1/delegations/***',
+                    getValidatorDelegators: '/cosmos/staking/v1beta1/validators/***/delegations',
                     getRedelegations: '/cosmos/staking/v1beta1/delegators/***/redelegations',
                     getStakingParameters: '/cosmos/staking/v1beta1/params',
                     getStakingPool: '/cosmos/staking/v1beta1/pool',

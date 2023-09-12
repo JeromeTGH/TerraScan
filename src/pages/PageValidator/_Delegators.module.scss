@@ -1,0 +1,25 @@
+
+.contentTopDelegators {
+    .tblTopDelegators {
+        td:nth-child(2) {
+            a {
+                word-break: break-word;
+            }
+        }
+
+        td:nth-child(3) {
+
+            div {
+                display: flex;
+                align-items: center;
+                height: auto;
+                
+                img {
+                    height: 0.9rem;
+                    margin-left: 0.4rem;
+                }
+            }
+            
+        }
+    }
+}

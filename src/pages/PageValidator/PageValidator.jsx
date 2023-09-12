@@ -7,6 +7,7 @@ import { tblValidators } from '../../application/AppData';
 import Presentation from './_Presentation';
 import Commissions from './_Commissions';
 import Staking from './_Staking';
+import Delegators from './_Delegators';
 
 
 const PageValidator = () => {
@@ -30,6 +31,7 @@ const PageValidator = () => {
                     <Presentation valAddress={valAdr} />
                     <Staking valAddress={valAdr} />
                     <Commissions valAddress={valAdr} />
+                    <Delegators valAddress={valAdr} />
                 </div>
             :
                 <div className='erreur'>Address not found, sorry ...</div>
