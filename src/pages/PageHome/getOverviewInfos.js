@@ -33,7 +33,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
     // Récupération de la "total supply" du LUNC
     const idxLuncSupply = totalSupplies.findIndex(element => element.denom === "uluna");
-    if(idxLuncSupply >= 0) {
+    if(idxLuncSupply > -1) {
         tblAretourner['LuncTotalSupply'] = parseInt(totalSupplies[idxLuncSupply].amount/1000000);
     } else
         return { "erreur": "Failed to fetch [LUNC total supply] ..." }

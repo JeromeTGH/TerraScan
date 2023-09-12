@@ -14,7 +14,7 @@ export const loadTotalSupplies = async () => {
     if(rawTotalSupplies.data?.supply)
         return rawTotalSupplies.data.supply;
     else
-        return { "erreur": "Failed to fetch [first txs] for votes ..." }
+        return { "erreur": "Failed to fetch [total supply] ..." }
 
 }
 
