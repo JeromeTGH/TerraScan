@@ -209,7 +209,7 @@ const PageProposal = () => {
                                                 proposalInfos['isVetoReached'] ?
                                                     <td>
                                                         <div className={styles.vetoCursor} style={{ width: proposalInfos['seuilVeto']*2 + "%"}}>
-                                                            <div>Threshold</div>
+                                                            <div>VETO Threshold</div>
                                                             <div>|</div>
                                                         </div>
                                                         <div className={styles.supportBar}>
