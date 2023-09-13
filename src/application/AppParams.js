@@ -5,11 +5,13 @@ export const appName        = 'TerraScan';
 export const chainName      = 'Terra Classic';
 export const chainID        = 'columbus-5';
 export const chainLCDurl    = 'https://terra-classic-lcd.publicnode.com';
-// export const chainLCDurl    = 'https://lcd.terraclassic.community';
 
 
-export const LCDurl    = 'https://terra-classic-lcd.publicnode.com';
-export const FCDurl    = 'https://terra-classic-fcd.publicnode.com';
+// export const LCDurl    = 'https://terra-classic-lcd.publicnode.com';
+// export const FCDurl    = 'https://terra-classic-fcd.publicnode.com';
+
+export const LCDurl    = 'https://lcd.terraclassic.community';
+export const FCDurl    = 'https://fcd.terraclassic.community';
 
 // Tableau de correspondance Coin/Désignation
 export const tblCorrespondanceValeurs = {
