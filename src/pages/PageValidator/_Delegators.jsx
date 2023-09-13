@@ -42,7 +42,7 @@ const Delegators = (props) => {
     return (
         <StyledBox title="Top 50 delegators" color="blue">
             {msgErreur ?
-                <div className="erreur">{msgErreur}</div>
+                <div className="erreur"><br />{msgErreur}<br /><br /></div>
             :
                 isLoading ?
                     <div className='erreur'><br />Loading "top delegators" from blockchain (lcd), please wait ...<br /><br /></div>

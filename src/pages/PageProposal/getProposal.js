@@ -439,8 +439,10 @@ export const getProposal = async (propID) => {
                 }
             }
 
-        } else
-            return { "erreur": "Failed to fetch [first txs] for votes ..." }
+        } else {
+            console.warn("[ERROR] Failed to fetch [first txs] for votes ...");
+            //return { "erreur": "Failed to fetch [first txs] for votes ..." }
+        }
     }
 
 
