@@ -88,7 +88,7 @@ const PageBlock = () => {
                                                     <>
                                                         <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
                                                         <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
-                                                        <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />
+                                                        {element.unit.includes('ibc') ? <span className={styles.ibc}>{element.unit}</span> : <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />}
                                                     </>
                                                 :
                                                     <>&nbsp;</>

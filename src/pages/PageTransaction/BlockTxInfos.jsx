@@ -40,7 +40,7 @@ const BlockTxInfos = (props) => {
                                     props.txInfos['feesAmountAndCoin'].map((element, index) => {
                                         return <div key={index}>
                                             {element.amount}
-                                            <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom} />
+                                            {element.denom.includes('ibc') ? <span className={styles.ibc}>{element.denom}</span> : <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom} />}
                                         </div>
                                     })
                                 }
@@ -55,7 +55,7 @@ const BlockTxInfos = (props) => {
                                     props.txInfos['taxes'].map((element, index) => {
                                         return <div key={index}>
                                             {element.amount}
-                                            <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom} />
+                                            {element.denom.includes('ibc') ? <span className={styles.ibc}>{element.denom}</span> : <img src={'/images/coins/' + element.denom + '.png'} alt={element.denom} />}
                                         </div>
                                     })
                                 }
