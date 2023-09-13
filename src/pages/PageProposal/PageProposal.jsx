@@ -331,7 +331,7 @@ const PageProposal = () => {
                         {proposalInfos['status'] === 2 && proposalInfos['tblDesVotesDeValidateur'] ?
                             <StyledBox title="Validators votes" color="blue">
                                 {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
-                                    <div>No data returned by the LCD, sorry.</div>
+                                    <div>No data returned by the blockchain (lcd), sorry.</div>
                                 :
                                     <>
                                         <br />
@@ -449,7 +449,7 @@ const PageProposal = () => {
                         {(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblDesVotesDeValidateur'] ?
                             <StyledBox title="Validators votes" color="blue">
                                 {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
-                                    <div><br />No data returned by the LCD, sorry.<br /><br /></div>
+                                    <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
                                 :
                                     <>
                                         <br />
@@ -510,7 +510,7 @@ const PageProposal = () => {
                         {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <StyledBox title="HISTORY of validators votes" color="green">
                                 {Object.keys(proposalInfos['tblHistoriqueDesVotesValidateur']).length === 0 ?
-                                    <div><br />No data returned by the LCD, sorry.<br /><br /></div>
+                                    <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
                                 :
                                     <>
                                         <div className={styles.comments}>
@@ -560,7 +560,7 @@ const PageProposal = () => {
                         {/* {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <StyledBox title="HISTORY of other votes (delegators)" color="green">
                                 {Object.keys(proposalInfos['tblHistoriqueDesVotesNonValidateur']).length === 0 ?
-                                    <div><br />No data returned by the LCD, sorry.<br /><br /></div>
+                                    <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
                                 :
                                     <>
                                         <table className={styles.tblHistoricalNonValidatorsVotes}>
