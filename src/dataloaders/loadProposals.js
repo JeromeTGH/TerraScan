@@ -2,10 +2,10 @@ import { tblProposals } from "../application/AppData";
 import { LCDclient } from "../lcd/LCDclient";
 
 
-export const loadProposals = async () => {
+export const loadProposals = async (forceVerifyProposalID = 0) => {
    
-    // Si ces données sont déjà chargées, alors on ne les recharge pas
-    if(tblProposals && tblProposals.length > 0)
+    // Si ces données sont déjà chargées (ou un ID en particulier), alors on ne les recharge pas
+    if(tblProposals && tblProposals.length > 0 && (forceVerifyProposalID !== 0 ? tblProposals[forceVerifyProposalID] : true ))
         return {};
 
         
@@ -22,7 +22,6 @@ export const loadProposals = async () => {
     const rawProposals = await client_lcd.gov.getProposals(params).catch(handleError);
     if(rawProposals?.data?.proposals) {
         tblProposals.push(...rawProposals.data.proposals.reverse());            // Enregistrement dans tableau, avec tri du plus récent au plus ancien
-        console.log("Proposals", tblProposals);
     } else
         return { "erreur": "Failed to fetch [proposals] ..." }
 

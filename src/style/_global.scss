@@ -77,10 +77,12 @@ h2, .h2like {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    column-gap: 0.1rem;
+    column-gap: 2px;
+    row-gap: 2px;
     padding-top: 0.4rem;
     font-size: 0.9rem;
     cursor: pointer;
+    flex-wrap: wrap;    
 
     span {
         padding: 0.2rem 0.6rem;
