@@ -1,45 +1,39 @@
-import { chainID, chainLCDurl, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins, LCDClient } from '@terra-money/terra.js';
-import Decimal from 'decimal.js';
-import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
+import { tblCorrespondanceValeurs } from '../../application/AppParams';
+import { Coins } from '@terra-money/terra.js';
+import { tblGovInfos, tblProposals, tblValidators, tblValidatorsAccounts } from '../../application/AppData';
 import { LCDclient } from '../../lcd/LCDclient';
 import { formateLeNombre } from '../../application/AppUtils';
+import { loadGovInfos } from '../../dataloaders/loadGovInfos';
+import { loadProposals } from '../../dataloaders/loadProposals';
 
 export const getProposal = async (propID) => {
 
-    // Idée de la structure de retour
-    const proposalInfos = {
-        'contentTitle': null,           // Titre de la proposition
-        'contentDescription': null,     // Description de la proposition
-        'depositEndTime': null,         // Date et heure de fin, pour apporter suffisamment de dépôt (1M de LUNC, actuellement), pour qu'une proposition soit soumise au vote
-        'status': null,                 // 1=PROPOSAL_STATUS_DEPOSIT_PERIOD, 2=PROPOSAL_STATUS_VOTING_PERIOD, 3=PROPOSAL_STATUS_PASSED, 4=PROPOSAL_STATUS_REJECTED
-        'submitDatetime': null,         // Date et heure de la création de la proposition
-        'totalDeposit': null,           // Quantité de LUNC déposés (pour rappel, en ce moment, il faut 1M de LUNC pour qu'une proposition puisse passer au vote)
-        'votingStartTime': null,        // Date/heure de début de la phase de vote (si le dépôt a été suffisant, pour que le vote soit lancé)
-        'votingEndTime': null,          // Date/heure de fin de la phase de vote (si le dépôt a été suffisant, pour que le vote soit lancé)
-        'proposerAddress': null,        // Adresse "terra1..." du proposer
-        'proposerValAddress': null,     // Adresse "terravaloper1..." du validateur, si c'est lui le proposer
-        'proposerValMoniker': null,     // Surnom du validateur, si c'est lui le proposer
-        'nbStakedLunc': null,           // Nombre de LUNC stakés (montant en "uluna", ici)
-        'seuilDuQuorum': null,          // Seuil d'atteinte du quorum (nbre de participant minimum à avoir, pour qu'un vote soit valide)
-        'seuilDacceptation': null,      // Seuil de votes YES à avoir, pour qu'une proposition soit adoptée
-        'seuilDeRefus': null,           // Seuil de votes NO + NO_WITH_VETO à partir duquel une proposition est rejetée
-        'seuilDeVeto': null,            // Seuil de votes NO_WITH_VETO à partir duquel une proposition reçoit un veto (non remboursement du dépôt, dans ce cas)
-        // Etc... (inutile de vraiment lister quoi que ce soit ici, en fait)
-    }
 
-    // Connexion au LCD
-    const lcd = new LCDClient({
-        URL: chainLCDurl,
-        chainID: chainID,
-        isClassic: true
-    });
-    
-    
+    // Chargement des paramètres de gouvernance
+    const retourLoadGovInfos = await loadGovInfos();
+    if(retourLoadGovInfos['erreur'])
+        return retourLoadGovInfos['erreur'];
+
+    // Chargement de toutes les proposals
+    const retourLoadProposals = await loadProposals();
+    if(retourLoadProposals['erreur'])
+        return retourLoadProposals['erreur'];
+
+
+    // Récupération du numéro de ligne de cette proposition, dans la table tblProposals
+    const idxOfThisProp = tblProposals.findIndex(element => element.proposal_id === propID);
+    if (idxOfThisProp === -1)
+        return { "erreur": "Failed to fetch this proposal into tblProposals, sorry ..." }
+
+
+    // Support de retour d'infos
+    const proposalInfos = {}
+
+
     // Création/récupération d'une instance de requétage LCD
     const client_lcd = LCDclient.getSingleton();
 
-       
+          
 
     // Effacement mémoire, en cas d'erreur non bloquante ensuite
     let tblDesVotesDeValidateur = {};
@@ -48,51 +42,48 @@ export const getProposal = async (propID) => {
     const tblHistoriqueDesVotesNonValidateur = [];
 
 
-    // Récupération des infos concernant cette proposition
-    const rawProposal = await lcd.gov.proposal(propID).catch(handleError);
-    if(rawProposal) {
-        // console.log(rawProposal);
 
-        
-        proposalInfos['contentAmount'] = rawProposal.content.amount ? coinsListToFormatedText(rawProposal.content.amount) : null;
-        proposalInfos['contentChanges'] = rawProposal.content.changes ? rawProposal.content.changes : null;
-        proposalInfos['contentPlan'] = rawProposal.content.plan ? rawProposal.content.plan : null;
-        // console.log("proposalInfos['contentPlan']", proposalInfos['contentPlan']);
-        // console.log("proposalInfos['contentPlan']", JSON.stringify(proposalInfos['contentPlan']));
-        // console.log("proposalInfos['contentPlan']", JSON.parse(JSON.stringify(proposalInfos['contentPlan'])));
-        // console.log("proposalInfos['contentPlan']", JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan']))));
-        // console.log("proposalInfos['contentPlan']", JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'])))));
+    // Récupération des infos de cette proposition là en particulier
+    proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].content.amount) : null;
+    proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].content.changes ? tblProposals[idxOfThisProp].content.changes : null;
+    proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].content.plan ? tblProposals[idxOfThisProp].content.plan : null;
 
+    proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].content.description;
+    proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].content.recipient ? tblProposals[idxOfThisProp].content.recipient : null;
+    proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].content.title;
+    proposalInfos['depositEndTime'] = tblProposals[idxOfThisProp].deposit_end_time;
+        proposalInfos['finalVotesYes'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.yes.toString())*100;
+        proposalInfos['finalVotesAbstain'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.abstain.toString())*100;
+        proposalInfos['finalVotesNo'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no.toString())*100;
+        proposalInfos['finalVotesNoWithVeto'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no_with_veto.toString())*100;
+    proposalInfos['status'] = tblProposals[idxOfThisProp].status;
+    proposalInfos['submitDatetime'] = tblProposals[idxOfThisProp].submit_time;
+    proposalInfos['votingStartTime'] = tblProposals[idxOfThisProp].voting_start_time;
+    proposalInfos['votingEndTime'] = new Date(tblProposals[idxOfThisProp].voting_end_time).toISOString();
+    
+    let totalDeposit = 0;
+    if(tblProposals[idxOfThisProp].total_deposit.length > 0) {
+        for(const deposit of tblProposals[idxOfThisProp].total_deposit) {
+            if(deposit.denom === 'uluna')
+                totalDeposit += deposit.amount / 1000000;
+        }
+    }
 
-        proposalInfos['contentDescription'] = rawProposal.content.description;
-        proposalInfos['contentRecipient'] = rawProposal.content.recipient ? rawProposal.content.recipient : null;
-        proposalInfos['contentTitle'] = rawProposal.content.title;
-        proposalInfos['depositEndTime'] = rawProposal.deposit_end_time;
-            proposalInfos['finalVotesYes'] = parseFloat(rawProposal.final_tally_result.yes.toString())*100;
-            proposalInfos['finalVotesAbstain'] = parseFloat(rawProposal.final_tally_result.abstain.toString())*100;
-            proposalInfos['finalVotesNo'] = parseFloat(rawProposal.final_tally_result.no.toString())*100;
-            proposalInfos['finalVotesNoWithVeto'] = parseFloat(rawProposal.final_tally_result.no_with_veto.toString())*100;
-        proposalInfos['status'] = rawProposal.status;
-        proposalInfos['submitDatetime'] = rawProposal.submit_time;
-        proposalInfos['totalDeposit'] = returnLUNCfromCoinList(rawProposal.total_deposit);
-        proposalInfos['votingStartTime'] = rawProposal.voting_start_time;
-        proposalInfos['votingEndTime'] = new Date(rawProposal.voting_end_time).toISOString();
-    } else
-        return { "erreur": "Failed to fetch this proposal from blockchain (LCD), sorry ..." }
+    proposalInfos['totalDeposit'] = totalDeposit;
 
 
     // Ajout d'un "status texte", pour que ce soit plus parlant
     switch(proposalInfos['status']) {
-        case 1:     // 1 = PROPOSAL_STATUS_DEPOSIT_PERIOD
+        case "PROPOSAL_STATUS_DEPOSIT_PERIOD":
             proposalInfos['statusText'] = 'waiting for enough deposits';
             break;
-        case 2:     // 2 = PROPOSAL_STATUS_VOTING_PERIOD
+        case "PROPOSAL_STATUS_VOTING_PERIOD":
             proposalInfos['statusText'] = 'voting in progress';
             break;
-        case 3:     // 3 = PROPOSAL_STATUS_PASSED
+        case "PROPOSAL_STATUS_PASSED":
             proposalInfos['statusText'] = 'proposal ADOPTED';
             break;
-        case 4:     // 4 = PROPOSAL_STATUS_REJECTED
+        case "PROPOSAL_STATUS_REJECTED":
             proposalInfos['statusText'] = 'proposal REJECTED';
             break;
         default:    // Other cases
@@ -101,13 +92,31 @@ export const getProposal = async (propID) => {
     }
 
 
-    // Recherche de l'auteur de la proposition
-    const rawProposer = await lcd.gov.proposer(propID).catch(handleError);
-    if(rawProposer) {
-        proposalInfos['proposerAddress'] = rawProposer;
-    } else
-        proposalInfos['proposerAddress'] = "";
 
+    // Préparation de la requête
+    const paramsTxSearch = new URLSearchParams();
+    // %3D pour =               // Si tests web direct
+    // %27 pour '
+    // %2F pour /
+    paramsTxSearch.append('events', "message.action='/cosmos.gov.v1beta1.MsgSubmitProposal'");
+    paramsTxSearch.append('events', 'submit_proposal.proposal_id=' + propID);
+
+    // Recherche de l'auteur de la proposition
+    proposalInfos['proposerAddress'] = "";
+    const rawProposer = await client_lcd.tx.searchTxsByEvent(paramsTxSearch).catch(handleError);
+    if(rawProposer?.data?.txs) {
+        for(const tx of rawProposer.data.txs) {
+            if(tx.body?.messages) {
+                for(const message of tx.body.messages) {
+                    if(message.proposer) {
+                        proposalInfos['proposerAddress'] = message.proposer;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+        
 
     // Scan de toute la liste des validateurs, pour voir si cette adresse ne correspondrait pas à l'un d'entre eux
     const isValidatorAccount = Object.entries(tblValidators).find(lg => lg[1].terra1_account_address === proposalInfos['proposerAddress']);
@@ -117,57 +126,45 @@ export const getProposal = async (propID) => {
     }
 
 
-    // Si un vote est en attente d'un dépôt suffisant (status = 1), alors on récupère d'autres infos particulières
-    if(proposalInfos['status'] === 1) {
-
-        // Récupération des infos concernant les dépôts (qté de LUNC nécessaire pour lancer le vote)
-        const rawDepositParameters = await lcd.gov.depositParameters().catch(handleError);
-        if(rawDepositParameters) {
-            proposalInfos['nbMinDepositLunc'] = returnLUNCfromCoinList(rawDepositParameters.min_deposit);
-        } else
-            return { "erreur": "Failed to fetch [deposit parameters] ..." }
-
-        const ratioDepot = parseFloat((proposalInfos['totalDeposit'] / proposalInfos['nbMinDepositLunc']).toFixed(4));  // 4 pour pourcentage avec 2 chiffres après la virgule
+    // Si un vote est en attente d'un dépôt suffisant (status = "PROPOSAL_STATUS_DEPOSIT_PERIOD"), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === "PROPOSAL_STATUS_DEPOSIT_PERIOD") {
+        const ratioDepot = parseFloat((proposalInfos['totalDeposit'] / tblGovInfos['nbLuncRequisPourValiderDeposit']).toFixed(4));  // 4 pour pourcentage avec 2 chiffres après la virgule
         if(ratioDepot >= 1)
             proposalInfos['pourcentageDeLuncFournisSurRequis'] = 100;
         else
             proposalInfos['pourcentageDeLuncFournisSurRequis'] = (ratioDepot * 100);
+
+        proposalInfos['nbMinDepositLunc'] = tblGovInfos['nbLuncRequisPourValiderDeposit'];
     }
 
 
-    // Si un vote est en cours (status = 2), alors on récupère d'autres infos particulières
-    if(proposalInfos['status'] === 2) {
+    // Si un vote est en cours (status = "PROPOSAL_STATUS_VOTING_PERIOD"), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD") {
 
-        // Récupération du nombre total de LUNC stakés, en ce moment
-        const rawStakingPool = await lcd.staking.pool().catch(handleError);
-        if(rawStakingPool) {
-            proposalInfos['nbStakedLunc'] = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
-        } else
+        // Récupération du nombre de LUNC stakés
+        const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
+        if(rawStakingPool?.data?.pool?.bonded_tokens)
+            proposalInfos['nbStakedLunc'] = parseInt(rawStakingPool.data.pool.bonded_tokens);
+        else
             return { "erreur": "Failed to fetch [staking pool] ..." }
 
 
         // Récupération des règles de vote
-        const rawTallyParameters = await lcd.gov.tallyParameters().catch(handleError);
-        if(rawTallyParameters) {
-            const valQuorum = parseFloat(rawTallyParameters.quorum.toString())*100;                     // * 100 pour avoir ça en pourcentage
-            const valThreshold = parseFloat(rawTallyParameters.threshold.toString())*100;
-            const valVetoThreshold = parseFloat(rawTallyParameters.veto_threshold.toString())*100;
-            proposalInfos['seuilDuQuorum'] = valQuorum;
-            proposalInfos['seuilDacceptation'] = valThreshold;
-            proposalInfos['seuilDeRefus'] = 100 - valThreshold;
-            proposalInfos['seuilDeVeto'] = valVetoThreshold;
-        } else
-            return { "erreur": "Failed to fetch [tally parameters] ..." }
+        proposalInfos['seuilDuQuorum'] = tblGovInfos['pourcentageQuorum'];
+        proposalInfos['seuilDacceptation'] = tblGovInfos['pourcentageAcceptation'];
+        proposalInfos['seuilDeRefus'] = tblGovInfos['pourcentageRefus'];
+        proposalInfos['seuilDeVeto'] = tblGovInfos['pourcentageVeto'];
+
 
 
         // Récupération des tally de ce vote en cours
-        const rawTally = await lcd.gov.tally(propID).catch(handleError)
-        if(rawTally) {
+        const rawTally = await client_lcd.gov.getTally(propID).catch(handleError);
+        if(rawTally?.data?.tally) {
 
-            proposalInfos['nbVotesYesLunc'] = parseInt(rawTally.yes.toString());
-            proposalInfos['nbVotesAbstainLunc'] = parseInt(rawTally.abstain.toString());
-            proposalInfos['nbVotesNoLunc'] = parseInt(rawTally.no.toString());
-            proposalInfos['nbVotesNowithvetoLunc'] = parseInt(rawTally.no_with_veto.toString());
+            proposalInfos['nbVotesYesLunc'] = parseInt(rawTally.data.tally.yes);
+            proposalInfos['nbVotesAbstainLunc'] = parseInt(rawTally.data.tally.abstain);
+            proposalInfos['nbVotesNoLunc'] = parseInt(rawTally.data.tally.no);
+            proposalInfos['nbVotesNowithvetoLunc'] = parseInt(rawTally.data.tally.no_with_veto);
                 proposalInfos['nbVotersLunc'] = proposalInfos['nbVotesYesLunc'] + proposalInfos['nbVotesAbstainLunc'] + proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
 
             proposalInfos['sommesDesVotesNON'] = proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
@@ -209,8 +206,8 @@ export const getProposal = async (propID) => {
 
     }
 
-    // Si un vote est en finis (status = 3 si adopté, ou 4 si rejeté), alors on récupère d'autres infos particulières
-    if(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
+    // Si un vote est en finis (status = "PROPOSAL_STATUS_PASSED", ou "PROPOSAL_STATUS_REJECTED"), alors on récupère d'autres infos particulières
+    if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") {
 
         // Calculs
             proposalInfos['nbVotesYesLunc'] = proposalInfos['finalVotesYes'];
@@ -243,7 +240,7 @@ export const getProposal = async (propID) => {
     //              array of { txHash, datetime, valoperaddress, valmoniker, vote }
     
     
-    if(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
+    if(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" || proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") {
 
         // Montage des paramètres nécessaires ici
         const params = new URLSearchParams();
@@ -260,10 +257,10 @@ export const getProposal = async (propID) => {
                 // ===================================================
                 // Création d'un tableau de vote, pour les validateurs
                 // ===================================================
-                // Nota 1 : mettre tous les validateurs, si status = 3 (prop adoptée) ou status = 4 (prop rejetée)
-                // Nota 2 : mettre uniquement les validateurs actifs, si status = 2 (prop en cours de vote)
+                // Nota 1 : mettre tous les validateurs, si status = "PROPOSAL_STATUS_PASSED" ou status = "PROPOSAL_STATUS_REJECTED"
+                // Nota 2 : mettre uniquement les validateurs actifs, si status = "PROPOSAL_STATUS_VOTING_PERIOD" (prop en cours de vote)
                 
-                if(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) {
+                if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") {
                     tblDesVotesDeValidateur = {...tblValidators};
                             // On effacera ensuite ceux qui n'ont pas voté, du fait qu'on ne saurait distinguer s'ils étaient là à l'époquer, pour voter ou non
 
@@ -271,7 +268,7 @@ export const getProposal = async (propID) => {
                         tblDesVotesDeValidateur[valoperAdr].vote = '***';
                     }
                 }
-                if(proposalInfos['status'] === 2) {
+                if(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD") {
                     for (const [valoperAdr, validator] of Object.entries(tblValidators)) {
                         if(validator.status === "active") {
                             tblDesVotesDeValidateur[valoperAdr] = validator;
@@ -535,20 +532,6 @@ const handleError = (err) => {
         console.warn("err", err);
 }
 
-
-// ======================================================================
-// Retourne le nombre de 'uluna' d'une liste de coins, passée en argument
-// ======================================================================
-const returnLUNCfromCoinList = (coinsList) => {
-    const dataCoinsList = (new Coins(coinsList)).toData();
-
-    const idxLunc = dataCoinsList.findIndex(element => element.denom === "uluna");
-
-    if(idxLunc > -1) {
-        return parseInt(dataCoinsList[idxLunc].amount/1000000);
-    } else
-        return 0;
-}
 
 // ======================================================================
 // Créé un STRING avec montant+devise, séparé de virgules si multidevises

@@ -54,11 +54,15 @@ const PageProposal = () => {
             else {
                 setMsgErreur('');                                       // Effacement des éventuels message d'erreur
                 setValidatorVotesPagination(0);                         // Fixation de la pagination à l'origine (page 1, par défaut, bien évidemment)
-                if(res['status'] === 3 || res['status'] === 4)          // Fixation du filtre par défaut, suivant le type de status de proposition
-                    setFiltre("VOTE_OPTION_YES");
-                if(res['status'] === 2)
+
+                // Fixation du filtre par défaut, suivant le type de status de proposition
+                if(res['status'] === "PROPOSAL_STATUS_PASSED" || res['status'] === "PROPOSAL_STATUS_REJECTED")
+                    setFiltre("VOTE_OPTION_YES");          
+                if(res['status'] === "PROPOSAL_STATUS_VOTING_PERIOD")
                     setFiltre("DID_NOT_VOTE");
-                setProposalInfos(res);                                  // Et transmission des données, pour mise à jour ici
+                
+                // Et transmission des données, pour mise à jour ici
+                setProposalInfos(res);
 
                 // Chargement de données complémentaires
                 // getDelegatorsParticipation().then((res) => {
@@ -99,10 +103,10 @@ const PageProposal = () => {
                             </div>
                         </div>
                         <br />
-                        <div>Status : {proposalInfos['status'] === 3 ?
+                        <div>Status : {proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" ?
                             <span className='succes'><strong>{proposalInfos['statusText']}</strong></span>
                             :
-                            proposalInfos['status'] === 4 ?
+                            proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED" ?
                                 <span className='erreur'><strong>{proposalInfos['statusText']}</strong></span>
                                 :
                                 <span className='colore'><strong>{proposalInfos['statusText']}</strong></span>
@@ -136,7 +140,7 @@ const PageProposal = () => {
                         : null}
 
 
-                        {proposalInfos['status'] === 1 ?
+                        {proposalInfos['status'] === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ?
                             <StyledBox title="Votes (pending for enough deposits)" color="orange">
                                 <table className={styles.tblInfos}>
                                     <tbody>
@@ -172,7 +176,7 @@ const PageProposal = () => {
                                 </table>
                             </StyledBox>
                         : null}
-                        {proposalInfos['status'] === 2 ?
+                        {proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" ?
                             <StyledBox title="Votes (in progress)" color="orange">
                                 <div className={styles.infos}>
                                     <div><strong>Proposal ID</strong> : #{propID}</div>
@@ -262,7 +266,7 @@ const PageProposal = () => {
                                 <div className={styles.note}>Note : this vote will approximatively <strong>end in {expanded_datetime_ago(proposalInfos['votingEndTime'], true)}</strong> ({metEnFormeDateTime(proposalInfos['votingEndTime'])})</div>
                             </StyledBox>
                         : null}
-                        {(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) ?
+                        {(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") ?
                             <StyledBox title="Votes (voting complete)" color="orange">
                                 <table className={styles.tblInfos}>
                                     <tbody>
@@ -328,7 +332,7 @@ const PageProposal = () => {
                             </StyledBox>
                         : null}
 
-                        {proposalInfos['status'] === 2 && proposalInfos['tblDesVotesDeValidateur'] ?
+                        {proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" && proposalInfos['tblDesVotesDeValidateur'] ?
                             <StyledBox title="Validators votes" color="blue">
                                 {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
                                     <div>No data returned by the blockchain (lcd), sorry.</div>
@@ -391,7 +395,7 @@ const PageProposal = () => {
                                         : null }
                                     </>
                                 }
-                                {/* {(proposalInfos['status'] === 2) && proposalInfos['tblHistoriqueDesVotesValidateur'] && (proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) > 0 ?
+                                {/* {(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD") && proposalInfos['tblHistoriqueDesVotesValidateur'] && (proposalInfos['validator_VOTE_OPTION_YES'] + proposalInfos['validator_VOTE_OPTION_ABSTAIN'] + proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) > 0 ?
                                     <>
                                         <br />
                                         <div className={styles.comments}>
@@ -446,7 +450,7 @@ const PageProposal = () => {
                                 : null} */}
                             </StyledBox>
                         : null}
-                        {(proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblDesVotesDeValidateur'] ?
+                        {(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblDesVotesDeValidateur'] ?
                             <StyledBox title="Validators votes" color="blue">
                                 {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
                                     <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
@@ -507,7 +511,7 @@ const PageProposal = () => {
                                 }
                             </StyledBox>
                         : null}
-                        {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                        {(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" || proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <StyledBox title="HISTORY of validators votes" color="green">
                                 {Object.keys(proposalInfos['tblHistoriqueDesVotesValidateur']).length === 0 ?
                                     <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
@@ -557,7 +561,7 @@ const PageProposal = () => {
                                 }
                             </StyledBox>
                         : null}
-                        {/* {(proposalInfos['status'] === 2 || proposalInfos['status'] === 3 || proposalInfos['status'] === 4) && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                        {/* {(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" || proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <StyledBox title="HISTORY of other votes (delegators)" color="green">
                                 {Object.keys(proposalInfos['tblHistoriqueDesVotesNonValidateur']).length === 0 ?
                                     <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
