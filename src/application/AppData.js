@@ -72,8 +72,8 @@ export const tblLatestBlockAtAppLoading = {};
 // *******************************************************************************
 // Structure :
 //      tblGovInfos = {
-//          nbJoursMaxPourDeposit,              // Nombre de jours max pour atteindre le depôt requis, afin qu'une proposition puisse passer au vote
 //          nbLuncRequisPourValiderDeposit,     // Nombre minimum de LUNC à déposer, pour qu'une proposition puisse passer au vote
+//          nbJoursMaxPourDeposit,              // Nombre de jours max pour atteindre le depôt requis, afin qu'une proposition puisse passer au vote
 //          nbJoursMaxPourVoter,                // Nombre de jours max pour voter une proposition
 //          pourcentageQuorum,                  // Quorum (nombre de votant minimum, pour qu'une décision de vote soit jugée valide)
 //          pourcentageAcceptation,             // Pourcentage d'acceptation (threshold), pour une proposition donnée ; à comparer à : YES_votes / (YES_votes + NO_votes + VETO_votes)
