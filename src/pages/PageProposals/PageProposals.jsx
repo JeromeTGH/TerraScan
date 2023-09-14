@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposals.module.scss';
-// import BlockGovernanceInfos from './BlockGovernanceInfos';
-import BlockProposals from './BlockProposals';
-import { getGovernanceInfos } from './getGovernanceInfos';
+import ShowProposals from './_ShowProposals';
 import { getProposals } from './getProposals';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
@@ -11,11 +9,8 @@ import StyledBox from '../../sharedComponents/StyledBox';
 const PageProposals = () => {
 
     // Variables React
-    const [tableGovernanceInfos, setTableGovernanceInfos] = useState();
-    const [msgErreurGovernanceInfos, setMsgErreurGovernanceInfos] = useState();
-
-    const [tableProposals, setTableProposals] = useState();
-    const [msgErreurProposals, setMsgErreurProposals] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [msgErreur, setMsgErreur] = useState();
 
 
     // Chargement au démarrage
@@ -24,25 +19,14 @@ const PageProposals = () => {
         document.title = 'Proposals - ' + appName;
 
         // Récupération de toutes les propositions
-        getGovernanceInfos().then((res) => {
+        setIsLoading(true);
+        getProposals().then((res) => {
             if(res['erreur']) {
-                setMsgErreurGovernanceInfos(res['erreur']);
-                setTableGovernanceInfos({});
+                setMsgErreur(res['erreur']);
             }
             else {
-                setMsgErreurGovernanceInfos('');
-                setTableGovernanceInfos(res);
-
-                getProposals(res).then((res2) => {
-                    if(res2['erreur']) {
-                        setMsgErreurProposals(res2['erreur']);
-                        setTableProposals({});
-                    }
-                    else {
-                        setMsgErreurProposals('');
-                        setTableProposals(res2);
-                    }
-                })
+                setMsgErreur('');
+                setIsLoading(false);
             }
         })
     }, [])
@@ -53,26 +37,13 @@ const PageProposals = () => {
         <>
             <h1><span><VoteIcon /><strong>Proposals</strong></span></h1>
             <div className={styles.blocksProposalPage}>
-                {msgErreurGovernanceInfos ?
-                    <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreurGovernanceInfos}</div></StyledBox>
+                {msgErreur ?
+                    <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreur}</div></StyledBox>
                 :
-                    null
-                    // tableGovernanceInfos && tableGovernanceInfos['nbJoursMaxDeposit'] ?
-                    //     <BlockGovernanceInfos tblGovernanceInfos={tableGovernanceInfos} />
-                    //     :
-                    //     <StyledBox title="Loading" color="blue">
-                    //         <div>Loading data from blockchain (lcd), please wait ...</div>
-                    //     </StyledBox>
-                }
-                {msgErreurProposals ?
-                    <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreurProposals}</div></StyledBox>
-                :
-                    tableProposals && (tableProposals.length > 0) ?
-                        <BlockProposals tblProposals={tableProposals} tblGovernanceInfos={tableGovernanceInfos} />
+                    isLoading ?
+                        <StyledBox title="Loading" color="blue"><br /><div className='erreur'>Loading data from blockchain (lcd), please wait ...</div><br /></StyledBox>
                     :
-                        <StyledBox title="Loading" color="blue">
-                            <div>Loading data from blockchain (lcd), please wait ...</div>
-                        </StyledBox>
+                        <ShowProposals />
                 }
             </div>
         </>

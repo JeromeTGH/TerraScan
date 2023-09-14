@@ -116,8 +116,8 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     const rawTreasuryParameters = await client_lcd.treasury.getTreasuryParameters().catch(handleError);
     if(rawTreasuryParameters?.data?.params) {
         tblAretourner['TobinTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
-        tblAretourner['TobinTaxSplitToBeBurn'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
-        tblAretourner['TobinTaxSplitToDistributionModule'] = 100 - tblAretourner['TobinTaxSplitToBeBurn'];
+        tblAretourner['TobinTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
+        tblAretourner['TobinTaxSplitToBeBurn'] = 100 - tblAretourner['TobinTaxSplitToDistributionModule'];
     }
     else
         return { "erreur": "Failed to fetch [treasury parameters] ..." }

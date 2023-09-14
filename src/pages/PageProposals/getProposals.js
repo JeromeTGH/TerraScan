@@ -1,54 +1,52 @@
-import { chainID, chainLCDurl } from '../../application/AppParams';
-import { LCDClient } from '@terra-money/terra.js';
-import Decimal from 'decimal.js';
+import { tblGovInfos, tblProposals } from '../../application/AppData';
+import { loadGovInfos } from '../../dataloaders/loadGovInfos';
+import { loadProposals } from '../../dataloaders/loadProposals';
+import { LCDclient } from '../../lcd/LCDclient';
 
 
-export const getProposals = async (governanceInfos) => {
+export const getProposals = async () => {
 
-    // Variables
-    const tblProposals = [];
+    // Chargement des paramètres de gouvernance
+    const retourLoadGovInfos = await loadGovInfos();
+    if(retourLoadGovInfos['erreur'])
+        return retourLoadGovInfos['erreur'];
+
+    // Chargement de toutes les proposals
+    const retourLoadProposals = await loadProposals();
+    if(retourLoadProposals['erreur'])
+        return retourLoadProposals['erreur'];
+
+
+
+    // Création/récupération d'une instance de requétage LCD
+    const client_lcd = LCDclient.getSingleton();
+
+    // Récupération du nombre de LUNC stakés
     let nbLuncStaked = 0;
-
-    // Connexion au LCD
-    const lcd = new LCDClient({
-        URL: chainLCDurl,
-        chainID: chainID,
-        isClassic: true
-    });
-
-
-    // Récupération de toutes les propositions
-    const rawDeposals = await lcd.gov.proposals({'pagination.limit': '9999'}).catch(handleError);
-    if(rawDeposals)
-        tblProposals.push(...rawDeposals[0].reverse());             // Enregistrement dans tableau, avec tri du plus récent au plus ancien
+    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
+    if(rawStakingPool?.data?.pool?.bonded_tokens)
+        nbLuncStaked = parseInt(rawStakingPool.data.pool.bonded_tokens);
     else
-        return { "erreur": "Failed to fetch [proposals] ..." }
-    
-
-    // Récupération du montant total de LUNC stakés (pour avoir des ratios de vote)
-    const rawStakingPool = await lcd.staking.pool().catch(handleError);
-    if(rawStakingPool) {
-        const bondedTokens = (new Decimal(rawStakingPool.bonded_tokens.amount)).toFixed(0);
-        // nbLuncStaked = parseInt(bondedTokens/1000000);       // On garde les uluna ici, pour plus de précision
-        nbLuncStaked = bondedTokens;
-    } else
         return { "erreur": "Failed to fetch [staking pool] ..." }
 
 
     // Ajout de champs "tally", pour les votes en cours
     for(let i=0 ; i<tblProposals.length ; i++) {
-        if(tblProposals[i].status === 1) {
+        if(tblProposals[i].status === "PROPOSAL_STATUS_DEPOSIT_PERIOD") {
 
             // console.log(tblProposals[i]);
-            
-            if(tblProposals[i].total_deposit.toString() !== "") {
-                tblProposals[i]['totalDeposit'] = parseInt(tblProposals[i].total_deposit.toString().replace('uluna', ''))/1000000;
-                tblProposals[i]['pourcentageDeposit'] = tblProposals[i]['totalDeposit'] / governanceInfos['nbMinDepositLunc'] * 100;
-            } else {
-                tblProposals[i]['totalDeposit'] = 0;
-                tblProposals[i]['pourcentageDeposit'] = 0;
+
+            let totalDeposit = 0;
+            if(tblProposals[i].total_deposit.length > 0) {
+                for(const deposit of tblProposals[i].total_deposit) {
+                    if(deposit.denom === 'uluna')
+                        totalDeposit += deposit.amount / 1000000;
+                }
             }
-            tblProposals[i]['nbMinDepositLunc'] = governanceInfos['nbMinDepositLunc'];
+
+            tblProposals[i]['totalDeposit'] = totalDeposit;
+            tblProposals[i]['pourcentageDeposit'] = totalDeposit / tblGovInfos['nbLuncRequisPourValiderDeposit'] * 100;
+            tblProposals[i]['nbMinDepositLunc'] = tblGovInfos['nbLuncRequisPourValiderDeposit'];
 
             // Calcul du pourcentage d'avancement, dans la période de deposit
             let startDatetime = new Date(tblProposals[i]['submit_time']);
@@ -57,7 +55,7 @@ export const getProposals = async (governanceInfos) => {
             tblProposals[i]['pourcentageOfDepositPeriod'] = (actualDatetime.getTime()/1000 - startDatetime.getTime()/1000) / (endDatetime.getTime()/1000 - startDatetime.getTime()/1000) * 100;
             
         }
-        if(tblProposals[i].status === 3 || tblProposals[i].status === 4) {              // 3 = proposition adopté et 4 = proposition rejetée
+        if(tblProposals[i].status === "PROPOSAL_STATUS_PASSED" || tblProposals[i].status === "PROPOSAL_STATUS_REJECTED") {
             // console.log(tblProposals[i].final_tally_result);
             const qteLuncAbstain = parseInt(tblProposals[i].final_tally_result.abstain)/1000000;
             const qteLuncNo = parseInt(tblProposals[i].final_tally_result.no)/1000000;
@@ -69,18 +67,18 @@ export const getProposals = async (governanceInfos) => {
             tblProposals[i]['pourcentageOfNo'] = (qteLuncNo/qteLuncTotal*100).toFixed(2);
             tblProposals[i]['pourcentageOfNoWithVeto'] = (qteLuncNoWithVeto/qteLuncTotal*100).toFixed(2);
         }
-        if(tblProposals[i].status === 2) {              // 2 = vote en cours
-            const rawTally = await lcd.gov.tally(tblProposals[i].id).catch(handleError);
-            if(rawTally) {
-                const pourcentageOfYes = rawTally.yes / nbLuncStaked * 100;
-                const pourcentageOfAbstain = rawTally.abstain / nbLuncStaked * 100;
-                const pourcentageOfNo = rawTally.no / nbLuncStaked * 100;
-                const pourcentageOfNoWithVeto = rawTally.no_with_veto / nbLuncStaked * 100;
+        if(tblProposals[i].status === "PROPOSAL_STATUS_VOTING_PERIOD") {
+            const rawTally = await client_lcd.gov.getTally(tblProposals[i].proposal_id).catch(handleError);
+            if(rawTally?.data?.tally) {
+                const pourcentageOfYes = rawTally.data.tally.yes / nbLuncStaked * 100;
+                const pourcentageOfAbstain = rawTally.data.tally.abstain / nbLuncStaked * 100;
+                const pourcentageOfNo = rawTally.data.tally.no / nbLuncStaked * 100;
+                const pourcentageOfNoWithVeto = rawTally.data.tally.no_with_veto / nbLuncStaked * 100;
                 const pourcentageOfVoters = pourcentageOfYes + pourcentageOfAbstain + pourcentageOfNo + pourcentageOfNoWithVeto;
 
-                const seuilQuorum = governanceInfos['quorum'];
-                const seuilVeto = governanceInfos['seuilDeVeto'];
-                const seuilAcceptation = governanceInfos['seuilDacceptation'];
+                const seuilQuorum = tblGovInfos['pourcentageQuorum'];
+                const seuilVeto = tblGovInfos['pourcentageVeto'];
+                const seuilAcceptation = tblGovInfos['pourcentageAcceptation'];
 
                 
                 // Infos supplémentaires

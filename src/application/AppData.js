@@ -84,8 +84,12 @@ export const tblLatestBlockAtAppLoading = {};
 export const tblGovInfos = {};
 
 
+// *******************************************************************************
+// Liste contenant toutes les proposals (évite d'avoir à recharger plusieurs fois)
+// *******************************************************************************
+// Structure :
+//      tblProposals = {
+//      }
+export const tblProposals = [];
 
 
-
-// const governanceInfos = {
-// }

@@ -1,22 +1,25 @@
 import React from 'react';
-import styles from './ProposalCard.module.scss';
+import styles from './_Card.module.scss';
 import { expanded_datetime_ago, metEnFormeDateTime } from '../../application/AppUtils';
 import { MessageIcon } from '../../application/AppIcons';
 
-const ProposalCard = (props) => {
+const Card = (props) => {
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
-                <div className={styles.cardProposalID}><MessageIcon />&nbsp;&nbsp;Proposal&nbsp;|&nbsp;{props.card.id}</div>
-                {props.card.status === 1 ? <div className={styles.cardProposalStatusOrange}>Waiting&nbsp;deposit</div> : null}
-                {props.card.status === 2 ? <div className={styles.cardProposalStatusBlue}>Voting&nbsp;in&nbsp;progress</div> : null}
-                {props.card.status === 3 ? <div className={styles.cardProposalStatusGreen}>Adopted</div> : null}
-                {props.card.status === 4 ? <div className={styles.cardProposalStatusRed}>Rejected</div> : null}
-                {props.card.status === -1 || props.card.status === 0 || props.card.status === 5 ? <div className={styles.cardProposalStatusGray}>Unknown&nbsp;status</div> : null}
+                <div className={styles.cardProposalID}><MessageIcon />&nbsp;&nbsp;Proposal&nbsp;|&nbsp;{props.card.proposal_id}</div>
+                {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? <div className={styles.cardProposalStatusOrange}>Waiting&nbsp;deposit</div> : null}
+                {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? <div className={styles.cardProposalStatusBlue}>Voting&nbsp;in&nbsp;progress</div> : null}
+                {props.card.status === "PROPOSAL_STATUS_PASSED" ? <div className={styles.cardProposalStatusGreen}>Adopted</div> : null}
+                {props.card.status === "PROPOSAL_STATUS_REJECTED" ? <div className={styles.cardProposalStatusRed}>Rejected</div> : null}
+                {props.card.status !== "PROPOSAL_STATUS_DEPOSIT_PERIOD" &&
+                 props.card.status !== "PROPOSAL_STATUS_VOTING_PERIOD" &&
+                 props.card.status !== "PROPOSAL_STATUS_PASSED" &&
+                 props.card.status !== "PROPOSAL_STATUS_REJECTED" ? <div className={styles.cardProposalStatusGray}>Unknown&nbsp;status</div> : null}
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.cardProposalTitle}>{props.card.content.title}</div>
-                {props.card.status === 1 ? 
+                {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? 
                 <>
                     <table className={styles.cardProposalTable}>
                         <tbody>
@@ -59,7 +62,7 @@ const ProposalCard = (props) => {
                     </table>
                 </>
                 : null}
-                {props.card.status === 2 ? 
+                {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? 
                 <>
                     <table className={styles.cardProposalTable}>
                         <tbody>
@@ -120,7 +123,7 @@ const ProposalCard = (props) => {
                     <div className={"colore " + styles.cardVoteText}>Status : <strong>{props.card.statutVote}</strong></div>
                 </>
                 : null}
-                {(props.card.status === 3 || props.card.status === 4) ? 
+                {(props.card.status === "PROPOSAL_STATUS_PASSED" || props.card.status === "PROPOSAL_STATUS_REJECTED") ? 
                 <>
                     <table className={styles.cardProposalTable}>
                         <tbody>
@@ -151,7 +154,7 @@ const ProposalCard = (props) => {
                 </>
                 : null}
             </div>
-            {props.card.status === 2 ? 
+            {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? 
                 <div className={styles.cardFooter}>
                     <span>End in about <strong>{expanded_datetime_ago(new Date(props.card.voting_end_time).toISOString(), true)} </strong></span>
                     <span>({metEnFormeDateTime(props.card.voting_end_time)})</span>
@@ -161,4 +164,4 @@ const ProposalCard = (props) => {
     );
 };
 
-export default ProposalCard;
+export default Card;

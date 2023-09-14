@@ -1,21 +1,25 @@
 import { tblGovInfos } from "../application/AppData";
+import { LCDclient } from "../lcd/LCDclient";
 
 
 export const loadGovInfos = async () => {
    
     // Si ces données sont déjà chargées, alors on ne les recharge pas
     if(tblGovInfos && tblGovInfos['pourcentageVeto'])
-        return;
+        return {};
 
         
     // Classe de requétage LCD
     const client_lcd = LCDclient.getSingleton();
-
+    console.log("Chargement des paramètres de gouvernance...");
 
     // Récupération des infos concernant les dépôts (qté de LUNC nécessaires pour lancer le vote, et durée max de deposit)
     const rawDepositParameters = await client_lcd.gov.getDepositParameters().catch(handleError);
     if(rawDepositParameters?.data?.deposit_params) {
-        tblGovInfos['nbLuncRequisPourValiderDeposit'] = parseInt(rawDepositParameters.data.deposit_params.min_deposit.amount) / 1000000;
+        for(const deposit of rawDepositParameters.data.deposit_params.min_deposit) {
+            if(deposit.denom === 'uluna')
+                tblGovInfos['nbLuncRequisPourValiderDeposit'] = parseInt(deposit.amount) / 1000000;
+        }
         tblGovInfos['nbJoursMaxPourDeposit'] = parseInt(rawDepositParameters.data.deposit_params.max_deposit_period.replace('s', '')) / 3600 / 24;
     } else
         return { "erreur": "Failed to fetch [deposit parameters] ..." }
@@ -38,7 +42,9 @@ export const loadGovInfos = async () => {
         tblGovInfos['pourcentageVeto'] = parseFloat(rawTallyParameters.data.tally_params.veto_threshold) * 100;
     } else
         return { "erreur": "Failed to fetch [tally parameters] ..." }
-    
+ 
+    return {}
+
 }
 
 
