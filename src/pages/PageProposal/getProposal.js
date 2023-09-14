@@ -1,10 +1,10 @@
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
-import { Coins } from '@terra-money/terra.js';
 import { tblGovInfos, tblProposals, tblValidators, tblValidatorsAccounts } from '../../application/AppData';
 import { LCDclient } from '../../lcd/LCDclient';
-import { formateLeNombre } from '../../application/AppUtils';
 import { loadGovInfos } from '../../dataloaders/loadGovInfos';
 import { loadProposals } from '../../dataloaders/loadProposals';
+import { CoinsList } from '../../fcd/classes/CoinsList';
+import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 
 export const getProposal = async (propID) => {
 
@@ -245,12 +245,13 @@ export const getProposal = async (propID) => {
         // Montage des paramètres nécessaires ici
         const params = new URLSearchParams();
         params.append("pagination.offset", 0);
+        params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");
         params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
         // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
         const rawTxs = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
-        if(rawTxs?.data?.pagination?.total) {
-            const nbTotalDeTxs = parseInt(rawTxs.data.pagination.total);
+        if(rawTxs?.data?.total || rawTxs?.data?.pagination?.total) {
+            const nbTotalDeTxs = rawTxs.data.total ? parseInt(rawTxs.data.total) : parseInt(rawTxs.data.pagination.total);
 
             if(nbTotalDeTxs > 0) {
                 
@@ -356,6 +357,7 @@ export const getProposal = async (propID) => {
                     // Montage des paramètres nécessaires ici
                     const params = new URLSearchParams();
                     params.append("pagination.offset", n*100);
+                    params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");
                     params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
                     // Exécution de la requête de recherche des 100 txs suivants
@@ -437,6 +439,7 @@ export const getProposal = async (propID) => {
             }
 
         } else {
+            console.log("rawTxs.data", rawTxs.data);
             console.warn("[ERROR] Failed to fetch [first txs] for votes ...");
             //return { "erreur": "Failed to fetch [first txs] for votes ..." }
         }
@@ -537,16 +540,20 @@ const handleError = (err) => {
 // Créé un STRING avec montant+devise, séparé de virgules si multidevises
 // ======================================================================
 const coinsListToFormatedText = (coinsList) => {
-    const dataCoinsList = (new Coins(coinsList)).toData();
+    if(coinsList===undefined)
+        return "---";
+
+    //const dataCoinsList = (new Coins(coinsList)).toData();
+    const dataCoinsList = new CoinsList(coinsList);
     let retour = "";
     
-    if(dataCoinsList.length > 0) {
-        for(let i=0 ; i < dataCoinsList.length ; i++) {
-            const msgAmount = formateLeNombre(dataCoinsList[i].amount/1000000, ' ');
-            const msgCoin = tblCorrespondanceValeurs[dataCoinsList[i].denom] ? tblCorrespondanceValeurs[dataCoinsList[i].denom] : dataCoinsList[i].denom;
+    if(dataCoinsList.tbl.length > 0) {
+        for(let i=0 ; i < dataCoinsList.tbl.length ; i++) {
+            const msgAmount = (dataCoinsList.tbl[i].amount/1000000).toFixed(6);
+            const msgCoin = tblCorrespondanceValeurs[dataCoinsList.tbl[i].denom] ? tblCorrespondanceValeurs[dataCoinsList.tbl[i].denom] : dataCoinsList.tbl[i].denom;
             if(retour !== "")
                 retour += ", ";
-            retour += (msgAmount + "\u00a0" + msgCoin);
+            retour += (metEnFormeAmountPartieEntiere(msgAmount) + retournePartieDecimaleFixed6(msgAmount) + "\u00a0" + msgCoin);
         }
     } else {
         retour = "---";

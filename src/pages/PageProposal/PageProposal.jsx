@@ -122,8 +122,10 @@ const PageProposal = () => {
 
                         {(proposalInfos['contentAmount'] && proposalInfos['contentRecipient']) ?
                             <StyledBox title="Send" color="purple">
-                                <p><strong>Amount</strong> : {proposalInfos['contentAmount']}</p>
-                                <p className={styles.addContent}><strong>To</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
+                                <div className={styles.addContent}>
+                                    <p><strong>Amount</strong> : {proposalInfos['contentAmount']}</p>
+                                    <p><strong>To</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
+                                </div>
                             </StyledBox>
                         : null}
                         {proposalInfos['contentChanges'] ?

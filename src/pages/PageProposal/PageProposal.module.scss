@@ -14,9 +14,8 @@
     }
 
     .addContent {
-        font-size: 0.9rem;
-        
         overflow-x: auto;
+        
         @media (max-width: $primary-breakpoint) {
             max-width: calc(100vw - 2.6rem);
         }

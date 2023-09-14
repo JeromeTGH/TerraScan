@@ -138,7 +138,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['VoteChoice'] = message.value.option;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await client_lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
                 } else {
@@ -248,7 +248,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['Depositor'] = message.value.depositor;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await client_lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
                 } else {
@@ -384,7 +384,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['VoteChoices'] = message.value.options;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = await client_lcd.gov.getProposalInfos(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await client_lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
                 } else {
