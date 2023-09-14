@@ -34,7 +34,10 @@ export class LCDclient {
                     getPendingRewards: '/cosmos/distribution/v1beta1/delegators/***/rewards'
                 },
                 gov: {
-                    getProposalInfos: '/cosmos/gov/v1beta1/proposals/***'
+                    getDepositParameters: '/cosmos/gov/v1beta1/params/deposit',
+                    getProposalInfos: '/cosmos/gov/v1beta1/proposals/***',
+                    getTallyParameters: '/cosmos/gov/v1beta1/params/tallying',
+                    getVotingParameters: '/cosmos/gov/v1beta1/params/voting'
                 },
                 mint: {
                     getMintParameters: '/cosmos/mint/v1beta1/params'

@@ -4,10 +4,8 @@ import styles from './ObjectViewer.module.scss';
 const ObjectViewer = ({objetAvisualiser, recursif = false, className}) => {
 
 
-
-
     return (
-        <div className={recursif ? className : className + ' ' + styles.miseEnForme}>
+        <pre className={recursif ? className : className + ' ' + styles.miseEnForme}>
             {Array.isArray(objetAvisualiser) ?
                 <>
                     <div>[</div>
@@ -36,7 +34,7 @@ const ObjectViewer = ({objetAvisualiser, recursif = false, className}) => {
                 </>
             : null}
             
-        </div>
+        </pre>
     );
 };
 

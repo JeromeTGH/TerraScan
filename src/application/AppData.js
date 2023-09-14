@@ -67,10 +67,25 @@ export const tblValidatorsAccounts = {};
 export const tblLatestBlockAtAppLoading = {};
 
 
-// **********************************************************************************************
-// Liste contenant des paramètres généraux, figurant sur la homepage, et ne bougeant que rarement
-// **********************************************************************************************
+// *******************************************************************************
+// Liste contenant des paramètres généraux concernant la gouvernance ("proposals")
+// *******************************************************************************
 // Structure :
-//      tblHomeData = {
+//      tblGovInfos = {
+//          nbJoursMaxPourDeposit,              // Nombre de jours max pour atteindre le depôt requis, afin qu'une proposition puisse passer au vote
+//          nbLuncRequisPourValiderDeposit,     // Nombre minimum de LUNC à déposer, pour qu'une proposition puisse passer au vote
+//          nbJoursMaxPourVoter,                // Nombre de jours max pour voter une proposition
+//          pourcentageQuorum,                  // Quorum (nombre de votant minimum, pour qu'une décision de vote soit jugée valide)
+//          pourcentageAcceptation,             // Pourcentage d'acceptation (threshold), pour une proposition donnée ; à comparer à : YES_votes / (YES_votes + NO_votes + VETO_votes)
+//          pourcentageRefus,                   // Pourcentage de refus ;  ; à comparer à : NO_votes / (YES_votes + NO_votes + VETO_votes)
+//          pourcentageVeto,                    // Pourcentage de vote sur une proposition, pour rejeter une proposition (en faisant perdre son dépôt au proposant)
+//                                              // nota : ce pourcentage de VETO est à comparer à : VETO_votes / (YES_votes + NO_votes + VETO_votes)
 //      }
-export const tblHomeData = {};
+export const tblGovInfos = {};
+
+
+
+
+
+// const governanceInfos = {
+// }

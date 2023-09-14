@@ -89,7 +89,7 @@ export const getTxDatas = async (txHash) => {
 
             // console.log("rawTxInfo", rawTxInfo);
             const message = rawTxInfo.tx.value.msg[i];
-            console.log("message", message);
+// console.log("message", message);
             // const logs = rawTxInfo.logs[i]; console.log("logs", logs);
 
             const msgStructRet = {
