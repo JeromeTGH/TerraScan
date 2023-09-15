@@ -287,7 +287,7 @@ const PageProposal = () => {
                                         <tr>
                                             <td>Status :</td>
                                             <td>
-                                                {proposalInfos['status'] === 3 ?
+                                                {proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" ?
                                                     <span className='succes'><strong>{proposalInfos['statutVote']}</strong></span>
                                                 :
                                                     <span className='erreur'><strong>{proposalInfos['statutVote']}</strong></span>
@@ -552,7 +552,7 @@ const PageProposal = () => {
                                                 <tr>
                                                     <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
                                                     <td colSpan="3">
-                                                        {proposalInfos['status'] === 2 ?
+                                                        {proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" ?
                                                             '<== voting will end at this date/time'
                                                             :'Voting ended at this date/time'}
                                                     </td>
@@ -599,7 +599,7 @@ const PageProposal = () => {
                                                 <tr>
                                                     <td>{metEnFormeDateTime(proposalInfos['votingEndTime'])}</td>
                                                     <td colSpan="3">
-                                                        {proposalInfos['status'] === 2 ?
+                                                        {proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" ?
                                                             '<== voting will end at this date/time'
                                                             :'Voting ended at this date/time'}
                                                     </td>

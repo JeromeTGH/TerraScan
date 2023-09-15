@@ -41,7 +41,7 @@ const PageProposals = () => {
                     <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreur}</div></StyledBox>
                 :
                     isLoading ?
-                        <StyledBox title="Loading" color="blue"><br /><div className='erreur'>Loading data from blockchain (lcd), please wait ...</div><br /></StyledBox>
+                        <StyledBox title="Loading" color="blue"><br /><div>Loading data from blockchain (lcd), please wait ...</div><br /></StyledBox>
                     :
                         <ShowProposals />
                 }

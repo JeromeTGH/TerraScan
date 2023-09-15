@@ -1,5 +1,6 @@
 import { LCDclient } from '../../lcd/LCDclient';
 import { tblValidators } from '../../application/AppData';
+import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
 export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
@@ -77,20 +78,18 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     tblAretourner['NakamotoCoefficient'] = coeffNakamoto;
 
 
+    // Récupération du nombre de LUNC stakés
+    const nbLuncStaked = await loadNbStakedLunc();
+    if(nbLuncStaked['erreur'])
+        return nbLuncStaked['erreur'];
+    tblAretourner['LuncBonded'] = parseInt(nbLuncStaked/1000000);
+
     // ****************************
     // Requetes LCD, à partir d'ici
     // ****************************
 
     // Création/récupération d'une instance de requétage LCD
     const client_lcd = LCDclient.getSingleton();
-
-
-    // Récupération du nombre de LUNC stakés (bonded)
-    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
-    if(rawStakingPool?.data?.pool?.bonded_tokens)
-        tblAretourner['LuncBonded'] = parseInt(rawStakingPool.data.pool.bonded_tokens/1000000);
-    else
-        return { "erreur": "Failed to fetch [staking pool] ..." }
 
 
     // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)

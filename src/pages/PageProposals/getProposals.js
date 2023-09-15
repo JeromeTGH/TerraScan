@@ -1,5 +1,6 @@
 import { tblGovInfos, tblProposals } from '../../application/AppData';
 import { loadGovInfos } from '../../dataloaders/loadGovInfos';
+import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 import { loadProposals } from '../../dataloaders/loadProposals';
 import { LCDclient } from '../../lcd/LCDclient';
 
@@ -20,14 +21,12 @@ export const getProposals = async () => {
 
     // Création/récupération d'une instance de requétage LCD
     const client_lcd = LCDclient.getSingleton();
+    
 
     // Récupération du nombre de LUNC stakés
-    let nbLuncStaked = 0;
-    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
-    if(rawStakingPool?.data?.pool?.bonded_tokens)
-        nbLuncStaked = parseInt(rawStakingPool.data.pool.bonded_tokens);
-    else
-        return { "erreur": "Failed to fetch [staking pool] ..." }
+    const nbLuncStaked = await loadNbStakedLunc();
+    if(nbLuncStaked['erreur'])
+        return nbLuncStaked['erreur'];
 
 
     // Ajout de champs "tally", pour les votes en cours
@@ -115,7 +114,7 @@ export const getProposals = async () => {
 
 
             } else
-                return { "erreur": "Failed to fetch [tally of proposal #" + tblProposals[i].id + "] ..." }
+                return { "erreur": "Failed to fetch [tally of proposal #" + tblProposals[i].proposal_id + "] ..." }
         }
     }
 
@@ -129,5 +128,8 @@ export const getProposals = async () => {
 // Log les éventuelles erreurs
 // ===========================
 const handleError = (err) => {
-    console.log("ERREUR", err);
+    if(err.response && err.response.data)
+        console.warn("err.response.data", err.response.data);
+    else
+        console.warn("err", err);
 }

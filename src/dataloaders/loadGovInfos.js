@@ -11,7 +11,7 @@ export const loadGovInfos = async () => {
         
     // Classe de requétage LCD
     const client_lcd = LCDclient.getSingleton();
-    console.log("Chargement des paramètres de gouvernance...");
+    // console.log("Chargement des paramètres de gouvernance...");
 
     // Récupération des infos concernant les dépôts (qté de LUNC nécessaires pour lancer le vote, et durée max de deposit)
     const rawDepositParameters = await client_lcd.gov.getDepositParameters().catch(handleError);

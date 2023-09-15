@@ -11,7 +11,7 @@ export const loadProposals = async () => {
         
     // Classe de requétage LCD
     const client_lcd = LCDclient.getSingleton();
-    console.log("Chargement de toutes les proposals...");
+    // console.log("Chargement de toutes les proposals...");
 
     // Montage des paramètres nécessaires ici
     const params = new URLSearchParams();

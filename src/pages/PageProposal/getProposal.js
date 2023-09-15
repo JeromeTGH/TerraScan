@@ -5,6 +5,7 @@ import { loadGovInfos } from '../../dataloaders/loadGovInfos';
 import { loadProposals } from '../../dataloaders/loadProposals';
 import { CoinsList } from '../../fcd/classes/CoinsList';
 import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
+import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
 export const getProposal = async (propID) => {
 
@@ -141,12 +142,13 @@ export const getProposal = async (propID) => {
     // Si un vote est en cours (status = "PROPOSAL_STATUS_VOTING_PERIOD"), alors on récupère d'autres infos particulières
     if(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD") {
 
+
         // Récupération du nombre de LUNC stakés
-        const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
-        if(rawStakingPool?.data?.pool?.bonded_tokens)
-            proposalInfos['nbStakedLunc'] = parseInt(rawStakingPool.data.pool.bonded_tokens);
-        else
-            return { "erreur": "Failed to fetch [staking pool] ..." }
+        const nbLuncStaked = await loadNbStakedLunc();
+        if(nbLuncStaked['erreur'])
+            return nbLuncStaked['erreur'];
+        proposalInfos['nbStakedLunc'] = nbLuncStaked;
+
 
 
         // Récupération des règles de vote
@@ -225,7 +227,7 @@ export const getProposal = async (propID) => {
             proposalInfos['pourcentageOfNo'] = proposalInfos['nbVotesNoLunc'] / proposalInfos['nbVotersLunc'] * 100;
             proposalInfos['pourcentageOfNoWithVeto'] = proposalInfos['nbVotesNowithvetoLunc'] / proposalInfos['nbVotersLunc'] * 100;
 
-            if(proposalInfos['status'] === 3)
+            if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED")
                 proposalInfos['statutVote'] = "Proposal ADOPTED";
             else
                 proposalInfos['statutVote'] = "Proposal REJECTED";

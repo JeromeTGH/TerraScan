@@ -93,3 +93,11 @@ export const tblGovInfos = {};
 export const tblProposals = [];
 
 
+// ******************************************************
+// Liste contenant des données globales, et peu variantes
+// ******************************************************
+// Structure :
+//      tblGlobalInfos = {
+//          nbStakedLunc
+//      }
+export const tblGlobalInfos = {};
