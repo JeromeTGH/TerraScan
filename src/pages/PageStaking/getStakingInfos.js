@@ -13,7 +13,7 @@ export const getStakingInfos = async () => {
 
 
     // Création/récupération d'une instance de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
 
     // Montage des paramètres nécessaires ici
@@ -22,7 +22,7 @@ export const getStakingInfos = async () => {
 
 
     // Récupération de la total supply du LUNC
-    const rawTotalSupplies = await client_lcd.bank.getTotalSupplies(params).catch(handleError);
+    const rawTotalSupplies = await lcd.bank.getTotalSupplies(params).catch(handleError);
     if(rawTotalSupplies.data?.supply) {
         const idxLuncSupply = rawTotalSupplies.data.supply.findIndex(element => element.denom === "uluna");
         if(idxLuncSupply > -1)
@@ -34,7 +34,7 @@ export const getStakingInfos = async () => {
 
 
     // Récupération du nombre de LUNC stakés (bonded)
-    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
+    const rawStakingPool = await lcd.staking.getStakingPool().catch(handleError);
     if(rawStakingPool?.data?.pool?.bonded_tokens)
         tblAretourner['LuncBonded'] = parseInt(rawStakingPool.data.pool.bonded_tokens/1000000);
     else

@@ -17,8 +17,8 @@ const PageAbout = () => {
         document.title = 'About - ' + appName;
 
         // Chargement "node_info"
-        const client_lcd = LCDclient.getSingleton();
-        client_lcd.tendermint.getNodeInfos().then((res) => {
+        const lcd = LCDclient.getSingleton();
+        lcd.tendermint.getNodeInfos().then((res) => {
             if(res.data?.application_version) {
                 setVersionTerrad(res.data.application_version.version);
                 setVersionCosmosSDK(res.data.application_version.cosmos_sdk_version);

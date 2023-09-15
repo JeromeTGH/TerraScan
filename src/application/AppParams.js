@@ -43,20 +43,36 @@ export const tblCorrespondanceValeurs = {
 
 // Tableau de correspondance Adresse/Désignation de compte
 export const tblCorrespondanceCompte = {
+
+    // Terra
     "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu": "Burn wallet",
-    "terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f": "Oracle pool",              // Nota : noté en dur, dans la section "overview" de la "homepage"
+    "terra1jgp27m8fykex4e4jtt0l7ze8q528ux2lh4zh0f": "Oracle pool",
+    "terra1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8pm7utl": "Community Pool (shared)",  // Distribution Module
+    "terra1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3nln0mh": "Bonded Tokens Pool",
+    "terra1tygms3xhhs3yv487phx3dw4a95jn7t7l8l07dr": "Unbonding Tokens Pool",
+
+    // CEXs (source : LUNCdash and https://terraclassic.stakebin.io/terra/wallets)
     "terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe": "Binance main wallet",
-    "terra1g9htux72h5nj5c0hpzely3rqwnryzmy22xlxpu": "DFLunc",
-    "terra153mwt0upple9klvrryrtckx9vneguw6ja33d3c": "TerraCasino.io",
+    //"terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "OKX 1",      Doublon avec 'LUNC DAO'
+    "terra1chq5ps8yya004gsw4xz62pd4psr5hafe7kdt6d": "Kucoin 2",
+    "terra14l46jrdgdhaw4cejukx50ndp0hss95ekt2kfmw": "Kucoin 3",
+    "terra12amk3hgzqn85n0zlsmxp75cdcwt782w23t7acx": "Kucoin 5",
     "terra1nm0rrq86ucezaf8uj35pq9fpwr5r82clp5z7r5": "Kraken users",
-    "terra1vwchc3pkrxn8kahd0g9wxd8zjr0drnduzkn4z3": "Cremation Coin",
-    "terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "LUNC DAO",
     "terra1w8nc8ev0ylg97qnj080np4lnljngdvpd90ev63": "MEXC wallet",
     "terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e": "Kucoin wallet",
+
+
+    // Validateurs
     "terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf": "Frag",
-    "terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk": "Lunaclassic.com",
+    "terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk": "Lunaclassic.com",      // Val, but shutting down
     "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova",
-    "terra1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8pm7utl": "Community Pool (shared)",
+
+
+    // Autres comptes notoires
+    "terra1g9htux72h5nj5c0hpzely3rqwnryzmy22xlxpu": "DFLunc",
+    "terra153mwt0upple9klvrryrtckx9vneguw6ja33d3c": "TerraCasino.io",
+    "terra1vwchc3pkrxn8kahd0g9wxd8zjr0drnduzkn4z3": "Cremation Coin",
+    "terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "LUNC DAO",
     "terra1l5czlksptahp4lz9snzs6gpszancuftvnjaf8e": "DIAMOND HODL"
 }
 

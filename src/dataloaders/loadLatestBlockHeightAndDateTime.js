@@ -13,8 +13,8 @@ export const loadLatestBlockHeightAndDateTime = async () => {
 
     
     // Récupération du numéro de dernier block via ld LCD
-    const client_lcd = LCDclient.getSingleton();
-    const rawLatestBlockInfoLCD = await client_lcd.tendermint.getBlockInfos('latest').catch(handleError);
+    const lcd = LCDclient.getSingleton();
+    const rawLatestBlockInfoLCD = await lcd.tendermint.getBlockInfos('latest').catch(handleError);
     if(rawLatestBlockInfoLCD?.data) {
         latestHeightFromLCD = rawLatestBlockInfoLCD.data.block.header.height;
         // latestDatetimeFromLCD = rawLatestBlockInfoLCD.data.block.header.time;

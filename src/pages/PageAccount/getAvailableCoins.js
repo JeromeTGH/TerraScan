@@ -9,8 +9,8 @@ export const getAvailableCoins = async (accountAddress) => {
     const tblRetour = [];
 
     // Récupération de la balance de ce compte
-    const client_lcd = LCDclient.getSingleton();
-    const rawAccountDetails = await client_lcd.bank.getAccountDetails(accountAddress).catch(handleError);
+    const lcd = LCDclient.getSingleton();
+    const rawAccountDetails = await lcd.bank.getAccountDetails(accountAddress).catch(handleError);
 
     if(rawAccountDetails?.data) {
         if(rawAccountDetails.data.balances) {

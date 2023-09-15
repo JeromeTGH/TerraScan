@@ -11,12 +11,12 @@ export const loadNbStakedLunc = async () => {
     
 
     // Création/récupération d'une instance de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
     // console.log('Récupération du nombre de LUNC stakés...');
 
 
     // Récupération du nombre de LUNC stakés
-    const rawStakingPool = await client_lcd.staking.getStakingPool().catch(handleError);
+    const rawStakingPool = await lcd.staking.getStakingPool().catch(handleError);
     if(rawStakingPool?.data?.pool?.bonded_tokens)
         tblGlobalInfos['nbStakedLunc'] = parseInt(rawStakingPool.data.pool.bonded_tokens);
     else

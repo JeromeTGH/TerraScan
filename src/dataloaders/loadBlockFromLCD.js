@@ -4,9 +4,9 @@ import { LCDclient } from "../lcd/LCDclient";
 
 export const loadBlockFromLCD = async (blockNum) => {
     
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
-    const rawLatestBlockInfoLCD = await client_lcd.tendermint.getBlockInfos(blockNum).catch(handleError);
+    const rawLatestBlockInfoLCD = await lcd.tendermint.getBlockInfos(blockNum).catch(handleError);
     if(rawLatestBlockInfoLCD?.data?.block?.header) {
         return rawLatestBlockInfoLCD.data.block;
         // return {

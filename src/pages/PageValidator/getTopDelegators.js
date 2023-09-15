@@ -9,14 +9,14 @@ export const getTopDelegators = async (valoperAddress, nbToShow) => {
     const tblRetour = [];
 
     // Récupération instance LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
     // Préparation de la requête
     const params = new URLSearchParams();
     params.append('pagination.limit', 99999);
 
     // Récupération des delegators de ce validator
-    const rawDelegators = await client_lcd.staking.getValidatorDelegators(valoperAddress, params).catch(handleError);
+    const rawDelegators = await lcd.staking.getValidatorDelegators(valoperAddress, params).catch(handleError);
     if(rawDelegators?.data) {
         if(rawDelegators.data.delegation_responses) {
             for(const delegator of rawDelegators.data.delegation_responses) {

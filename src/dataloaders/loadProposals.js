@@ -10,7 +10,7 @@ export const loadProposals = async () => {
 
         
     // Classe de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
     // console.log("Chargement de toutes les proposals...");
 
     // Montage des paramètres nécessaires ici
@@ -19,7 +19,7 @@ export const loadProposals = async () => {
     
 
     // Récupération de toutes les propositions
-    const rawProposals = await client_lcd.gov.getProposals(params).catch(handleError);
+    const rawProposals = await lcd.gov.getProposals(params).catch(handleError);
     if(rawProposals?.data?.proposals) {
         tblProposals.push(...rawProposals.data.proposals.reverse());            // Enregistrement dans tableau, avec tri du plus récent au plus ancien
         // console.log("tblProposals", tblProposals);

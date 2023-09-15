@@ -89,11 +89,11 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     // ****************************
 
     // Création/récupération d'une instance de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
 
     // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)
-    const rawStakingParameters = await client_lcd.staking.getStakingParameters().catch(handleError);
+    const rawStakingParameters = await lcd.staking.getStakingParameters().catch(handleError);
     if(rawStakingParameters?.data?.params) {
         tblAretourner['UnbondingTime'] = parseInt(rawStakingParameters.data.params.unbonding_time.replace('s', '')) / 3600 / 24;       // Transformation nbSecondes --> nbJours
         tblAretourner['NbMaxValidators'] = rawStakingParameters.data.params.max_validators;
@@ -103,7 +103,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
 
     // Récupération du taux d'inflation max
-    const rawMintParameters = await client_lcd.mint.getMintParameters().catch(handleError);
+    const rawMintParameters = await lcd.mint.getMintParameters().catch(handleError);
     if(rawMintParameters?.data?.params) {
         tblAretourner['InflationMax'] = rawMintParameters.data.params.inflation_max * 100;
     }
@@ -112,7 +112,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
 
     // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
-    const rawTreasuryParameters = await client_lcd.treasury.getTreasuryParameters().catch(handleError);
+    const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);
     if(rawTreasuryParameters?.data?.params) {
         tblAretourner['TobinTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
         tblAretourner['TobinTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
@@ -123,7 +123,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
 
     // Récupération des infos concernant le split du "distribution module"
-    const rawDistributionParameters = await client_lcd.distribution.getDistributionParameters().catch(handleError);
+    const rawDistributionParameters = await lcd.distribution.getDistributionParameters().catch(handleError);
     if(rawDistributionParameters?.data?.params) {
         tblAretourner['DistributionModuleSplitToStakers'] = rawDistributionParameters.data.params.community_tax * 100;
         tblAretourner['DistributionModuleSplitToCommunityPool'] = 100 - tblAretourner['DistributionModuleSplitToStakers'];
@@ -133,7 +133,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
         
     // Récupération des infos concernant le "community pool"
-    const rawDistributionCommunityPool = await client_lcd.distribution.getDistributionCommunityPool().catch(handleError);
+    const rawDistributionCommunityPool = await lcd.distribution.getDistributionCommunityPool().catch(handleError);
     if(rawDistributionCommunityPool?.data?.pool) {
         const idxLuncInCP = rawDistributionCommunityPool.data.pool.findIndex(element => element.denom === "uluna");
         const idxUstcInCP = rawDistributionCommunityPool.data.pool.findIndex(element => element.denom === "uusd");
@@ -154,7 +154,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
 
     // Récupération des infos concernant le "oracle pool"
-    const rawOraclePoolBalance = await client_lcd.bank.getOraclePoolBalance().catch(handleError);
+    const rawOraclePoolBalance = await lcd.bank.getOraclePoolBalance().catch(handleError);
     if(rawOraclePoolBalance?.data?.balances) {
         const idxLuncInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uluna");
         const idxUstcInCP = rawOraclePoolBalance.data.balances.findIndex(element => element.denom === "uusd");

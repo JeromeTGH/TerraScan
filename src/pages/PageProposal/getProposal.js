@@ -32,7 +32,7 @@ export const getProposal = async (propID) => {
 
 
     // Création/récupération d'une instance de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
           
 
@@ -104,7 +104,7 @@ export const getProposal = async (propID) => {
 
     // Recherche de l'auteur de la proposition
     proposalInfos['proposerAddress'] = "";
-    const rawProposer = await client_lcd.tx.searchTxsByEvent(paramsTxSearch).catch(handleError);
+    const rawProposer = await lcd.tx.searchTxsByEvent(paramsTxSearch).catch(handleError);
     if(rawProposer?.data?.txs) {
         for(const tx of rawProposer.data.txs) {
             if(tx.body?.messages) {
@@ -160,7 +160,7 @@ export const getProposal = async (propID) => {
 
 
         // Récupération des tally de ce vote en cours
-        const rawTally = await client_lcd.gov.getTally(propID).catch(handleError);
+        const rawTally = await lcd.gov.getTally(propID).catch(handleError);
         if(rawTally?.data?.tally) {
 
             proposalInfos['nbVotesYesLunc'] = parseInt(rawTally.data.tally.yes);
@@ -251,7 +251,7 @@ export const getProposal = async (propID) => {
         params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
         // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
-        const rawTxs = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
+        const rawTxs = await lcd.tx.searchTxsByEvent(params).catch(handleError);
         if(rawTxs?.data?.total || rawTxs?.data?.pagination?.total) {
             const nbTotalDeTxs = rawTxs.data.total ? parseInt(rawTxs.data.total) : parseInt(rawTxs.data.pagination.total);
 
@@ -363,7 +363,7 @@ export const getProposal = async (propID) => {
                     params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
                     // Exécution de la requête de recherche des 100 txs suivants
-                    const rawTxsSuivants = await client_lcd.tx.searchTxsByEvent(params).catch(handleError);
+                    const rawTxsSuivants = await lcd.tx.searchTxsByEvent(params).catch(handleError);
                     if(rawTxsSuivants?.data?.txs) {
                         // Traitement des 100 premiers txs (ou moins, si y'en a moins, bien sûr)
                         for(let i=0 ; i < rawTxsSuivants.data.txs.length ; i++) {

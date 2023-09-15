@@ -20,7 +20,7 @@ export const getProposals = async () => {
 
 
     // Création/récupération d'une instance de requétage LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
     
 
     // Récupération du nombre de LUNC stakés
@@ -67,7 +67,7 @@ export const getProposals = async () => {
             tblProposals[i]['pourcentageOfNoWithVeto'] = (qteLuncNoWithVeto/qteLuncTotal*100).toFixed(2);
         }
         if(tblProposals[i].status === "PROPOSAL_STATUS_VOTING_PERIOD") {
-            const rawTally = await client_lcd.gov.getTally(tblProposals[i].proposal_id).catch(handleError);
+            const rawTally = await lcd.gov.getTally(tblProposals[i].proposal_id).catch(handleError);
             if(rawTally?.data?.tally) {
                 const pourcentageOfYes = rawTally.data.tally.yes / nbLuncStaked * 100;
                 const pourcentageOfAbstain = rawTally.data.tally.abstain / nbLuncStaked * 100;

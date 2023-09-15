@@ -10,10 +10,10 @@ export const getDelegations = async (accountAddress) => {
     const tblRetour = [];
 
     // Récupération instance LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
     // Récupération des delegations de ce compte
-    const rawDelegations = await client_lcd.staking.getDelegations(accountAddress).catch(handleError);
+    const rawDelegations = await lcd.staking.getDelegations(accountAddress).catch(handleError);
     if(rawDelegations?.data) {
         if(rawDelegations.data.delegation_responses) {
             for(const delegation of rawDelegations.data.delegation_responses) {
@@ -33,7 +33,7 @@ export const getDelegations = async (accountAddress) => {
 
 
     // Récupération des rewards de ce compte
-    const rawRewards = await client_lcd.distribution.getPendingRewards(accountAddress).catch(handleError);
+    const rawRewards = await lcd.distribution.getPendingRewards(accountAddress).catch(handleError);
     if(rawRewards?.data) {
         if(rawRewards.data.rewards) {
             for(const rewards of rawRewards.data.rewards) {

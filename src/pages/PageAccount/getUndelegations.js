@@ -9,10 +9,10 @@ export const getUndelegations = async (accountAddress) => {
     const tblRetour = [];
 
     // Récupération instance LCD
-    const client_lcd = LCDclient.getSingleton();
+    const lcd = LCDclient.getSingleton();
 
     // Récupération des undelegations de ce compte
-    const rawUndelegations = await client_lcd.staking.getUndelegations(accountAddress).catch(handleError);
+    const rawUndelegations = await lcd.staking.getUndelegations(accountAddress).catch(handleError);
     if(rawUndelegations?.data) {
         if(rawUndelegations.data.unbonding_responses) {
             for(const undelegation of rawUndelegations.data.unbonding_responses) {
