@@ -12,7 +12,7 @@ export const loadNbStakedLunc = async () => {
 
     // Création/récupération d'une instance de requétage LCD
     const client_lcd = LCDclient.getSingleton();
-    console.log('Récupération du nombre de LUNC stakés...');
+    // console.log('Récupération du nombre de LUNC stakés...');
 
 
     // Récupération du nombre de LUNC stakés
