@@ -64,7 +64,8 @@ export const getTxDatas = async (txHash) => {
 
         // ====== Taxes
         const logsTbl = rawTxInfo.logs;
-        // console.log("logsTbl", logsTbl);
+        txInfos["logs"] = rawTxInfo.logs;
+// console.log("logs", txInfos["logs"]);
 
         const tblTaxes = [];
         for(const lgLog of logsTbl) {

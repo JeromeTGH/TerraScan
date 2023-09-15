@@ -7,6 +7,7 @@ import BlockTxMessages from './BlockTxMessages';
 import { getTxDatas } from './getTxDatas';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
+import ObjectViewer from '../../sharedComponents/ObjectViewer';
 
 const PageTransaction = () => {
 
@@ -47,6 +48,9 @@ const PageTransaction = () => {
                         {txDatas['txMessages'].map((message, index) => {
                             return <BlockTxMessages txMessage={message} key={index} idxElement={index+1} nbElements={txDatas['txMessages'].length} txHash={txHash} />
                         })}
+                        <StyledBox title="Logs" color="purple">
+                            <ObjectViewer objetAvisualiser={txDatas['txInfos']['logs']} className={styles.logs} nomChamp='logs' />
+                        </StyledBox>
                     </div>
                     : null
                 : msgErreurTxDatas ? <StyledBox title="ERROR" color="red"><span className='erreur'>{msgErreurTxDatas}</span></StyledBox>

@@ -2,3 +2,11 @@
 .txHash {
     word-break: break-all;
 }
+
+.logs {
+    font-size: 0.8rem;
+    div {
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+}
