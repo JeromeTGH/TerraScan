@@ -42,7 +42,7 @@ const PageStaking = () => {
                 <StyledBox title="ERROR" color="red"><div className='erreur'><br />{msgErreur}<br /><br /></div></StyledBox>
             :
                 isLoading ?
-                    <StyledBox title="Loading" color="blue"><div className='erreur'><br />Loading from blockchain (LCD), please wait ...<br /><br /></div></StyledBox>
+                    <StyledBox title="Loading" color="blue"><div><br />Loading from blockchain (LCD), please wait ...<br /><br /></div></StyledBox>
                 :
                     <div className={styles.pgStaking}>
                         {tblDatas && tblDatas['StakingPercentage'] ?

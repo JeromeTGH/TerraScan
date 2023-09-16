@@ -1,6 +1,7 @@
 import { LCDclient } from '../../lcd/LCDclient';
-import { tblValidators } from '../../application/AppData';
+import { tblGlobalInfos, tblValidators } from '../../application/AppData';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
+import { loadSomeGeneralnfos } from '../../dataloaders/loadSomeGeneralnfos';
 
 export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
@@ -82,7 +83,23 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     const nbLuncStaked = await loadNbStakedLunc();
     if(nbLuncStaked['erreur'])
         return nbLuncStaked['erreur'];
+
     tblAretourner['LuncBonded'] = parseInt(nbLuncStaked/1000000);
+
+
+    // Récupération d'autres infos générales
+    const someGeneralInfos = await loadSomeGeneralnfos();
+    if(someGeneralInfos['erreur'])
+        return someGeneralInfos['erreur'];
+
+    tblAretourner['UnbondingTime'] = tblGlobalInfos['UnbondingTime'];
+    tblAretourner['NbMaxValidators'] = tblGlobalInfos['NbMaxValidators'];
+    tblAretourner['InflationMax'] = tblGlobalInfos['InflationMax'];
+    tblAretourner['TobinTaxMax'] = tblGlobalInfos['TobinTaxMax'];
+    tblAretourner['TobinTaxSplitToDistributionModule'] = tblGlobalInfos['TobinTaxSplitToDistributionModule'];
+    tblAretourner['TobinTaxSplitToBeBurn'] = tblGlobalInfos['TobinTaxSplitToBeBurn'];
+    tblAretourner['DistributionModuleSplitToStakers'] = tblGlobalInfos['DistributionModuleSplitToStakers']
+    tblAretourner['DistributionModuleSplitToCommunityPool'] = tblGlobalInfos['DistributionModuleSplitToCommunityPool']
 
     // ****************************
     // Requetes LCD, à partir d'ici
@@ -90,46 +107,6 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
 
     // Création/récupération d'une instance de requétage LCD
     const lcd = LCDclient.getSingleton();
-
-
-    // Récupération des paramètres du module Staking (plus exactement : l'unbonding_time, et le max_validators)
-    const rawStakingParameters = await lcd.staking.getStakingParameters().catch(handleError);
-    if(rawStakingParameters?.data?.params) {
-        tblAretourner['UnbondingTime'] = parseInt(rawStakingParameters.data.params.unbonding_time.replace('s', '')) / 3600 / 24;       // Transformation nbSecondes --> nbJours
-        tblAretourner['NbMaxValidators'] = rawStakingParameters.data.params.max_validators;
-    }
-    else
-        return { "erreur": "Failed to fetch [staking parameters] ..." }
-
-
-    // Récupération du taux d'inflation max
-    const rawMintParameters = await lcd.mint.getMintParameters().catch(handleError);
-    if(rawMintParameters?.data?.params) {
-        tblAretourner['InflationMax'] = rawMintParameters.data.params.inflation_max * 100;
-    }
-    else
-        return { "erreur": "Failed to fetch [mint parameters] ..." }
-
-
-    // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
-    const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);
-    if(rawTreasuryParameters?.data?.params) {
-        tblAretourner['TobinTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
-        tblAretourner['TobinTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
-        tblAretourner['TobinTaxSplitToBeBurn'] = 100 - tblAretourner['TobinTaxSplitToDistributionModule'];
-    }
-    else
-        return { "erreur": "Failed to fetch [treasury parameters] ..." }
-
-
-    // Récupération des infos concernant le split du "distribution module"
-    const rawDistributionParameters = await lcd.distribution.getDistributionParameters().catch(handleError);
-    if(rawDistributionParameters?.data?.params) {
-        tblAretourner['DistributionModuleSplitToStakers'] = rawDistributionParameters.data.params.community_tax * 100;
-        tblAretourner['DistributionModuleSplitToCommunityPool'] = 100 - tblAretourner['DistributionModuleSplitToStakers'];
-    }
-    else
-        return { "erreur": "Failed to fetch [distribution parameters] ..." }
 
         
     // Récupération des infos concernant le "community pool"

@@ -98,6 +98,16 @@ export const tblProposals = [];
 // ******************************************************
 // Structure :
 //      tblGlobalInfos = {
-//          nbStakedLunc            // en 'uluna'
+//          nbStakedLunc,           // en 'uluna'
+//      +
+//          UnbondingTime,          // nombre de jours de blocage d'opération (annulation de délégation, redélégation, par exemple) ; par défaut = 21
+//          NbMaxValidators,        // nombre maximale de validateurs actifs possible ; par défaut = 130
+//          InflationMax,           // taux d'inflation (mint) maxi ; par défaut, actuellement = 0
+//          TobinTaxMax,            // taxe tobin (nommée "taxe burn") ; actuellement = 0,5 %
+//          TobinTaxSplitToBeBurn,                  // dispatching de la taxe burn ; actuellement = 80 % burn et 
+//          TobinTaxSplitToDistributionModule,      // 20 % vers module de distribution
+//          DistributionModuleSplitToStakers,           // dispatching du module de distribution ; actuellement = 50 % vers les stakers et
+//          DistributionModuleSplitToCommunityPool,     // 50 % vers le pool communautaire
+//          
 //      }
 export const tblGlobalInfos = {};
