@@ -98,6 +98,6 @@ export const tblProposals = [];
 // ******************************************************
 // Structure :
 //      tblGlobalInfos = {
-//          nbStakedLunc
+//          nbStakedLunc            // en 'uluna'
 //      }
 export const tblGlobalInfos = {};

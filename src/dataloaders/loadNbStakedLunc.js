@@ -18,7 +18,7 @@ export const loadNbStakedLunc = async () => {
     // Récupération du nombre de LUNC stakés
     const rawStakingPool = await lcd.staking.getStakingPool().catch(handleError);
     if(rawStakingPool?.data?.pool?.bonded_tokens)
-        tblGlobalInfos['nbStakedLunc'] = parseInt(rawStakingPool.data.pool.bonded_tokens);
+        tblGlobalInfos['nbStakedLunc'] = parseInt(rawStakingPool.data.pool.bonded_tokens);      // en 'uluna'
     else
         return { "erreur": "Failed to fetch [staking pool] ..." }
 
