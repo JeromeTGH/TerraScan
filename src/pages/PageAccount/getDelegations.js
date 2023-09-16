@@ -19,7 +19,8 @@ export const getDelegations = async (accountAddress) => {
             for(const delegation of rawDelegations.data.delegation_responses) {
                 if(delegation.balance.amount > 0)
                     tblRetour.push({
-                        amountStaked: delegation.balance.amount/1000000,
+                        currentStakedAmount: delegation.balance.amount/1000000,
+                        initialStakedAmount: delegation.delegation.shares/1000000,
                         valoperAddress: delegation.delegation.validator_address,
                         valMoniker: tblValidators[delegation.delegation.validator_address].description_moniker,
                         rewards: [],

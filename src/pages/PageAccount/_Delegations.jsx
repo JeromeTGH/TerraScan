@@ -97,51 +97,53 @@ const Delegations = (props) => {
                     :
                         tblDelegations && tblDelegation ?
                             <>
-                                <div>There are <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.amountStaked)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.amountStaked)}</span> LUNC</div>
+                                <div>There are <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.currentStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.currentStakedAmount)}</span> LUNC</div>
+                                {/* Message si écart supérieur à 1% et à 1 LUNC, entre le montant actuellement staké, et le montant "initial" */}
+                                {(tblDelegation.currentStakedAmount/tblDelegation.initialStakedAmount) < 0.99 && (tblDelegation.initialStakedAmount-tblDelegation.currentStakedAmount) > 1 ?
+                                    <div className='erreur'>(initially <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.initialStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.initialStakedAmount)}</span> LUNC / <strong>{((1-(tblDelegation.currentStakedAmount/tblDelegation.initialStakedAmount))*100).toFixed(2)}% difference</strong>)</div>
+                                :
+                                    null
+                                }
                                 <div>staked with validator <Link to={'/validators/' + tblDelegation.valoperAddress}>{tblDelegation.valMoniker}</Link> {tblValidators[tblDelegation.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</div>
-                                {tblValidators[tblDelegation.valoperAddress].status === 'active' ?
-                                    <>
-                                        <div className={styles.coinContainer}>
-                                            <div className={styles.coin}>
-                                                <div className={styles.coinImageAndLabel}>
-                                                    <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
-                                                    <span><strong>LUNC</strong></span>
-                                                </div>
-                                                <div className={styles.coinValue}>
-                                                    <strong>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.rewards[0].amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.rewards[0].amount)}</span>
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                            <div className={styles.coin}>
-                                                <div className={styles.coinImageAndLabel}>
-                                                    <img src={'/images/coins/USTC.png'} alt='USTC logo' />
-                                                    <span><strong>USTC</strong></span>
-                                                </div>
-                                                <div className={styles.coinValue}>
-                                                    <strong>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.rewards[1].amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.rewards[1].amount)}</span>
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                            {isMinorCoinsVisible && isMinorCoinsVisible[idxDelegationToShow] ? tblDelegation.rewards.map((element2, index2) => {
-                                                return (index2 > 1) ? <div key={index2} className={styles.coin}>
-                                                    <div className={styles.coinImageAndLabel}>
-                                                        <img src={'/images/coins/' + element2.denom + '.png'} alt={element2.denom + ' logo'} />
-                                                        <span>{element2.denom}</span>
-                                                    </div>
-                                                    <div className={styles.coinValue}>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element2.amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element2.amount)}</span>
-                                                    </div>
-                                                </div> : null
-                                            }) : null}
+                                <div className={styles.coinContainer}>
+                                    <div className={styles.coin}>
+                                        <div className={styles.coinImageAndLabel}>
+                                            <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                            <span><strong>LUNC</strong></span>
                                         </div>
-                                        <span className={styles.showhide} onClick={() => handleClickShowHide(idxDelegationToShow)}>{isMinorCoinsVisible[idxDelegationToShow] ? "<< hide minor pending rewards" : "Show other pending rewards >>"}</span>
-                                    </>
-                                : <br /> }
+                                        <div className={styles.coinValue}>
+                                            <strong>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.rewards[0].amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.rewards[0].amount)}</span>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div className={styles.coin}>
+                                        <div className={styles.coinImageAndLabel}>
+                                            <img src={'/images/coins/USTC.png'} alt='USTC logo' />
+                                            <span><strong>USTC</strong></span>
+                                        </div>
+                                        <div className={styles.coinValue}>
+                                            <strong>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblDelegation.rewards[1].amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblDelegation.rewards[1].amount)}</span>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    {isMinorCoinsVisible && isMinorCoinsVisible[idxDelegationToShow] ? tblDelegation.rewards.map((element2, index2) => {
+                                        return (index2 > 1) ? <div key={index2} className={styles.coin}>
+                                            <div className={styles.coinImageAndLabel}>
+                                                <img src={'/images/coins/' + element2.denom + '.png'} alt={element2.denom + ' logo'} />
+                                                <span>{element2.denom}</span>
+                                            </div>
+                                            <div className={styles.coinValue}>
+                                                <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element2.amount)}</span>
+                                                <span className='partieDecimale'>{retournePartieDecimaleFixed6(element2.amount)}</span>
+                                            </div>
+                                        </div> : null
+                                    }) : null}
+                                </div>
+                                <span className={styles.showhide} onClick={() => handleClickShowHide(idxDelegationToShow)}>{isMinorCoinsVisible[idxDelegationToShow] ? "<< hide minor pending rewards" : "Show other pending rewards >>"}</span>
                             </>
                         : 
                             <div>No delegation.</div>

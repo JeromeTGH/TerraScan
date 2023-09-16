@@ -56,6 +56,11 @@ export const preloads = async () => {
     }
 
 
+    // *****
+    // Nota : le script "loadNbStakedLunc.js" est appelé par "loadValidators.js" ; le nbre de LUNC stakés est donc chargé dans la foulée, au chargement de l'app
+    // *****
+
+
     // Si pas d'erreur, renvoi d'un objet vide
     return {}
 }
