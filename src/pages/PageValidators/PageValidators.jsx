@@ -105,8 +105,8 @@ const PageValidators = () => {
                             )
                             return <tr key={clef}>
                                 <td>#{clef+1}</td>
-                                <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>JAILED</span>}</strong></td>
-                                <td><Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
+                                <td><strong>{valeur[1].status === "active" ? <>{valeur[1].voting_power_pourcentage.toFixed(2)}%</> : <span className='erreur'>({valeur[1].voting_power_pourcentage.toFixed(2)}%)</span>}</strong></td>
+                                <td>{valeur[1].status !== 'active' ? <><span className='jailed'>Jailed</span> </> : null}<Link to={"/validators/" + valeur[0]}>{valeur[1].description_moniker}</Link></td>
                                 <td>{valeur[1].commission_actual_pourcentage}%</td>
                                 <td>{metEnFormeGrandNombre(valeur[1].voting_power_amount/1000000, 2)}</td>
                             </tr>

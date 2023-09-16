@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './_Staking.module.scss';
-import { tblGlobalInfos, tblValidators } from '../../application/AppData';
+import { tblValidators } from '../../application/AppData';
 import StyledBox from '../../sharedComponents/StyledBox';
 import { metEnFormeAmountPartieEntiere } from '../../application/AppUtils';
 
@@ -16,8 +16,7 @@ const Staking = (props) => {
                         {tblValidators[props.valAddress].status === 'active' ?
                             <>{tblValidators[props.valAddress].voting_power_pourcentage}%</>
                             :
-                            // Nota : je divise ici le nbre de lunc stakés sur ce validateur par le nbre total de LUNC stakés + les siens, pour obtenir le ratio de staking s'il revenait ACTIF
-                            <>({(tblValidators[props.valAddress].voting_power_amount/(tblValidators[props.valAddress].voting_power_amount+tblGlobalInfos['nbStakedLunc'])*100).toFixed(2)}%)</>
+                            <>({tblValidators[props.valAddress].voting_power_pourcentage.toFixed(2)}%)</>
                         }
                     </div>
                 </div>

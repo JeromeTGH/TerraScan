@@ -1,9 +1,13 @@
-import { tblValidators, tblValidatorsAccounts } from "../application/AppData";
+import { tblGlobalInfos, tblValidators, tblValidatorsAccounts } from "../application/AppData";
 import { FCDclient } from "../fcd/FCDclient";
 import { Validator } from "../fcd/classes/Validator";
+import { loadNbStakedLunc } from "./loadNbStakedLunc";
 
 
 export const loadValidators = async () => {
+
+    // Chargement du nombre de LUNC stakés, si pas déjà fait
+    await loadNbStakedLunc();
 
     // Chargement seulement si ça n'a pas déjà été fait auparavant (toujours en mémoire, je veux dire)
     if(Object.keys(tblValidators).length === 0) {
@@ -18,8 +22,19 @@ export const loadValidators = async () => {
             // console.log("rawValidatorList.data", rawValidatorList.data);
 
             for(const validator of rawValidatorList.data) {
+                
                 const validatorInfo = new Validator(validator);
-                // Structure :
+
+
+                // Calcul intermédiaire, pour les 'jailed validators'
+                let votingPowerInPercent = 0;
+                if(validatorInfo.status === 'active')
+                    votingPowerInPercent = validatorInfo.votingPower.pourcentage;
+                else
+                    votingPowerInPercent = validatorInfo.delegator_shares / (validatorInfo.delegator_shares + tblGlobalInfos['nbStakedLunc']) * 100;
+
+                
+                // Structure qui va être rajoutée au tableau des validators :
                 //      tblValidators["valoper"] = {
                 //          up_time,
                 //          status,
@@ -48,7 +63,7 @@ export const loadValidators = async () => {
                     'description_details': validatorInfo.description.details,
                     'profile_icon': validatorInfo.description.profile_icon,
                     'voting_power_amount': validatorInfo.delegator_shares,    // validatorInfo.votingPower.amount,
-                    'voting_power_pourcentage': validatorInfo.votingPower.pourcentage,
+                    'voting_power_pourcentage': votingPowerInPercent,
                     'commission_actual_pourcentage': validatorInfo.commissionInfo.actual_pourcentage,
                     'commission_max_pourcentage': validatorInfo.commissionInfo.max_pourcentage,
                     'commission_max_change_pourcentage': validatorInfo.commissionInfo.max_change_pourcentage,
