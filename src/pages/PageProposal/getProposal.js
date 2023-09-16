@@ -247,7 +247,7 @@ export const getProposal = async (propID) => {
         // Montage des paramètres nécessaires ici
         const params = new URLSearchParams();
         params.append("pagination.offset", 0);
-        params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");
+        //params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
         params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
         // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
