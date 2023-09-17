@@ -47,7 +47,7 @@ const Delegators = (props) => {
                 isLoading ?
                     <div className='erreur'><br />Loading "top delegators" from blockchain (lcd), please wait ...<br /><br /></div>
                 :
-                    tblTopDelegators ?
+                    tblTopDelegators && tblTopDelegators.length > 0 ?
                         <div className={styles.contentTopDelegators}>
                             <table className={styles.tblTopDelegators}>
                                 <thead>
