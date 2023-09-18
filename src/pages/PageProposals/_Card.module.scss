@@ -6,6 +6,10 @@
     border-radius: 8px;
     background-color: var(--boxed-fill-color1);
     cursor: pointer;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: min-content auto min-content;
 
     &:hover {
         transform: scale(1.02);

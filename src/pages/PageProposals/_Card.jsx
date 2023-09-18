@@ -154,12 +154,12 @@ const Card = (props) => {
                 </>
                 : null}
             </div>
-            {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? 
-                <div className={styles.cardFooter}>
-                    <span>End in about <strong>{expanded_datetime_ago(new Date(props.card.voting_end_time).toISOString(), true)} </strong></span>
-                    <span>({metEnFormeDateTime(props.card.voting_end_time)})</span>
-                </div>
-            : null }
+                {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? 
+                    <div className={styles.cardFooter}>
+                        <span>End in about <strong>{expanded_datetime_ago(new Date(props.card.voting_end_time).toISOString(), true)} </strong></span>
+                        <span>({metEnFormeDateTime(props.card.voting_end_time)})</span>
+                    </div>
+                : <div></div> }
         </div>
     );
 };

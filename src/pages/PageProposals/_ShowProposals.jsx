@@ -7,7 +7,7 @@ import { tblProposals } from '../../application/AppData';
 const ShowProposals = () => {
 
     // Constantes
-    const nbElementsAafficherParPage = 10;
+    const nbElementsAafficherParPage = 12;
 
     // Variables React
     const [filtre, setFiltre] = useState("PROPOSAL_STATUS_VOTING_PERIOD");      // choix par défaut, pour afficher les votes en cours au démarrage

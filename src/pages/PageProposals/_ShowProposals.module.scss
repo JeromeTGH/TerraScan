@@ -48,17 +48,22 @@
 
     .tblProposals {
         display: grid;
-        grid-template-columns: 48% 48%;
+        grid-template-columns: 30% 30% 30%;
         column-gap: 4%;
         row-gap: 2.4rem;
         padding-top: 2rem;
         padding-bottom: 1rem;
 
-        @media (max-width: 680px) {
-            grid-template-columns: 100%;
-            column-gap: 0;
-            row-gap: 1.6rem;
-            padding-top: 1.2rem;
+        @media (max-width: 1300px) {
+            grid-template-columns: 48% 48%;
+            column-gap: 4%;
+
+            @media (max-width: 680px) {
+                grid-template-columns: 100%;
+                column-gap: 0;
+                row-gap: 1.6rem;
+                padding-top: 1.2rem;
+            }
         }
 
     }

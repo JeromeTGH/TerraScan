@@ -612,7 +612,7 @@ const PageProposal = () => {
                         : null} */}
                     </>
                 :
-                    <StyledBox title="Loading" color="blue"><div>Loading data from blockchain (lcd), please wait ...</div></StyledBox>
+                    <StyledBox title="Loading" color="blue"><br /><div>Loading data from blockchain (lcd), please wait ...</div><br /></StyledBox>
                 }
             </div>
         </>
