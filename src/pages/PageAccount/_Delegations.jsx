@@ -151,7 +151,7 @@ const Delegations = (props) => {
                         {nbJailedValidators && (nbJailedValidators > 0) ? 
                             <div className={styles.nbJailedValidators}>
                                 <img src='/images/warning_icon_32x32.png' alt='Warning logo' />
-                                <span className='erreur'>WARNING : you have {nbJailedValidators} validator{nbJailedValidators > 1 ? 's' : null} jailed{tblDelegations.length > 1 ? ' in your delegations' : null}, here</span>
+                                <span className='erreur'>WARNING : there {nbJailedValidators > 1 ? 'are' : 'is'} {nbJailedValidators} validator{nbJailedValidators > 1 ? 's' : null} jailed{tblDelegations.length > 1 ? ' in your delegations' : null}, here</span>
                             </div>
                         :
                             null
