@@ -67,6 +67,7 @@ export const tblCorrespondanceCompte = {
     "terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk": "Lunaclassic.com",      // Val, but shutting down
     "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova (old)",
     "terra16aumxyfeh2vrd2kr9qk2gadmwmg4jm5kw6nryp": "Burn It All!!! validator",
+    "terra13avdm9rqxpftv3vrkaqaakakgh30909x8hrruz": "GalacticShift.io validator",
 
 
     // Autres comptes notoires
