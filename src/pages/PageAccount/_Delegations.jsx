@@ -147,16 +147,16 @@ const Delegations = (props) => {
                             </>
                         : 
                             <div>No delegation.</div>
-                }
+                        }
+                        {nbJailedValidators && (nbJailedValidators > 0) ? 
+                            <div className={styles.nbJailedValidators}>
+                                <img src='/images/warning_icon_32x32.png' alt='Warning logo' />
+                                <span className='erreur'>WARNING : you have {nbJailedValidators} validator{nbJailedValidators > 1 ? 's' : null} jailed{tblDelegations.length > 1 ? ' in your delegations' : null}, here</span>
+                            </div>
+                        :
+                            null
+                        }
             </StyledBox>
-            {nbJailedValidators && (nbJailedValidators > 0) ? 
-                <div className={styles.nbJailedValidators}>
-                    <img src='/images/warning_icon_32x32.png' alt='Warning logo' />
-                    <span className='erreur'>WARNING : you have {nbJailedValidators} validator{nbJailedValidators > 1 ? 's' : null} jailed, in your delegation{tblDelegations.length > 1 ? 's' : null}</span>
-                </div>
-            :
-                null
-            }
         </>
     );
 };
