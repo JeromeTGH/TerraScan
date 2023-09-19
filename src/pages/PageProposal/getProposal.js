@@ -93,13 +93,24 @@ export const getProposal = async (propID) => {
     }
 
 
+    // TxSearch doc. : https://terra-classic-lcd.publicnode.com/swagger/#/Service/GetTxsEvent
+    // ======================================================================================
+    // Si 407 entrées, par exemple
+    // ---------------------------
+    // Page 1 (0-99) :     https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
+    // Page 2 (100-199) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
+    // Page 3 (200-299) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
+    // Page 4 (300-399) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
+    // Page 5 (400-406) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
+
+
 
     // Préparation de la requête
     const paramsTxSearch = new URLSearchParams();
     // %3D pour =               // Si tests web direct
     // %27 pour '
     // %2F pour /
-    paramsTxSearch.append('events', "message.action='/cosmos.gov.v1beta1.MsgSubmitProposal'");
+    // paramsTxSearch.append('events', "message.action='/cosmos.gov.v1beta1.MsgSubmitProposal'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
     paramsTxSearch.append('events', 'submit_proposal.proposal_id=' + propID);
 
     // Recherche de l'auteur de la proposition
@@ -244,15 +255,28 @@ export const getProposal = async (propID) => {
     
     if(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" || proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") {
 
+
+        // TxSearch doc. : https://terra-classic-lcd.publicnode.com/swagger/#/Service/GetTxsEvent
+        // ======================================================================================
+        // Si 407 entrées, par exemple
+        // ---------------------------
+        // Page 1 (0-99) :     https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
+        // Page 2 (100-199) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
+        // Page 3 (200-299) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
+        // Page 4 (300-399) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
+        // Page 5 (400-406) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
+
+        
         // Montage des paramètres nécessaires ici
         const params = new URLSearchParams();
-        params.append("pagination.offset", 0);
+        params.append("page", 1);
         //params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
         params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
         // Exécution de la requête de recherche de Tx, ayant voté pour cette prop (traitement 'obligé' par lot de 100, attention)
         const rawTxs = await lcd.tx.searchTxsByEvent(params).catch(handleError);
         if(rawTxs?.data?.total || rawTxs?.data?.pagination?.total) {
+// console.log("rawTxs.data", rawTxs.data);
             const nbTotalDeTxs = rawTxs.data.total ? parseInt(rawTxs.data.total) : parseInt(rawTxs.data.pagination.total);
 
             if(nbTotalDeTxs > 0) {
@@ -286,6 +310,7 @@ export const getProposal = async (propID) => {
                     // On analyse seulement les transactions réussie (code = 0)
                     if(txcode === 0) {
                         let txhash = rawTxs.data.tx_responses[i].txhash;
+// console.log(rawTxs.data.tx_responses[i].height);
                         let txtdatetime = rawTxs.data.tx_responses[i].timestamp;
                         // On parcoure les messages de cette tx
                         for(let j=0 ; j < rawTxs.data.tx_responses[i].tx.body.messages.length ; j++) {
@@ -356,20 +381,34 @@ export const getProposal = async (propID) => {
                     nbDeLecturesAfaire += 1;
                 for(let n=1 ; n < nbDeLecturesAfaire ; n++) {
 
+
+                    // TxSearch doc. : https://terra-classic-lcd.publicnode.com/swagger/#/Service/GetTxsEvent
+                    // ======================================================================================
+                    // Si 407 entrées, par exemple
+                    // ---------------------------
+                    // Page 1 (0-99) :     https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
+                    // Page 2 (100-199) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
+                    // Page 3 (200-299) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
+                    // Page 4 (300-399) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
+                    // Page 5 (400-406) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
+
+
                     // Montage des paramètres nécessaires ici
                     const params = new URLSearchParams();
-                    params.append("pagination.offset", n*100);
-                    params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");
+                    params.append("page", n+1);
+                    // params.append("events", "message.action='/cosmos.gov.v1beta1.MsgVote'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
                     params.append("events", "proposal_vote.proposal_id=" + propID.toString());
 
                     // Exécution de la requête de recherche des 100 txs suivants
                     const rawTxsSuivants = await lcd.tx.searchTxsByEvent(params).catch(handleError);
                     if(rawTxsSuivants?.data?.txs) {
+    // console.log("rawTxsSuivants.data", rawTxsSuivants.data);
                         // Traitement des 100 premiers txs (ou moins, si y'en a moins, bien sûr)
                         for(let i=0 ; i < rawTxsSuivants.data.txs.length ; i++) {
                             let txcode = rawTxsSuivants.data.tx_responses[i].code;
                             // On analyse seulement les transactions réussie (code = 0)
                             if(txcode === 0) {
+    // console.log(rawTxsSuivants.data.tx_responses[i].height);
                                 let txhash = rawTxsSuivants.data.tx_responses[i].txhash;
                                 let txtdatetime = rawTxsSuivants.data.tx_responses[i].timestamp;
                                 // On parcoure les messages de cette tx
