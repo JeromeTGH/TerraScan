@@ -452,7 +452,7 @@ const PageProposal = () => {
                                 : null} */}
                             </StyledBox>
                         : null}
-                        {(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblDesVotesDeValidateur'] ?
+                        {/* {(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblDesVotesDeValidateur'] ?
                             <StyledBox title="Validators votes" color="blue">
                                 {Object.keys(proposalInfos['tblDesVotesDeValidateur']).length === 0 ?
                                     <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
@@ -512,8 +512,8 @@ const PageProposal = () => {
                                     </>
                                 }
                             </StyledBox>
-                        : null}
-                        {(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" || proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
+                        : null} */}
+                        {(proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD") && proposalInfos['tblHistoriqueDesVotesValidateur'] ?
                             <StyledBox title="HISTORY of validators votes" color="green">
                                 {Object.keys(proposalInfos['tblHistoriqueDesVotesValidateur']).length === 0 ?
                                     <div><br />No data returned by the blockchain (lcd), sorry.<br /><br /></div>
