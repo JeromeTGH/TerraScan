@@ -5,11 +5,7 @@
 }
 
 .accountsBlock {
-
-    font-size: 1rem;
-    @media (max-width: $primary-breakpoint) {
-        font-size: 0.9rem;
-    }
+    font-size: 0.9rem;
 
     a {
         word-break: break-all;
