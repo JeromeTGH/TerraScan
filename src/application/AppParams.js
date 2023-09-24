@@ -60,6 +60,8 @@ export const tblCorrespondanceCompte = {
     "terra1nm0rrq86ucezaf8uj35pq9fpwr5r82clp5z7r5": "Kraken users",
     "terra1w8nc8ev0ylg97qnj080np4lnljngdvpd90ev63": "MEXC wallet",
     "terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e": "Kucoin wallet",
+    "terra1j435gkgg8d0qadjcn09s73rtk5k3ftrx7mc4a8": "ByBit wallet",
+    "terra1qf07h97m7s93q7dj450c57h79f3c7a7ddn37r2": "CoinInn wallet",
 
 
     // Validateurs
@@ -68,6 +70,9 @@ export const tblCorrespondanceCompte = {
     "terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3": "Nova (old)",
     "terra16aumxyfeh2vrd2kr9qk2gadmwmg4jm5kw6nryp": "Burn It All!!! validator",
     "terra13avdm9rqxpftv3vrkaqaakakgh30909x8hrruz": "GalacticShift.io validator",
+    "terra120ppepaj2lh5vreadx42wnjjznh55vvktwj679": "AllNodes validator",
+    "terra1j27nm2gjm0m4lsye8lspa46rax0rw4fge9awrs": "Luna Station 88 validator",
+    "terra15ahd0dg9qwkg5tjmkn7fm6sdrpwa47m50selnm": "HCC validator",
 
 
     // Autres comptes notoires
@@ -76,7 +81,10 @@ export const tblCorrespondanceCompte = {
     "terra1vwchc3pkrxn8kahd0g9wxd8zjr0drnduzkn4z3": "Cremation Coin",
     "terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "LUNC DAO",
     "terra1l5czlksptahp4lz9snzs6gpszancuftvnjaf8e": "DIAMOND HODL",
-    "terra14ju0cvctm9v5d0xxtjj3h9ejkc92qgtzqynfpt": "LUNC Warriors Project"
+    "terra14ju0cvctm9v5d0xxtjj3h9ejkc92qgtzqynfpt": "LUNC Warriors Project",
+    "terra1sq6th05hdwwwxvymzytc93lvhjxyx4pkjurhgj": "LunaticsToken",
+    "terra1lahvss98xwyhuf7lz8rcgu2rc8zecz3htj6f8y": "Lunasphere",
+    "terra13yxmvax7ndvaptgxmqjgqmejka48nrcfm66xaa": "LUNCwhales"
 }
 
 
