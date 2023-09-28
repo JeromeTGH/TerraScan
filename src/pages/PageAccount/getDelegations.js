@@ -64,7 +64,7 @@ export const getDelegations = async (accountAddress) => {
 
 
     // Tri des montants stakés, du "plus gros" au "plus petit"
-    tblRetour.sort((a, b) => b.amountStaked - a.amountStaked);
+    tblRetour.sort((a, b) => b.currentStakedAmount - a.currentStakedAmount);
 
 
     // Si aucune erreur ne s'est produite, alors on renvoie le tableau complété
