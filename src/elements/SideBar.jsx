@@ -84,9 +84,9 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/about"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                        <NavLink to={"/about-disclaimer"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><CircleQuestionIcon /></span>
-                            <span>About</span>
+                            <span>About / Disclaimer</span>
                         </NavLink>
                     </li>
                 </ul>

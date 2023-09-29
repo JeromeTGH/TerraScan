@@ -5,7 +5,7 @@ import { CircleQuestionIcon } from '../../application/AppIcons';
 import { LCDclient } from '../../lcd/LCDclient';
 import StyledBox from '../../sharedComponents/StyledBox';
 
-const PageAbout = () => {
+const PageAboutDisclaimer = () => {
 
     // Variables React
     const [versionTerrad, setVersionTerrad] = useState("...");
@@ -14,7 +14,7 @@ const PageAbout = () => {
     // Exécution au démarrage
     useEffect(() => {
         // Changement du "title" de la page web
-        document.title = 'About - ' + appName;
+        document.title = 'About / Disclaimer - ' + appName;
 
         // Chargement "node_info"
         const lcd = LCDclient.getSingleton();
@@ -38,7 +38,7 @@ const PageAbout = () => {
 
     return (
         <div>
-            <h1><span><CircleQuestionIcon /><strong>About</strong></span></h1>
+            <h1><span><CircleQuestionIcon /><strong>About / Disclaimer</strong></span></h1>
             <StyledBox title="This app" color="green">
                 <p>This app <strong>"TerraScan" is an scanner/finder for Terra Classic blockchain</strong>.<br />
                     <br />
@@ -61,6 +61,7 @@ const PageAbout = () => {
             <br />
             <div className='erreur'>
                 Very important :<br />
+                - no financial advice here<br />
                 - do your own research, always<br />
                 - do not trust, verify<br />
                 - the cryptocurrency world is full of scammers and thieves, so be extremely careful<br />
@@ -75,4 +76,4 @@ const PageAbout = () => {
     );
 };
 
-export default PageAbout;
+export default PageAboutDisclaimer;

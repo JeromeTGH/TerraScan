@@ -17,7 +17,7 @@ import PageProposal from '../PageProposal/PageProposal';
 import PageBurns from '../PageBurns/PageBurns';
 import PageStaking from '../PageStaking/PageStaking';
 import PageSearch from '../PageSearch/PageSearch';
-import PageAbout from '../PageAbout/PageAbout';
+import PageAboutDisclaimer from '../PageAboutDisclaimer/PageAboutDisclaimer';
 import Page404 from '../Page404/Page404';
 
 import styles from './PageBuilder.module.scss';
@@ -83,8 +83,8 @@ const PageBuilder = (props) => {
                 return <PageValidator />;
             case 'validators':
                 return <PageValidators />;
-            case 'about':
-                return <PageAbout />;
+            case 'about-disclaimer':
+                return <PageAboutDisclaimer />;
             case 'proposal':
                 return <PageProposal />;
             case 'proposals':

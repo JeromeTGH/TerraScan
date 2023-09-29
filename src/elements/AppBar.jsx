@@ -78,9 +78,9 @@ const AppBar = () => {
                             <span><SearchIcon /></span>
                             <span>Search</span>
                         </Link></li>
-                        <li><Link to="/about" onClick={() => hiddenMenuCloseClick()}>
+                        <li><Link to="/about-disclaimer" onClick={() => hiddenMenuCloseClick()}>
                             <span><CircleQuestionIcon /></span>
-                            <span>About</span>
+                            <span>About / Disclaimer</span>
                         </Link></li>
                         <li className={styles.donate}><Link to="/donate" onClick={() => hiddenMenuCloseClick()}>
                             <span><CoffeeIcon /></span>
