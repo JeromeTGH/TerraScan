@@ -38,7 +38,7 @@ const ShowProposals = () => {
             case "PROPOSAL_STATUS_VOTING_PERIOD":
                 tblDonnees.push(...tblProposals
                     .filter(element => (element.status === filtre))
-                    .sort((a, b) => b.voting_start_time - a.voting_start_time));
+                    .sort((a, b) => (b.voting_start_time > a.voting_start_time) ? 1 : ((b.voting_start_time < a.voting_start_time) ? -1 : 0)));
                 break;
             case "PROPOSAL_STATUS_DEPOSIT_PERIOD":
                 tblDonnees.push(...tblProposals
@@ -48,7 +48,7 @@ const ShowProposals = () => {
             case "PROPOSAL_STATUS_REJECTED":
                 tblDonnees.push(...tblProposals
                     .filter(element => (element.status === filtre))
-                    .sort((a, b) => b.voting_end_time - a.voting_end_time));
+                    .sort((a, b) => (b.voting_end_time > a.voting_end_time) ? 1 : ((b.voting_end_time < a.voting_end_time) ? -1 : 0)));
                 break;
             default:
                 break;

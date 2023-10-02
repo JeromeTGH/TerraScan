@@ -101,6 +101,7 @@ const PageProposal = () => {
                                         <span>(unknown)</span>
                                 }
                             </div>
+                            <div><u>Type</u> : {proposalInfos['propType']}</div>
                         </div>
                         <br />
                         <div>Status : {proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" ?

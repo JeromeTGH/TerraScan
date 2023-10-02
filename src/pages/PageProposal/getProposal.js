@@ -45,6 +45,8 @@ export const getProposal = async (propID) => {
 
 
     // Récupération des infos de cette proposition là en particulier
+    proposalInfos['propType'] = tblProposals[idxOfThisProp].content["@type"] ? tblProposals[idxOfThisProp].content["@type"].split('.').slice(-1) : 'unknown'
+
     proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].content.amount) : null;
     proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].content.changes ? tblProposals[idxOfThisProp].content.changes : null;
     proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].content.plan ? tblProposals[idxOfThisProp].content.plan : null;

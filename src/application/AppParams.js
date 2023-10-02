@@ -84,7 +84,8 @@ export const tblCorrespondanceCompte = {
     "terra14ju0cvctm9v5d0xxtjj3h9ejkc92qgtzqynfpt": "LUNC Warriors Project",
     "terra1sq6th05hdwwwxvymzytc93lvhjxyx4pkjurhgj": "LunaticsToken",
     "terra1lahvss98xwyhuf7lz8rcgu2rc8zecz3htj6f8y": "Lunasphere",
-    "terra13yxmvax7ndvaptgxmqjgqmejka48nrcfm66xaa": "LUNCwhales"
+    "terra13yxmvax7ndvaptgxmqjgqmejka48nrcfm66xaa": "LUNCwhales",
+    "terra1nh8sjqy87z9mevgnmyd889s82g4hfj44dy7kp7": "Project LUNCBurn (HCC)"
 }
 
 
