@@ -1,3 +1,18 @@
+@import '../../style/variables';
+
+// .fullView {
+//     display: block;
+//     @media (max-width: $primary-breakpoint) {
+//         display: none;
+//     }
+// }
+// .partialView {
+//     display: none;
+//     @media (max-width: $primary-breakpoint) {
+//         display: block;
+//     }
+// }
+
 .coinContainer {
     display: grid;
     gap: 1rem;
