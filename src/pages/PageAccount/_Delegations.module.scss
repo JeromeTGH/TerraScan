@@ -13,6 +13,14 @@
 //     }
 // }
 
+.coinImage {
+    img {
+        width: 1rem;
+        margin-left: 0.2rem;
+        margin-right: 0.4rem;
+    }
+}
+
 .coinContainer {
     display: grid;
     gap: 1rem;
