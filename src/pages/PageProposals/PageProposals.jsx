@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposals.module.scss';
 import { getProposals } from './getProposals';
-import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import Filters from './_Filters';
 import TableOfProposals from './_TableOfProposals';
@@ -15,10 +14,7 @@ const PageProposals = (props) => {
 
 
     // Chargement au démarrage
-    useEffect(() => {
-        // Changement du "title" de la page web
-        document.title = 'Proposals - ' + appName;
-
+    useEffect(() => {      
         // Récupération de toutes les propositions
         setIsLoading(true);
         getProposals().then((res) => {

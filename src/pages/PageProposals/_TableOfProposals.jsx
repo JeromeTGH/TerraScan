@@ -3,6 +3,7 @@ import styles from './_TableOfProposals.module.scss';
 import { Link } from 'react-router-dom';
 import Card from './_Card';
 import { tblProposals } from '../../application/AppData';
+import { appName } from '../../application/AppParams';
 
 const TableOfProposals = (props) => {
 
@@ -22,6 +23,27 @@ const TableOfProposals = (props) => {
 
     // Extraction des données qui nous intéresse, pour l'offichage
     useEffect(() => {
+        // Changement du "title" de la page web
+        switch(props.filter) {
+            case "voting":
+                document.title = 'Voting proposals - ' + appName;
+                break;
+            case "deposits":
+                document.title = 'Proposals deposits - ' + appName;
+                break;
+            case "adopted":
+                document.title = 'Adopted proposals - ' + appName;
+                break;
+            case "rejected":
+                document.title = 'Rejected proposals - ' + appName;
+                break;
+            case "all":
+            default:
+                document.title = 'Proposals - ' + appName;
+        }
+
+
+        // Filtrage des données
         const tblDonnees = [];
 
         const filtreDenominations = {
