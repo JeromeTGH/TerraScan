@@ -7,9 +7,11 @@
         text-align: left;
         border-bottom: 1px solid var(--outline-box-color);
         white-space: pre-wrap;
+        word-break: break-word;
     }
 
     .contentDescription {
+        white-space: pre-wrap;
         word-break: break-word;
     }
 

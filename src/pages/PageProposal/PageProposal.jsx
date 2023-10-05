@@ -117,7 +117,7 @@ const PageProposal = () => {
 
                         <StyledBox title="Proposal" color="green">
                             <h2 className={styles.h2titles}><strong>{proposalInfos['contentTitle']}</strong></h2>
-                            <p className={styles.contentDescription} style={{whiteSpace: "pre-wrap"}}>{proposalInfos['contentDescription']}</p>
+                            <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </StyledBox>
 
 
