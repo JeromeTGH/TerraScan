@@ -10,9 +10,9 @@ import StyledBox from '../../sharedComponents/StyledBox';
 const PageBurns = () => {
 
     // Constantes
-    const minLuncToShow = 100;    // Nombre de LUNC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
-    const minUstcToShow = 1;      // Nombre d'USTC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
-    const nbLineToShow = 500;     // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
+    const minLuncToShow = 10000;  // Nombre de LUNC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
+    const minUstcToShow = 100;    // Nombre d'USTC minimum pour une transaction donnée, pour que celle-ci soit "retenue" dans le tableau d'affichage final
+    const nbLineToShow = 100;     // Nombre de lignes "filtrées" (que MsgSend, d'un certain montant), à afficher
 
         
     // Variables React
