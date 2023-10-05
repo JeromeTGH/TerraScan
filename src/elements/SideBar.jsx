@@ -1,6 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,11 +9,23 @@ import BtnJourNuit from './BtnJourNuit';
 const SideBar = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const [isProposalsPageOrChilds, setIsProposalsPageOrChilds] = useState(false);
 
     // Fonction de redirection "donate"
     const handleDon = () => {
         navigate('/donate/');
     }
+
+    // Fixation du "hover" du menu gouvernance, si la page principale ou ses enfants sont sélectionnés
+    // (nota : ici, le link /proposals/voting ne permet pas de faire les choses plus simplement)
+    useEffect(() => {
+        if(location.pathname.toLowerCase().slice(0, 10) === '/proposals')
+            setIsProposalsPageOrChilds(true)
+        else
+            setIsProposalsPageOrChilds(false)
+    }, [location.pathname])
+
 
     // Affichage
     return (
@@ -60,10 +71,10 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/proposals/voting"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                        <Link to={"/proposals/voting"} className={ isProposalsPageOrChilds ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive}>
                             <span><VoteIcon /></span>
                             <span>Governance</span>
-                        </NavLink>
+                        </Link>
                     </li>
                     <li>
                         <NavLink to={"/burns"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
