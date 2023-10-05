@@ -60,7 +60,7 @@ const SideBar = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={"/proposals"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                        <NavLink to={"/proposals/voting"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><VoteIcon /></span>
                             <span>Governance</span>
                         </NavLink>

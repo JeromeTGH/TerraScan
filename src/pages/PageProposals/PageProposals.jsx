@@ -5,8 +5,9 @@ import { getProposals } from './getProposals';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import Filters from './_Filters';
+import TableOfProposals from './_TableOfProposals';
 
-const PageProposals = () => {
+const PageProposals = (props) => {
 
     // Variables React
     const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,7 @@ const PageProposals = () => {
                     :
                         <div className={styles.blockProposals}>
                             <Filters />
+                            <TableOfProposals filter={props.filter} />
                         </div>
                 }
             </div>

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const Filters = () => {
     return (
         <div className={styles.tblFilters}>
-            <NavLink to={"/proposals/all"} className={({ isActive }) => (isActive ? styles.selectedFilter : null)}>Show ALL proposals</NavLink>
+            <NavLink end to={"/proposals"} className={({ isActive }) => (isActive ? styles.selectedFilter : null)}>Show ALL proposals</NavLink>
             <NavLink to={"/proposals/voting"} className={({ isActive }) => (isActive ? styles.selectedFilter : null)}>Show VOTES in progress</NavLink>
             <NavLink to={"/proposals/deposits"} className={({ isActive }) => (isActive ? styles.selectedFilter : null)}>Show PENDING deposits</NavLink>
             <NavLink to={"/proposals/adopted"} className={({ isActive }) => (isActive ? styles.selectedFilter : null)}>Show ADOPTED proposals</NavLink>

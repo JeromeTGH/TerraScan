@@ -42,11 +42,7 @@ const AppRoutes = () => {
             },
             {
                 path: "/proposals",
-                element: <Navigate replace to="/proposals/all" />
-            },
-            {
-                path: "/proposals/all",
-                element: <PageBuilder targetPage="proposals_all" withHeader="yes" withFooter="yes" />
+                element: <PageBuilder targetPage="proposals" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/proposals/voting",
