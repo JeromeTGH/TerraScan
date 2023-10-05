@@ -87,7 +87,15 @@ const PageBuilder = (props) => {
                 return <PageAboutDisclaimer />;
             case 'proposal':
                 return <PageProposal />;
-            case 'proposals':
+            case 'proposals_all':
+                return <PageProposals />;
+            case 'proposals_voting':
+                return <PageProposals />;
+            case 'proposals_deposits':
+                return <PageProposals />;
+            case 'proposals_adopted':
+                return <PageProposals />;
+            case 'proposals_rejected':
                 return <PageProposals />;
             case 'burns':
                 return <PageBurns />;

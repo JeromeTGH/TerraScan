@@ -42,7 +42,27 @@ const AppRoutes = () => {
             },
             {
                 path: "/proposals",
-                element: <PageBuilder targetPage="proposals" withHeader="yes" withFooter="yes" />
+                element: <Navigate replace to="/proposals/all" />
+            },
+            {
+                path: "/proposals/all",
+                element: <PageBuilder targetPage="proposals_all" withHeader="yes" withFooter="yes" />
+            },
+            {
+                path: "/proposals/voting",
+                element: <PageBuilder targetPage="proposals_voting" withHeader="yes" withFooter="yes" />
+            },
+            {
+                path: "/proposals/deposits",
+                element: <PageBuilder targetPage="proposals_deposits" withHeader="yes" withFooter="yes" />
+            },
+            {
+                path: "/proposals/adopted",
+                element: <PageBuilder targetPage="proposals_adopted" withHeader="yes" withFooter="yes" />
+            },
+            {
+                path: "/proposals/rejected",
+                element: <PageBuilder targetPage="proposals_rejected" withHeader="yes" withFooter="yes" />
             },
             {
                 path: "/proposals/:propID",

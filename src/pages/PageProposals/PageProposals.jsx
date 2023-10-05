@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposals.module.scss';
-import ShowProposals from './_ShowProposals';
 import { getProposals } from './getProposals';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
+import Filters from './_Filters';
 
 const PageProposals = () => {
 
@@ -43,7 +43,9 @@ const PageProposals = () => {
                     isLoading ?
                         <StyledBox title="Loading" color="blue"><br /><div>Loading data from blockchain (lcd), please wait ...</div><br /></StyledBox>
                     :
-                        <ShowProposals />
+                        <div className={styles.blockProposals}>
+                            <Filters />
+                        </div>
                 }
             </div>
         </>
