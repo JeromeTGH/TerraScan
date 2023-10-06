@@ -385,7 +385,8 @@ const PageProposal = () => {
                                                 })}
                                             </tbody>
                                         </table>
-                                        {((filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] !== 0) ||
+                                        {((filtre === "DID_NOT_VOTE" && proposalInfos['validator_DID_NOT_VOTE'] !== 0) ||
+                                            (filtre === "VOTE_OPTION_YES" && proposalInfos['validator_VOTE_OPTION_YES'] !== 0) ||
                                             (filtre === "VOTE_OPTION_ABSTAIN" && proposalInfos['validator_VOTE_OPTION_ABSTAIN'] !== 0) ||
                                             (filtre === "VOTE_OPTION_NO" && proposalInfos['validator_VOTE_OPTION_NO'] !== 0) ||
                                             (filtre === "VOTE_OPTION_NO_WITH_VETO" && proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO'] !== 0)) ?
