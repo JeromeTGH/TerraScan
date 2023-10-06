@@ -93,14 +93,18 @@ const Delegations = (props) => {
                             {tblDelegations ? tblDelegations.map((element, index) => {
                                 return <StyledBox title={<>Delegation {index+1}/{tblDelegations.length}</>} color="orange" key={index}>
                                     <>
-                                        <span>There are </span><span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.currentStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.currentStakedAmount)}</span><span className={styles.coinImage}><img src={'/images/coins/LUNC.png'} alt='LUNC logo' /></span>
-                                        {/* Message si écart supérieur à 1% et à 1 LUNC, entre le montant actuellement staké, et le montant "initial" */}
-                                        {(element.currentStakedAmount/element.initialStakedAmount) < 0.99 && (element.initialStakedAmount-element.currentStakedAmount) > 1 ?
-                                            <div className='erreur'>(initially <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.initialStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.initialStakedAmount)}</span> LUNC / <strong>{((1-(element.currentStakedAmount/element.initialStakedAmount))*100).toFixed(2)}% difference</strong>)</div>
-                                        :
-                                            null
-                                        }
-                                        <span>staked with validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</span>
+                                        <div>
+                                            <span>There are </span><span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.currentStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.currentStakedAmount)}</span><span className={styles.coinImage}><img src={'/images/coins/LUNC.png'} alt='LUNC logo' /></span>
+                                            {/* Message si écart supérieur à 1% et à 1 LUNC, entre le montant actuellement staké, et le montant "initial" */}
+                                            {(element.currentStakedAmount/element.initialStakedAmount) < 0.99 && (element.initialStakedAmount-element.currentStakedAmount) > 1 ?
+                                                <div className='erreur'>(initially <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.initialStakedAmount)}</span><span className='partieDecimale'>{retournePartieDecimaleFixed6(element.initialStakedAmount)}</span> LUNC / <strong>{((1-(element.currentStakedAmount/element.initialStakedAmount))*100).toFixed(2)}% difference</strong>)</div>
+                                            :
+                                                null
+                                            }
+                                            <span>staked with validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</span>
+                                        </div>
+                                        <br />
+                                        <div>Pending rewards :</div>
                                         <div className={styles.coinContainer}>
                                             <div className={styles.coin}>
                                                 <div className={styles.coinImageAndLabel}>
@@ -109,8 +113,8 @@ const Delegations = (props) => {
                                                 </div>
                                                 <div className={styles.coinValue}>
                                                     <strong>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.rewards[0].amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.rewards[0].amount)}</span>
+                                                        <span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[0].amount)}</span>
+                                                        <span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[0].amount)}</span>
                                                     </strong>
                                                 </div>
                                             </div>
@@ -121,8 +125,8 @@ const Delegations = (props) => {
                                                 </div>
                                                 <div className={styles.coinValue}>
                                                     <strong>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.rewards[1].amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.rewards[1].amount)}</span>
+                                                        <span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[1].amount)}</span>
+                                                        <span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[1].amount)}</span>
                                                     </strong>
                                                 </div>
                                             </div>
@@ -133,8 +137,8 @@ const Delegations = (props) => {
                                                         <span>{element2.denom}</span>
                                                     </div>
                                                     <div className={styles.coinValue}>
-                                                        <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element2.amount)}</span>
-                                                        <span className='partieDecimale'>{retournePartieDecimaleFixed6(element2.amount)}</span>
+                                                        <span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element2.amount)}</span>
+                                                        <span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element2.amount)}</span>
                                                     </div>
                                                 </div> : null
                                             }) : null}

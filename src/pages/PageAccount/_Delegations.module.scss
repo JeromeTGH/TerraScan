@@ -70,6 +70,16 @@
             @media (max-width: 600px) {
                 font-size: 0.85rem;
             }
+
+            .partieEntiereModifiee {
+                font-weight: 400;
+                font-size: 0.9rem;
+            }
+            .partieDecimaleModifiee {
+                font-weight: 300;
+                font-size: 0.6rem;
+                padding-left: 0.1rem;
+            }
         }
     }
 }
