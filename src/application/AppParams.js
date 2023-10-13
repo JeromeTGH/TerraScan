@@ -73,6 +73,7 @@ export const tblCorrespondanceCompte = {
     "terra120ppepaj2lh5vreadx42wnjjznh55vvktwj679": "AllNodes validator",
     "terra1j27nm2gjm0m4lsye8lspa46rax0rw4fge9awrs": "Luna Station 88 validator",
     "terra15ahd0dg9qwkg5tjmkn7fm6sdrpwa47m50selnm": "HCC validator",
+    "terra18kdk2kf8uvzs5gghky23hv4q7wdnk0ff2k83wt": "Garuda Universe validator",
 
 
     // Autres comptes notoires
