@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Card from './_Card';
 import { tblProposals } from '../../application/AppData';
 import { appName } from '../../application/AppParams';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const TableOfProposals = (props) => {
 
@@ -86,6 +87,9 @@ const TableOfProposals = (props) => {
     // Affichage
     return (
         <>
+            {donneesAafficher.length === 0 ?
+                <StyledBox title="Proposals" color="blue"><br /><div>No proposal, currently</div><br /></StyledBox>
+            : null}
             <div className={styles.tblProposals}>
                 {donneesAafficher ? donneesAafficher.map((element, index) => {
                     return <div key={index}>
