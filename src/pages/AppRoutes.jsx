@@ -41,6 +41,10 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="validator" withHeader="yes" withFooter="yes" />
             },
             {
+                path: "/graphs",
+                element: <PageBuilder targetPage="graphs" withHeader="yes" withFooter="yes" />
+            },
+            {
                 path: "/proposals",
                 element: <PageBuilder targetPage="proposals" withHeader="yes" withFooter="yes" />
             },

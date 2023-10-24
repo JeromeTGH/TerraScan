@@ -4,6 +4,7 @@
 
 | Version | Description |
 | - | - |
+| 1.3.5 | - Added a "Graphs" page |
 | 1.3.4 | - Redesign of "proposals" page (added pagination too)<br />- Optimization of data loading |
 | 1.3.3 | - Full redesign of "block" page<br />- Makeover of "Staking" page |
 | 1.3.2 | - Redesign of all tables in the app<br />- Makeover of "Proposal" and "Proposals" pages<br />- Makeover of "Block" page<br />- Makeover of "Transaction" page<br />- Makeover of "Validator" page<br />- Makeover of "Home" page |

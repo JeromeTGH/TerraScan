@@ -635,3 +635,21 @@ export const PercentageIcon = (props) => {
     </svg>
   );
 }
+
+
+// GraphBar Icon
+export const GraphBarIcon = (props) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M6 23H2a1 1 0 01-1-1v-8a1 1 0 011-1h4a1 1 0 011 1v8a1 1 0 01-1 1z" />
+      <path d="M14 23h-4a1 1 0 01-1-1V2a1 1 0 011-1h4a1 1 0 011 1v20a1 1 0 01-1 1z" />
+      <path d="M22 23h-4a1 1 0 01-1-1V10a1 1 0 011-1h4a1 1 0 011 1v12a1 1 0 01-1 1z" />
+    </svg>
+  );
+}

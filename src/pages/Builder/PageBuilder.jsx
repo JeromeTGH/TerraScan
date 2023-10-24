@@ -4,6 +4,7 @@ import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
+import PageGraphs from '../PageGraphs/PageGraphs';
 import PageAccount from '../PageAccount/PageAccount';
 import PageAccounts from '../PageAccounts/PageAccounts';
 import PageBlock from '../PageBlock/PageBlock';
@@ -67,6 +68,8 @@ const PageBuilder = (props) => {
         switch(parametre) {
             case 'home':
                 return <PageHome />;
+            case 'graphs':
+                return <PageGraphs />;
             case 'account':
                 return <PageAccount />;
             case 'accounts':
