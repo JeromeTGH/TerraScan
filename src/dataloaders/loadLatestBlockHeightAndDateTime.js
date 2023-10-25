@@ -1,5 +1,5 @@
-import { FCDclient } from "../fcd/FCDclient";
-import { LCDclient } from "../lcd/LCDclient";
+import { FCDclient } from "../apis/fcd/FCDclient";
+import { LCDclient } from "../apis/lcd/LCDclient";
 
 
 export const loadLatestBlockHeightAndDateTime = async () => {

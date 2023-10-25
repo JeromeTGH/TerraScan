@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import packageJson from '../../../package.json';
 import { FCDurl, appName, chainID, chainLCDurl } from '../../application/AppParams';
 import { CircleQuestionIcon } from '../../application/AppIcons';
-import { LCDclient } from '../../lcd/LCDclient';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageAboutDisclaimer = () => {

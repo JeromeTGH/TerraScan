@@ -17,6 +17,7 @@ const PageGraphs = () => {
     return (
         <>
             <h1><GraphBarIcon /><span><strong>Graphs</strong> (historical charts)</span></h1>
+            <p>Service started in ~september/october 2023 (so no history before)</p>
             <div className={styles.blocksGraphsPage}>
                 <BlockTotalSupplies />
             </div>

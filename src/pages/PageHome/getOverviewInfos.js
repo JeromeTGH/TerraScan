@@ -1,4 +1,4 @@
-import { LCDclient } from '../../lcd/LCDclient';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 import { tblGlobalInfos, tblValidators } from '../../application/AppData';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 import { loadSomeGeneralnfos } from '../../dataloaders/loadSomeGeneralnfos';

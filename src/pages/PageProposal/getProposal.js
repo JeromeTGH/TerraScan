@@ -1,9 +1,9 @@
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 import { tblGovInfos, tblProposals, tblValidators, tblValidatorsAccounts } from '../../application/AppData';
-import { LCDclient } from '../../lcd/LCDclient';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 import { loadGovInfos } from '../../dataloaders/loadGovInfos';
 import { loadProposals } from '../../dataloaders/loadProposals';
-import { CoinsList } from '../../fcd/classes/CoinsList';
+import { CoinsList } from '../../apis/fcd/classes/CoinsList';
 import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 

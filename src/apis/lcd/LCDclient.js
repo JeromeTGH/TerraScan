@@ -1,4 +1,4 @@
-import { LCDurl } from "../application/AppParams";
+import { LCDurl } from "../../application/AppParams";
 import { APIrequester } from "./APIrequester";
 
 import { BankAPI } from "./api/BankAPI";

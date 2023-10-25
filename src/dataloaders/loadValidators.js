@@ -1,6 +1,6 @@
 import { tblGlobalInfos, tblValidators, tblValidatorsAccounts } from "../application/AppData";
-import { FCDclient } from "../fcd/FCDclient";
-import { Validator } from "../fcd/classes/Validator";
+import { FCDclient } from "../apis/fcd/FCDclient";
+import { Validator } from "../apis/fcd/classes/Validator";
 import { loadNbStakedLunc } from "./loadNbStakedLunc";
 
 

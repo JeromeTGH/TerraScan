@@ -1,5 +1,5 @@
 import { tblGovInfos } from "../application/AppData";
-import { LCDclient } from "../lcd/LCDclient";
+import { LCDclient } from "../apis/lcd/LCDclient";
 
 
 export const loadGovInfos = async () => {

@@ -1,5 +1,5 @@
 
-import { LCDclient } from '../../lcd/LCDclient';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
 
 

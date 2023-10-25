@@ -1,4 +1,4 @@
-import { FCDurl } from "../application/AppParams";
+import { FCDurl } from "../../application/AppParams";
 import { APIrequester } from "./APIrequester";
 import { BankAPI } from "./api/BankAPI";
 import { StakingAPI } from "./api/StakingAPI";

@@ -1,9 +1,9 @@
 import { tblCorrespondanceMessages, tblCorrespondanceValeurs } from '../../application/AppParams';
-import { FCDclient } from "../../fcd/FCDclient";
+import { FCDclient } from "../../apis/fcd/FCDclient";
 import { tblValidators, tblValidatorsAccounts } from '../../application/AppData';
-import { Tx } from '../../fcd/classes/Tx';
-import { CoinsList } from '../../fcd/classes/CoinsList';
-import { LCDclient } from '../../lcd/LCDclient';
+import { Tx } from '../../apis/fcd/classes/Tx';
+import { CoinsList } from '../../apis/fcd/classes/CoinsList';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 
 export const getTxDatas = async (txHash) => {
     

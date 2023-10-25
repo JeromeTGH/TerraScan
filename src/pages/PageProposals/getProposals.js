@@ -2,7 +2,7 @@ import { tblGovInfos, tblProposals } from '../../application/AppData';
 import { loadGovInfos } from '../../dataloaders/loadGovInfos';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 import { loadProposals } from '../../dataloaders/loadProposals';
-import { LCDclient } from '../../lcd/LCDclient';
+import { LCDclient } from '../../apis/lcd/LCDclient';
 
 
 export const getProposals = async () => {

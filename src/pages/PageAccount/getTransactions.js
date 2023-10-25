@@ -1,6 +1,6 @@
 
 import { tblCorrespondanceValeurs } from '../../application/AppParams';
-import { FCDclient } from '../../fcd/FCDclient';
+import { FCDclient } from '../../apis/fcd/FCDclient';
 
 
 export const getTransactions = async (accountAddress) => {

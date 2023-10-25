@@ -1,4 +1,4 @@
-import { LCDclient } from "../lcd/LCDclient";
+import { LCDclient } from "../apis/lcd/LCDclient";
 
 export const loadTotalSupplies = async () => {
 
