@@ -9,7 +9,7 @@ export class CommunityPoolAPI {
 
     // Exemple d'appel : /api/communitypool/getPastValues?limit=50&timeunit=H1 (paramètres par défaut = 50 en limit, et H1 en timeunit)
     async getPastValues(params) {
-        return this.apiRequester.get(this.paths.getAccountTxs, params);
+        return this.apiRequester.get(this.paths.getPastValues, params);
     }
 
 

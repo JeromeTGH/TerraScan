@@ -1,8 +1,11 @@
+import { TSAPIurl } from "../../application/AppParams";
 import { APIrequester } from "./APIrequester";
+
 import { CommunityPoolAPI } from "./api/CommunityPoolAPI";
 import { LunkStakingAPI } from "./api/LunkStakingAPI";
 import { OraclePoolAPI } from "./api/OraclePoolAPI";
 import { TotalSuppliesAPI } from "./api/TotalSuppliesAPI";
+
 
 export class TerraScanAPI {
 
@@ -31,10 +34,10 @@ export class TerraScanAPI {
                 }
             }
     
-            this.communitypool = new CommunityPoolAPI(this.apiRequester, this.paths.bank);
-            this.lunkstaking = new LunkStakingAPI(this.apiRequester, this.paths.tendermint);
-            this.oraclepool = new OraclePoolAPI(this.apiRequester, this.paths.staking);
-            this.totalsupplies = new TotalSuppliesAPI(this.apiRequester, this.paths.tx);
+            this.communitypool = new CommunityPoolAPI(this.apiRequester, this.paths.communitypool);
+            this.lunkstaking = new LunkStakingAPI(this.apiRequester, this.paths.lunkstaking);
+            this.oraclepool = new OraclePoolAPI(this.apiRequester, this.paths.oraclepool);
+            this.totalsupplies = new TotalSuppliesAPI(this.apiRequester, this.paths.totalsupplies);
 
             TerraScanAPI._instance = this;
             console.log('Instance TSAPI créée.');
