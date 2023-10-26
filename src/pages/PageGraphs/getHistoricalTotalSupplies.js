@@ -19,6 +19,7 @@ export const getHistoricalTotalSupplies = async () => {
                 tblAretourner['LuncSupplies'].push(lineofdata.luncAmount)
                 tblAretourner['UstcSupplies'].push(lineofdata.ustcAmount)
                 tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toLocaleString())
+                // tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).getTime())
             }
 
     }

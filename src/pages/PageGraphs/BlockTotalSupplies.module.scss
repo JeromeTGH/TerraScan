@@ -2,4 +2,21 @@
 
 .totalSuppliesBlock {
     grid-area: totalsupplies;
+
+    .charts {
+        display: grid;
+        grid-template-columns: 48% 48%;
+        grid-template-rows: 1fr;
+        column-gap: 1%;
+        row-gap: 1%;
+
+        @media (max-width: 1024px) {
+            grid-template-rows: 48% 48%;
+            grid-template-columns: 1fr;
+        }
+
+        .leftChart, .rightChart {
+            min-height: 400px;
+        }
+    }
 }

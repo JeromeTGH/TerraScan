@@ -3,6 +3,7 @@ import styles from './PageGraphs.module.scss';
 import { GraphBarIcon } from '../../application/AppIcons';
 import BlockTotalSupplies from './BlockTotalSupplies';
 import { appName } from '../../application/AppParams';
+import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageGraphs = () => {
 
@@ -17,7 +18,9 @@ const PageGraphs = () => {
     return (
         <>
             <h1><GraphBarIcon /><span><strong>Graphs</strong> (historical charts)</span></h1>
-            <p>Service started in ~september/october 2023 (so no history before)</p>
+            <StyledBox title="Datas" color="green">
+                <span>Service started in ~september/october 2023 (so <u>no history before</u>)</span>
+            </StyledBox>
             <div className={styles.blocksGraphsPage}>
                 <BlockTotalSupplies />
             </div>
