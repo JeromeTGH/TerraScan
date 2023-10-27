@@ -14,8 +14,8 @@ const BlockLuncTotalSupplies = () => {
     const [msgErreur, setMsgErreur] = useState();
 
     const [timeunit, setTimeunit] = useState();
-    const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState();
-    const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState();
+    const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState([]);
+    const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState([]);
 
 
     // Fonction de sélection d'unité de temps
@@ -63,47 +63,56 @@ const BlockLuncTotalSupplies = () => {
             {msgErreur ?
                 <div className="erreur">{msgErreur}</div>
             :
-                isLoading ?
-                    <div>Loading "LUNC total supplies history" from API, please wait ...</div>
-                :
-                    <div className={styles.charts}>
-                        <div className={styles.chart}>
-                            <Chart
-                                series={[{
-                                    name: "LUNC total supply",
-                                    type: "line",
-                                    data: tblLuncTotalSupplies
-                                }]}
-                                width={"100%"}
-                                height={"100%"}
-                                options={{
-                                    stroke: {
-                                        width: 2
-                                    },
-                                    labels: tblDatetimeTotalSupplies,
-                                    chart: {
-                                        toolbar: {
-                                            show: false
-                                        },
-                                        zoom: {
-                                            enabled: false
-                                        },
-                                        foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
-                                    },
-                                    yaxis: {
-                                        title: {
-                                            text: 'LUNC',
-                                        },
-                                    },
-                                    xaxis: {
-                                        title: {
-                                            text: 'Datetime',
-                                        },
+                <div className={styles.charts}>
+                    <div className={styles.chart}>
+                        <Chart
+                            series={[{
+                                name: "LUNC total supply",
+                                type: "line",
+                                data: tblLuncTotalSupplies
+                            }]}
+                            width={"100%"}
+                            height={"100%"}
+                            options={{
+                                noData: {
+                                    text: isLoading ? 'Loading "LUNC history" from API, please wait ...' : 'No data, sorry',
+                                    align: 'center',
+                                    verticalAlign: 'middle',
+                                    offsetX: 0,
+                                    offsetY: 0,
+                                    style: {
+                                        color: undefined,
+                                        fontSize: '0.9rem',
+                                        fontFamily: undefined
                                     }
-                                }}
-                            />
-                        </div>
+                                },
+                                stroke: {
+                                    width: 2
+                                },
+                                labels: tblDatetimeTotalSupplies,
+                                chart: {
+                                    toolbar: {
+                                        show: false
+                                    },
+                                    zoom: {
+                                        enabled: false
+                                    },
+                                    foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
+                                },
+                                yaxis: {
+                                    title: {
+                                        text: 'LUNC',
+                                    },
+                                },
+                                xaxis: {
+                                    title: {
+                                        text: 'Datetime (UTC)',
+                                    },
+                                }
+                            }}
+                        />
                     </div>
+                </div>
             }
         </StyledBox>
     );

@@ -40,7 +40,7 @@ export class TerraScanAPI {
             this.totalsupplies = new TotalSuppliesAPI(this.apiRequester, this.paths.totalsupplies);
 
             TerraScanAPI._instance = this;
-            console.log('Instance TSAPI créée.');
+            // console.log('Instance TSAPI créée.');
         }
     }
 
