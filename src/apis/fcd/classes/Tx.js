@@ -17,7 +17,8 @@ export class Tx {
                 fee: {
                     amount: objetAvecVariables.tx.value.fee.amount      // objetAvecVariables.tx.value.fee.amount  =  array of {amount: '212865', denom: 'uusd'}, for example
                 },
-                msg:  objetAvecVariables.tx.value.msg     // objetAvecVariables.tx.value.msg  =  [i].type = "bank/MsgSend", "staking/MsgDelegate", ...
+                msg:  objetAvecVariables.tx.value.msg,     // objetAvecVariables.tx.value.msg  =  [i].type = "bank/MsgSend", "staking/MsgDelegate", ...
+                memo:  objetAvecVariables.tx.value.memo
             }
         }
         this.txhash = objetAvecVariables.txhash;

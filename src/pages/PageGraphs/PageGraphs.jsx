@@ -19,7 +19,7 @@ const PageGraphs = () => {
         <>
             <h1><GraphBarIcon /><span><strong>Graphs</strong> (historical charts)</span></h1>
             <StyledBox title="Datas" color="green">
-                <span>Service started in ~september/october 2023 (so <u>no history before</u>)</span>
+                <span>Service started in sept/oct 2023 (so <u>no history before</u>)</span>
             </StyledBox>
             <div className={styles.blocksGraphsPage}>
                 <BlockTotalSupplies />

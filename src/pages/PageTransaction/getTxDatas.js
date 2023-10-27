@@ -61,6 +61,9 @@ export const getTxDatas = async (txHash) => {
         }
         txInfos["feesAmountAndCoin"] = tblFees;
 
+        // ====== Memo
+        txInfos["memo"] = rawTxInfo.tx.value.memo ? rawTxInfo.tx.value.memo : "(none)";
+
 
         // ====== Taxes
         const logsTbl = rawTxInfo.logs;

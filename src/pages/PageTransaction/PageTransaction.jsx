@@ -45,6 +45,9 @@ const PageTransaction = () => {
                 txDatas['txInfos']['datetime'] ?
                     <div>
                         <BlockTxInfos txInfos={txDatas['txInfos']} txHash={txHash} />
+                        <StyledBox title="Memo" color="blue">
+                            {txDatas['txInfos']['memo']}
+                        </StyledBox>
                         {txDatas['txMessages'].map((message, index) => {
                             return <BlockTxMessages txMessage={message} key={index} idxElement={index+1} nbElements={txDatas['txMessages'].length} txHash={txHash} />
                         })}
