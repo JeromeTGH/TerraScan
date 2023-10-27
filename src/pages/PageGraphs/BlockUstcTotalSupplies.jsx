@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import gridplace from './BlockLuncTotalSupplies.module.scss';
+import gridplace from './BlockUstcTotalSupplies.module.scss';
 import styles from './BlockCharts.module.scss';
 import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
-import { getLuncTotalSupplies } from './getLuncTotalSupplies';
+import { getUstcTotalSupplies } from './getUstcTotalSupplies';
 
 
-const BlockLuncTotalSupplies = () => {
+const BlockUstcTotalSupplies = () => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);
     const [msgErreur, setMsgErreur] = useState();
 
     const [timeunit, setTimeunit] = useState();
-    const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState();
+    const [tblUstcTotalSupplies, setTblUstcTotalSupplies] = useState();
     const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState();
 
 
@@ -27,16 +27,16 @@ const BlockLuncTotalSupplies = () => {
     // Fonction de filtrage des valeurs
     const loadDataWithThisTimeunit = (valFiltre) => {
         setIsLoading(true);
-        setTblLuncTotalSupplies([]);
+        setTblUstcTotalSupplies([]);
         setTblDatetimeTotalSupplies([]);
 
-        getLuncTotalSupplies(valFiltre).then((res) => {
+        getUstcTotalSupplies(valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
             }
             else {
-                setTblLuncTotalSupplies(res['LuncSupplies']);
+                setTblUstcTotalSupplies(res['UstcSupplies']);
                 setTblDatetimeTotalSupplies(res['datetime']);
                 setIsLoading(false);
                 setMsgErreur("");
@@ -52,7 +52,7 @@ const BlockLuncTotalSupplies = () => {
 
     // Et affichage
     return (
-        <StyledBox title="LUNC total supply" color="blue" className={gridplace.totalSuppliesBlock}>
+        <StyledBox title="USTC total supply" color="blue" className={gridplace.totalSuppliesBlock}>
             <div className={styles.tblTimeunits}>
                 <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>1h</strong></button>
                 <button className={timeunit === 'H4' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H4')}><strong>4h</strong></button>
@@ -64,15 +64,15 @@ const BlockLuncTotalSupplies = () => {
                 <div className="erreur">{msgErreur}</div>
             :
                 isLoading ?
-                    <div>Loading "LUNC total supplies history" from API, please wait ...</div>
+                    <div>Loading "USTC total supplies history" from API, please wait ...</div>
                 :
                     <div className={styles.charts}>
                         <div className={styles.chart}>
                             <Chart
                                 series={[{
-                                    name: "LUNC total supply",
+                                    name: "USTC total supply",
                                     type: "line",
-                                    data: tblLuncTotalSupplies
+                                    data: tblUstcTotalSupplies
                                 }]}
                                 width={"100%"}
                                 height={"100%"}
@@ -92,7 +92,7 @@ const BlockLuncTotalSupplies = () => {
                                     },
                                     yaxis: {
                                         title: {
-                                            text: 'LUNC',
+                                            text: 'USTC',
                                         },
                                     },
                                     xaxis: {
@@ -109,4 +109,4 @@ const BlockLuncTotalSupplies = () => {
     );
 };
 
-export default BlockLuncTotalSupplies;
+export default BlockUstcTotalSupplies;

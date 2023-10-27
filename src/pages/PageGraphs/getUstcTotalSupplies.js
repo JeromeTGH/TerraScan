@@ -1,6 +1,6 @@
 import { TerraScanAPI } from "../../apis/terrascan-api/TerraScanAPI";
 
-export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
+export const getUstcTotalSupplies = async (timeunit = 'H1', limit = 50) => {
 
     const tblAretourner = []
 
@@ -12,20 +12,20 @@ export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
     params.append('timeunit', timeunit);
     params.append('limit', limit);
         
-    // Récupération de l'historique de la total supply du LUNC
+    // Récupération de l'historique de la total supply de l'USTC
     const rawTotalSuppliesHistory = await tsapi.totalsupplies.getPastValues(params).catch(handleError);
     if(rawTotalSuppliesHistory?.data) {
-            tblAretourner['LuncSupplies'] = []
+            tblAretourner['UstcSupplies'] = []
             tblAretourner['datetime'] = []
 
             // Extraction des données en plusieurs tableaux, pour alimenter le chart
             for(const lineofdata of rawTotalSuppliesHistory.data.reverse()) {
-                tblAretourner['LuncSupplies'].push(lineofdata.luncAmount)
+                tblAretourner['UstcSupplies'].push(lineofdata.ustcAmount)
                 tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toLocaleString())
             }
     }
     else
-        return { "erreur": "Failed to fetch [LUNC total supplies history] ..." }
+        return { "erreur": "Failed to fetch [USTC total supplies history] ..." }
 
 
     // Renvoie du tableau global/rempli, à la fin
