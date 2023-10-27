@@ -10,18 +10,26 @@ const BlockLuncTotalSupplies = () => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);
-    const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState();
-    const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState();
     const [msgErreur, setMsgErreur] = useState();
 
-    // Chargement des données
-    useEffect(() => {
+    const [timeunit, setTimeunit] = useState();
+    const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState();
+    const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState();
 
+
+    // Fonction de sélection d'unité de temps
+    const handleClickOnTimeUnits = (val) => {
+        setTimeunit(val);
+        loadDataWithThisTimeunit(val);
+    }
+
+    // Fonction de filtrage des valeurs
+    const loadDataWithThisTimeunit = (valFiltre) => {
         setIsLoading(true);
         setTblLuncTotalSupplies([]);
         setTblDatetimeTotalSupplies([]);
 
-        getLuncTotalSupplies().then((res) => {
+        getLuncTotalSupplies(valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
@@ -33,12 +41,24 @@ const BlockLuncTotalSupplies = () => {
                 setMsgErreur("");
             }
         })
+    }
 
+    // Chargement des données
+    useEffect(() => {
+        handleClickOnTimeUnits('D1');
+        // eslint-disable-next-line
     }, [])
 
     // Et affichage
     return (
         <StyledBox title="LUNC total supply" color="blue" className={styles.totalSuppliesBlock}>
+            <div className={styles.tblTimeunits}>
+                <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>H1</strong></button>
+                <button className={timeunit === 'H4' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H4')}><strong>H4</strong></button>
+                <button className={timeunit === 'D1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('D1')}><strong>D1</strong></button>
+                <button className={timeunit === 'W1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('W1')}><strong>W1</strong></button>
+                <button className={timeunit === 'M1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('M1')}><strong>M1</strong></button>
+            </div>
             {msgErreur ?
                 <div className="erreur">{msgErreur}</div>
             :
@@ -59,9 +79,6 @@ const BlockLuncTotalSupplies = () => {
                                     stroke: {
                                         width: 2
                                     },
-                                    // title: {
-                                    //     text: 'LUNC total supply'
-                                    // },
                                     labels: tblDatetimeTotalSupplies,
                                     chart: {
                                         toolbar: {
