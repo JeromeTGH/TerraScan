@@ -1,0 +1,11 @@
+@import '../../style/variables';
+
+.totalSuppliesBlock {
+
+    grid-area: lunctotalsupplies;
+
+    .chart {
+        min-height: 400px;
+    }
+    
+}

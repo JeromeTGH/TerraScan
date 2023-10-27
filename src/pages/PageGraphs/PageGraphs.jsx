@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styles from './PageGraphs.module.scss';
 import { GraphBarIcon } from '../../application/AppIcons';
-import BlockTotalSupplies from './BlockTotalSupplies';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
+import BlockLuncTotalSupplies from './BlockLuncTotalSupplies';
 
 const PageGraphs = () => {
 
@@ -22,7 +22,7 @@ const PageGraphs = () => {
                 <span>Service started in sept/oct 2023 (so <u>no history before</u>)</span>
             </StyledBox>
             <div className={styles.blocksGraphsPage}>
-                <BlockTotalSupplies />
+                <BlockLuncTotalSupplies />
             </div>
         </>
     );
