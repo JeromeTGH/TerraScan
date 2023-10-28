@@ -5,6 +5,7 @@ import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
 import { getLuncTotalSupplies } from './getLuncTotalSupplies';
+import { metEnFormeGrandNombre } from '../../application/AppUtils';
 
 
 const BlockLuncTotalSupplies = () => {
@@ -103,6 +104,9 @@ const BlockLuncTotalSupplies = () => {
                                     title: {
                                         text: 'LUNC',
                                     },
+                                    labels: {
+                                        formatter: (valeur) => metEnFormeGrandNombre(valeur, 1, 'B')
+                                    }
                                 },
                                 xaxis: {
                                     title: {

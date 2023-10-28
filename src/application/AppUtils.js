@@ -130,7 +130,7 @@ export const metEnFormeDateTime = (valDateTime) => {
  * @param precision nombre de chiffres 'n' après la virgule à conserver
  * @returns Valeur formatée avec suffixe (T, B, M, K, ou rien), avec 'n' chiffres après la virgule
  */
-export const metEnFormeGrandNombre = (nombre, precision) => {
+export const metEnFormeGrandNombre = (nombre, precision, maxSuffixe = 'T') => {
 
     if(nombre === undefined)
         return 'undefined';
@@ -142,11 +142,25 @@ export const metEnFormeGrandNombre = (nombre, precision) => {
         { suffixe: 'K', seuil: 1e3  },
         { suffixe: '',  seuil: 1    }
     ];
-  
-    const seuilLePlusGrandPourCeNombre = tableauDesUnites.find((ligne) => Math.abs(nombre) >= ligne.seuil);
 
-    if (seuilLePlusGrandPourCeNombre)
-        return (nombre / seuilLePlusGrandPourCeNombre.seuil).toFixed(precision) + (seuilLePlusGrandPourCeNombre.suffixe ? ("\u00A0" + seuilLePlusGrandPourCeNombre.suffixe) : '') ;  // \u00A0 = &nbsp;
+    // Recherche du seuil correspondant au maxSuffixe passé en argument (éventuellement forcé)
+    const idxUnit = tableauDesUnites.findIndex(valeur => valeur.suffixe === maxSuffixe);
+    let maxSeuil = 1;
+    if (idxUnit > -1)
+        maxSeuil = tableauDesUnites[idxUnit].seuil
+    
+    // Sélection de la "bonne" ligne dans le tableau des unités
+    let selectionDansTableauDesUnites = tableauDesUnites.find((ligne) => Math.abs(nombre) >= ligne.seuil);
+    if(selectionDansTableauDesUnites === undefined)
+        selectionDansTableauDesUnites = tableauDesUnites[tableauDesUnites.length-1]
+
+    // Changement de ligne dans le tableau des unités, s'il y a une limite imposée en paramètre (maxSuffixe)
+    if(selectionDansTableauDesUnites.seuil > maxSeuil)
+        selectionDansTableauDesUnites = tableauDesUnites[idxUnit]
+
+    // Et renvoi de la valeur formatée
+    if (selectionDansTableauDesUnites)
+        return (nombre / selectionDansTableauDesUnites.seuil).toFixed(precision) + (selectionDansTableauDesUnites.suffixe ? ("\u00A0" + selectionDansTableauDesUnites.suffixe) : '') ;  // \u00A0 = &nbsp;
     else  
         return nombre.toFixed(precision);
 
