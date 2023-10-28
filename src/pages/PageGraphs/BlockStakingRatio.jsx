@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import gridplace from './BlockNbStakedLunc.module.scss';
+import gridplace from './BlockStakingRatio.module.scss';
 import styles from './BlockCharts.module.scss';
 import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
-import { getNbStakedLunc } from './getNbStakedLunc';
+import { getStakingRatio } from './getStakingRatio';
 
 
-const BlockNbStakedLunc = () => {
+const BlockStakingRatio = () => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);
     const [msgErreur, setMsgErreur] = useState();
 
     const [timeunit, setTimeunit] = useState();
-    const [tblNbStakedLunc, setTblNbStakedLunc] = useState([]);
+    const [tblStakingRatio, setTblStakingRatio] = useState([]);
     const [tblDatetimeLuncStaking, setTblDatetimeLuncStaking] = useState([]);
 
 
@@ -28,16 +28,16 @@ const BlockNbStakedLunc = () => {
     // Fonction de filtrage des valeurs
     const loadDataWithThisTimeunit = (valFiltre) => {
         setIsLoading(true);
-        setTblNbStakedLunc([]);
+        setTblStakingRatio([]);
         setTblDatetimeLuncStaking([]);
 
-        getNbStakedLunc(valFiltre).then((res) => {
+        getStakingRatio(valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
             }
             else {
-                setTblNbStakedLunc(res['NbStakedLunc']);
+                setTblStakingRatio(res['StakingRatio']);
                 setTblDatetimeLuncStaking(res['datetime']);
                 setIsLoading(false);
                 setMsgErreur("");
@@ -53,7 +53,7 @@ const BlockNbStakedLunc = () => {
 
     // Et affichage
     return (
-        <StyledBox title="Nb staked LUNC" color="orange" className={gridplace.luncStakingBlock}>
+        <StyledBox title="Staking Ratio" color="orange" className={gridplace.luncStakingBlock}>
             <div className={styles.tblTimeunits}>
                 <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>1h</strong></button>
                 <button className={timeunit === 'H4' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H4')}><strong>4h</strong></button>
@@ -68,15 +68,15 @@ const BlockNbStakedLunc = () => {
                     <div className={styles.chart}>
                         <Chart
                             series={[{
-                                name: "Nb staked LUNC",
+                                name: "Staking Ratio",
                                 type: "area",
-                                data: tblNbStakedLunc
+                                data: tblStakingRatio
                             }]}
                             width={"100%"}
                             height={"100%"}
                             options={{
                                 noData: {
-                                    text: isLoading ? 'Loading "Staking history" from API, please wait ...' : 'No data, sorry',
+                                    text: isLoading ? 'Loading "StakingRatio history" from API, please wait ...' : 'No data, sorry',
                                     align: 'center',
                                     verticalAlign: 'middle',
                                     offsetX: 0,
@@ -106,10 +106,10 @@ const BlockNbStakedLunc = () => {
                                 },
                                 yaxis: {
                                     title: {
-                                        text: 'Nb staked LUNC',
+                                        text: 'Staking Ratio',
                                     },
                                     labels: {
-                                        formatter: (valeur) => metEnFormeGrandNombre(valeur, 3)
+                                        formatter: (valeur) => (metEnFormeGrandNombre(valeur, 2) + " %")
                                     }
                                 },
                                 xaxis: {
@@ -126,4 +126,4 @@ const BlockNbStakedLunc = () => {
     );
 };
 
-export default BlockNbStakedLunc;
+export default BlockStakingRatio;

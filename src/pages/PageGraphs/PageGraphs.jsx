@@ -6,6 +6,7 @@ import StyledBox from '../../sharedComponents/StyledBox';
 import BlockLuncTotalSupplies from './BlockLuncTotalSupplies';
 import BlockUstcTotalSupplies from './BlockUstcTotalSupplies';
 import BlockNbStakedLunc from './BlockNbStakedLunc';
+import BlockStakingRatio from './BlockStakingRatio';
 
 const PageGraphs = () => {
 
@@ -27,6 +28,7 @@ const PageGraphs = () => {
                 <BlockLuncTotalSupplies />
                 <BlockUstcTotalSupplies />
                 <BlockNbStakedLunc />
+                <BlockStakingRatio />
             </div>
         </>
     );
