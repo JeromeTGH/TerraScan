@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
 import { getUstcTotalSupplies } from './getUstcTotalSupplies';
-import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
+import { formateLeNombre, metEnFormeGrandNombre2 } from '../../application/AppUtils';
 import { AppContext } from '../../application/AppContext';
 
 
@@ -16,8 +16,7 @@ const BlockUstcTotalSupplies = () => {
     const [msgErreur, setMsgErreur] = useState();
 
     const [timeunit, setTimeunit] = useState();
-    const [tblUstcTotalSupplies, setTblUstcTotalSupplies] = useState([]);
-    const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState([]);
+    const [tblDatas, setTblDatas] = useState([]);
     const [lastValue, setLastValue] = useState('...');
 
     const { theme } = AppContext();
@@ -32,8 +31,7 @@ const BlockUstcTotalSupplies = () => {
     // Fonction de filtrage des valeurs
     const loadDataWithThisTimeunit = (valFiltre) => {
         setIsLoading(true);
-        setTblUstcTotalSupplies([]);
-        setTblDatetimeTotalSupplies([]);
+        setTblDatas([]);
         setLastValue('...');
 
         getUstcTotalSupplies(valFiltre).then((res) => {
@@ -42,8 +40,7 @@ const BlockUstcTotalSupplies = () => {
                 setMsgErreur(res['erreur']);
             }
             else {
-                setTblUstcTotalSupplies(res['UstcSupplies']);
-                setTblDatetimeTotalSupplies(res['datetime']);
+                setTblDatas(res['donnees']);
                 setLastValue(res['last']);
                 setIsLoading(false);
                 setMsgErreur("");
@@ -78,14 +75,14 @@ const BlockUstcTotalSupplies = () => {
                         <Chart
                             series={[{
                                 name: "USTC total supply",
-                                type: "area",
-                                data: tblUstcTotalSupplies
+                                type: "candlestick",
+                                data: tblDatas
                             }]}
                             width={"100%"}
                             height={"100%"}
                             options={{
                                 noData: {
-                                    text: isLoading ? 'Loading "LUNC history" from API, please wait ...' : 'No data, sorry',
+                                    text: isLoading ? 'Loading "USTC history" from API, please wait ...' : 'No data, sorry',
                                     align: 'center',
                                     verticalAlign: 'middle',
                                     offsetX: 0,
@@ -97,13 +94,14 @@ const BlockUstcTotalSupplies = () => {
                                     }
                                 },
                                 stroke: {
-                                    width: 3,
-                                    curve: 'smooth'
+                                    width: 0.5
                                 },
-                                fill: {
-                                    opacity: 0.2
+                                candlestick: {
+                                    colors: {
+                                        upward: '#EF403C',
+                                        downward: '#00B746'
+                                    }
                                 },
-                                labels: tblDatetimeTotalSupplies,
                                 chart: {
                                     toolbar: {
                                         show: false
@@ -115,16 +113,38 @@ const BlockUstcTotalSupplies = () => {
                                 },
                                 yaxis: {
                                     title: {
-                                        text: 'USTC',
-                                    },
+                                        text: 'USTC'
+                                    }
                                 },
                                 xaxis: {
                                     title: {
-                                        text: 'Datetime (UTC)',
-                                    },
+                                        text: 'Datetime (UTC)'
+                                    }
                                 },
                                 tooltip: {
-                                    theme: theme === "light" ? 'light' : 'dark'
+                                    theme: theme === "light" ? 'light' : 'dark',
+                                    custom: function({ seriesIndex, dataPointIndex, w }) {
+                                        const open = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                                        const close = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                                        // console.log("w", w.globals);
+                                        const change = close-open;
+                                        return (
+                                            '<div style="border-radius: 5px; box-shadow: 2px 2px;">' +
+                                                '<div class="apexcharts-tooltip-title" style="margin: 0; padding: 4px 6px; font-size: 12px; font-weight: 500;">' +
+                                                    // w.globals.categoryLabels[dataPointIndex] +   // Pour avoir la date/heure
+                                                    'USTC total supply' +
+                                                '</div>'+
+                                                '<div class="apexcharts-tooltip-series-group-active" style="padding: 4px; margin: 0 4px 2px 4px; font-size: 12px; display: flex;">' +
+                                                    '<div>Open&nbsp;&nbsp;<br />Close&nbsp;&nbsp;<br />Change&nbsp;&nbsp;</div>' +
+                                                    '<div>' +
+                                                        '<strong>' + formateLeNombre(open, ',') + '</strong><br />' +
+                                                        '<strong>' + formateLeNombre(close, ',') + '</strong><br />' +
+                                                        '<strong>' + formateLeNombre(change, ',') + '</strong>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>'
+                                        )
+                                    }
                                 }
                             }}
                         />

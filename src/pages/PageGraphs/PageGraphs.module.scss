@@ -21,14 +21,15 @@
         "communitypool"
         "oraclepool";
     }
-    @media (min-width: 800px) and (max-width: 1000px) {
-        grid-template-columns: 49.5% 49%;
-        grid-template-areas:
-        "lunctotalsupplies ustctotalsupplies"
-        "nbstakedlunc stakingratio"
-        "communitypool oraclepool";
-    }
-    @media (max-width: 800px) {
+    // @media (min-width: 800px) and (max-width: 1000px) {
+    //     grid-template-columns: 49.5% 49%;
+    //     grid-template-areas:
+    //     "lunctotalsupplies ustctotalsupplies"
+    //     "nbstakedlunc stakingratio"
+    //     "communitypool oraclepool";
+    // }
+    // @media (max-width: 800px) {
+    @media (max-width: 1024px) {
         grid-template-columns: 100%;
         grid-template-areas:
         "lunctotalsupplies"
