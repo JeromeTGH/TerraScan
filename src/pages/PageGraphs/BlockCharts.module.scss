@@ -4,44 +4,52 @@
     min-height: 400px;
 }
 
-.tblTimeunits {
+.entete {
+
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;    
-    column-gap: 0.2rem;
+    justify-content: space-between;
 
-    @media (max-width: 480px) {
-        column-gap: 0.1rem;
-    }
-
-    button {
-        border: none;
-        text-align: center;
-        color: var(--primary-text-color);
-        background-color: transparent;
-        cursor: pointer;
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 16px;
-        font-weight: bold;
-
-        &:hover {
-            background-color: var(--boxed-fill-color2);
-        }
-
+    .tblTimeunits {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;    
+        column-gap: 0.2rem;
+    
         @media (max-width: 480px) {
-            padding: 0.2rem 0.4rem;
-            font-size: 0.7rem;
+            column-gap: 0.1rem;
         }
-    }
-
-    .selectedFilter {
-        color: var(--primary-text-color-on-fill);
-        background-color: var(--blue-color);
-
-        &:hover {
+    
+        button {
+            border: none;
+            text-align: center;
+            color: var(--primary-text-color);
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 16px;
+            font-weight: bold;
+    
+            &:hover {
+                background-color: var(--boxed-fill-color2);
+            }
+    
+            @media (max-width: 480px) {
+                padding: 0.2rem 0.4rem;
+                font-size: 0.7rem;
+            }
+        }
+    
+        .selectedFilter {
+            color: var(--primary-text-color-on-fill);
             background-color: var(--blue-color);
+    
+            &:hover {
+                background-color: var(--blue-color);
+            }
+
         }
     }
 }

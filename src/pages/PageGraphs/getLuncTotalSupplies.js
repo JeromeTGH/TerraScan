@@ -17,11 +17,13 @@ export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
     if(rawTotalSuppliesHistory?.data) {
             tblAretourner['LuncSupplies'] = []
             tblAretourner['datetime'] = []
+            tblAretourner['last'] = 0
 
             // Extraction des données en plusieurs tableaux, pour alimenter le chart
             for(const lineofdata of rawTotalSuppliesHistory.data.reverse()) {
                 tblAretourner['LuncSupplies'].push(lineofdata.luncAmount)
                 tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
+                tblAretourner['last'] = lineofdata.luncAmount
             }
     }
     else
