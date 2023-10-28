@@ -12,7 +12,7 @@ export const getCommunityPool = async (timeunit = 'H1', limit = 50) => {
     params.append('timeunit', timeunit);
     params.append('limit', limit);
         
-    // Récupération de l'historique du nombre de LUNC stakés
+    // Récupération de l'historique du nombre de LUNC et USTC du "community pool"
     const rawCommunityPool = await tsapi.communitypool.getPastValues(params).catch(handleError);
     if(rawCommunityPool?.data) {
             tblAretourner['nbLuncInCP'] = []
@@ -22,6 +22,8 @@ export const getCommunityPool = async (timeunit = 'H1', limit = 50) => {
             tblAretourner['lastUstc'] = 0
             tblAretourner['minLunc'] = 9999999999999
             tblAretourner['minUstc'] = 9999999999999
+            tblAretourner['maxLunc'] = 0
+            tblAretourner['maxUstc'] = 0
 
             // Extraction des données en plusieurs tableaux, pour alimenter le chart
             for(const lineofdata of rawCommunityPool.data.reverse()) {
@@ -34,10 +36,14 @@ export const getCommunityPool = async (timeunit = 'H1', limit = 50) => {
                     tblAretourner['minLunc'] = lineofdata.nbLuncInCP
                 if(lineofdata.nbUstcInCP < tblAretourner['minUstc'])
                     tblAretourner['minUstc'] = lineofdata.nbUstcInCP
+                if(lineofdata.nbLuncInCP > tblAretourner['maxLunc'])
+                    tblAretourner['maxLunc'] = lineofdata.nbLuncInCP
+                if(lineofdata.nbUstcInCP > tblAretourner['maxUstc'])
+                    tblAretourner['maxUstc'] = lineofdata.nbUstcInCP
             }
     }
     else
-        return { "erreur": "Failed to fetch [NbStakedLunc history] ..." }
+        return { "erreur": "Failed to fetch [CommunityPool history] ..." }
 
 
     // Renvoie du tableau global/rempli, à la fin

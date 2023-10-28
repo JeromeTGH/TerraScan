@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import gridplace from './BlockCommunityPool.module.scss';
+import gridplace from './BlockOraclePool.module.scss';
 import styles from './BlockCharts.module.scss';
 import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
 import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
-import { getCommunityPool } from './getCommunityPool';
 import { AppContext } from '../../application/AppContext';
+import { getOraclePool } from './getOraclePool';
 
 
-const BlockCommunityPool = () => {
+const BlockOraclePool = () => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);
     const [msgErreur, setMsgErreur] = useState();
 
     const [timeunit, setTimeunit] = useState();
-    const [tblLuncInCP, setTblLuncInCP] = useState([]);
-    const [tblUstcInCP, setTblUstcInCP] = useState([]);
+    const [tblLuncInOP, setTblLuncInOP] = useState([]);
+    const [tblUstcInOP, setTblUstcInOP] = useState([]);
     const [tblDatetime, setTblDatetime] = useState([]);
     const [lastLuncValue, setLastLuncValue] = useState('...');
     const [lastUstcValue, setLastUstcValue] = useState('...');
@@ -38,8 +38,8 @@ const BlockCommunityPool = () => {
     // Fonction de filtrage des valeurs
     const loadDataWithThisTimeunit = (valFiltre) => {
         setIsLoading(true);
-        setTblLuncInCP([]);
-        setTblUstcInCP([]);
+        setTblLuncInOP([]);
+        setTblUstcInOP([]);
         setTblDatetime([]);
         setLastLuncValue('...');
         setLastUstcValue('...');
@@ -48,14 +48,14 @@ const BlockCommunityPool = () => {
         setMaxLuncValue(0);
         setMaxUstcValue(0);
 
-        getCommunityPool(valFiltre).then((res) => {
+        getOraclePool(valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
             }
             else {
-                setTblLuncInCP(res['nbLuncInCP']);
-                setTblUstcInCP(res['nbUstcInCP']);
+                setTblLuncInOP(res['nbLuncInOP']);
+                setTblUstcInOP(res['nbUstcInOP']);
                 setTblDatetime(res['datetime']);
                 setLastLuncValue(res['lastLunc']);
                 setLastUstcValue(res['lastUstc']);
@@ -77,7 +77,7 @@ const BlockCommunityPool = () => {
 
     // Et affichage
     return (
-        <StyledBox title="Community Pool" color="purple" className={gridplace.communityPool}>
+        <StyledBox title="Oracle Pool" color="purple" className={gridplace.oraclePool}>
             <div className={styles.entete}>
                 <div className={styles.libelle}>
                     <div>Lunc : <strong>{metEnFormeGrandNombre2(lastLuncValue, 4)}</strong></div>
@@ -100,17 +100,17 @@ const BlockCommunityPool = () => {
                             series={[{
                                 name: "LUNC",
                                 type: "line",
-                                data: tblLuncInCP
+                                data: tblLuncInOP
                             }, {
                                 name: "USTC",
                                 type: "line",
-                                data: tblUstcInCP
+                                data: tblUstcInOP
                             },]}
                             width={"100%"}
                             height={"100%"}
                             options={{
                                 noData: {
-                                    text: isLoading ? 'Loading "CP history" from API, please wait ...' : 'No data, sorry',
+                                    text: isLoading ? 'Loading "OP history" from API, please wait ...' : 'No data, sorry',
                                     align: 'center',
                                     verticalAlign: 'middle',
                                     offsetX: 0,
@@ -123,7 +123,7 @@ const BlockCommunityPool = () => {
                                 },
                                 stroke: {
                                     width: 3,
-                                    curve: 'smooth'      // Plus joli, mais fausse l'affichage
+                                    // curve: 'smooth'      // Plus joli, mais fausse l'affichage
                                 },
                                 colors: ['var(--green-color)', 'var(--orange-color)'],
                                 // colors: ['var(--blue-color)', 'var(--green-color)'],
@@ -171,4 +171,4 @@ const BlockCommunityPool = () => {
     );
 };
 
-export default BlockCommunityPool;
+export default BlockOraclePool;

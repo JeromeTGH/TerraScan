@@ -8,6 +8,7 @@ import BlockUstcTotalSupplies from './BlockUstcTotalSupplies';
 import BlockNbStakedLunc from './BlockNbStakedLunc';
 import BlockStakingRatio from './BlockStakingRatio';
 import BlockCommunityPool from './BlockCommunityPool';
+import BlockOraclePool from './BlockOraclePool';
 
 const PageGraphs = () => {
 
@@ -31,6 +32,7 @@ const PageGraphs = () => {
                 <BlockNbStakedLunc />
                 <BlockStakingRatio />
                 <BlockCommunityPool />
+                <BlockOraclePool />
             </div>
         </>
     );
