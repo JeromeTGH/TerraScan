@@ -7,6 +7,7 @@ import BlockLuncTotalSupplies from './BlockLuncTotalSupplies';
 import BlockUstcTotalSupplies from './BlockUstcTotalSupplies';
 import BlockNbStakedLunc from './BlockNbStakedLunc';
 import BlockStakingRatio from './BlockStakingRatio';
+import BlockCommunityPool from './BlockCommunityPool';
 
 const PageGraphs = () => {
 
@@ -29,6 +30,7 @@ const PageGraphs = () => {
                 <BlockUstcTotalSupplies />
                 <BlockNbStakedLunc />
                 <BlockStakingRatio />
+                <BlockCommunityPool />
             </div>
         </>
     );
