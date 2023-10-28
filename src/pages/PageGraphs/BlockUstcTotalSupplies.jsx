@@ -68,7 +68,7 @@ const BlockUstcTotalSupplies = () => {
                         <Chart
                             series={[{
                                 name: "USTC total supply",
-                                type: "line",
+                                type: "area",
                                 data: tblUstcTotalSupplies
                             }]}
                             width={"100%"}
@@ -87,7 +87,11 @@ const BlockUstcTotalSupplies = () => {
                                     }
                                 },
                                 stroke: {
-                                    width: 2
+                                    width: 3,
+                                    curve: 'smooth'
+                                },
+                                fill: {
+                                    opacity: 0.2
                                 },
                                 labels: tblDatetimeTotalSupplies,
                                 chart: {

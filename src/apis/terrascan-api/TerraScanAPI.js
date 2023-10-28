@@ -2,7 +2,7 @@ import { TSAPIurl } from "../../application/AppParams";
 import { APIrequester } from "./APIrequester";
 
 import { CommunityPoolAPI } from "./api/CommunityPoolAPI";
-import { LunkStakingAPI } from "./api/LunkStakingAPI";
+import { LuncStakingAPI } from "./api/LuncStakingAPI";
 import { OraclePoolAPI } from "./api/OraclePoolAPI";
 import { TotalSuppliesAPI } from "./api/TotalSuppliesAPI";
 
@@ -23,7 +23,7 @@ export class TerraScanAPI {
                 communitypool: {
                     getPastValues: '/api/communitypool/getPastValues'
                 },
-                lunkstaking: {
+                luncstaking: {
                     getPastValues: '/api/luncstaking/getPastValues'
                 },
                 oraclepool: {
@@ -35,7 +35,7 @@ export class TerraScanAPI {
             }
     
             this.communitypool = new CommunityPoolAPI(this.apiRequester, this.paths.communitypool);
-            this.lunkstaking = new LunkStakingAPI(this.apiRequester, this.paths.lunkstaking);
+            this.luncstaking = new LuncStakingAPI(this.apiRequester, this.paths.luncstaking);
             this.oraclepool = new OraclePoolAPI(this.apiRequester, this.paths.oraclepool);
             this.totalsupplies = new TotalSuppliesAPI(this.apiRequester, this.paths.totalsupplies);
 

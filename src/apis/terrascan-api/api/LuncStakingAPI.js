@@ -1,5 +1,5 @@
 
-export class LunkStakingAPI {
+export class LuncStakingAPI {
 
     // Constructeur
     constructor (apiRqt, paths) {

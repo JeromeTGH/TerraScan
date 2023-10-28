@@ -5,6 +5,7 @@ import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import BlockLuncTotalSupplies from './BlockLuncTotalSupplies';
 import BlockUstcTotalSupplies from './BlockUstcTotalSupplies';
+import BlockNbStakedLunc from './BlockNbStakedLunc';
 
 const PageGraphs = () => {
 
@@ -25,6 +26,7 @@ const PageGraphs = () => {
             <div className={styles.blocksGraphsPage}>
                 <BlockLuncTotalSupplies />
                 <BlockUstcTotalSupplies />
+                <BlockNbStakedLunc />
             </div>
         </>
     );
