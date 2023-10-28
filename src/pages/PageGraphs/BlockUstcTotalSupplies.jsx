@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
 import { getUstcTotalSupplies } from './getUstcTotalSupplies';
-import { metEnFormeGrandNombre } from '../../application/AppUtils';
+import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
 
 
 const BlockUstcTotalSupplies = () => {
@@ -58,7 +58,7 @@ const BlockUstcTotalSupplies = () => {
     return (
         <StyledBox title="USTC total supply" color="blue" className={gridplace.totalSuppliesBlock}>
             <div className={styles.entete}>
-                <div className={styles.libelle}>Last : <strong>{metEnFormeGrandNombre(lastValue, 3)}</strong></div>
+                <div className={styles.libelle}>Last : <strong>{metEnFormeGrandNombre2(lastValue, 4)}</strong></div>
                 <div className={styles.tblTimeunits}>
                     <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>1h</strong></button>
                     <button className={timeunit === 'H4' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H4')}><strong>4h</strong></button>

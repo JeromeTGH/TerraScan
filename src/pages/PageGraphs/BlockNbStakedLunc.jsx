@@ -4,7 +4,7 @@ import styles from './BlockCharts.module.scss';
 import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
-import { metEnFormeGrandNombre } from '../../application/AppUtils';
+import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
 import { getNbStakedLunc } from './getNbStakedLunc';
 
 
@@ -58,7 +58,7 @@ const BlockNbStakedLunc = () => {
     return (
         <StyledBox title="Nb staked LUNC" color="orange" className={gridplace.luncStakingBlock}>
             <div className={styles.entete}>
-                <div className={styles.libelle}>Last : <strong>{metEnFormeGrandNombre(lastValue, 3)}</strong></div>
+                <div className={styles.libelle}>Last : <strong>{metEnFormeGrandNombre2(lastValue, 4)}</strong></div>
                 <div className={styles.tblTimeunits}>
                     <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>1h</strong></button>
                     <button className={timeunit === 'H4' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H4')}><strong>4h</strong></button>
@@ -115,7 +115,7 @@ const BlockNbStakedLunc = () => {
                                         text: 'Nb staked LUNC',
                                     },
                                     labels: {
-                                        formatter: (valeur) => metEnFormeGrandNombre(valeur, 3)
+                                        formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 },
                                 xaxis: {

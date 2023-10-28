@@ -4,7 +4,7 @@ import styles from './BlockCharts.module.scss';
 import Chart from 'react-apexcharts';
 
 import StyledBox from '../../sharedComponents/StyledBox';
-import { metEnFormeGrandNombre } from '../../application/AppUtils';
+import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
 import { getCommunityPool } from './getCommunityPool';
 
 
@@ -65,8 +65,8 @@ const BlockCommunityPool = () => {
         <StyledBox title="Community Pool" color="purple" className={gridplace.communityPool}>
             <div className={styles.entete}>
                 <div className={styles.libelle}>
-                    <div>Lunc : <strong>{metEnFormeGrandNombre(lastLuncValue, 3)}</strong></div>
-                    <div>Ustc : <strong>{metEnFormeGrandNombre(lastUstcValue, 3)}</strong></div>
+                    <div>Lunc : <strong>{metEnFormeGrandNombre2(lastLuncValue, 4)}</strong></div>
+                    <div>Ustc : <strong>{metEnFormeGrandNombre2(lastUstcValue, 4)}</strong></div>
                 </div>
                 <div className={styles.tblTimeunits}>
                     <button className={timeunit === 'H1' ? styles.selectedFilter : ""} onClick={() => handleClickOnTimeUnits('H1')}><strong>1h</strong></button>
@@ -125,7 +125,7 @@ const BlockCommunityPool = () => {
                                     //     text: 'LUNC',
                                     // },
                                     labels: {
-                                        formatter: (valeur) => metEnFormeGrandNombre(valeur, 3)
+                                        formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 }, {
                                     opposite: true,
@@ -133,7 +133,7 @@ const BlockCommunityPool = () => {
                                     //     text: 'USTC',
                                     // },
                                     labels: {
-                                        formatter: (valeur) => metEnFormeGrandNombre(valeur, 3)
+                                        formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 }],
                                 // xaxis: {

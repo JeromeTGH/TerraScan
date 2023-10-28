@@ -128,6 +128,7 @@ export const metEnFormeDateTime = (valDateTime) => {
  * 
  * @param nombre nombre réel (donc positif ou négatif, et pas forcément entier)
  * @param precision nombre de chiffres 'n' après la virgule à conserver
+ * @param maxSuffixe suffixe (lettre) à ne pas dépasser
  * @returns Valeur formatée avec suffixe (T, B, M, K, ou rien), avec 'n' chiffres après la virgule
  */
 export const metEnFormeGrandNombre = (nombre, precision, maxSuffixe = 'T') => {
@@ -163,6 +164,63 @@ export const metEnFormeGrandNombre = (nombre, precision, maxSuffixe = 'T') => {
         return (nombre / selectionDansTableauDesUnites.seuil).toFixed(precision) + (selectionDansTableauDesUnites.suffixe ? ("\u00A0" + selectionDansTableauDesUnites.suffixe) : '') ;  // \u00A0 = &nbsp;
     else  
         return nombre.toFixed(precision);
+
+}
+
+
+// =================================
+// Fonction "metEnFormeGrandNombre2"
+// =================================
+/**
+ * 
+ * @param nombre nombre réel (donc positif ou négatif, et pas forcément entier)
+ * @param nbChiffresAretourner nombre de chiffres à retourner, supérieur ou égal à 3
+ * @param retirerZerosSuperflus retire les zéro à la fin, après la virgule, s'il y en a
+ * @returns Valeur formatée avec suffixe (T, B, M, K, ou rien), sur nbChiffres (qu'il y ait une virgule ou pas)
+ */
+export const metEnFormeGrandNombre2 = (nombre, nbChiffresAretourner, retirerZerosSuperflus = true) => {
+
+    if(nombre === undefined)
+        return 'undefined';
+
+    if(nbChiffresAretourner < 3)
+        nbChiffresAretourner = 3
+
+    const tableauDesUnites = [
+        { suffixe: 'T', seuil: 1e12 },
+        { suffixe: 'B', seuil: 1e9  },
+        { suffixe: 'M', seuil: 1e6  },
+        { suffixe: 'K', seuil: 1e3  },
+        { suffixe: '',  seuil: 1    }
+    ];
+    
+    // Sélection de la "bonne" ligne dans le tableau des unités
+    let selectionDansTableauDesUnites = tableauDesUnites.find((ligne) => Math.abs(nombre) >= ligne.seuil);
+    if(selectionDansTableauDesUnites === undefined)
+        selectionDansTableauDesUnites = tableauDesUnites[tableauDesUnites.length-1]
+
+    // Mise en forme du nombre sur nbChiffres
+    const nbreAconsiderer = nombre / selectionDansTableauDesUnites.seuil
+    let nbreAretourner
+    if(nbreAconsiderer >= 100)
+        nbreAretourner = nbreAconsiderer.toFixed(nbChiffresAretourner-3)
+    else if(nbreAconsiderer >= 10)
+        nbreAretourner = nbreAconsiderer.toFixed(nbChiffresAretourner-2)
+    else if(nbreAconsiderer >= 0)
+        nbreAretourner = nbreAconsiderer.toFixed(nbChiffresAretourner-1)
+    else
+        nbreAretourner = nbreAconsiderer.toFixed(nbChiffresAretourner-0)
+
+    // Retrait des zéro à la fin, après la virgule, si souhaité
+    if(retirerZerosSuperflus)
+        nbreAretourner = nbreAretourner.replace(/(\.[1-9]*)0*$/, '$1')
+    nbreAretourner = nbreAretourner.replace(/\.$/, '')
+
+    // Et renvoi de la valeur formatée
+    if (selectionDansTableauDesUnites.suffixe)
+        return nbreAretourner + "\u00A0" + selectionDansTableauDesUnites.suffixe;       // \u00A0 = &nbsp;
+    else       
+        return nbreAretourner;
 
 }
 
