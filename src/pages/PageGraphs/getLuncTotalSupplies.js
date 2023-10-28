@@ -15,16 +15,31 @@ export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
     // Récupération de l'historique de la total supply du LUNC
     const rawTotalSuppliesHistory = await tsapi.totalsupplies.getPastValues(params).catch(handleError);
     if(rawTotalSuppliesHistory?.data) {
-            tblAretourner['LuncSupplies'] = []
-            tblAretourner['datetime'] = []
-            tblAretourner['last'] = 0
+        const tblDatas = rawTotalSuppliesHistory.data.reverse();
+        tblAretourner['donnees'] = [];
+        tblAretourner['last'] = 0;
 
-            // Extraction des données en plusieurs tableaux, pour alimenter le chart
-            for(const lineofdata of rawTotalSuppliesHistory.data.reverse()) {
-                tblAretourner['LuncSupplies'].push(lineofdata.luncAmount)
-                tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
-                tblAretourner['last'] = lineofdata.luncAmount
+        // Extraction des données en plusieurs tableaux, pour alimenter le chart
+        let precedentClose;
+        for(let idx = 0 ; idx < tblDatas.length ; idx++) {
+            if(idx === 0) {
+                precedentClose = tblDatas[0].luncAmount;
+            } else {
+                const datetime = new Date(tblDatas[idx].datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, '');
+                const valTotalSupply = tblDatas[idx].luncAmount
+
+                const candle = []
+                candle.push(precedentClose)
+                candle.push(precedentClose > valTotalSupply ? precedentClose : valTotalSupply)
+                candle.push(precedentClose < valTotalSupply ? precedentClose : valTotalSupply)
+                candle.push(valTotalSupply)
+
+                tblAretourner['donnees'].push({ x: datetime, y: candle});
+
+                precedentClose = tblDatas[idx].luncAmount;
             }
+            tblAretourner['last'] = tblDatas[idx].luncAmount
+        }
     }
     else
         return { "erreur": "Failed to fetch [LUNC total supplies history] ..." }
