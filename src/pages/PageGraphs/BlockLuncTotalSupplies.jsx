@@ -6,6 +6,7 @@ import Chart from 'react-apexcharts';
 import StyledBox from '../../sharedComponents/StyledBox';
 import { getLuncTotalSupplies } from './getLuncTotalSupplies';
 import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
+import { AppContext } from '../../application/AppContext';
 
 
 const BlockLuncTotalSupplies = () => {
@@ -18,6 +19,8 @@ const BlockLuncTotalSupplies = () => {
     const [tblLuncTotalSupplies, setTblLuncTotalSupplies] = useState([]);
     const [tblDatetimeTotalSupplies, setTblDatetimeTotalSupplies] = useState([]);
     const [lastValue, setLastValue] = useState('...');
+
+    const { theme } = AppContext();
 
 
     // Fonction de sélection d'unité de temps
@@ -119,6 +122,9 @@ const BlockLuncTotalSupplies = () => {
                                     title: {
                                         text: 'Datetime (UTC)',
                                     },
+                                },
+                                tooltip: {
+                                    theme: theme === "light" ? 'light' : 'dark'
                                 }
                             }}
                         />

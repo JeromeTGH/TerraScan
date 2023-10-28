@@ -183,6 +183,9 @@ export const metEnFormeGrandNombre2 = (nombre, nbChiffresAretourner, retirerZero
     if(nombre === undefined)
         return 'undefined';
 
+    if(Number.isNaN(nombre) || nombre === '...')
+        return nombre;
+
     if(nbChiffresAretourner < 3)
         nbChiffresAretourner = 3
 

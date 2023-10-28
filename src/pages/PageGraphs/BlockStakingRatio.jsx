@@ -6,6 +6,7 @@ import Chart from 'react-apexcharts';
 import StyledBox from '../../sharedComponents/StyledBox';
 import { metEnFormeGrandNombre } from '../../application/AppUtils';
 import { getStakingRatio } from './getStakingRatio';
+import { AppContext } from '../../application/AppContext';
 
 
 const BlockStakingRatio = () => {
@@ -18,6 +19,8 @@ const BlockStakingRatio = () => {
     const [tblStakingRatio, setTblStakingRatio] = useState([]);
     const [tblDatetimeLuncStaking, setTblDatetimeLuncStaking] = useState([]);
     const [lastValue, setLastValue] = useState('...');
+
+    const { theme } = AppContext();
 
 
     // Fonction de sélection d'unité de temps
@@ -122,6 +125,9 @@ const BlockStakingRatio = () => {
                                     title: {
                                         text: 'Datetime (UTC)',
                                     },
+                                },
+                                tooltip: {
+                                    theme: theme === "light" ? 'light' : 'dark'
                                 }
                             }}
                         />

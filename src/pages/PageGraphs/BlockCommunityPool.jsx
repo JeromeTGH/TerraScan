@@ -6,6 +6,7 @@ import Chart from 'react-apexcharts';
 import StyledBox from '../../sharedComponents/StyledBox';
 import { metEnFormeGrandNombre2 } from '../../application/AppUtils';
 import { getCommunityPool } from './getCommunityPool';
+import { AppContext } from '../../application/AppContext';
 
 
 const BlockCommunityPool = () => {
@@ -20,6 +21,10 @@ const BlockCommunityPool = () => {
     const [tblDatetime, setTblDatetime] = useState([]);
     const [lastLuncValue, setLastLuncValue] = useState('...');
     const [lastUstcValue, setLastUstcValue] = useState('...');
+    const [minLuncValue, setMinLuncValue] = useState(0);
+    const [minUstcValue, setMinUstcValue] = useState(0);
+
+    const { theme } = AppContext();
 
 
     // Fonction de sélection d'unité de temps
@@ -36,6 +41,8 @@ const BlockCommunityPool = () => {
         setTblDatetime([]);
         setLastLuncValue('...');
         setLastUstcValue('...');
+        setMinLuncValue(0);
+        setMinUstcValue(0);
 
         getCommunityPool(valFiltre).then((res) => {
             if(res['erreur']) {
@@ -48,6 +55,8 @@ const BlockCommunityPool = () => {
                 setTblDatetime(res['datetime']);
                 setLastLuncValue(res['lastLunc']);
                 setLastUstcValue(res['lastUstc']);
+                setMinLuncValue(res['minLunc'])
+                setMinUstcValue(res['minUstc'])
                 setIsLoading(false);
                 setMsgErreur("");
             }
@@ -110,8 +119,11 @@ const BlockCommunityPool = () => {
                                     width: 3,
                                     curve: 'smooth'
                                 },
+                                colors: ['var(--green-color)', 'var(--orange-color)'],
+                                // colors: ['var(--blue-color)', 'var(--green-color)'],
                                 labels: tblDatetime,
                                 chart: {
+                                    stacked: false,
                                     toolbar: {
                                         show: false
                                     },
@@ -121,26 +133,21 @@ const BlockCommunityPool = () => {
                                     foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: [{
-                                    // title: {
-                                    //     text: 'LUNC',
-                                    // },
+                                    min: minLuncValue,
                                     labels: {
                                         formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 }, {
+                                    seriesName: 'USTC',
+                                    min: minUstcValue,
                                     opposite: true,
-                                    // title: {
-                                    //     text: 'USTC',
-                                    // },
                                     labels: {
                                         formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 }],
-                                // xaxis: {
-                                //     title: {
-                                //         text: 'Datetime (UTC)',
-                                //     },
-                                // }
+                                tooltip: {
+                                    theme: theme === "light" ? 'light' : 'dark'
+                                }
                             }}
                         />
                     </div>

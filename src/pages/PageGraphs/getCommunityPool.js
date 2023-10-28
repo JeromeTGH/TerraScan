@@ -20,6 +20,8 @@ export const getCommunityPool = async (timeunit = 'H1', limit = 50) => {
             tblAretourner['datetime'] = []
             tblAretourner['lastLunc'] = 0
             tblAretourner['lastUstc'] = 0
+            tblAretourner['minLunc'] = 9999999999999
+            tblAretourner['minUstc'] = 9999999999999
 
             // Extraction des données en plusieurs tableaux, pour alimenter le chart
             for(const lineofdata of rawCommunityPool.data.reverse()) {
@@ -28,6 +30,10 @@ export const getCommunityPool = async (timeunit = 'H1', limit = 50) => {
                 tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
                 tblAretourner['lastLunc'] = lineofdata.nbLuncInCP
                 tblAretourner['lastUstc'] = lineofdata.nbUstcInCP
+                if(lineofdata.nbLuncInCP < tblAretourner['minLunc'])
+                    tblAretourner['minLunc'] = lineofdata.nbLuncInCP
+                if(lineofdata.nbUstcInCP < tblAretourner['minUstc'])
+                    tblAretourner['minUstc'] = lineofdata.nbUstcInCP
             }
     }
     else
