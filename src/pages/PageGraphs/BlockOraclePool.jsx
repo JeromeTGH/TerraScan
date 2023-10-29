@@ -9,7 +9,7 @@ import { AppContext } from '../../application/AppContext';
 import { getOraclePool } from './getOraclePool';
 
 
-const BlockOraclePool = () => {
+const BlockOraclePool = (props) => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);

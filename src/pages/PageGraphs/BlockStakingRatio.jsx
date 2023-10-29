@@ -9,7 +9,7 @@ import { getStakingRatio } from './getStakingRatio';
 import { AppContext } from '../../application/AppContext';
 
 
-const BlockStakingRatio = () => {
+const BlockStakingRatio = (props) => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);

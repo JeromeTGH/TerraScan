@@ -9,7 +9,7 @@ import { getNbStakedLunc } from './getNbStakedLunc';
 import { AppContext } from '../../application/AppContext';
 
 
-const BlockNbStakedLunc = () => {
+const BlockNbStakedLunc = (props) => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);

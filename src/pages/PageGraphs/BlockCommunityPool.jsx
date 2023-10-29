@@ -9,7 +9,7 @@ import { getCommunityPool } from './getCommunityPool';
 import { AppContext } from '../../application/AppContext';
 
 
-const BlockCommunityPool = () => {
+const BlockCommunityPool = (props) => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);

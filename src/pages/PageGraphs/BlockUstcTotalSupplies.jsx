@@ -9,7 +9,7 @@ import { formateLeNombre, metEnFormeGrandNombre2 } from '../../application/AppUt
 import { AppContext } from '../../application/AppContext';
 
 
-const BlockUstcTotalSupplies = () => {
+const BlockUstcTotalSupplies = (props) => {
 
     // Variables react
     const [isLoading, setIsLoading] = useState(true);
@@ -96,10 +96,12 @@ const BlockUstcTotalSupplies = () => {
                                 stroke: {
                                     width: 0.5
                                 },
-                                candlestick: {
-                                    colors: {
-                                        upward: '#EF403C',
-                                        downward: '#00B746'
+                                plotOptions: {
+                                    candlestick: {
+                                        colors: {
+                                            upward: '#00B746',
+                                            downward: '#EF403C'
+                                        }
                                     }
                                 },
                                 chart: {
