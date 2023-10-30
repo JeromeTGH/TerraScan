@@ -36,7 +36,7 @@ const BlockStakingRatio = (props) => {
         setTblDatetimeLuncStaking([]);
         setLastValue('...');
 
-        getStakingRatio(valFiltre).then((res) => {
+        getStakingRatio(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);

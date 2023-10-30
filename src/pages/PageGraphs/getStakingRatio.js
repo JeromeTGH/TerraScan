@@ -1,6 +1,6 @@
 import { TerraScanAPI } from "../../apis/terrascan-api/TerraScanAPI";
 
-export const getStakingRatio = async (timeunit = 'H1', limit = 50) => {
+export const getStakingRatio = async (commonDatas, timeunit = 'H1', limit = 50) => {
 
     const tblAretourner = []
 
@@ -15,16 +15,22 @@ export const getStakingRatio = async (timeunit = 'H1', limit = 50) => {
     // Récupération de l'historique du ratio de staking
     const rawLuncStaking = await tsapi.luncstaking.getPastValues(params).catch(handleError);
     if(rawLuncStaking?.data) {
-            tblAretourner['StakingRatio'] = []
-            tblAretourner['datetime'] = []
-            tblAretourner['last'] = 0
+        tblAretourner['StakingRatio'] = []
+        tblAretourner['datetime'] = []
+        tblAretourner['last'] = 0
 
-            // Extraction des données en plusieurs tableaux, pour alimenter le chart
-            for(const lineofdata of rawLuncStaking.data.reverse()) {
-                tblAretourner['StakingRatio'].push(lineofdata.stakingPercentage)
-                tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
-                tblAretourner['last'] = lineofdata.stakingPercentage
-            }
+        // Extraction des données en plusieurs tableaux, pour alimenter le chart
+        for(const lineofdata of rawLuncStaking.data.reverse()) {
+            tblAretourner['StakingRatio'].push(lineofdata.stakingPercentage)
+            tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
+            tblAretourner['last'] = lineofdata.stakingPercentage
+        }
+
+        if(commonDatas?.datetime && commonDatas?.lastStakingRatio) {
+            tblAretourner['StakingRatio'].push(commonDatas.lastStakingRatio)
+            tblAretourner['datetime'].push(commonDatas.datetime)
+            tblAretourner['last'] = commonDatas.lastStakingRatio
+        }
     }
     else
         return { "erreur": "Failed to fetch [StakingRatio history] ..." }

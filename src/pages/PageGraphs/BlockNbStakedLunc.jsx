@@ -36,7 +36,7 @@ const BlockNbStakedLunc = (props) => {
         setTblDatetimeLuncStaking([]);
         setLastValue('...');
 
-        getNbStakedLunc(valFiltre).then((res) => {
+        getNbStakedLunc(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);

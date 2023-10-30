@@ -48,7 +48,7 @@ const BlockCommunityPool = (props) => {
         setMaxLuncValue(0);
         setMaxUstcValue(0);
 
-        getCommunityPool(valFiltre).then((res) => {
+        getCommunityPool(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);

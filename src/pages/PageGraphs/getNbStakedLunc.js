@@ -1,6 +1,6 @@
 import { TerraScanAPI } from "../../apis/terrascan-api/TerraScanAPI";
 
-export const getNbStakedLunc = async (timeunit = 'H1', limit = 50) => {
+export const getNbStakedLunc = async (commonDatas, timeunit = 'H1', limit = 50) => {
 
     const tblAretourner = []
 
@@ -15,16 +15,22 @@ export const getNbStakedLunc = async (timeunit = 'H1', limit = 50) => {
     // Récupération de l'historique du nombre de LUNC stakés
     const rawLuncStaking = await tsapi.luncstaking.getPastValues(params).catch(handleError);
     if(rawLuncStaking?.data) {
-            tblAretourner['NbStakedLunc'] = []
-            tblAretourner['datetime'] = []
-            tblAretourner['last'] = 0
+        tblAretourner['NbStakedLunc'] = []
+        tblAretourner['datetime'] = []
+        tblAretourner['last'] = 0
 
-            // Extraction des données en plusieurs tableaux, pour alimenter le chart
-            for(const lineofdata of rawLuncStaking.data.reverse()) {
-                tblAretourner['NbStakedLunc'].push(lineofdata.nbStakedLunc)
-                tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
-                tblAretourner['last'] = lineofdata.nbStakedLunc
-            }
+        // Extraction des données en plusieurs tableaux, pour alimenter le chart
+        for(const lineofdata of rawLuncStaking.data.reverse()) {
+            tblAretourner['NbStakedLunc'].push(lineofdata.nbStakedLunc)
+            tblAretourner['datetime'].push(new Date(lineofdata.datetimeUTC).toISOString().replace('T', ' ').replace(/.[0-9]*Z/, ''))
+            tblAretourner['last'] = lineofdata.nbStakedLunc
+        }
+
+        if(commonDatas?.datetime && commonDatas?.lastNbStakedLunc) {
+            tblAretourner['NbStakedLunc'].push(commonDatas.lastNbStakedLunc)
+            tblAretourner['datetime'].push(commonDatas.datetime)
+            tblAretourner['last'] = commonDatas.lastNbStakedLunc
+        }
     }
     else
         return { "erreur": "Failed to fetch [NbStakedLunc history] ..." }

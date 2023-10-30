@@ -34,7 +34,7 @@ const BlockUstcTotalSupplies = (props) => {
         setTblDatas([]);
         setLastValue('...');
 
-        getUstcTotalSupplies(valFiltre).then((res) => {
+        getUstcTotalSupplies(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
@@ -137,11 +137,12 @@ const BlockUstcTotalSupplies = (props) => {
                                                     'USTC total supply' +
                                                 '</div>'+
                                                 '<div class="apexcharts-tooltip-series-group-active" style="padding: 4px; margin: 0 4px 2px 4px; font-size: 12px; display: flex;">' +
-                                                    '<div>Open&nbsp;&nbsp;<br />Close&nbsp;&nbsp;<br />Change&nbsp;&nbsp;</div>' +
+                                                    '<div>Open&nbsp;&nbsp;<br />Close&nbsp;&nbsp;<br />Change&nbsp;&nbsp;<br />Date&nbsp;(close)&nbsp;&nbsp;</div>' +
                                                     '<div>' +
                                                         '<strong>' + formateLeNombre(open, ',') + '</strong><br />' +
                                                         '<strong>' + formateLeNombre(close, ',') + '</strong><br />' +
-                                                        '<strong>' + formateLeNombre(change, ',') + '</strong>' +
+                                                        '<strong>' + formateLeNombre(change, ',') + '</strong><br />' +
+                                                        '<strong>' + w.globals.categoryLabels[dataPointIndex] + '</strong>' +
                                                     '</div>' +
                                                 '</div>' +
                                             '</div>'

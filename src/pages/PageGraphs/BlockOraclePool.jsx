@@ -48,7 +48,7 @@ const BlockOraclePool = (props) => {
         setMaxLuncValue(0);
         setMaxUstcValue(0);
 
-        getOraclePool(valFiltre).then((res) => {
+        getOraclePool(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);

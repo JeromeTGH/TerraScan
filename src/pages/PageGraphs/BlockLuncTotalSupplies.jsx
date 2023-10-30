@@ -34,7 +34,7 @@ const BlockLuncTotalSupplies = (props) => {
         setTblDatas([]);
         setLastValue('...');
 
-        getLuncTotalSupplies(valFiltre).then((res) => {
+        getLuncTotalSupplies(props.commonDatas, valFiltre).then((res) => {
             if(res['erreur']) {
                 setIsLoading(false);
                 setMsgErreur(res['erreur']);
@@ -133,15 +133,15 @@ const BlockLuncTotalSupplies = (props) => {
                                         return (
                                             '<div style="border-radius: 5px; box-shadow: 2px 2px;">' +
                                                 '<div class="apexcharts-tooltip-title" style="margin: 0; padding: 4px 6px; font-size: 12px; font-weight: 500;">' +
-                                                    // w.globals.categoryLabels[dataPointIndex] +   // Pour avoir la date/heure
                                                     'LUNC total supply' +
                                                 '</div>'+
                                                 '<div class="apexcharts-tooltip-series-group-active" style="padding: 4px; margin: 0 4px 2px 4px; font-size: 12px; display: flex;">' +
-                                                    '<div>Open&nbsp;&nbsp;<br />Close&nbsp;&nbsp;<br />Change&nbsp;&nbsp;</div>' +
+                                                    '<div>Open&nbsp;&nbsp;<br />Close&nbsp;&nbsp;<br />Change&nbsp;&nbsp;<br />Date&nbsp;(close)&nbsp;&nbsp;</div>' +
                                                     '<div>' +
                                                         '<strong>' + formateLeNombre(open, ',') + '</strong><br />' +
                                                         '<strong>' + formateLeNombre(close, ',') + '</strong><br />' +
-                                                        '<strong>' + formateLeNombre(change, ',') + '</strong>' +
+                                                        '<strong>' + formateLeNombre(change, ',') + '</strong><br />' +
+                                                        '<strong>' + w.globals.categoryLabels[dataPointIndex] + '</strong>' +
                                                     '</div>' +
                                                 '</div>' +
                                             '</div>'

@@ -1,6 +1,6 @@
 import { TerraScanAPI } from "../../apis/terrascan-api/TerraScanAPI";
 
-export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
+export const getLuncTotalSupplies = async (commonDatas, timeunit = 'H1', limit = 50) => {
 
     const tblAretourner = []
 
@@ -33,12 +33,21 @@ export const getLuncTotalSupplies = async (timeunit = 'H1', limit = 50) => {
                 candle.push(precedentClose > valTotalSupply ? precedentClose : valTotalSupply)
                 candle.push(precedentClose < valTotalSupply ? precedentClose : valTotalSupply)
                 candle.push(valTotalSupply)
-
                 tblAretourner['donnees'].push({ x: datetime, y: candle});
 
                 precedentClose = tblDatas[idx].luncAmount;
             }
             tblAretourner['last'] = tblDatas[idx].luncAmount
+        }
+        if(commonDatas?.datetime && commonDatas?.lastLuncTotalSupply) {
+            const candle = []
+            candle.push(precedentClose)
+            candle.push(precedentClose > commonDatas.lastLuncTotalSupply ? precedentClose : commonDatas.lastLuncTotalSupply)
+            candle.push(precedentClose < commonDatas.lastLuncTotalSupply ? precedentClose : commonDatas.lastLuncTotalSupply)
+            candle.push(commonDatas.lastLuncTotalSupply)
+            tblAretourner['donnees'].push({ x: commonDatas.datetime, y: candle});
+
+            tblAretourner['last'] = commonDatas.lastLuncTotalSupply
         }
     }
     else

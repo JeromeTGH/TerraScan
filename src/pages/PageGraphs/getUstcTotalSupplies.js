@@ -1,6 +1,6 @@
 import { TerraScanAPI } from "../../apis/terrascan-api/TerraScanAPI";
 
-export const getUstcTotalSupplies = async (timeunit = 'H1', limit = 50) => {
+export const getUstcTotalSupplies = async (commonDatas, timeunit = 'H1', limit = 50) => {
 
     const tblAretourner = []
 
@@ -39,6 +39,16 @@ export const getUstcTotalSupplies = async (timeunit = 'H1', limit = 50) => {
                 precedentClose = tblDatas[idx].ustcAmount;
             }
             tblAretourner['last'] = tblDatas[idx].ustcAmount
+        }
+        if(commonDatas?.datetime && commonDatas?.lastUstcTotalSupply) {
+            const candle = []
+            candle.push(precedentClose)
+            candle.push(precedentClose > commonDatas.lastUstcTotalSupply ? precedentClose : commonDatas.lastUstcTotalSupply)
+            candle.push(precedentClose < commonDatas.lastUstcTotalSupply ? precedentClose : commonDatas.lastUstcTotalSupply)
+            candle.push(commonDatas.lastUstcTotalSupply)
+            tblAretourner['donnees'].push({ x: commonDatas.datetime, y: candle});
+
+            tblAretourner['last'] = commonDatas.lastUstcTotalSupply
         }
     }
     else
