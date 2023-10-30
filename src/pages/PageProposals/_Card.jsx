@@ -72,7 +72,7 @@ const Card = (props) => {
                                     props.card.isVetoReached ?
                                         <td>
                                             <div className={styles.vetoCursor} style={{ width: props.card.seuilVeto*2 + "%"}}>
-                                                <div>VETO Threshold</div>
+                                                <div style={{textAlign: 'center'}}>VETO Threshold</div>
                                                 <div>|</div>
                                             </div>
                                             <div className={styles.supportBar}>
