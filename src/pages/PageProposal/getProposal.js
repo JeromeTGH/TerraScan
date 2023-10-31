@@ -149,6 +149,16 @@ export const getProposal = async (propID) => {
             proposalInfos['pourcentageDeLuncFournisSurRequis'] = (ratioDepot * 100);
 
         proposalInfos['nbMinDepositLunc'] = tblGovInfos['nbLuncRequisPourValiderDeposit'];
+
+
+        // Récupération des deposits effectués
+        const rawDeposits = await lcd.gov.getDeposits(propID).catch(handleError);
+        if(rawDeposits?.data?.deposits) {
+            proposalInfos['deposits'] = rawDeposits.data.deposits;
+        } else
+            return { "erreur": "Failed to fetch [deposits] ..." }
+
+
     }
 
 

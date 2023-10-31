@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EyeIcon, VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
-import { expanded_datetime_ago, formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime } from '../../application/AppUtils';
+import { expanded_datetime_ago, formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import ObjectViewer from '../../sharedComponents/ObjectViewer';
@@ -144,40 +144,69 @@ const PageProposal = () => {
 
 
                         {proposalInfos['status'] === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ?
-                            <StyledBox title="Votes (pending for enough deposits)" color="orange">
-                                <table className={styles.tblInfos}>
-                                    <tbody>
-                                        <tr>
-                                            <td>Proposal ID :</td>
-                                            <td>{propID}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Amount of LUNC required :</td>
-                                            <td>{formateLeNombre(proposalInfos['nbMinDepositLunc'], '\u00a0')} LUNC</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Amount of LUNC deposited :</td>
-                                            <td>{formateLeNombre(proposalInfos['totalDeposit'], '\u00a0')} LUNC</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ratio LUNC deposited/required :</td>
-                                            <td>{proposalInfos['pourcentageDeLuncFournisSurRequis']}%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Progress :</td>
-                                            <td>
-                                                <div className={styles.supportBar}>
-                                                    <div style={{ width: proposalInfos['pourcentageDeLuncFournisSurRequis'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Deposit end time :</td>
-                                            <td>{metEnFormeDateTime(proposalInfos['depositEndTime'])}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </StyledBox>
+                            <>
+                                <StyledBox title="Votes (pending for enough deposits)" color="orange">
+                                    <table className={styles.tblInfos}>
+                                        <tbody>
+                                            <tr>
+                                                <td>Proposal ID :</td>
+                                                <td>{propID}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Amount of LUNC required :</td>
+                                                <td>{formateLeNombre(proposalInfos['nbMinDepositLunc'], '\u00a0')} LUNC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Amount of LUNC deposited :</td>
+                                                <td>{formateLeNombre(proposalInfos['totalDeposit'], '\u00a0')} LUNC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ratio LUNC deposited/required :</td>
+                                                <td>{proposalInfos['pourcentageDeLuncFournisSurRequis']}%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Progress :</td>
+                                                <td>
+                                                    <div className={styles.supportBar}>
+                                                        <div style={{ width: proposalInfos['pourcentageDeLuncFournisSurRequis'] + "%"}} className='barVoteAbstain'>&nbsp;</div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Deposit end time :</td>
+                                                <td>{metEnFormeDateTime(proposalInfos['depositEndTime'])}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </StyledBox>
+                                <StyledBox title="Deposits (per accounts)" color="blue">
+                                    <table className={styles.tblDeposits}>
+                                        <tbody>
+                                            {proposalInfos['votingStartTime'].length === 0 ? 
+                                                <tr>
+                                                    <td colSpan="2">No data</td>
+                                                </tr>
+                                            :
+                                                proposalInfos['deposits'].map((element, index) => {
+                                                    return <tr key={index}>
+                                                        <td><Link to={"/accounts/" + element.depositor}>{element.depositor}</Link></td>
+                                                        {element.amount.map((element2, index2) => {
+                                                            return element2.denom === 'uluna' ?
+                                                                <td key={index2}>
+                                                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element2.amount/1000000)}</span>
+                                                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(element2.amount/1000000)}</span>
+                                                                    <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                                                </td>
+                                                            :
+                                                                null
+                                                        })}
+                                                    </tr>
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </StyledBox>
+                            </>
                         : null}
                         {proposalInfos['status'] === "PROPOSAL_STATUS_VOTING_PERIOD" ?
                             <StyledBox title="Votes (in progress)" color="orange">

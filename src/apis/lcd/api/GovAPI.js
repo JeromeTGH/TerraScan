@@ -13,6 +13,10 @@ export class GovAPI {
         return this.apiRequester.get(this.paths.getDepositParameters, params);
     }
 
+    // Exemple d'appel : /cosmos/gov/v1beta1/proposals/******id*******/deposits
+    async getDeposits(proposalId, params = new URLSearchParams()) {
+        return this.apiRequester.get(this.paths.getDeposits.replace('***', proposalId), params);
+    }
 
     // Exemple d'appel : /cosmos/gov/v1beta1/proposals/******id*******
     async getProposal(proposalId, params = new URLSearchParams()) {

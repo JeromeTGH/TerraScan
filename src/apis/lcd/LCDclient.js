@@ -35,6 +35,7 @@ export class LCDclient {
                 },
                 gov: {
                     getDepositParameters: '/cosmos/gov/v1beta1/params/deposit',
+                    getDeposits: '/cosmos/gov/v1beta1/proposals/***/deposits',
                     getProposal: '/cosmos/gov/v1beta1/proposals/***',
                     getProposals: '/cosmos/gov/v1beta1/proposals',
                     getTally: '/cosmos/gov/v1beta1/proposals/***/tally',
