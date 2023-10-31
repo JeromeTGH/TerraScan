@@ -91,15 +91,15 @@ const PageBuilder = (props) => {
             case 'proposal':
                 return <PageProposal />;
             case 'proposals':
-                return <PageProposals filter="all" />;
+                return <PageProposals category="all" />;
             case 'proposals_voting':
-                return <PageProposals filter="voting" />;
+                return <PageProposals category="voting" />;
             case 'proposals_deposits':
-                return <PageProposals filter="deposits" />;
+                return <PageProposals category="deposits" />;
             case 'proposals_adopted':
-                return <PageProposals filter="adopted" />;
+                return <PageProposals category="adopted" />;
             case 'proposals_rejected':
-                return <PageProposals filter="rejected" />;
+                return <PageProposals category="rejected" />;
             case 'burns':
                 return <PageBurns />;
             case 'staking':

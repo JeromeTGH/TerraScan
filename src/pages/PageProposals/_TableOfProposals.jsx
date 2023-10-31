@@ -14,7 +14,8 @@ const TableOfProposals = (props) => {
     // Variables React
     const [pagination, setPagination] = useState(0);
     const [nbreDePageTotal, setNbreDePageTotal] = useState(1);
-    const [donneesAafficher, setDonneesAafficher] = useState(0);
+    const [donnees, setDonnees] = useState([]);
+    const [donneesAafficher, setDonneesAafficher] = useState([]);
 
 
     // Fonction de sélection de page
@@ -25,7 +26,7 @@ const TableOfProposals = (props) => {
     // Extraction des données qui nous intéresse, pour l'offichage
     useEffect(() => {
         // Changement du "title" de la page web
-        switch(props.filter) {
+        switch(props.category) {
             case "voting":
                 document.title = 'Voting proposals - ' + appName;
                 break;
@@ -54,7 +55,7 @@ const TableOfProposals = (props) => {
             adopted: "PROPOSAL_STATUS_PASSED",
             rejected: "PROPOSAL_STATUS_REJECTED"
         }
-        const filtre = filtreDenominations[props.filter]
+        const filtre = filtreDenominations[props.category]
 
         switch(filtre) {
             case "ALL_PROPOSALS":
@@ -80,9 +81,15 @@ const TableOfProposals = (props) => {
         }
 
         setNbreDePageTotal(parseInt(tblDonnees.length/nbElementsAafficherParPage) + ((tblDonnees.length/nbElementsAafficherParPage)%1 > 0 ? 1 : 0));
-        setDonneesAafficher(tblDonnees.slice(pagination*nbElementsAafficherParPage, pagination*nbElementsAafficherParPage + nbElementsAafficherParPage));
+        setPagination(0);
+        setDonnees(tblDonnees);
+    }, [props.category])
 
-    }, [props.filter, pagination])
+
+    // Filtrage des données, selon pagination
+    useEffect(() => {
+        setDonneesAafficher(donnees.slice(pagination*nbElementsAafficherParPage, pagination*nbElementsAafficherParPage + nbElementsAafficherParPage));
+    }, [donnees, pagination])
 
     // Affichage
     return (

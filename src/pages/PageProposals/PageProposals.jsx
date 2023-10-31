@@ -42,7 +42,7 @@ const PageProposals = (props) => {
                     :
                         <div className={styles.blockProposals}>
                             <Filters />
-                            <TableOfProposals filter={props.filter} />
+                            <TableOfProposals category={props.category} />
                         </div>
                 }
             </div>
