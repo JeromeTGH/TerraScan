@@ -31,6 +31,7 @@ export const getTransactions = async (accountAddress) => {
                 let msgType = '';
                 let msgAmount = '';
                 let msgUnit = '';
+                let msgSign = '';
                 if(messages.length === 0)
                     msgType = 'Nothing';
                 else if(messages.length === 1) {
@@ -40,6 +41,7 @@ export const getTransactions = async (accountAddress) => {
                             if(messages[0].value.amount.length === 1) {
                                 msgAmount = (messages[0].value.amount[0].amount/1000000).toFixed(6);
                                 msgUnit = tblCorrespondanceValeurs[messages[0].value.amount[0].denom] ? tblCorrespondanceValeurs[messages[0].value.amount[0].denom] : messages[0].value.amount[0].denom;
+                                msgSign = messages[0].value.from_address === accountAddress ? '-' : '';
                             }
                         } else {
                             if(messages[0].value.amount?.amount && messages[0].value.amount?.denom) {
@@ -57,6 +59,7 @@ export const getTransactions = async (accountAddress) => {
                         errorCode: txCode,
                         amount: msgAmount,
                         unit: msgUnit,
+                        sign: msgSign,
                         txHash: txHash
                     });
             }

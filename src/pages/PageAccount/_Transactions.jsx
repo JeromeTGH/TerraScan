@@ -74,6 +74,7 @@ const Transactions = (props) => {
                                             <td className={styles.amounts}>
                                                 {element.amount ? 
                                                     <>
+                                                        {element.sign ? <span>{element.sign}</span> : null}
                                                         <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(element.amount)}</span>
                                                         <span className='partieDecimale'>{retournePartieDecimaleFixed6(element.amount)}</span>
                                                         {element.unit.includes('ibc') ? <span className={styles.ibc}>{element.unit}</span> : <img src={'/images/coins/' + element.unit + '.png'} alt={element.unit + ' logo'} />}
