@@ -114,8 +114,11 @@ const BlockLuncTotalSupplies = (props) => {
                                     foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
-                                    title: {
-                                        text: 'LUNC'
+                                    // title: {
+                                    //     text: 'LUNC'
+                                    // },
+                                    labels: {
+                                        formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 },
                                 xaxis: {

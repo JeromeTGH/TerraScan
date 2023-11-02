@@ -114,9 +114,9 @@ const BlockStakingRatio = (props) => {
                                     foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
-                                    title: {
-                                        text: 'Staking Ratio',
-                                    },
+                                    // title: {
+                                    //     text: 'Staking Ratio',
+                                    // },
                                     labels: {
                                         formatter: (valeur) => (metEnFormeGrandNombre(valeur, 2) + " %")
                                     }

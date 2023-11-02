@@ -114,8 +114,11 @@ const BlockUstcTotalSupplies = (props) => {
                                     foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
-                                    title: {
-                                        text: 'USTC'
+                                    // title: {
+                                    //     text: 'USTC'
+                                    // },
+                                    labels: {
+                                        formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
                                 },
                                 xaxis: {

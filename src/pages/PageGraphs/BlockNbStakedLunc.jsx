@@ -114,9 +114,9 @@ const BlockNbStakedLunc = (props) => {
                                     foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
-                                    title: {
-                                        text: 'Nb staked LUNC',
-                                    },
+                                    // title: {
+                                    //     text: 'Nb staked LUNC',
+                                    // },
                                     labels: {
                                         formatter: (valeur) => metEnFormeGrandNombre2(valeur, 4)
                                     }
