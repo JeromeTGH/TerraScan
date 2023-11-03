@@ -188,16 +188,16 @@ const BlockOverview = (props) => {
                         <div><strong>{overviewInfos ? overviewInfos['InflationMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<Link to="/proposals/11515">Tobin tax</Link> ("tax burn") :</div>
-                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxMax'] : "..."}%</strong></div>
+                        <div>→&nbsp;<Link to="/proposals/11515">Burn tax</Link> :</div>
+                        <div><strong>{overviewInfos ? overviewInfos['BurnTaxMax'] : "..."}%</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<Link to="/proposals/11514">Tobin tax split</Link> :</div>
+                        <div>→&nbsp;<Link to="/proposals/11514">Burn tax split</Link> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div></div>
-                        <div><strong>{overviewInfos ? overviewInfos['TobinTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['TobinTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
+                        <div><strong>{overviewInfos ? overviewInfos['BurnTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['BurnTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div>→&nbsp;<Link to="/proposals/11513">Distribution Module split</Link> :</div>

@@ -33,12 +33,12 @@ export const loadSomeGeneralnfos = async () => {
         return { "erreur": "Failed to fetch [mint parameters] ..." }
 
 
-    // Récupération de la taxe tobin max (initialement nommée la "taxe burn"), et des paramètres de son split
+    // Récupération de la taxe burn max, et des paramètres de son split
     const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);
     if(rawTreasuryParameters?.data?.params) {
-        tblGlobalInfos['TobinTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
-        tblGlobalInfos['TobinTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
-        tblGlobalInfos['TobinTaxSplitToBeBurn'] = 100 - tblGlobalInfos['TobinTaxSplitToDistributionModule'];
+        tblGlobalInfos['BurnTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
+        tblGlobalInfos['BurnTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
+        tblGlobalInfos['BurnTaxSplitToBeBurn'] = 100 - tblGlobalInfos['BurnTaxSplitToDistributionModule'];
     }
     else
         return { "erreur": "Failed to fetch [treasury parameters] ..." }

@@ -13,9 +13,9 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
         "NbMaxValidators": null,
         "NbBondedValidators": null,
         "InflationMax": null,
-        "TobinTaxMax": null,                // Tobin tax ("Tax burn") ; initially 1.2%, then 0.2%, then 0.5%
-        "TobinTaxSplitToBeBurn": null,              // Split of above tax ("Burn tax AnteHandler") ; typically 80/20,
-        "TobinTaxSplitToDistributionModule": null,  // so 80% to be burn, and 20% to the distribution module
+        "BurnTaxMax": null,                                 // Burn tax ("Tax burn") ; initially 1.2%, then 0.2%, then 0.5%
+        "BurnTaxSplitToBeBurn": null,                       // Split of above tax ("Burn tax AnteHandler") ; typically 80/20,
+        "BurnTaxSplitToDistributionModule": null,           // so 80% to be burn, and 20% to the distribution module
         "DistributionModuleSplitToStakers": null,           // Split of distribution module ; typically 50/50, so 50% du stakers
         "DistributionModuleSplitToCommunityPool": null,     // and 50% du community pool
         "AmountOfLuncInCP": null,       // Community Pool
@@ -95,9 +95,9 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     tblAretourner['UnbondingTime'] = tblGlobalInfos['UnbondingTime'];
     tblAretourner['NbMaxValidators'] = tblGlobalInfos['NbMaxValidators'];
     tblAretourner['InflationMax'] = tblGlobalInfos['InflationMax'];
-    tblAretourner['TobinTaxMax'] = tblGlobalInfos['TobinTaxMax'];
-    tblAretourner['TobinTaxSplitToDistributionModule'] = tblGlobalInfos['TobinTaxSplitToDistributionModule'];
-    tblAretourner['TobinTaxSplitToBeBurn'] = tblGlobalInfos['TobinTaxSplitToBeBurn'];
+    tblAretourner['BurnTaxMax'] = tblGlobalInfos['BurnTaxMax'];
+    tblAretourner['BurnTaxSplitToDistributionModule'] = tblGlobalInfos['BurnTaxSplitToDistributionModule'];
+    tblAretourner['BurnTaxSplitToBeBurn'] = tblGlobalInfos['BurnTaxSplitToBeBurn'];
     tblAretourner['DistributionModuleSplitToStakers'] = tblGlobalInfos['DistributionModuleSplitToStakers']
     tblAretourner['DistributionModuleSplitToCommunityPool'] = tblGlobalInfos['DistributionModuleSplitToCommunityPool']
 
