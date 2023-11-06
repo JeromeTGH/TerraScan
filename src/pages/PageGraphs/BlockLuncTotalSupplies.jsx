@@ -111,7 +111,7 @@ const BlockLuncTotalSupplies = (props) => {
                                     zoom: {
                                         enabled: false
                                     },
-                                    // foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
+                                    foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
                                     // title: {
