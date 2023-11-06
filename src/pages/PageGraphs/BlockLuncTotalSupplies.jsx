@@ -99,8 +99,8 @@ const BlockLuncTotalSupplies = (props) => {
                                 plotOptions: {
                                     candlestick: {
                                         colors: {
-                                            upward: '#00B746',
-                                            downward: '#EF403C'
+                                            upward: "#00B746",
+                                            downward: "#FF0000"
                                         }
                                     }
                                 },
@@ -111,7 +111,7 @@ const BlockLuncTotalSupplies = (props) => {
                                     zoom: {
                                         enabled: false
                                     },
-                                    foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
+                                    // foreColor: 'var(--primary-text-color)'      // Couleur des valeurs en abscisse/ordonnée
                                 },
                                 yaxis: {
                                     // title: {

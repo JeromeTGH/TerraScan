@@ -99,8 +99,8 @@ const BlockUstcTotalSupplies = (props) => {
                                 plotOptions: {
                                     candlestick: {
                                         colors: {
-                                            upward: '#00B746',
-                                            downward: '#EF403C'
+                                            upward: "#00B746",
+                                            downward: "#FF0000"
                                         }
                                     }
                                 },
