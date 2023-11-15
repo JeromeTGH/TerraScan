@@ -53,7 +53,7 @@ const BlockStakingRatio = (props) => {
 
     // Chargement des données
     useEffect(() => {
-        handleClickOnTimeUnits('H4');
+        handleClickOnTimeUnits('D1');
         // eslint-disable-next-line
     }, [])
 

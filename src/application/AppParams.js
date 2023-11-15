@@ -87,7 +87,9 @@ export const tblCorrespondanceCompte = {
     "terra1sq6th05hdwwwxvymzytc93lvhjxyx4pkjurhgj": "LunaticsToken",
     "terra1lahvss98xwyhuf7lz8rcgu2rc8zecz3htj6f8y": "Lunasphere",
     "terra13yxmvax7ndvaptgxmqjgqmejka48nrcfm66xaa": "LUNCwhales",
-    "terra1nh8sjqy87z9mevgnmyd889s82g4hfj44dy7kp7": "Project LUNCBurn (HCC)"
+    "terra1nh8sjqy87z9mevgnmyd889s82g4hfj44dy7kp7": "Project LUNCBurn (HCC)",
+	"terra13yex6xefup97382jq07se35at3vzrkrt8d7h5k": "GarudaX Token Burn",
+	"terra1xusghqxnaxmnflqxtuh6jlumjfvapksw5ctnm3": "Air Force Lunc Burn"
 }
 
 
