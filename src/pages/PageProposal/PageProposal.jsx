@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EyeIcon, VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
-import { expanded_datetime_ago, formateLeNombre, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
+import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import ObjectViewer from '../../sharedComponents/ObjectViewer';
@@ -154,15 +154,23 @@ const PageProposal = () => {
                                             </tr>
                                             <tr>
                                                 <td>Amount of LUNC required :</td>
-                                                <td>{formateLeNombre(proposalInfos['nbMinDepositLunc'], '\u00a0')} LUNC</td>
+                                                <td>
+                                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(proposalInfos['nbMinDepositLunc'])}</span>
+                                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(proposalInfos['nbMinDepositLunc'])}</span>
+                                                    <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Amount of LUNC deposited :</td>
-                                                <td>{formateLeNombre(proposalInfos['totalDeposit'], '\u00a0')} LUNC</td>
+                                                <td>
+                                                    <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(proposalInfos['totalDeposit'])}</span>
+                                                    <span className='partieDecimale'>{retournePartieDecimaleFixed6(proposalInfos['totalDeposit'])}</span>
+                                                    <img src={'/images/coins/LUNC.png'} alt='LUNC logo' />
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>Ratio LUNC deposited/required :</td>
-                                                <td>{proposalInfos['pourcentageDeLuncFournisSurRequis']}%</td>
+                                                <td>Ratio deposited/required :</td>
+                                                <td>{proposalInfos['pourcentageDeLuncFournisSurRequis'].toFixed(2)}%</td>
                                             </tr>
                                             <tr>
                                                 <td>Progress :</td>
