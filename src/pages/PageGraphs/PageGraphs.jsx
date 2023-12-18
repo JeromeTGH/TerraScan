@@ -47,7 +47,7 @@ const PageGraphs = () => {
         <>
             <h1><GraphBarIcon /><span><strong>Graphs</strong> (historical charts)</span></h1>
             <StyledBox title="Datas" color="green">
-                <span>Service started <strong>since sept/oct 2023</strong> (so <u>no history before</u>)</span>
+                <span>Service started <strong>since October 2023</strong> (so <u>no history before</u>)</span>
             </StyledBox>
             {msgErreur ?
                     <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreur}</div></StyledBox>
