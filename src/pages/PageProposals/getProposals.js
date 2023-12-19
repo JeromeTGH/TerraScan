@@ -56,10 +56,10 @@ export const getProposals = async () => {
         }
         if(tblProposals[i].status === "PROPOSAL_STATUS_PASSED" || tblProposals[i].status === "PROPOSAL_STATUS_REJECTED") {
             // console.log(tblProposals[i].final_tally_result);
-            const qteLuncAbstain = parseInt(tblProposals[i].final_tally_result.abstain)/1000000;
-            const qteLuncNo = parseInt(tblProposals[i].final_tally_result.no)/1000000;
-            const qteLuncNoWithVeto = parseInt(tblProposals[i].final_tally_result.no_with_veto)/1000000;
-            const qteLuncYes = parseInt(tblProposals[i].final_tally_result.yes)/1000000;
+            const qteLuncAbstain = parseInt(tblProposals[i].final_tally_result.abstain_count)/1000000;
+            const qteLuncNo = parseInt(tblProposals[i].final_tally_result.no_count)/1000000;
+            const qteLuncNoWithVeto = parseInt(tblProposals[i].final_tally_result.no_with_veto_count)/1000000;
+            const qteLuncYes = parseInt(tblProposals[i].final_tally_result.yes_count)/1000000;
             const qteLuncTotal = qteLuncAbstain + qteLuncNo + qteLuncNoWithVeto + qteLuncYes;
             tblProposals[i]['pourcentageOfYes'] = (qteLuncYes/qteLuncTotal*100).toFixed(2);
             tblProposals[i]['pourcentageOfAbstain'] = (qteLuncAbstain/qteLuncTotal*100).toFixed(2);

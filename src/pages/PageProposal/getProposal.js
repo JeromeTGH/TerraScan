@@ -42,8 +42,6 @@ export const getProposal = async (propID) => {
     const tblHistoriqueDesVotesValidateur = [];
     const tblHistoriqueDesVotesNonValidateur = [];
 
-    console.log(tblProposals[idxOfThisProp])
-
 
     // Récupération des infos de cette proposition là en particulier
     proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown'
