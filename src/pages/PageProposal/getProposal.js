@@ -22,7 +22,7 @@ export const getProposal = async (propID) => {
 
 
     // Récupération du numéro de ligne de cette proposition, dans la table tblProposals
-    const idxOfThisProp = tblProposals.findIndex(element => element.proposal_id === propID);
+    const idxOfThisProp = tblProposals.findIndex(element => element.id === propID);
     if (idxOfThisProp === -1)
         return { "erreur": "Failed to fetch this proposal into tblProposals, sorry ..." }
 
@@ -42,23 +42,24 @@ export const getProposal = async (propID) => {
     const tblHistoriqueDesVotesValidateur = [];
     const tblHistoriqueDesVotesNonValidateur = [];
 
+    console.log(tblProposals[idxOfThisProp])
 
 
     // Récupération des infos de cette proposition là en particulier
-    proposalInfos['propType'] = tblProposals[idxOfThisProp].content["@type"] ? tblProposals[idxOfThisProp].content["@type"].split('.').slice(-1) : 'unknown'
+    proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown'
 
-    proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].content.amount) : null;
-    proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].content.changes ? tblProposals[idxOfThisProp].content.changes : null;
-    proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].content.plan ? tblProposals[idxOfThisProp].content.plan : null;
+    proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].content.amount) : null;
+    proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].messages[0]?.content.changes ? tblProposals[idxOfThisProp].messages[0].content.changes : null;
+    proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].messages[0]?.content.plan ? tblProposals[idxOfThisProp].messages[0].content.plan : null;
 
-    proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].content.description;
-    proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].content.recipient ? tblProposals[idxOfThisProp].content.recipient : null;
-    proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].content.title;
+    proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].messages[0]?.content.description ? tblProposals[idxOfThisProp].messages[0].content.description : null;
+    proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.content.recipient ? tblProposals[idxOfThisProp].messages[0].content.recipient : null;
+    proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].messages[0]?.content.title ? tblProposals[idxOfThisProp].messages[0].content.title : null;
     proposalInfos['depositEndTime'] = tblProposals[idxOfThisProp].deposit_end_time;
-        proposalInfos['finalVotesYes'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.yes.toString())*100;
-        proposalInfos['finalVotesAbstain'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.abstain.toString())*100;
-        proposalInfos['finalVotesNo'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no.toString())*100;
-        proposalInfos['finalVotesNoWithVeto'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no_with_veto.toString())*100;
+        proposalInfos['finalVotesYes'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.yes_count.toString())*100;
+        proposalInfos['finalVotesAbstain'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.abstain_count.toString())*100;
+        proposalInfos['finalVotesNo'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no_count.toString())*100;
+        proposalInfos['finalVotesNoWithVeto'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.no_with_veto_count.toString())*100;
     proposalInfos['status'] = tblProposals[idxOfThisProp].status;
     proposalInfos['submitDatetime'] = tblProposals[idxOfThisProp].submit_time;
     proposalInfos['votingStartTime'] = tblProposals[idxOfThisProp].voting_start_time;

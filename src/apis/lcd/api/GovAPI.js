@@ -24,7 +24,7 @@ export class GovAPI {
     }
 
 
-    // Exemple d'appel : /cosmos/gov/v1beta1/proposals
+    // Exemple d'appel : /cosmos/gov/v1/proposals
     async getProposals(params = new URLSearchParams()) {
         return this.apiRequester.get(this.paths.getProposals, params);
     }

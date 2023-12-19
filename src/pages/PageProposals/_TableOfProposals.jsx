@@ -100,7 +100,7 @@ const TableOfProposals = (props) => {
             <div className={styles.tblProposals}>
                 {donneesAafficher ? donneesAafficher.map((element, index) => {
                     return <div key={index}>
-                                <Link to={'/proposals/' + element.proposal_id}>
+                                <Link to={'/proposals/' + element.id}>
                                     <Card card={element} />
                                 </Link>
                            </div>

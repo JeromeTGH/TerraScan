@@ -7,7 +7,7 @@ const Card = (props) => {
     return (
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
-                <div className={styles.cardProposalID}><MessageIcon />&nbsp;&nbsp;Proposal&nbsp;|&nbsp;{props.card.proposal_id}</div>
+                <div className={styles.cardProposalID}><MessageIcon />&nbsp;&nbsp;Proposal&nbsp;|&nbsp;{props.card.id}</div>
                 {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? <div className={styles.cardProposalStatusOrange}>Waiting&nbsp;deposit</div> : null}
                 {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? <div className={styles.cardProposalStatusBlue}>Voting&nbsp;in&nbsp;progress</div> : null}
                 {props.card.status === "PROPOSAL_STATUS_PASSED" ? <div className={styles.cardProposalStatusGreen}>Adopted</div> : null}
@@ -18,7 +18,7 @@ const Card = (props) => {
                  props.card.status !== "PROPOSAL_STATUS_REJECTED" ? <div className={styles.cardProposalStatusGray}>Unknown&nbsp;status</div> : null}
             </div>
             <div className={styles.cardBody}>
-                <div className={styles.cardProposalTitle}>{props.card.content.title}</div>
+                <div className={styles.cardProposalTitle}>{props.card.messages[0]?.content?.title ? props.card.messages[0].content.title : "(no title ?!)"}</div>
                 {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? 
                 <>
                     <table className={styles.cardProposalTable}>

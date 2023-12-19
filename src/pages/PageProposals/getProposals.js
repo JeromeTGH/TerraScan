@@ -67,7 +67,7 @@ export const getProposals = async () => {
             tblProposals[i]['pourcentageOfNoWithVeto'] = (qteLuncNoWithVeto/qteLuncTotal*100).toFixed(2);
         }
         if(tblProposals[i].status === "PROPOSAL_STATUS_VOTING_PERIOD") {
-            const rawTally = await lcd.gov.getTally(tblProposals[i].proposal_id).catch(handleError);
+            const rawTally = await lcd.gov.getTally(tblProposals[i].id).catch(handleError);
             if(rawTally?.data?.tally) {
                 const pourcentageOfYes = rawTally.data.tally.yes / nbLuncStaked * 100;
                 const pourcentageOfAbstain = rawTally.data.tally.abstain / nbLuncStaked * 100;
@@ -114,7 +114,7 @@ export const getProposals = async () => {
 
 
             } else
-                return { "erreur": "Failed to fetch [tally of proposal #" + tblProposals[i].proposal_id + "] ..." }
+                return { "erreur": "Failed to fetch [tally of proposal #" + tblProposals[i].id + "] ..." }
         }
     }
 

@@ -190,7 +190,7 @@ const PageProposal = () => {
                                 <StyledBox title="Deposits (per accounts)" color="blue">
                                     <table className={styles.tblDeposits}>
                                         <tbody>
-                                            {proposalInfos['votingStartTime'].length === 0 ? 
+                                            {proposalInfos['votingStartTime'] === null || proposalInfos['votingStartTime'].length === 0 ? 
                                                 <tr>
                                                     <td colSpan="2">No data</td>
                                                 </tr>
