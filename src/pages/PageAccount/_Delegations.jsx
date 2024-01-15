@@ -90,7 +90,7 @@ const Delegations = (props) => {
                 :
                     <>
                         <div className={styles.fullView}>
-                            {tblDelegations ? tblDelegations.map((element, index) => {
+                            {tblDelegations && tblDelegations.length > 0 ? tblDelegations.map((element, index) => {
                                 return <StyledBox title={<>Delegation {index+1}/{tblDelegations.length}</>} color="orange" key={index}>
                                     <>
                                         <div>
@@ -146,7 +146,7 @@ const Delegations = (props) => {
                                         <span className={styles.showhide} onClick={() => handleClickShowHide(index)}>{isMinorCoinsVisible[index] ? "<< hide minor pending rewards" : "Show other pending rewards >>"}</span>
                                     </>
                                 </StyledBox>
-                            }) : null}
+                            }) : <StyledBox title="Delegations" color="orange"><div>No delegation, currently.</div></StyledBox>}
                         </div>
                         {/* <div className={styles.partialView}>
                             <StyledBox

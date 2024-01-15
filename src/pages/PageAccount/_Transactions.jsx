@@ -41,7 +41,7 @@ const Transactions = (props) => {
 
     // Affichage
     return (
-        <StyledBox title="Available" color="blue">
+        <StyledBox title="Latest transactions" color="blue">
             {msgErreur ?
                 <div className="erreur">{msgErreur}</div>
             :
