@@ -579,8 +579,9 @@ const PageProposal = () => {
                                                     return <tr key={index}>
                                                         <td>{metEnFormeDateTime(valeur.datetime)}</td>
                                                         <td>
-                                                            <Link to={"/validators/" + valeur.valoperaddress}>{valeur.valmoniker}&nbsp;</Link>
-                                                            <span className={styles.votingpower}> (VP&nbsp;:&nbsp;{valeur.voting_power_pourcentage}&nbsp;%)</span>
+                                                            <Link to={"/validators/" + valeur.valoperaddress}><strong>{valeur.valmoniker}</strong></Link>
+                                                            <br />
+                                                            <span className={styles.votingpower}>VP&nbsp;:&nbsp;<strong>{valeur.voting_power_pourcentage}</strong>&nbsp;%</span>
                                                         </td>
                                                         <td>
                                                             {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}

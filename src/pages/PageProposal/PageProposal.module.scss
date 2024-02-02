@@ -306,10 +306,6 @@
             text-align: center;
         }
 
-        td:nth-child(2) {
-            vertical-align: middle;
-        }
-
         .view {
             font-size: 1rem;
             svg {
@@ -318,7 +314,7 @@
         }
 
         .votingpower {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             color: var(--secondary-text-color);
         }
     }
