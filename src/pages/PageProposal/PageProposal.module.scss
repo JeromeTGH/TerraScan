@@ -306,11 +306,20 @@
             text-align: center;
         }
 
+        td:nth-child(2) {
+            vertical-align: middle;
+        }
+
         .view {
             font-size: 1rem;
             svg {
                 margin-top: 0.4rem;
             }
+        }
+
+        .votingpower {
+            font-size: 0.6rem;
+            color: var(--secondary-text-color);
         }
     }
 

@@ -338,6 +338,7 @@ export const getProposal = async (propID) => {
                                         'datetime': txtdatetime,
                                         'valoperaddress': tblValidatorsAccounts[voter],
                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                        'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                         'vote': voteoption
                                     })
                                 } else {
@@ -367,6 +368,7 @@ export const getProposal = async (propID) => {
                                                 'datetime': txtdatetime,
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                                'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                 'vote': voteoption
                                             })
                                         } else {
@@ -437,6 +439,7 @@ export const getProposal = async (propID) => {
                                                 'datetime': txtdatetime,
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                                'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                 'vote': voteoption
                                             })
                                         } else {
@@ -466,6 +469,7 @@ export const getProposal = async (propID) => {
                                                         'datetime': txtdatetime,
                                                         'valoperaddress': tblValidatorsAccounts[voter],
                                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
+                                                        'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                         'vote': voteoption
                                                     })
                                                 } else {

@@ -578,7 +578,10 @@ const PageProposal = () => {
                                                 {proposalInfos['tblHistoriqueDesVotesValidateur'].map((valeur, index) => {
                                                     return <tr key={index}>
                                                         <td>{metEnFormeDateTime(valeur.datetime)}</td>
-                                                        <td><Link to={"/validators/" + valeur.valoperaddress}>{valeur.valmoniker}</Link></td>
+                                                        <td>
+                                                            <Link to={"/validators/" + valeur.valoperaddress}>{valeur.valmoniker}&nbsp;</Link>
+                                                            <span className={styles.votingpower}> (VP&nbsp;:&nbsp;{valeur.voting_power_pourcentage}&nbsp;%)</span>
+                                                        </td>
                                                         <td>
                                                             {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}
                                                             {valeur.vote === 'VOTE_OPTION_ABSTAIN' ? <span className='textVoteAbstain'>ABSTAIN</span> : null}
