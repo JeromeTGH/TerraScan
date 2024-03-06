@@ -144,7 +144,7 @@ export const getTxDatas = async (txHash) => {
 
                 const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
-                    msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                    msgStructRet['ProposalTitle'] = rawProposalInfos.data.proposal.content.title;
                 } else {
                     msgStructRet['ProposalTitle'] = '(unknown)';
                 }
@@ -239,8 +239,32 @@ export const getTxDatas = async (txHash) => {
             if(msgStructRet['MsgType'] === 'MsgSubmitProposal') {
                 msgStructRet['Proposer'] = message.value.proposer;
                 msgStructRet['InitialDeposit'] = coinsListToFormatedText(message.value.initial_deposit);
-                msgStructRet['ContentTitle'] = message.value.content.title;
-                msgStructRet['ContentDescription'] = message.value.content.description;
+
+                if(message?.value?.content?.title) {
+                    msgStructRet['ContentTitle'] = message.value.content.title;
+                } else {
+                    msgStructRet['ContentTitle'] = '(unknown)';
+                    if(Array.isArray(message?.value?.messages)) {
+                        for(let idxMsg=0; idxMsg < message.value.messages.length; idxMsg++) {
+                            if(message.value.messages[idxMsg].content?.title) {
+                                msgStructRet['ContentTitle'] = message.value.messages[idxMsg].content.title;
+                            }
+                        }
+                    }
+                }
+
+                if(message?.value?.content?.description) {
+                    msgStructRet['ContentDescription'] = message.value.content.description;
+                } else {
+                    msgStructRet['ContentDescription'] = '(unknown)';
+                    if(Array.isArray(message?.value?.messages)) {
+                        for(let idxMsg=0; idxMsg < message.value.messages.length; idxMsg++) {
+                            if(message.value.messages[idxMsg].content?.description) {
+                                msgStructRet['ContentDescription'] = message.value.messages[idxMsg].content.description;
+                            }
+                        }
+                    }
+                }
 
                 if(rawTxInfo.logs[i] !== undefined) {
                     msgStructRet['ProposalID'] = findInTblLogEvents(rawTxInfo.logs[i].events, "proposal_deposit", "proposal_id")[0];
