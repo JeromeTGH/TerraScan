@@ -12,7 +12,7 @@ You are authorized to :
 
 Under the following conditions :
 
-- **ATTRIBUTION** : You must prominently attribute the original material with the attribution "CC BY-NC-ND © JeromeTOMSKI-TerraScan". In the context of digital media, you must also link this attribution to the original source : https://github.com/JeromeTGH/Terra-Scan
+- **ATTRIBUTION** : You must prominently attribute the original material with the attribution "CC BY-NC-ND © JeromeTOMSKI-TerraScan". In the context of digital media, you must also link this attribution to the original source : https://github.com/JeromeTGH/TerraScan
 
 - **NO COMMERCIAL USE** : You are not authorized to make commercial use of this Work, all or part of the material comprising it.
 

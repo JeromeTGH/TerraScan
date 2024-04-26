@@ -1,7 +1,7 @@
-# Terra Scan
+# TerraScan
 
 **Terra Classic Application (dashboard, finder, and scan)**
-GitHub : https://github.com/JeromeTGH/Terra-Scan
+GitHub : https://github.com/JeromeTGH/TerraScan
 
 ## License
 
