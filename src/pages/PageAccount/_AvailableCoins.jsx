@@ -62,10 +62,8 @@ const AvailableCoins = (props) => {
                                         <span><strong>LUNC</strong></span>
                                     </div>
                                     <div className={styles.coinValue}>
-                                        <strong>
-                                            <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[0].amount)}</span>
-                                            <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[0].amount)}</span>
-                                        </strong>
+										<span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[0].amount)}</span>
+										<span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[0].amount)}</span>
                                     </div>
                                 </div>
                                 <div className={styles.coin}>
@@ -74,10 +72,8 @@ const AvailableCoins = (props) => {
                                         <span><strong>USTC</strong></span>
                                     </div>
                                     <div className={styles.coinValue}>
-                                        <strong>
-                                            <span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[1].amount)}</span>
-                                            <span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[1].amount)}</span>
-                                        </strong>
+										<span className='partieEntiere'>{metEnFormeAmountPartieEntiere(tblCoins[1].amount)}</span>
+										<span className='partieDecimale'>{retournePartieDecimaleFixed6(tblCoins[1].amount)}</span>
                                     </div>
                                 </div>
                                 {/* {isMinorCoinsVisible ? tblCoins.map((element, index) => { */}

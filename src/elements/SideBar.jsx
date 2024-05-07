@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, CoffeeIcon, GraphBarIcon } from '../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, GraphBarIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const location = useLocation();
     const [isProposalsPageOrChilds, setIsProposalsPageOrChilds] = useState(false);
 
-    // Fonction de redirection "donate"
-    const handleDon = () => {
-        navigate('/donate/');
-    }
+    // // Fonction de redirection "donate"
+    // const handleDon = () => {
+    //     navigate('/donate/');
+    // }
 
     // Fixation du "hover" du menu gouvernance, si la page principale ou ses enfants sont sélectionnés
     // (nota : ici, le link /proposals/voting ne permet pas de faire les choses plus simplement)
@@ -110,14 +110,14 @@ const SideBar = () => {
                 <div id={styles["sidebar-theme"]}>
                     Switch theme to →&nbsp;<BtnJourNuit filled="yes" />
                 </div>
-                <br />
+                {/* <br />
                 <br />
                 <div className={styles.don}>
                     Want to help me ?<br />
                     To make this app sustainable ?<br />
                     <button onClick={() => handleDon()}><CoffeeIcon /><span>Donate</span></button><br />
                     So please donate ! Thanks ;)<br />
-                </div>
+                </div> */}
             </nav>
         </div>
     );

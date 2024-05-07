@@ -112,10 +112,8 @@ const Delegations = (props) => {
                                                     <span><strong>LUNC</strong></span>
                                                 </div>
                                                 <div className={styles.coinValue}>
-                                                    <strong>
-                                                        <span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[0].amount)}</span>
-                                                        <span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[0].amount)}</span>
-                                                    </strong>
+													<span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[0].amount)}</span>
+													<span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[0].amount)}</span>
                                                 </div>
                                             </div>
                                             <div className={styles.coin}>
@@ -124,10 +122,8 @@ const Delegations = (props) => {
                                                     <span><strong>USTC</strong></span>
                                                 </div>
                                                 <div className={styles.coinValue}>
-                                                    <strong>
-                                                        <span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[1].amount)}</span>
-                                                        <span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[1].amount)}</span>
-                                                    </strong>
+													<span className={'partieEntiere ' + styles.partieEntiereModifiee}>{metEnFormeAmountPartieEntiere(element.rewards[1].amount)}</span>
+													<span className={'partieDecimale ' + styles.partieDecimaleModifiee}>{retournePartieDecimaleFixed6(element.rewards[1].amount)}</span>
                                                 </div>
                                             </div>
                                             {isMinorCoinsVisible && isMinorCoinsVisible[index] ? element.rewards.map((element2, index2) => {
