@@ -49,6 +49,9 @@ export const getProposal = async (propID) => {
     proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].content.amount) : null;
     proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].messages[0]?.content.changes ? tblProposals[idxOfThisProp].messages[0].content.changes : null;
     proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].messages[0]?.content.plan ? tblProposals[idxOfThisProp].messages[0].content.plan : null;
+    proposalInfos['ClientUpdateProposal'] = tblProposals[idxOfThisProp].messages[0]?.content?.['@type'].includes("ClientUpdateProposal") ?
+        [tblProposals[idxOfThisProp].messages[0].content.subject_client_id, tblProposals[idxOfThisProp].messages[0].content.substitute_client_id]
+    : null;
 
     proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].messages[0]?.content.description ? tblProposals[idxOfThisProp].messages[0].content.description : null;
     proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.content.recipient ? tblProposals[idxOfThisProp].messages[0].content.recipient : null;

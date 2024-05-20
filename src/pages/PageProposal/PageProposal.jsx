@@ -141,7 +141,14 @@ const PageProposal = () => {
                                 {/* <div className={styles.addContent}><pre>{JSON.stringify(JSON.parse(JSON.parse(JSON.stringify(proposalInfos['contentPlan'], null, 2))), null, 2)}</pre></div> */}
                             </StyledBox>
                         : null}
-
+                        {proposalInfos['ClientUpdateProposal'] ?
+                            <StyledBox title="Update proposal" color="purple">
+                                <div className={styles.addContent}>
+                                    <p><strong>Subject_client_id</strong>&nbsp;= {proposalInfos['ClientUpdateProposal'][0]}</p>
+                                    <p><strong>Substitute_client_id</strong>&nbsp;= {proposalInfos['ClientUpdateProposal'][1]}</p>
+                                </div>
+                            </StyledBox>
+                        : null}
 
                         {proposalInfos['status'] === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ?
                             <>
