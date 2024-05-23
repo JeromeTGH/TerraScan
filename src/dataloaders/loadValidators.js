@@ -19,59 +19,64 @@ export const loadValidators = async () => {
         const rawValidatorList = await fcd.staking.getValidatorsList().catch(handleError);
         if(rawValidatorList && rawValidatorList.data) {
 
-            // console.log("rawValidatorList.data", rawValidatorList.data);
+// console.log("rawValidatorList.data", rawValidatorList.data);
 
             for(const validator of rawValidatorList.data) {
-                
-                const validatorInfo = new Validator(validator);
+                   
+                try {
+                    const validatorInfo = new Validator(validator);
 
+                    // Calcul intermédiaire, pour les 'jailed validators'
+                    let votingPowerInPercent = 0;
+                    if(validatorInfo.status === 'active')
+                        votingPowerInPercent = validatorInfo.votingPower.pourcentage;
+                    else
+                        votingPowerInPercent = validatorInfo.delegator_shares / (validatorInfo.delegator_shares + tblGlobalInfos['nbStakedLunc']) * 100;
 
-                // Calcul intermédiaire, pour les 'jailed validators'
-                let votingPowerInPercent = 0;
-                if(validatorInfo.status === 'active')
-                    votingPowerInPercent = validatorInfo.votingPower.pourcentage;
-                else
-                    votingPowerInPercent = validatorInfo.delegator_shares / (validatorInfo.delegator_shares + tblGlobalInfos['nbStakedLunc']) * 100;
+                    
+                    // Structure qui va être rajoutée au tableau des validators :
+                    //      tblValidators["valoper"] = {
+                    //          up_time,
+                    //          status,
+                    //          terra1_account_address,
+                    //          description_moniker,
+                    //          description_website,
+                    //          description_security_contact,
+                    //          description_details,
+                    //          profile_icon,
+                    //          voting_power_amount,
+                    //          voting_power_pourcentage,
+                    //          commission_actual_pourcentage,
+                    //          commission_max_pourcentage,
+                    //          commission_max_change_pourcentage,
+                    //          self_delegation_amount,
+                    //          self_delegation_pourcentage,
+                    //          vote
+                    //      }
+                    tblValidators[validatorInfo.operator_address] = {
+                        'up_time': validatorInfo.up_time,
+                        'status': validatorInfo.status,
+                        'terra1_account_address': validatorInfo.terra1_account_address,
+                        'description_moniker':  validatorInfo.description.moniker,
+                        'description_website':  validatorInfo.description.website,
+                        'description_security_contact':  validatorInfo.description.security_contact,
+                        'description_details': validatorInfo.description.details,
+                        'profile_icon': validatorInfo.description.profile_icon,
+                        'voting_power_amount': validatorInfo.delegator_shares,    // validatorInfo.votingPower.amount,
+                        'voting_power_pourcentage': votingPowerInPercent,
+                        'commission_actual_pourcentage': validatorInfo.commissionInfo.actual_pourcentage,
+                        'commission_max_pourcentage': validatorInfo.commissionInfo.max_pourcentage,
+                        'commission_max_change_pourcentage': validatorInfo.commissionInfo.max_change_pourcentage,
+                        'self_delegation_amount': validatorInfo.selfDelegation.amount,
+                        'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage,
+                        'vote': ''      // Champ non utilisé de manière directe (cf. pages Proposal/Proposals)
+                    }
+                    tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
 
-                
-                // Structure qui va être rajoutée au tableau des validators :
-                //      tblValidators["valoper"] = {
-                //          up_time,
-                //          status,
-                //          terra1_account_address,
-                //          description_moniker,
-                //          description_website,
-                //          description_security_contact,
-                //          description_details,
-                //          profile_icon,
-                //          voting_power_amount,
-                //          voting_power_pourcentage,
-                //          commission_actual_pourcentage,
-                //          commission_max_pourcentage,
-                //          commission_max_change_pourcentage,
-                //          self_delegation_amount,
-                //          self_delegation_pourcentage,
-                //          vote
-                //      }
-                tblValidators[validatorInfo.operator_address] = {
-                    'up_time': validatorInfo.up_time,
-                    'status': validatorInfo.status,
-                    'terra1_account_address': validatorInfo.terra1_account_address,
-                    'description_moniker':  validatorInfo.description.moniker,
-                    'description_website':  validatorInfo.description.website,
-                    'description_security_contact':  validatorInfo.description.security_contact,
-                    'description_details': validatorInfo.description.details,
-                    'profile_icon': validatorInfo.description.profile_icon,
-                    'voting_power_amount': validatorInfo.delegator_shares,    // validatorInfo.votingPower.amount,
-                    'voting_power_pourcentage': votingPowerInPercent,
-                    'commission_actual_pourcentage': validatorInfo.commissionInfo.actual_pourcentage,
-                    'commission_max_pourcentage': validatorInfo.commissionInfo.max_pourcentage,
-                    'commission_max_change_pourcentage': validatorInfo.commissionInfo.max_change_pourcentage,
-                    'self_delegation_amount': validatorInfo.selfDelegation.amount,
-                    'self_delegation_pourcentage': validatorInfo.selfDelegation.pourcentage,
-                    'vote': ''      // Champ non utilisé de manière directe (cf. pages Proposal/Proposals)
+                } catch(err) {
+                    return { "erreur": err.toString() }
                 }
-                tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
+
             }
         } else
             return { "erreur": "Failed to fetch [validators list] ..." }
