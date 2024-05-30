@@ -108,7 +108,7 @@ const PageProposal = () => {
                             <span className='succes'><strong>{proposalInfos['statusText']}</strong></span>
                             :
                             proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED" ?
-                                <span className='erreur'><strong>{proposalInfos['statusText']}</strong></span>
+                                <span className='erreur'><strong>{proposalInfos['statutVote']}</strong></span>
                                 :
                                 <span className='colore'><strong>{proposalInfos['statusText']}</strong></span>
                             }
@@ -335,7 +335,10 @@ const PageProposal = () => {
                                                 {proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" ?
                                                     <span className='succes'><strong>{proposalInfos['statutVote']}</strong></span>
                                                 :
-                                                    <span className='erreur'><strong>{proposalInfos['statutVote']}</strong></span>
+                                                    proposalInfos['isVetoReached'] ?
+                                                        <span className='textVoteNowithveto'><strong>{proposalInfos['statutVote']}</strong></span>
+                                                        :
+                                                        <span className='erreur'><strong>{proposalInfos['statutVote']}</strong></span>
                                                 }
                                             </td>
                                         </tr>

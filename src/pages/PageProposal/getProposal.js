@@ -237,27 +237,35 @@ export const getProposal = async (propID) => {
     if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED" || proposalInfos['status'] === "PROPOSAL_STATUS_REJECTED") {
 
         // Calculs
-            proposalInfos['nbVotesYesLunc'] = proposalInfos['finalVotesYes'];
-            proposalInfos['nbVotesAbstainLunc'] = proposalInfos['finalVotesAbstain'];
-            proposalInfos['nbVotesNoLunc'] = proposalInfos['finalVotesNo'];
-            proposalInfos['nbVotesNowithvetoLunc'] = proposalInfos['finalVotesNoWithVeto'];
-                proposalInfos['nbVotersLunc'] = proposalInfos['nbVotesYesLunc'] + proposalInfos['nbVotesAbstainLunc'] + proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+        proposalInfos['nbVotesYesLunc'] = proposalInfos['finalVotesYes'];
+        proposalInfos['nbVotesAbstainLunc'] = proposalInfos['finalVotesAbstain'];
+        proposalInfos['nbVotesNoLunc'] = proposalInfos['finalVotesNo'];
+        proposalInfos['nbVotesNowithvetoLunc'] = proposalInfos['finalVotesNoWithVeto'];
+            proposalInfos['nbVotersLunc'] = proposalInfos['nbVotesYesLunc'] + proposalInfos['nbVotesAbstainLunc'] + proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
 
-            proposalInfos['sommesDesVotesNON'] = proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
-            proposalInfos['pourcentageOfYESvsNOs'] = proposalInfos['nbVotesYesLunc'] / (proposalInfos['nbVotesYesLunc'] + proposalInfos['sommesDesVotesNON']) * 100;
-            proposalInfos['pourcentageOfNOsvsYES'] = 100 - proposalInfos['pourcentageOfYESvsNOs'];
+        proposalInfos['sommesDesVotesNON'] = proposalInfos['nbVotesNoLunc'] + proposalInfos['nbVotesNowithvetoLunc'];
+        proposalInfos['pourcentageOfYESvsNOs'] = proposalInfos['nbVotesYesLunc'] / (proposalInfos['nbVotesYesLunc'] + proposalInfos['sommesDesVotesNON']) * 100;
+        proposalInfos['pourcentageOfNOsvsYES'] = 100 - proposalInfos['pourcentageOfYESvsNOs'];
 
-            proposalInfos['pourcentageOfYes'] = proposalInfos['nbVotesYesLunc'] / proposalInfos['nbVotersLunc'] * 100;
-            proposalInfos['pourcentageOfAbstain'] = proposalInfos['nbVotesAbstainLunc'] / proposalInfos['nbVotersLunc'] * 100;
-            proposalInfos['pourcentageOfNo'] = proposalInfos['nbVotesNoLunc'] / proposalInfos['nbVotersLunc'] * 100;
-            proposalInfos['pourcentageOfNoWithVeto'] = proposalInfos['nbVotesNowithvetoLunc'] / proposalInfos['nbVotersLunc'] * 100;
+        proposalInfos['pourcentageOfYes'] = proposalInfos['nbVotesYesLunc'] / proposalInfos['nbVotersLunc'] * 100;
+        proposalInfos['pourcentageOfAbstain'] = proposalInfos['nbVotesAbstainLunc'] / proposalInfos['nbVotersLunc'] * 100;
+        proposalInfos['pourcentageOfNo'] = proposalInfos['nbVotesNoLunc'] / proposalInfos['nbVotersLunc'] * 100;
+        proposalInfos['pourcentageOfNoWithVeto'] = proposalInfos['nbVotesNowithvetoLunc'] / proposalInfos['nbVotersLunc'] * 100;
 
-            if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED")
-                proposalInfos['statutVote'] = "Proposal ADOPTED";
+        if(proposalInfos['status'] === "PROPOSAL_STATUS_PASSED")
+            proposalInfos['statutVote'] = "Proposal ADOPTED";
+        else {
+            proposalInfos['seuilVeto'] = tblGovInfos['pourcentageVeto'] * (proposalInfos['pourcentageOfYes'] + proposalInfos['pourcentageOfNo'] + proposalInfos['pourcentageOfNoWithVeto']) / 100;
+            proposalInfos['isVetoReached'] = (proposalInfos['pourcentageOfNoWithVeto'] > proposalInfos['seuilVeto']);
+
+            if(proposalInfos['isVetoReached'])
+                proposalInfos['statutVote'] = "Proposal REJECTED (VETO reached)";
             else
                 proposalInfos['statutVote'] = "Proposal REJECTED";
-    }          
+        }
 
+    }         
+        
 
     // =======================================================
     // Exploration des txs, pour récupérer les votes de chacun
