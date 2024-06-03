@@ -120,7 +120,16 @@ const PageProposal = () => {
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </StyledBox>
 
-
+                        {proposalInfos['propType'].includes('MsgCommunityPoolSpend') ?
+                            <StyledBox title="Community Pool spend" color="purple">
+                                <div className={styles.addContent}>
+                                    <p><strong>Amount</strong> : {proposalInfos['propAmount']}</p>
+                                    <br />
+                                    <p><strong>Autority</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentAutority']}>{proposalInfos['contentAutority']}</Link></p>
+                                    <p><strong>Recipient</strong>&nbsp;:&nbsp;<Link to={'/accounts/' + proposalInfos['contentRecipient']}>{proposalInfos['contentRecipient']}</Link></p>
+                                </div>
+                            </StyledBox>
+                        : null}
                         {(proposalInfos['contentAmount'] && proposalInfos['contentRecipient']) ?
                             <StyledBox title="Send" color="purple">
                                 <div className={styles.addContent}>
