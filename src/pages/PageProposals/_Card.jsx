@@ -18,7 +18,7 @@ const Card = (props) => {
                  props.card.status !== "PROPOSAL_STATUS_REJECTED" ? <div className={styles.cardProposalStatusGray}>Unknown&nbsp;status</div> : null}
             </div>
             <div className={styles.cardBody}>
-                <div className={styles.cardProposalTitle}>{props.card.messages[0]?.content?.title ? props.card.messages[0].content.title : "(no title ?!)"}</div>
+                <div className={styles.cardProposalTitle}>{props.card.title ? props.card.title : props.card.messages[0]?.content?.title ? props.card.messages[0].content.title : "(no title ?!)"}</div>
                 {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? 
                 <>
                     <table className={styles.cardProposalTable}>
