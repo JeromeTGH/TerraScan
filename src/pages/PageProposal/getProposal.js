@@ -44,16 +44,10 @@ export const getProposal = async (propID) => {
 
 
     // Récupération des infos de cette proposition là en particulier
-    if(tblProposals[idxOfThisProp].messages[0]["@type"]) {
-        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1);
-        proposalInfos['propAmount'] = tblProposals[idxOfThisProp].messages[0]?.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].amount) : null;
-        proposalInfos['contentAutority'] = tblProposals[idxOfThisProp].messages[0]?.authority ? tblProposals[idxOfThisProp].messages[0].authority : null;
-        proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.recipient ? tblProposals[idxOfThisProp].messages[0].recipient : null;
-        proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
-        proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
-    } else {
-        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown'    
-        proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount[0].amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].content.amount[0].amount) : null;
+// console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
+    if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
+        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown';
+        proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0]?.content.amount[0].amount) : null;
         proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].messages[0]?.content.changes ? tblProposals[idxOfThisProp].messages[0].content.changes : null;
         proposalInfos['contentPlan'] = tblProposals[idxOfThisProp].messages[0]?.content.plan ? tblProposals[idxOfThisProp].messages[0].content.plan : null;
         proposalInfos['ClientUpdateProposal'] = tblProposals[idxOfThisProp].messages[0]?.content?.['@type'].includes("ClientUpdateProposal") ?
@@ -62,6 +56,15 @@ export const getProposal = async (propID) => {
         proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].messages[0]?.content.description ? tblProposals[idxOfThisProp].messages[0].content.description : null;
         proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.content.recipient ? tblProposals[idxOfThisProp].messages[0].content.recipient : null;
         proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].messages[0]?.content.title ? tblProposals[idxOfThisProp].messages[0].content.title : null;        
+    } else if(tblProposals[idxOfThisProp].messages[0]["@type"]) {
+        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1);
+        proposalInfos['propAmount'] = tblProposals[idxOfThisProp].messages[0]?.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].amount) : null;
+        proposalInfos['contentAutority'] = tblProposals[idxOfThisProp].messages[0]?.authority ? tblProposals[idxOfThisProp].messages[0].authority : null;
+        proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.recipient ? tblProposals[idxOfThisProp].messages[0].recipient : null;
+        proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
+        proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
+    } else {
+        return { "erreur": "Failed to fetch proposal's infos into tblProposals, sorry ..." }
     }
 
     proposalInfos['depositEndTime'] = tblProposals[idxOfThisProp].deposit_end_time;
