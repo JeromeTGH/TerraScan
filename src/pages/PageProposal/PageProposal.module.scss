@@ -3,6 +3,18 @@
 .blocksProposalInfos {
     padding-top: 0.4rem;
 
+    .formatedMetadata {
+        max-width: 100%;
+
+        @media (max-width: $primary-breakpoint) {
+            max-width: 90vw;
+        }
+
+        pre {
+            overflow-x: auto;
+        }
+    }
+
     .h2titles {
         text-align: left;
         border-bottom: 1px solid var(--outline-box-color);

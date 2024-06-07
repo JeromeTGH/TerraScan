@@ -7,6 +7,18 @@ import { CoinsList } from '../../apis/fcd/classes/CoinsList';
 import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
+const getIpfsData = async(ipfsUrlToFetch) => {
+
+    const res = await fetch(ipfsUrlToFetch).catch(handleError);
+
+    if (res.ok) {
+        return res.json();
+    } else {
+        return Promise.reject(res);
+    }
+
+};
+
 export const getProposal = async (propID) => {
 
 
@@ -45,7 +57,23 @@ export const getProposal = async (propID) => {
 
     // Récupération des infos de cette proposition là en particulier
 // console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
-    if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
+    if(tblProposals[idxOfThisProp].metadata || tblProposals[idxOfThisProp].summary) {
+        // SDK v0.47
+        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0] ? tblProposals[idxOfThisProp].messages[0]["@type"] ? tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1) : 'unknown' : 'unknown';
+        proposalInfos['propAmount'] = tblProposals[idxOfThisProp].messages[0]?.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].amount) : null;
+        proposalInfos['contentAutority'] = tblProposals[idxOfThisProp].messages[0]?.authority ? tblProposals[idxOfThisProp].messages[0].authority : null;
+        proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.recipient ? tblProposals[idxOfThisProp].messages[0].recipient : null;
+        proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].summary ? tblProposals[idxOfThisProp].summary : null;
+        proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
+        proposalInfos['metadataField'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
+
+        const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
+        if(ipfsRegex.test(proposalInfos['metadataField'])) {
+            const ipfsAdr = 'https://ipfs.io/ipfs/' + proposalInfos['metadataField'].replace('ipfs://', '');
+            const ipfsData = await getIpfsData(ipfsAdr);
+            proposalInfos['ipfsDatas'] = ipfsData;
+        }
+    } else if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
         proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown';
         proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0]?.content.amount[0].amount) : null;
         proposalInfos['contentChanges'] = tblProposals[idxOfThisProp].messages[0]?.content.changes ? tblProposals[idxOfThisProp].messages[0].content.changes : null;
@@ -56,13 +84,6 @@ export const getProposal = async (propID) => {
         proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].messages[0]?.content.description ? tblProposals[idxOfThisProp].messages[0].content.description : null;
         proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.content.recipient ? tblProposals[idxOfThisProp].messages[0].content.recipient : null;
         proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].messages[0]?.content.title ? tblProposals[idxOfThisProp].messages[0].content.title : null;        
-    } else if(tblProposals[idxOfThisProp].messages[0]["@type"]) {
-        proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1);
-        proposalInfos['propAmount'] = tblProposals[idxOfThisProp].messages[0]?.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].amount) : null;
-        proposalInfos['contentAutority'] = tblProposals[idxOfThisProp].messages[0]?.authority ? tblProposals[idxOfThisProp].messages[0].authority : null;
-        proposalInfos['contentRecipient'] = tblProposals[idxOfThisProp].messages[0]?.recipient ? tblProposals[idxOfThisProp].messages[0].recipient : null;
-        proposalInfos['contentDescription'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
-        proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
     } else {
         return { "erreur": "Failed to fetch proposal's infos into tblProposals, sorry ..." }
     }

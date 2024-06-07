@@ -120,6 +120,18 @@ const PageProposal = () => {
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </StyledBox>
 
+                        {proposalInfos['metadataField'] && !proposalInfos['ipfsDatas'] ?
+                            <StyledBox title="Metadata" color="brown">
+                                <div className={styles.addContent}>{proposalInfos['metadataField']}</div>
+                            </StyledBox>
+                        : null}
+                        {proposalInfos['ipfsDatas'] ?
+                            <StyledBox title="Metadata" color="brown">
+                                <div className={styles.formatedMetadata}>
+                                    <pre>{JSON.stringify(proposalInfos['ipfsDatas'], null, 2)}</pre>
+                                </div>
+                            </StyledBox>
+                        : null}
                         {proposalInfos['propType'].includes('MsgCommunityPoolSpend') ?
                             <StyledBox title="Community Pool spend" color="purple">
                                 <div className={styles.addContent}>
