@@ -30,7 +30,7 @@ export const getTxDatas = async (txHash) => {
     const rawTxInfo = new Tx(rawFullTxInfo.data);
     if(rawTxInfo) {
 
-        // console.log("rawTxInfo", rawTxInfo);
+// console.log("rawTxInfo", rawTxInfo);
 
         // ====== Code
         txInfos["errCode"] = rawTxInfo.code.toString();          // 0 = success
@@ -145,6 +145,8 @@ export const getTxDatas = async (txHash) => {
                 const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos.data.proposal.content.title;
+                } else if(message?.value?.title) {
+                    msgStructRet['ProposalTitle'] = message.value.title;
                 } else {
                     msgStructRet['ProposalTitle'] = '(unknown)';
                 }
@@ -242,6 +244,8 @@ export const getTxDatas = async (txHash) => {
 
                 if(message?.value?.content?.title) {
                     msgStructRet['ContentTitle'] = message.value.content.title;
+                } else if(message?.value?.title) {
+                    msgStructRet['ContentTitle'] = message.value.title;
                 } else {
                     msgStructRet['ContentTitle'] = '(unknown)';
                     if(Array.isArray(message?.value?.messages)) {
@@ -255,6 +259,9 @@ export const getTxDatas = async (txHash) => {
 
                 if(message?.value?.content?.description) {
                     msgStructRet['ContentDescription'] = message.value.content.description;
+                } else if (message?.value?.summary) {
+                    msgStructRet['ContentDescription'] = message.value.summary;
+                    msgStructRet['ContentMetadata'] = message.value.metadata;
                 } else {
                     msgStructRet['ContentDescription'] = '(unknown)';
                     if(Array.isArray(message?.value?.messages)) {
@@ -279,6 +286,8 @@ export const getTxDatas = async (txHash) => {
                 const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                } else if(message?.value?.title) {
+                    msgStructRet['ProposalTitle'] = message.value.title;
                 } else {
                     msgStructRet['ProposalTitle'] = '(unknown)';
                 }
@@ -415,6 +424,8 @@ export const getTxDatas = async (txHash) => {
                 const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
+                } else if(message?.value?.title) {
+                    msgStructRet['ProposalTitle'] = message.value.title;
                 } else {
                     msgStructRet['ProposalTitle'] = '(unknown)';
                 }

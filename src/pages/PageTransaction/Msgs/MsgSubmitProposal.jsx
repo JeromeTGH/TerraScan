@@ -24,6 +24,10 @@ const MsgSubmitProposal = (props) => {
                 <td>Prop description :</td>
                 <td style={{whiteSpace: "pre-wrap"}}>{props.txMessage['ContentDescription']}</td>
             </tr>
+            {props.txMessage['ContentMetadata'] ? <tr>
+                <td>Metadata :</td>
+                <td style={{whiteSpace: "pre-wrap"}}>{props.txMessage['ContentMetadata']}</td>
+            </tr> : null}
         </>
     );
 };
