@@ -11,10 +11,7 @@ Link : https://creativecommons.org/licenses/by-nc-nd/4.0/
 
 ## Config file (/config/.env)
 
-HOST=""
-USER=""
-PWD=""
-SECURE_HOST=""
+FTP_URL=xxx
 
 ## About
 
