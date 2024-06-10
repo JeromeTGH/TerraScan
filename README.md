@@ -9,6 +9,9 @@ BY-NC-ND 4.0 CC License
 
 Link : https://creativecommons.org/licenses/by-nc-nd/4.0/
 
+## Config file (/config/.env)
+
+FTP_URL=xxx
 
 ## About
 
