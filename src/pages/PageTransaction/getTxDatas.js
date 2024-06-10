@@ -142,7 +142,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['VoteChoice'] = message.value.option;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = parseInt(msgStructRet['ProposalID']) > 12113 ? await lcd.gov.getProposalV1(message.value.proposal_id).catch(handleError) : await lcd.gov.getProposalV1beta1(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos.data.proposal.content.title;
                 } else if(rawProposalInfos?.data?.proposal?.title) {
@@ -283,7 +283,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['Depositor'] = message.value.depositor;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = parseInt(msgStructRet['ProposalID']) > 12113 ? await lcd.gov.getProposalV1(message.value.proposal_id).catch(handleError) : await lcd.gov.getProposalV1beta1(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
                 } else if(rawProposalInfos?.data?.proposal?.title) {
@@ -421,7 +421,7 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['VoteChoices'] = message.value.options;
                 msgStructRet['ProposalID'] = message.value.proposal_id;
 
-                const rawProposalInfos = parseInt(msgStructRet['ProposalID']) > 12113 ? await lcd.gov.getProposalV1(message.value.proposal_id).catch(handleError) : await lcd.gov.getProposalV1beta1(message.value.proposal_id).catch(handleError);
+                const rawProposalInfos = await lcd.gov.getProposal(message.value.proposal_id).catch(handleError);
                 if(rawProposalInfos?.data?.proposal?.content?.title) {
                     msgStructRet['ProposalTitle'] = rawProposalInfos?.data.proposal.content.title;
                 } else if(rawProposalInfos?.data?.proposal?.title) {

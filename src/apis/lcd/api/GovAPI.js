@@ -18,15 +18,16 @@ export class GovAPI {
         return this.apiRequester.get(this.paths.getDeposits.replace('***', proposalId), params);
     }
 
-    // Exemple d'appel : /cosmos/gov/v1beta1/proposals/******id*******
-    async getProposalV1beta1(proposalId, params = new URLSearchParams()) {
-        return this.apiRequester.get(this.paths.getProposalV1beta1.replace('***', proposalId), params);
-    }
-    // Exemple d'appel : /cosmos/gov/v1/proposals/******id*******
-    async getProposalV1(proposalId, params = new URLSearchParams()) {
-        return this.apiRequester.get(this.paths.getProposalV1.replace('***', proposalId), params);
-    }
+    // Exemple d'appel : /cosmos/gov/**version**/proposals/**prop_id**
+    async getProposal(proposalId, params = new URLSearchParams()) {
+        const version = parseInt(proposalId) > 12113 ? "v1" : "v1beta1";
+        let path = this.paths.getProposal;
 
+        path = path.replace('___version___', version)
+        path = path.replace('___prop_id___', proposalId);
+
+        return this.apiRequester.get(path, params);
+    }
 
     // Exemple d'appel : /cosmos/gov/v1/proposals
     async getProposals(params = new URLSearchParams()) {
