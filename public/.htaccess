@@ -9,11 +9,17 @@
   RewriteCond %{REQUEST_URI} !\.(css|gif|jpe?g|png|ico|txt) [NC]
   RewriteRule ^.*$ /maintenance.html [R=307,L]
 
-  # Si mode maintenance désactivé
-  RewriteCond %{DOCUMENT_ROOT}/maintenance.on !-f
+  # Si mode maintenance désactivé et fichier autre que maintenance.html appelé
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.off -f
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule . /index.html [L]
+
+  # Si mode maintenance désactivé et fichier maintenance.html appelé
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.off -f
+  RewriteCond %{SCRIPT_FILENAME} maintenance.html
+  RewriteRule ^.*$ / [R=307,L]
 </IfModule>
