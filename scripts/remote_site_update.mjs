@@ -25,7 +25,7 @@ rmSync(CHEMIN_VERS_REPERTOIRE_BUILD, { recursive: true, force: true })
 // ===========================================
 console.log("Étape 3 sur 5 : build du projet")
 // ===========================================
-const exitCode = spawnSync("npm", ["run", "build"], {
+const exitCode = spawnSync("npm", ["run", "old_build"], {
     shell: true
 });
 if(exitCode.status !== 0) {
