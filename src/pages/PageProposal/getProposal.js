@@ -57,7 +57,7 @@ export const getProposal = async (propID) => {
 
     // Récupération des infos de cette proposition là en particulier
 // console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
-    if(tblProposals[idxOfThisProp].metadata || tblProposals[idxOfThisProp].summary) {
+    if((tblProposals[idxOfThisProp].metadata || tblProposals[idxOfThisProp].summary) && !tblProposals[idxOfThisProp].messages[0]?.content) {
         // SDK v0.47
         proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0] ? tblProposals[idxOfThisProp].messages[0]["@type"] ? tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1) : 'unknown' : 'unknown';
         proposalInfos['propAmount'] = tblProposals[idxOfThisProp].messages[0]?.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0].amount) : null;
