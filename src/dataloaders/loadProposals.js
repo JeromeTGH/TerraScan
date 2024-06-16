@@ -21,6 +21,7 @@ export const loadProposals = async () => {
     // Récupération de toutes les propositions
     const rawProposals = await lcd.gov.getProposals(params).catch(handleError);
     if(rawProposals?.data?.proposals) {
+        // console.log("rawProposals.data.proposals", rawProposals.data.proposals);
         tblProposals.push(...rawProposals.data.proposals.reverse());            // Enregistrement dans tableau, avec tri du plus récent au plus ancien
         // console.log("tblProposals", tblProposals);
     } else

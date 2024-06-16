@@ -4,7 +4,7 @@ import { LCDclient } from '../../apis/lcd/LCDclient';
 import { loadGovInfos } from '../../dataloaders/loadGovInfos';
 import { loadProposals } from '../../dataloaders/loadProposals';
 import { CoinsList } from '../../apis/fcd/classes/CoinsList';
-import { metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
+import { isValidTerraAddressFormat, metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
 const getIpfsData = async(ipfsUrlToFetch) => {
@@ -88,6 +88,12 @@ export const getProposal = async (propID) => {
         return { "erreur": "Failed to fetch proposal's infos into tblProposals, sorry ..." }
     }
 
+    if(tblProposals[idxOfThisProp].proposer && isValidTerraAddressFormat(tblProposals[idxOfThisProp].proposer, "terra1")) {
+        proposalInfos['proposerAddress'] = tblProposals[idxOfThisProp].proposer
+    } else {
+        proposalInfos['proposerAddress'] = ""   
+    }
+
     proposalInfos['depositEndTime'] = tblProposals[idxOfThisProp].deposit_end_time;
         proposalInfos['finalVotesYes'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.yes_count.toString())*100;
         proposalInfos['finalVotesAbstain'] = parseFloat(tblProposals[idxOfThisProp].final_tally_result.abstain_count.toString())*100;
@@ -141,24 +147,25 @@ export const getProposal = async (propID) => {
 
 
 
-    // Préparation de la requête
-    const paramsTxSearch = new URLSearchParams();
-    // %3D pour =               // Si tests web direct
-    // %27 pour '
-    // %2F pour /
-    // paramsTxSearch.append('events', "message.action='/cosmos.gov.v1beta1.MsgSubmitProposal'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
-    paramsTxSearch.append('events', 'submit_proposal.proposal_id=' + propID);
-
-    // Recherche de l'auteur de la proposition
-    proposalInfos['proposerAddress'] = "";
-    const rawProposer = await lcd.tx.searchTxsByEvent(paramsTxSearch).catch(handleError);
-    if(rawProposer?.data?.txs) {
-        for(const tx of rawProposer.data.txs) {
-            if(tx.body?.messages) {
-                for(const message of tx.body.messages) {
-                    if(message.proposer) {
-                        proposalInfos['proposerAddress'] = message.proposer;
-                        break;
+    if(proposalInfos['proposerAddress'] !== "") {
+        // Préparation de la requête
+        const paramsTxSearch = new URLSearchParams();
+        // %3D pour =               // Si tests web direct
+        // %27 pour '
+        // %2F pour /
+        // paramsTxSearch.append('events', "message.action='/cosmos.gov.v1beta1.MsgSubmitProposal'");      // Enlevé, car certains peuvent voter avec la fonction MsgExec (key : "action", value : "/cosmos.authz.v1beta1.MsgExec")
+        paramsTxSearch.append('events', 'submit_proposal.proposal_id=' + propID);
+    
+        // Recherche de l'auteur de la proposition
+        const rawProposer = await lcd.tx.searchTxsByEvent(paramsTxSearch).catch(handleError);
+        if(rawProposer?.data?.txs) {
+            for(const tx of rawProposer.data.txs) {
+                if(tx.body?.messages) {
+                    for(const message of tx.body.messages) {
+                        if(message.proposer) {
+                            proposalInfos['proposerAddress'] = message.proposer;
+                            break;
+                        }
                     }
                 }
             }
