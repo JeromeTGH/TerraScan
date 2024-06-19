@@ -88,13 +88,14 @@ export const tblCorrespondanceCompte = {
   terra1gr0xesnseevzt3h4nxr64sh5gk4dwrwgszx3nw: "LFG's wallet",
 
   // TFL accounts (vegas)
+  terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6: "TFL wallet",
   terra1h5el75ha0zdwfawgxs6z0shqcw3m8r53f0wqrl: "TFL wallet 2 (vegas)",
   terra1xvmdjsdp58sanlzvnx6g79nyf2zk7cr5l78mxs: "TFL wallet 3 (vegas)",
   terra1wlc64fe7p6u37qq0vykeksmr40d6a6cscfcn28: "TFL wallet 4 (vegas)",
   terra14tlthgtg6ep6xnqptyg8dp3gcq4jxvgqmskwkd: "TFL wallet 5 (vegas)",
   terra1kakd0l3ll92gamdz8zq7pr7lmghxhkna7jjj39: "TFL wallet 6 (vegas)",
   terra1q0phshknw0pelzrwlezmt7vnmr8jh9vjgezt3z: "TFL wallet 7 (vegas)",
-  terra1x04xgtwlw72gtfzrq7nfwmr6eexla8ecljw28z: "TFL wallet 8 (vegas)",
+  terra1x04xgtwlw72gtfzrq7nfwmr6eexla8ecljw28z: "TFL wallet 8 (vegas)",   // Project Dawn
 
 };
 
