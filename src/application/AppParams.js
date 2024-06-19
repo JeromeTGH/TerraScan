@@ -59,6 +59,7 @@ export const tblCorrespondanceCompte = {
   terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e: "Kucoin wallet",
   terra1j435gkgg8d0qadjcn09s73rtk5k3ftrx7mc4a8: "ByBit wallet",
   terra1qf07h97m7s93q7dj450c57h79f3c7a7ddn37r2: "CoinInn wallet",
+  terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4: "Coinone Deposit",
 
   // Validateurs
   terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf: "Frag",
@@ -85,6 +86,16 @@ export const tblCorrespondanceCompte = {
   terra13yex6xefup97382jq07se35at3vzrkrt8d7h5k: "GarudaX Token Burn",
   terra1xusghqxnaxmnflqxtuh6jlumjfvapksw5ctnm3: "Air Force Lunc Burn",
   terra1gr0xesnseevzt3h4nxr64sh5gk4dwrwgszx3nw: "LFG's wallet",
+
+  // TFL accounts (vegas)
+  terra1h5el75ha0zdwfawgxs6z0shqcw3m8r53f0wqrl: "TFL wallet 2 (vegas)",
+  terra1xvmdjsdp58sanlzvnx6g79nyf2zk7cr5l78mxs: "TFL wallet 3 (vegas)",
+  terra1wlc64fe7p6u37qq0vykeksmr40d6a6cscfcn28: "TFL wallet 4 (vegas)",
+  terra14tlthgtg6ep6xnqptyg8dp3gcq4jxvgqmskwkd: "TFL wallet 5 (vegas)",
+  terra1kakd0l3ll92gamdz8zq7pr7lmghxhkna7jjj39: "TFL wallet 6 (vegas)",
+  terra1q0phshknw0pelzrwlezmt7vnmr8jh9vjgezt3z: "TFL wallet 7 (vegas)",
+  terra1x04xgtwlw72gtfzrq7nfwmr6eexla8ecljw28z: "TFL wallet 8 (vegas)",
+
 };
 
 // Tableau de messages
