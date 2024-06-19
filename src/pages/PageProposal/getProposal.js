@@ -50,9 +50,9 @@ export const getProposal = async (propID) => {
 
     // Effacement mémoire, en cas d'erreur non bloquante ensuite
     let tblDesVotesDeValidateur = {};
-    let tblDesVotesNonValidateur = {};
+    // let tblDesVotesNonValidateur = {};
     const tblHistoriqueDesVotesValidateur = [];
-    const tblHistoriqueDesVotesNonValidateur = [];
+    // const tblHistoriqueDesVotesNonValidateur = [];
 
 
     // Récupération des infos de cette proposition là en particulier
@@ -321,11 +321,11 @@ export const getProposal = async (propID) => {
         // ======================================================================================
         // Si 407 entrées, par exemple
         // ---------------------------
-        // Page 1 (0-99) :     https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
-        // Page 2 (100-199) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
-        // Page 3 (200-299) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
-        // Page 4 (300-399) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
-        // Page 5 (400-406) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
+        // Page 1 (0-99) :     https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
+        // Page 2 (100-199) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
+        // Page 3 (200-299) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
+        // Page 4 (300-399) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
+        // Page 5 (400-406) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
 
         
         // Montage des paramètres nécessaires ici
@@ -389,19 +389,21 @@ export const getProposal = async (propID) => {
                                         'valoperaddress': tblValidatorsAccounts[voter],
                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                         'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
-                                        'vote': voteoption
-                                    })
-                                } else {
-                                    tblDesVotesNonValidateur[voter] = {};
-                                    tblDesVotesNonValidateur[voter].vote = voteoption;
-                                    tblHistoriqueDesVotesNonValidateur.push({
-                                        // array of { txHash, datetime, terra1address, vote }
-                                        'txhash': txhash,
-                                        'datetime': txtdatetime,
-                                        'terra1address': voter,
-                                        'vote': voteoption
+                                        'vote': voteoption,
+                                        'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : ""
                                     })
                                 }
+                                //  else {
+                                //     tblDesVotesNonValidateur[voter] = {};
+                                //     tblDesVotesNonValidateur[voter].vote = voteoption;
+                                //     tblHistoriqueDesVotesNonValidateur.push({
+                                //         // array of { txHash, datetime, terra1address, vote }
+                                //         'txhash': txhash,
+                                //         'datetime': txtdatetime,
+                                //         'terra1address': voter,
+                                //         'vote': voteoption
+                                //     })
+                                // }
                             }
                             // Check si y'a un msgs, avant le "proposal_id"
                             if(rawTxs.data.tx_responses[i].tx.body.messages[j].msgs) {
@@ -419,25 +421,29 @@ export const getProposal = async (propID) => {
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
-                                                'vote': voteoption
+                                                'vote': voteoption,
+                                                'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : ""
                                             })
-                                        } else {
-                                            tblDesVotesNonValidateur[voter] = {};
-                                            tblDesVotesNonValidateur[voter].vote = voteoption;
-                                            tblHistoriqueDesVotesNonValidateur.push({
-                                                // array of { txHash, datetime, terra1address, vote }
-                                                'txhash': txhash,
-                                                'datetime': txtdatetime,
-                                                'terra1address': voter,
-                                                'vote': voteoption
-                                            })        
                                         }
+                                        //  else {
+                                        //     tblDesVotesNonValidateur[voter] = {};
+                                        //     tblDesVotesNonValidateur[voter].vote = voteoption;
+                                        //     tblHistoriqueDesVotesNonValidateur.push({
+                                        //         // array of { txHash, datetime, terra1address, vote }
+                                        //         'txhash': txhash,
+                                        //         'datetime': txtdatetime,
+                                        //         'terra1address': voter,
+                                        //         'vote': voteoption
+                                        //     })        
+                                        // }
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+
 
                 let nbDeLecturesAfaire = parseInt(nbTotalDeTxs/100);
                 if((nbTotalDeTxs/100)%1 > 0)
@@ -449,11 +455,11 @@ export const getProposal = async (propID) => {
                     // ======================================================================================
                     // Si 407 entrées, par exemple
                     // ---------------------------
-                    // Page 1 (0-99) :     https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
-                    // Page 2 (100-199) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
-                    // Page 3 (200-299) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
-                    // Page 4 (300-399) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
-                    // Page 5 (400-406) :  https://lcd.terraclassic.community/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
+                    // Page 1 (0-99) :     https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=1&events=proposal_vote.proposal_id%3D11784
+                    // Page 2 (100-199) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=2&events=proposal_vote.proposal_id%3D11784
+                    // Page 3 (200-299) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=3&events=proposal_vote.proposal_id%3D11784
+                    // Page 4 (300-399) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=4&events=proposal_vote.proposal_id%3D11784
+                    // Page 5 (400-406) :  https://terra-classic-lcd.publicnode.com/cosmos/tx/v1beta1/txs?page=5&events=proposal_vote.proposal_id%3D11784
 
 
                     // Montage des paramètres nécessaires ici
@@ -490,19 +496,21 @@ export const getProposal = async (propID) => {
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
-                                                'vote': voteoption
+                                                'vote': voteoption,
+                                                'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : ""
                                             })
-                                        } else {
-                                            tblDesVotesNonValidateur[voter] = {};
-                                            tblDesVotesNonValidateur[voter].vote = voteoption;
-                                            tblHistoriqueDesVotesNonValidateur.push({
-                                                // array of { txHash, datetime, terra1address, vote }
-                                                'txhash': txhash,
-                                                'datetime': txtdatetime,
-                                                'terra1address': voter,
-                                                'vote': voteoption
-                                            })        
                                         }
+                                        //  else {
+                                        //     tblDesVotesNonValidateur[voter] = {};
+                                        //     tblDesVotesNonValidateur[voter].vote = voteoption;
+                                        //     tblHistoriqueDesVotesNonValidateur.push({
+                                        //         // array of { txHash, datetime, terra1address, vote }
+                                        //         'txhash': txhash,
+                                        //         'datetime': txtdatetime,
+                                        //         'terra1address': voter,
+                                        //         'vote': voteoption
+                                        //     })        
+                                        // }
                                     }
                                     // Check si y'a un msgs, avant le "proposal_id"
                                     if(rawTxsSuivants.data.tx_responses[i].tx.body.messages[j].msgs) {
@@ -520,19 +528,21 @@ export const getProposal = async (propID) => {
                                                         'valoperaddress': tblValidatorsAccounts[voter],
                                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                         'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
-                                                        'vote': voteoption
+                                                        'vote': voteoption,
+                                                        'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : ""
                                                     })
-                                                } else {
-                                                    tblDesVotesNonValidateur[voter] = {};
-                                                    tblDesVotesNonValidateur[voter].vote = voteoption;
-                                                    tblHistoriqueDesVotesNonValidateur.push({
-                                                        // array of { txHash, datetime, terra1address, vote }
-                                                        'txhash': txhash,
-                                                        'datetime': txtdatetime,
-                                                        'terra1address': voter,
-                                                        'vote': voteoption
-                                                    })                
                                                 }
+                                                //  else {
+                                                //     tblDesVotesNonValidateur[voter] = {};
+                                                //     tblDesVotesNonValidateur[voter].vote = voteoption;
+                                                //     tblHistoriqueDesVotesNonValidateur.push({
+                                                //         // array of { txHash, datetime, terra1address, vote }
+                                                //         'txhash': txhash,
+                                                //         'datetime': txtdatetime,
+                                                //         'terra1address': voter,
+                                                //         'vote': voteoption
+                                                //     })                
+                                                // }
                                             }
                                         }
                                     }
@@ -546,8 +556,8 @@ export const getProposal = async (propID) => {
 
         } else {
             console.log("rawTxs.data", rawTxs.data);
-            console.warn("[ERROR] Failed to fetch [first txs] for votes ...");
-            //return { "erreur": "Failed to fetch [first txs] for votes ..." }
+            console.warn("[ERROR] Failed to fetch [txs] for votes ...");
+            //return { "erreur": "Failed to fetch [txs] for votes ..." }
         }
     }
 
@@ -555,8 +565,8 @@ export const getProposal = async (propID) => {
     // Ajout de ces votes validateurs, au retour-données
     proposalInfos['tblDesVotesDeValidateur'] = tblDesVotesDeValidateur;
     proposalInfos['tblHistoriqueDesVotesValidateur'] = tblHistoriqueDesVotesValidateur;
-    proposalInfos['tblDesVotesNonValidateur'] = tblDesVotesNonValidateur;
-    proposalInfos['tblHistoriqueDesVotesNonValidateur'] = tblHistoriqueDesVotesNonValidateur;
+    // proposalInfos['tblDesVotesNonValidateur'] = tblDesVotesNonValidateur;
+    // proposalInfos['tblHistoriqueDesVotesNonValidateur'] = tblHistoriqueDesVotesNonValidateur;
 
     // Comptage des votes de validateur, par catégorie
     proposalInfos['validator_NB_ACTIVES'] = Object.keys(tblDesVotesDeValidateur).length;
@@ -607,23 +617,23 @@ export const getProposal = async (propID) => {
     proposalInfos['validator_NB_VOTE_NOS'] = (proposalInfos['validator_VOTE_OPTION_NO'] + proposalInfos['validator_VOTE_OPTION_NO_WITH_VETO']) / proposalInfos['validator_NB_VOTE_TOTAL'] * 100;
     
 
-    // Comptage des votes des "non validateur", par catégorie
-    proposalInfos['non_validator_TOTAL_VOTES'] = 0;
-    proposalInfos['non_validator_VOTE_OPTION_YES'] = 0;
-    proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] = 0;
-    proposalInfos['non_validator_VOTE_OPTION_NO'] = 0;
-    proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] = 0;
-    for (const nonvalidator of Object.values(tblDesVotesNonValidateur)) {
-        proposalInfos['non_validator_TOTAL_VOTES'] += 1;
-        if(nonvalidator.vote === "VOTE_OPTION_YES")
-            proposalInfos['non_validator_VOTE_OPTION_YES'] += 1;
-        if(nonvalidator.vote === "VOTE_OPTION_ABSTAIN")
-            proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] += 1;
-        if(nonvalidator.vote === "VOTE_OPTION_NO")
-            proposalInfos['non_validator_VOTE_OPTION_NO'] += 1;
-        if(nonvalidator.vote === "VOTE_OPTION_NO_WITH_VETO")
-            proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
-    }
+    // // Comptage des votes des "non validateur", par catégorie
+    // proposalInfos['non_validator_TOTAL_VOTES'] = 0;
+    // proposalInfos['non_validator_VOTE_OPTION_YES'] = 0;
+    // proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] = 0;
+    // proposalInfos['non_validator_VOTE_OPTION_NO'] = 0;
+    // proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] = 0;
+    // for (const nonvalidator of Object.values(tblDesVotesNonValidateur)) {
+    //     proposalInfos['non_validator_TOTAL_VOTES'] += 1;
+    //     if(nonvalidator.vote === "VOTE_OPTION_YES")
+    //         proposalInfos['non_validator_VOTE_OPTION_YES'] += 1;
+    //     if(nonvalidator.vote === "VOTE_OPTION_ABSTAIN")
+    //         proposalInfos['non_validator_VOTE_OPTION_ABSTAIN'] += 1;
+    //     if(nonvalidator.vote === "VOTE_OPTION_NO")
+    //         proposalInfos['non_validator_VOTE_OPTION_NO'] += 1;
+    //     if(nonvalidator.vote === "VOTE_OPTION_NO_WITH_VETO")
+    //         proposalInfos['non_validator_VOTE_OPTION_NO_WITH_VETO'] += 1;
+    // }
 
 
     // Envoi des infos en retour

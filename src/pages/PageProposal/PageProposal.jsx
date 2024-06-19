@@ -613,6 +613,12 @@ const PageProposal = () => {
                                                             <Link to={"/validators/" + valeur.valoperaddress}><strong>{valeur.valmoniker}</strong></Link>
                                                             <br />
                                                             <span className={styles.votingpower}>VP&nbsp;:&nbsp;<strong>{valeur.voting_power_pourcentage}</strong>&nbsp;%</span>
+                                                            {valeur.memo && valeur.memo !== "" ?
+                                                                <>
+                                                                    <br />
+                                                                    <span className={styles.votingpower}>Memo&nbsp;:&nbsp;<strong>{valeur.memo}</strong></span>
+                                                                </>
+                                                            : null}
                                                         </td>
                                                         <td>
                                                             {valeur.vote === 'VOTE_OPTION_YES' ? <span className='textVoteYes'>YES</span> : null}
