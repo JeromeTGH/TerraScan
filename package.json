@@ -20,7 +20,7 @@
     "old_build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "update": "node scripts/remote_site_update.mjs"
+    "upload": "node scripts/remote_site_upload.mjs"
   },
   "eslintConfig": {
     "extends": [
