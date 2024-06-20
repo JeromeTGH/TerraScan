@@ -34,6 +34,7 @@ import MsgAggregateExchangeRateVote from './Msgs/MsgAggregateExchangeRateVote';
 import MsgWithdrawValidatorCommission from './Msgs/MsgWithdrawValidatorCommission';
 import MsgAggregateExchangeRatePrevote from './Msgs/MsgAggregateExchangeRatePrevote';
 import StyledBox from '../../sharedComponents/StyledBox';
+import MsgEditValidator from './Msgs/MsgEditValidator';
 
 const BlockTxMessages = (props) => {
 
@@ -79,6 +80,7 @@ const BlockTxMessages = (props) => {
                      props.txMessage['MsgType'] === 'MsgRevoke' ? <MsgRevokeAuthorization txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgMultiSend' ? <MsgMultiSend txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgVoteWeighted' ? <MsgVoteWeighted txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgEditValidator' ? <MsgEditValidator txMessage={props.txMessage} /> : null}
                 </tbody>
             </table>
         </StyledBox>

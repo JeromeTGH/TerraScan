@@ -137,4 +137,5 @@ export const tblCorrespondanceMessages = {
   MsgRevokeAuthorization: "Revoke authorization", // variante de 'MsgRevoke'
   MsgMultiSend: "Multi send",
   MsgVoteWeighted: "Vote weighted",
+  MsgEditValidator: "Edit Validator",
 };

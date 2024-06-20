@@ -435,7 +435,16 @@ export const getTxDatas = async (txHash) => {
                     msgStructRet['ValidatorAddress'] = tblValidatorsAccounts[message.value.voter];
                     msgStructRet['ValidatorMoniker'] = tblValidators[tblValidatorsAccounts[message.value.voter]].description_moniker;
                 }
+            }
 
+            if(msgStructRet['MsgType'] === 'MsgEditValidator') {
+                msgStructRet['ValidatorAddress'] = message.value.validator_address;
+                msgStructRet['ValidatorMoniker'] = tblValidators[message.value.validator_address].description_moniker;
+                msgStructRet['descriptionDetails'] = message.value.description.details ? message.value.description.details : "";
+                msgStructRet['descriptionIdentity'] = message.value.description.identity ? message.value.description.identity : "";
+                msgStructRet['descriptionMoniker'] = message.value.description.moniker ? message.value.description.moniker : "";
+                msgStructRet['descriptionSecurityContact'] = message.value.description.security_contact ? message.value.description.security_contact : "";
+                msgStructRet['descriptionWebsite'] = message.value.description.website ? message.value.description.website : "";
             }
 
 
