@@ -16,23 +16,23 @@ const MsgEditValidator = (props) => {
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Description → details :</td>
+                <td>Desc. details :</td>
                 <td>{props.txMessage['descriptionDetails']}</td>
             </tr>
             <tr>
-                <td>Description → identity :</td>
+                <td>Desc. identity :</td>
                 <td>{props.txMessage['descriptionIdentity']}</td>
             </tr>
             <tr>
-                <td>Description → moniker :</td>
+                <td>Desc. moniker :</td>
                 <td>{props.txMessage['descriptionMoniker']}</td>
             </tr>
             <tr>
-                <td>Description → security contact :</td>
+                <td>Desc. security contact :</td>
                 <td>{props.txMessage['descriptionSecurityContact']}</td>
             </tr>
             <tr>
-                <td>Description → website :</td>
+                <td>Desc. website :</td>
                 <td>{props.txMessage['descriptionWebsite']}</td>
             </tr>
         </>
