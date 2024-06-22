@@ -60,6 +60,8 @@ export const tblCorrespondanceCompte = {
   terra1j435gkgg8d0qadjcn09s73rtk5k3ftrx7mc4a8: "ByBit wallet",
   terra1qf07h97m7s93q7dj450c57h79f3c7a7ddn37r2: "CoinInn wallet",
   terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4: "Coinone Deposit",
+  terra14s5eqfppup8ymjywf3devy8gy75nsrqkq3utjj: "BtcTurk (cex)",
+  terra1frh79vmtur5fmrghz6gfjvfhpa3u2c0uemv4af: "Binance (deposit ?!)",
 
   // Validateurs
   terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf: "Frag",
