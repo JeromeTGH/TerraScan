@@ -42,6 +42,8 @@ const PageAboutDisclaimer = () => {
             <StyledBox title="This app" color="green">
                 <p>This app <strong>"TerraScan" is an scanner/finder for Terra Classic blockchain</strong> essentially working on public LCD/FCD (Light / Full Client Daemon).<br />
                     <br />
+                    <u>Link</u> : <a href="https://scan.terraclassic.app/">https://scan.terraclassic.app/</a><br />
+                    <br />
                     <u>Project sources</u> : <a href="https://github.com/JeromeTGH/TerraScan" target="_blank" rel="noreferrer noopener">https://github.com/JeromeTGH/TerraScan</a><br />
                     <u>Licence</u> : <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noreferrer noopener">Creative Commons "BY-NC-ND 4.0"</a><br />
                     <br />

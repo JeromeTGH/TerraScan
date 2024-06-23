@@ -11,6 +11,7 @@ export const FCDurl = "https://terra-classic-fcd.publicnode.com";
 // export const LCDurl    = 'https://lcd.terraclassic.community';
 // export const FCDurl    = 'https://fcd.terraclassic.community';
 export const TSAPIurl = "https://totalsuppliesapi.jtapp.dev/";
+        // inc : scan.terraclassic.app
 
 // Tableau de correspondance Coin/Désignation
 export const tblCorrespondanceValeurs = {

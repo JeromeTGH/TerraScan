@@ -1,7 +1,9 @@
 # TerraScan
 
 **Terra Classic Application (dashboard, finder, and scan)**
-GitHub : https://github.com/JeromeTGH/TerraScan
+
+Link : https://scan.terraclassic.app/<br />
+Source (GitHub) : https://github.com/JeromeTGH/TerraScan
 
 ## License
 
@@ -11,9 +13,9 @@ Link : https://creativecommons.org/licenses/by-nc-nd/4.0/
 
 ## Config file (/config/.env)
 
-HOST=""
-USER=""
-PWD=""
+HOST=""<br />
+USER=""<br />
+PWD=""<br />
 SECURE_HOST=""
 
 ## About
