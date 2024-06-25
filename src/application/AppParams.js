@@ -1,5 +1,6 @@
 // Généralités
 export const appName = "TerraScan";
+export const defaultThemeMode = "light";    // light ou dark
 
 // Terra Classic blockchain ("mainnet" of classic)
 export const chainName = "Terra Classic";
