@@ -49,18 +49,23 @@ export const tblCorrespondanceCompte = {
 
   // CEXs (source : LUNCdash and https://terraclassic.stakebin.io/terra/wallets)
   terra18vnrzlzm2c4xfsx382pj2xndqtt00rvhu24sqe: "Binance main wallet",
-  //"terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5": "OKX 1",      Doublon avec 'LUNC DAO'
   // "terra1chq5ps8yya004gsw4xz62pd4psr5hafe7kdt6d": "Kucoin 2",
-  // "terra14l46jrdgdhaw4cejukx50ndp0hss95ekt2kfmw": "Kucoin 3",
   // "terra12amk3hgzqn85n0zlsmxp75cdcwt782w23t7acx": "Kucoin 5",
   terra1nm0rrq86ucezaf8uj35pq9fpwr5r82clp5z7r5: "Kraken users",
   terra1w8nc8ev0ylg97qnj080np4lnljngdvpd90ev63: "MEXC wallet",
-  terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e: "Kucoin wallet",
+  terra14l46jrdgdhaw4cejukx50ndp0hss95ekt2kfmw: "Kucoin Deposit",
+  terra1rvxcszyfecrt2v3a7md8p30hvu39kj6xf48w9e: "Kucoin Withdraw",
   terra1j435gkgg8d0qadjcn09s73rtk5k3ftrx7mc4a8: "ByBit wallet",
   terra1qf07h97m7s93q7dj450c57h79f3c7a7ddn37r2: "CoinInn wallet",
   terra1v9ku44wycfnsucez6fp085f5fsksp47u9x8jr4: "Coinone Deposit",
+  terra1al546tmrj0wmwfctcqkch47h57h23mch7d8xqa: "Coinone Withdraw",
   terra14s5eqfppup8ymjywf3devy8gy75nsrqkq3utjj: "BtcTurk (cex)",
   terra1frh79vmtur5fmrghz6gfjvfhpa3u2c0uemv4af: "Binance (deposit ?!)",
+  terra1ncjg4a59x2pgvqy9qjyqprlj8lrwshm0wleht5: "Binance (another)",
+  terra15s66unmdcpknuxxldd7fsr44skme966tdckq8c: "Binance (withdraw ?!)",
+  terra1luagdjcr9c9yvp3ak4d7chjm5gldcmgln5rku5: "FTX",
+  terra1teescurtylg20tw3fu8cn2p7qe3klpk6f4s9uq: "Huobi",
+  terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5: "OKX users",
 
   // Validateurs
   terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf: "Frag",
@@ -77,7 +82,6 @@ export const tblCorrespondanceCompte = {
   terra1g9htux72h5nj5c0hpzely3rqwnryzmy22xlxpu: "DFLunc",
   terra153mwt0upple9klvrryrtckx9vneguw6ja33d3c: "TerraCasino.io",
   terra1vwchc3pkrxn8kahd0g9wxd8zjr0drnduzkn4z3: "Cremation Coin",
-  terra13s4gwzxv6dycfctvddfuy6r3zm7d6zklynzzj5: "LUNC DAO",
   terra1l5czlksptahp4lz9snzs6gpszancuftvnjaf8e: "DIAMOND HODL",
   terra14ju0cvctm9v5d0xxtjj3h9ejkc92qgtzqynfpt: "LUNC Warriors Project",
   terra1sq6th05hdwwwxvymzytc93lvhjxyx4pkjurhgj: "LunaticsToken",
