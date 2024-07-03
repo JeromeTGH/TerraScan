@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, GraphBarIcon } from '../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, GraphBarIcon, ContractIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
@@ -98,6 +98,12 @@ const SideBar = () => {
                         <NavLink to={"/search"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><SearchIcon /></span>
                             <span>Search</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={"/smartcontracts"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
+                            <span><ContractIcon /></span>
+                            <span>Smart Contracts</span>
                         </NavLink>
                     </li>
                     <li>

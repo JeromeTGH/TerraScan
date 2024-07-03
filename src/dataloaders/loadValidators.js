@@ -73,6 +73,10 @@ export const loadValidators = async () => {
                     }
                     tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
 
+// if(validatorInfo.operator_address === "terravaloper1...") {
+//     console.log("validatorInfo", validatorInfo);
+// }
+
                 } catch(err) {
                     return { "erreur": err.toString() }
                 }
@@ -83,6 +87,7 @@ export const loadValidators = async () => {
 
         // Fin du chargement
         // console.log("Liste des validateurs chargée.");
+// console.log("tblValidators", tblValidators);
     }
 
 

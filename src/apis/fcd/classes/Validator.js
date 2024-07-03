@@ -6,7 +6,7 @@ export class Validator {
         this.operator_address = objetAvecVariables.operatorAddress;
         // this.tokens = objetAvecVariables.tokens;                         // Nota : doublon avec "delegator_shares" ?
         this.delegator_shares = parseInt(objetAvecVariables.delegatorShares);
-        this.up_time = parseFloat((objetAvecVariables.upTime*100).toFixed(2));
+        this.up_time = parseFloat((objetAvecVariables.upTime*100.0).toFixed(2));
         this.status = objetAvecVariables.status;    // = "jailed" ou "active"
         this.terra1_account_address = objetAvecVariables.accountAddress;
         this.description = {
@@ -33,6 +33,10 @@ export class Validator {
             pourcentage: parseFloat((objetAvecVariables.selfDelegation.weight*100).toFixed(2))
         }
         // this.commissions = { denoms[] }
+
+// if(objetAvecVariables.operatorAddress === "terravaloper1...") {
+//     console.log("objetAvecVariables 1", objetAvecVariables);
+// }
 
     }
 

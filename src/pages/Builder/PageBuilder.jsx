@@ -18,6 +18,8 @@ import PageProposal from '../PageProposal/PageProposal';
 import PageBurns from '../PageBurns/PageBurns';
 import PageStaking from '../PageStaking/PageStaking';
 import PageSearch from '../PageSearch/PageSearch';
+import PageSmartContract from '../PageSmartContract/PageSmartContract';
+import PageSmartContracts from '../PageSmartContracts/PageSmartContracts';
 import PageAboutDisclaimer from '../PageAboutDisclaimer/PageAboutDisclaimer';
 import Page404 from '../Page404/Page404';
 
@@ -103,7 +105,11 @@ const PageBuilder = (props) => {
                 return <PageBurns />;
             case 'staking':
                 return <PageStaking />;
-            // case 'donate':
+            case 'smartcontract':
+                return <PageSmartContract />
+            case 'smartcontracts':
+                return <PageSmartContracts />
+                // case 'donate':
             //     return <PageDonate />;
             case 'search':
                 return <PageSearch />;

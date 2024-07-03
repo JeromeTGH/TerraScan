@@ -81,6 +81,13 @@ const AppRoutes = () => {
                 element: <PageBuilder targetPage="search" withHeader="yes" withFooter="yes" />
             },
             {
+                path: "/smartcontracts",
+                element: <PageBuilder targetPage="smartcontracts" withHeader="yes" withFooter="yes" />},
+            {
+                path: "/smartcontracts/:contractNum",
+                element: <PageBuilder targetPage="smartcontract" withHeader="yes" withFooter="yes" />
+            },
+            {
                 path: "/about-disclaimer",
                 element: <PageBuilder targetPage="about-disclaimer" withHeader="yes" withFooter="yes" />
             },
