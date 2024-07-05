@@ -187,7 +187,7 @@ const PageBlocks = () => {
                 </table>
                 <div className={styles.comments}>
                     <u>Nb Tx</u> = number of transactions made in a block<br />
-                    <u>Validator</u> = proposer (tendermint)
+                    <u>Validator</u> = proposer of a given block
                 </div>
                 <div className="erreur">{msgErreurGetDerniersBlocks}</div>
             </StyledBox>

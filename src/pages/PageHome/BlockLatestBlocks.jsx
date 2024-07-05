@@ -134,7 +134,7 @@ const BlockLatestBlocks = (props) => {
             </table>
             <div className={styles.comments}>
                 <u>Nb Tx</u> = quantity of transactions made in a particular block<br />
-                <u>Validator</u> = proposer (tendermint)
+                <u>Validator</u> = proposer of a given block
             </div>
             <div className="erreur">{msgErreurGetDerniersBlocks}</div>
         </StyledBox>

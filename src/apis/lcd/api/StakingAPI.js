@@ -37,4 +37,14 @@ export class StakingAPI {
         return await this.apiRequester.get(this.paths.getRedelegations.replace('***', accountAdr), params);
     }
 
+    // Exemple d'appel : /cosmos/staking/v1beta1/validators/terravaloper120ppepaj2lh5vreadx42wnjjznh55vvktp78wk
+    async getValidatorInfos(valoperAdr, params = new URLSearchParams()) {
+        return this.apiRequester.get(this.paths.getValidatorInfos + valoperAdr, params);
+    }
+
+    // Exemple d'appel : /cosmos/staking/v1beta1/validators?pagination.limit=9999
+    async getValidatorsList(params = new URLSearchParams()) {
+        return this.apiRequester.get(this.paths.getValidatorsList + "?pagination.limit=9999", params);
+    }
+    
 }
