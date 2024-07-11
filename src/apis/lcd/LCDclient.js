@@ -2,6 +2,7 @@ import { LCDurl } from "../../application/AppParams";
 import { APIrequester } from "./APIrequester";
 
 import { BankAPI } from "./api/BankAPI";
+import { CosmwasmAPI } from "./api/CosmwasmAPI";
 import { DistributionAPI } from "./api/DistributionAPI";
 import { GovAPI } from "./api/GovAPI";
 import { MintAPI } from "./api/MintAPI";
@@ -27,6 +28,10 @@ export class LCDclient {
                     getAccountDetails: '/cosmos/bank/v1beta1/balances/***',
                     getOraclePoolBalance: '/cosmos/bank/v1beta1/balances/***',
                     getTotalSupplies: '/cosmos/bank/v1beta1/supply'
+                },
+                cosmwasm: {
+                    getContractInfo: '/cosmwasm/wasm/v1/contract/***',
+                    getContractHistory: '/cosmwasm/wasm/v1/contract/***/history'
                 },
                 distribution: {
                     getDistributionCommunityPool: '/cosmos/distribution/v1beta1/community_pool',
@@ -68,6 +73,7 @@ export class LCDclient {
             }
     
             this.bank = new BankAPI(this.apiRequester, this.paths.bank);
+            this.cosmwasm = new CosmwasmAPI(this.apiRequester, this.paths.bank);
             this.distribution = new DistributionAPI(this.apiRequester, this.paths.distribution);
             this.gov = new GovAPI(this.apiRequester, this.paths.gov);
             this.mint = new MintAPI(this.apiRequester, this.paths.mint);
