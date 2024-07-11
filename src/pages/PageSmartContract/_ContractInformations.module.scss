@@ -1,0 +1,33 @@
+@import '../../style/variables';
+
+.h2Title {
+  margin-top: 2rem;
+}
+
+.tblContractInfos {
+  tbody tr {
+    border: none;
+  }
+  td:nth-child(1) {
+    width: 1%;
+    white-space: nowrap;
+    font-weight: bold;
+    vertical-align: top;
+  }
+
+  td:nth-child(2) {
+    word-break: break-all;
+  }
+}
+
+.formatedContractMsg {
+  max-width: 100%;
+
+  @media (max-width: $primary-breakpoint) {
+      max-width: 90vw;
+  }
+
+  pre {
+      overflow-x: auto;
+  }
+}

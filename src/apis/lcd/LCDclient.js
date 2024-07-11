@@ -73,7 +73,7 @@ export class LCDclient {
             }
     
             this.bank = new BankAPI(this.apiRequester, this.paths.bank);
-            this.cosmwasm = new CosmwasmAPI(this.apiRequester, this.paths.bank);
+            this.cosmwasm = new CosmwasmAPI(this.apiRequester, this.paths.cosmwasm);
             this.distribution = new DistributionAPI(this.apiRequester, this.paths.distribution);
             this.gov = new GovAPI(this.apiRequester, this.paths.gov);
             this.mint = new MintAPI(this.apiRequester, this.paths.mint);
