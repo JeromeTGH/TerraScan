@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ContractIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageSmartContracts.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { isValidTerraAddressFormat } from '../../application/AppUtils';
+import { isValidContractAddressFormat } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 
@@ -19,7 +19,7 @@ const PageSmartContracts = () => {
 
         if(searchFieldValue === '') {
             setErrorMessage('→ No search value entered');
-        } else if(isValidTerraAddressFormat(searchFieldValue, 'terra1')) {
+        } else if(isValidContractAddressFormat(searchFieldValue, 'terra1')) {
             navigate('/smartcontracts/' + searchFieldValue);
         } else {
             setErrorMessage('→ Smart Contract not found, sorry');

@@ -6,7 +6,7 @@ const MsgExecuteContract = (props) => {
         <>
             <tr>
                 <td>Contract :</td>
-                <td><Link to={"/accounts/" + props.txMessage['Contract']}>{props.txMessage['Contract']}</Link></td>
+                <td><Link to={"/smartcontracts/" + props.txMessage['Contract']}>{props.txMessage['Contract']}</Link></td>
             </tr>
             <tr>
                 <td>Sender :</td>

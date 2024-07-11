@@ -37,10 +37,7 @@ export const isValidTerraAddressFormat = (stringToTest, terraAddressHeader) => {
     //  - adresse au format "terrapub1" (47 caractères au total)
     //  - adresse au format "terravaloper1" (51 caractères au total)        <--- adresse d'un validateur ("validator")
     //  - adresse au format "terravaloperpub1" (54 caractères au total)
-    //  - adresse au format "terravalcons1" (51 caractères au total)
-    // AJOUT :
-    //  - adresse au format "terra1" (64 caractères au total)               <--- adresse de contrat ("contract")
-    
+    //  - adresse au format "terravalcons1" (51 caractères au total)    
 
     // Les adresses Terra Classic sont donc au format terra[xxx]1[yyy]
     //  - avec 'xxx', une entête spécifique (0 à plusieurs caractères)
@@ -50,6 +47,29 @@ export const isValidTerraAddressFormat = (stringToTest, terraAddressHeader) => {
     // (nota : on compare les chaînes entre elles, en minuscule ici, qui est le "standard" pour une adresse terra)
 
     if(stringToTest.toLowerCase().match(regex) && stringToTest.length === (terraAddressHeader.length + 38))
+        return true;
+
+    return false;
+
+}
+
+
+// =======================================
+// Fonction "isValidContractAddressFormat"
+// =======================================
+
+/**
+ * Indique si la valeur passée est oui ou non au format d'une adresse Terra Classic
+ * @param stringToTest Value to test (string)
+ */
+export const isValidContractAddressFormat = (stringToTest) => {
+
+    // Adresse des contrats au format "terra1", sur 40 à 64 caractères au total
+    const terraAddressHeader = "terra1"
+
+    const regex = new RegExp('^' + terraAddressHeader.toLowerCase(), 'g');
+
+    if(stringToTest.toLowerCase().match(regex) && stringToTest.length >= 40 && stringToTest.length <= 64)
         return true;
 
     return false;
