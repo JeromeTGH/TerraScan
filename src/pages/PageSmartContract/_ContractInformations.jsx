@@ -46,7 +46,17 @@ const ContractInformations = (props) => {
                 :
                     tblContractInformations && tblContractInformations.code_id ?
                         <>
-                            <h2 className={styles.h2Title}>{tblContractInformations.name} | {tblContractInformations.symbol}</h2>
+                            <h2 className={styles.h2Title}>{tblContractInformations.name ?
+                            tblContractInformations.symbol ?
+                                tblContractInformations.name + " | " + tblContractInformations.symbol
+                                :
+                                tblContractInformations.name
+                            :
+                            tblContractInformations.symbol ?
+                                tblContractInformations.symbol
+                                :
+                                null}
+                            </h2>
                             <StyledBox title="Contract informations" color="green">
                                 <div className={styles.contentContractInfos}>
                                     <table className={styles.tblContractInfos}>

@@ -32,7 +32,8 @@ export const getContractInformations = async (contractAddress) => {
     const rawSmartcontractHistory = await lcd.cosmwasm.getContractHistory(contractAddress).catch(handleError);
 
     if(rawSmartcontractHistory?.data) {
-        if(rawSmartcontractHistory.data.entries && rawSmartcontractHistory.data.entries.length === 1) {
+// console.log("data", rawSmartcontractHistory.data);
+        if(rawSmartcontractHistory.data.entries && rawSmartcontractHistory.data.entries.length >= 1) {
             const msg = rawSmartcontractHistory.data.entries[0].msg ? rawSmartcontractHistory.data.entries[0].msg : null
             if(msg) {
                 objRetour['msg'] = msg;
