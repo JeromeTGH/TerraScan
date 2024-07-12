@@ -87,13 +87,13 @@ const ContractInformations = (props) => {
                                             </tr>
                                             <tr>
                                                 <td>Ibc port id :</td>
-                                                <td>{tblContractInformations.ibc_port_id}</td>
+                                                <td>{tblContractInformations.ibc_port_id ? tblContractInformations.ibc_port_id : '-'}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </StyledBox>
-                            <StyledBox title="Contract history" color="blue">
+                            <StyledBox title="Contract history (init)" color="orange">
                                 <div className={styles.formatedContractMsg}>
                                     <pre>{JSON.stringify(tblContractInformations.msg, null, 2)}</pre>
                                 </div>
