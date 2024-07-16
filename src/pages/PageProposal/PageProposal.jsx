@@ -616,7 +616,7 @@ const PageProposal = () => {
                                                             {valeur.memo && valeur.memo !== "" ?
                                                                 <>
                                                                     <br />
-                                                                    <span className={styles.votingpower}>Memo&nbsp;:&nbsp;<strong>{valeur.memo}</strong></span>
+                                                                    <span className={styles.memofield}>Memo&nbsp;:&nbsp;<strong>{valeur.memo}</strong></span>
                                                                 </>
                                                             : null}
                                                         </td>

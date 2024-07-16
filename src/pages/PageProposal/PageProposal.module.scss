@@ -325,9 +325,14 @@
             }
         }
 
-        .votingpower {
+        .votingpower, .memofield {
             font-size: 0.7rem;
             color: var(--secondary-text-color);
+        }
+
+        .memofield {
+            white-space: pre-wrap;
+            word-break: break-word;
         }
     }
 
