@@ -610,7 +610,7 @@ const PageProposal = () => {
                                                     return <tr key={index}>
                                                         <td>{metEnFormeDateTime(valeur.datetime)}</td>
                                                         <td>
-                                                            <Link to={"/validators/" + valeur.valoperaddress}><strong>{valeur.valmoniker}</strong></Link>{valeur.version > 1 ? <span className={styles.voteVersion}> (vote #{valeur.version})</span> : null}
+                                                            <Link to={"/validators/" + valeur.valoperaddress}><strong>{valeur.valmoniker}</strong></Link>{valeur.version > 0 ? <span className={styles.voteVersion}> (vote #{valeur.version})</span> : null}
                                                             <br />
                                                             <span className={styles.votingpower}>VP&nbsp;:&nbsp;<strong>{valeur.voting_power_pourcentage}</strong>&nbsp;%</span>
                                                             {valeur.memo && valeur.memo !== "" ?

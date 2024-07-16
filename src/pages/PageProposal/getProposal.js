@@ -571,10 +571,15 @@ export const getProposal = async (propID) => {
     // (pour rappel, c'est un array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version })
     if(tblHistoriqueDesVotesValidateur.length > 1) {
         for(let idxTblVal=0 ; idxTblVal < tblHistoriqueDesVotesValidateur.length ; idxTblVal++) {
-            let valVoteVersion = 1;
+            let valVoteVersion = 0;
             for(let idxPrevTblVal=0 ; idxPrevTblVal < idxTblVal ; idxPrevTblVal++) {
                 if(tblHistoriqueDesVotesValidateur[idxPrevTblVal].valoperaddress === tblHistoriqueDesVotesValidateur[idxTblVal].valoperaddress) {
-                    valVoteVersion++;
+                    if(valVoteVersion === 0) {
+                        tblHistoriqueDesVotesValidateur[idxPrevTblVal].version = 1;
+                        valVoteVersion += 2;
+                    } else {
+                        valVoteVersion += 1;
+                    }
                 }
             }
             tblHistoriqueDesVotesValidateur[idxTblVal].version = valVoteVersion;
