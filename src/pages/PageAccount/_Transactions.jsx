@@ -69,6 +69,7 @@ const Transactions = (props) => {
                                             <td>{metEnFormeDateTime(element.datetime)}</td>
                                             <td>
                                                 {tblCorrespondanceMessages[element.msgType] ? tblCorrespondanceMessages[element.msgType] : element.msgType}
+                                                {element.txtAdd ? <> <span className={styles.txtAdd}>{element.txtAdd}</span></> : null}
                                                 {element.errorCode !== 0 ? <> <span className='failed'>FAILED</span></> : null}
                                             </td>
                                             <td className={styles.amounts}>

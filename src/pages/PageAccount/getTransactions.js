@@ -29,6 +29,7 @@ export const getTransactions = async (accountAddress) => {
                 const messages = transaction.tx.value.msg;      // Liste de tous les messages que contient cette transaction
                 
                 let msgType = '';
+                let txtAdd = '';
                 let msgAmount = '';
                 let msgUnit = '';
                 let msgSign = '';
@@ -36,6 +37,12 @@ export const getTransactions = async (accountAddress) => {
                     msgType = 'Nothing';
                 else if(messages.length === 1) {
                     msgType = messages[0].type.split('/')[1];
+// console.log("messages[0]", messages[0]); 
+                    if(msgType === 'MsgSend' && messages[0].value?.to_address) {
+                        if(messages[0].value.to_address === "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu") {   // Burn wallet
+                            txtAdd = "(to burn wallet)";
+                        }
+                    }
                     if(messages[0].value?.amount) {
                         if(Array.isArray(messages[0].value.amount)) {
                             if(messages[0].value.amount.length === 1) {
@@ -56,6 +63,7 @@ export const getTransactions = async (accountAddress) => {
                     tblRetour.push({
                         datetime: txDatetime,
                         msgType: msgType,
+                        txtAdd: txtAdd,
                         errorCode: txCode,
                         amount: msgAmount,
                         unit: msgUnit,
