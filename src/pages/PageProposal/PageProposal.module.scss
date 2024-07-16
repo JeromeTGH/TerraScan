@@ -325,7 +325,7 @@
             }
         }
 
-        .votingpower, .memofield {
+        .votingpower, .memofield, .voteVersion {
             font-size: 0.7rem;
             color: var(--secondary-text-color);
         }
@@ -333,6 +333,11 @@
         .memofield {
             white-space: pre-wrap;
             word-break: break-word;
+        }
+
+        .voteVersion {
+            color: var(--red-color);
+            font-weight: bold;
         }
     }
 

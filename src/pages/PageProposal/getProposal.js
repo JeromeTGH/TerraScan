@@ -383,14 +383,15 @@ export const getProposal = async (propID) => {
                                 if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                     tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                     tblHistoriqueDesVotesValidateur.push({
-                                        // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                        // array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version }
                                         'txhash': txhash,
                                         'datetime': txtdatetime,
                                         'valoperaddress': tblValidatorsAccounts[voter],
                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                         'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                         'vote': voteoption,
-                                        'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : ""
+                                        'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : "",
+                                        'version': null
                                     })
                                 }
                                 //  else {
@@ -415,14 +416,15 @@ export const getProposal = async (propID) => {
                                         if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                             tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                             tblHistoriqueDesVotesValidateur.push({
-                                                // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                                // array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version }
                                                 'txhash': txhash,
                                                 'datetime': txtdatetime,
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                 'vote': voteoption,
-                                                'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : ""
+                                                'memo': rawTxs.data.tx_responses[i].tx.body.memo ? rawTxs.data.tx_responses[i].tx.body.memo : "",
+                                                'version': null
                                             })
                                         }
                                         //  else {
@@ -490,14 +492,15 @@ export const getProposal = async (propID) => {
                                         if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                             tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                             tblHistoriqueDesVotesValidateur.push({
-                                                // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                                // array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version }
                                                 'txhash': txhash,
                                                 'datetime': txtdatetime,
                                                 'valoperaddress': tblValidatorsAccounts[voter],
                                                 'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                 'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                 'vote': voteoption,
-                                                'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : ""
+                                                'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : "",
+                                                'version': null
                                             })
                                         }
                                         //  else {
@@ -522,14 +525,15 @@ export const getProposal = async (propID) => {
                                                 if(tblValidatorsAccounts[voter] && tblDesVotesDeValidateur[tblValidatorsAccounts[voter]]?.vote) {
                                                     tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].vote = voteoption;
                                                     tblHistoriqueDesVotesValidateur.push({
-                                                        // array of { txHash, datetime, valoperaddress, valmoniker, vote }
+                                                        // array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version }
                                                         'txhash': txhash,
                                                         'datetime': txtdatetime,
                                                         'valoperaddress': tblValidatorsAccounts[voter],
                                                         'valmoniker': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].description_moniker,
                                                         'voting_power_pourcentage': tblDesVotesDeValidateur[tblValidatorsAccounts[voter]].voting_power_pourcentage,
                                                         'vote': voteoption,
-                                                        'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : ""
+                                                        'memo': rawTxsSuivants.data.tx_responses[i].tx.body.memo ? rawTxsSuivants.data.tx_responses[i].tx.body.memo : "",
+                                                        'version': null
                                                     })
                                                 }
                                                 //  else {
@@ -558,6 +562,22 @@ export const getProposal = async (propID) => {
             console.log("rawTxs.data", rawTxs.data);
             console.warn("[ERROR] Failed to fetch [txs] for votes ...");
             //return { "erreur": "Failed to fetch [txs] for votes ..." }
+        }
+    }
+
+
+
+    // Ajout des numéros de version, en cas de votes multiples, dans l'historique des votes des validateurs
+    // (pour rappel, c'est un array of { txHash, datetime, valoperaddress, valmoniker, voting_power_pourcentage, vote, memo, version })
+    if(tblHistoriqueDesVotesValidateur.length > 1) {
+        for(let idxTblVal=0 ; idxTblVal < tblHistoriqueDesVotesValidateur.length ; idxTblVal++) {
+            let valVoteVersion = 1;
+            for(let idxPrevTblVal=0 ; idxPrevTblVal < idxTblVal ; idxPrevTblVal++) {
+                if(tblHistoriqueDesVotesValidateur[idxPrevTblVal].valoperaddress === tblHistoriqueDesVotesValidateur[idxTblVal].valoperaddress) {
+                    valVoteVersion++;
+                }
+            }
+            tblHistoriqueDesVotesValidateur[idxTblVal].version = valVoteVersion;
         }
     }
 
