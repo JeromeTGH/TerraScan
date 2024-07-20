@@ -9,13 +9,18 @@ import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
 const getIpfsData = async(ipfsUrlToFetch) => {
 
-    const res = await fetch(ipfsUrlToFetch).catch(handleError);
+    try {
+        const res = await fetch(ipfsUrlToFetch).catch(handleError);
 
-    if (res.ok) {
-        return res.json();
-    } else {
-        return Promise.reject(res);
+        if (res.ok) {
+            return res.json();
+        } else {
+            return Promise.reject(res);
+        }    
+    } catch(err) {
+        return null;
     }
+
 
 };
 
