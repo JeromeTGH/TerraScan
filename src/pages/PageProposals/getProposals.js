@@ -65,6 +65,11 @@ export const getProposals = async () => {
             tblProposals[i]['pourcentageOfAbstain'] = (qteLuncAbstain/qteLuncTotal*100).toFixed(2);
             tblProposals[i]['pourcentageOfNo'] = (qteLuncNo/qteLuncTotal*100).toFixed(2);
             tblProposals[i]['pourcentageOfNoWithVeto'] = (qteLuncNoWithVeto/qteLuncTotal*100).toFixed(2);
+
+            if(tblProposals[i].status === "PROPOSAL_STATUS_REJECTED") {
+                tblProposals[i]['seuilVeto'] = tblGovInfos['pourcentageVeto'] * (parseFloat(tblProposals[i]['pourcentageOfYes']) + parseFloat(tblProposals[i]['pourcentageOfNo']) + parseFloat(tblProposals[i]['pourcentageOfNoWithVeto'])) / 100;
+                tblProposals[i]['isVetoReached'] = (parseFloat(tblProposals[i]['pourcentageOfNoWithVeto']) > tblProposals[i]['seuilVeto']);
+            }
         }
         if(tblProposals[i].status === "PROPOSAL_STATUS_VOTING_PERIOD") {
             const rawTally = await lcd.gov.getTally(tblProposals[i].id).catch(handleError);

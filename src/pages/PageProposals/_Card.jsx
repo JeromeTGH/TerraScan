@@ -11,7 +11,8 @@ const Card = (props) => {
                 {props.card.status === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ? <div className={styles.cardProposalStatusOrange}>Waiting&nbsp;deposit</div> : null}
                 {props.card.status === "PROPOSAL_STATUS_VOTING_PERIOD" ? <div className={styles.cardProposalStatusBlue}>Voting&nbsp;in&nbsp;progress</div> : null}
                 {props.card.status === "PROPOSAL_STATUS_PASSED" ? <div className={styles.cardProposalStatusGreen}>Adopted</div> : null}
-                {props.card.status === "PROPOSAL_STATUS_REJECTED" ? <div className={styles.cardProposalStatusRed}>Rejected</div> : null}
+                {(props.card.status === "PROPOSAL_STATUS_REJECTED" && !props.card.isVetoReached) ? <div className={styles.cardProposalStatusRed}>Rejected</div> : null}
+                {(props.card.status === "PROPOSAL_STATUS_REJECTED" && props.card.isVetoReached) ? <div className={styles.cardProposalStatusOrange}>VETO</div> : null}
                 {props.card.status !== "PROPOSAL_STATUS_DEPOSIT_PERIOD" &&
                  props.card.status !== "PROPOSAL_STATUS_VOTING_PERIOD" &&
                  props.card.status !== "PROPOSAL_STATUS_PASSED" &&
@@ -127,7 +128,7 @@ const Card = (props) => {
                 <>
                     <table className={styles.cardProposalTable}>
                         <tbody>
-                        <tr>
+                            <tr>
                                 <td>Vote start :</td>
                                 <td>{metEnFormeDateTime(props.card.voting_start_time)}</td>
                             </tr>
