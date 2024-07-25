@@ -7,22 +7,18 @@ import { CoinsList } from '../../apis/fcd/classes/CoinsList';
 import { isValidTerraAddressFormat, metEnFormeAmountPartieEntiere, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { loadNbStakedLunc } from '../../dataloaders/loadNbStakedLunc';
 
-const getIpfsData = async(ipfsUrlToFetch) => {
-
-    try {
-        const res = await fetch(ipfsUrlToFetch).catch(handleError);
-
-        if (res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject(res);
-        }    
-    } catch(err) {
-        return null;
-    }
-
-
-};
+// const getIpfsData = async(ipfsUrlToFetch) => {
+//     try {
+//         const res = await fetch(ipfsUrlToFetch).catch(handleError);
+//         if (res.ok) {
+//             return res.json();
+//         } else {
+//             return Promise.reject(res);
+//         }    
+//     } catch(err) {
+//         return null;
+//     }
+// };
 
 export const getProposal = async (propID) => {
 
@@ -72,12 +68,13 @@ export const getProposal = async (propID) => {
         proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
         proposalInfos['metadataField'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
 
-        const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
-        if(ipfsRegex.test(proposalInfos['metadataField'])) {
-            const ipfsAdr = 'https://ipfs.io/ipfs/' + proposalInfos['metadataField'].replace('ipfs://', '');
-            const ipfsData = await getIpfsData(ipfsAdr);
-            proposalInfos['ipfsDatas'] = ipfsData;
-        }
+        // const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
+        // if(ipfsRegex.test(proposalInfos['metadataField'])) {
+        //     const ipfsAdr = 'https://ipfs.io/ipfs/' + proposalInfos['metadataField'].replace('ipfs://', '');
+        //     const ipfsData = await getIpfsData(ipfsAdr);
+        //     proposalInfos['ipfsDatas'] = ipfsData;
+        // }
+        proposalInfos['ipfsDatas'] = proposalInfos['metadataField'];
     } else if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
         proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown';
         proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0]?.content.amount[0].amount) : null;
