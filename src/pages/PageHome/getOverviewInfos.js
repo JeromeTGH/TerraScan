@@ -16,8 +16,8 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
         "BurnTaxMax": null,                                 // Burn tax ("Tax burn") ; initially 1.2%, then 0.2%, then 0.5%
         "BurnTaxSplitToBeBurn": null,                       // Split of above tax ("Burn tax AnteHandler") ; typically 80/20,
         "BurnTaxSplitToDistributionModule": null,           // so 80% to be burn, and 20% to the distribution module
-        "DistributionModuleSplitToStakers": null,           // Split of distribution module ; typically 50/50, so 50% du stakers
-        "DistributionModuleSplitToCommunityPool": null,     // and 50% du community pool
+        "DistributionModuleSplitToOraclePool": null,        // Split of distribution module ; typically 50/50, so 50% to Oracle Pool
+        "DistributionModuleSplitToCommunityPool": null,     // and 50% to Community Pool
         "AmountOfLuncInCP": null,       // Community Pool
         "AmountOfUstcInCP": null,
         "AmountOfLuncInOP": null,       // Oracle Pool
@@ -98,7 +98,7 @@ export const getOverviewInfos = async (totalSupplies, lastblockInfos) => {
     tblAretourner['BurnTaxMax'] = tblGlobalInfos['BurnTaxMax'];
     tblAretourner['BurnTaxSplitToDistributionModule'] = tblGlobalInfos['BurnTaxSplitToDistributionModule'];
     tblAretourner['BurnTaxSplitToBeBurn'] = tblGlobalInfos['BurnTaxSplitToBeBurn'];
-    tblAretourner['DistributionModuleSplitToStakers'] = tblGlobalInfos['DistributionModuleSplitToStakers']
+    tblAretourner['DistributionModuleSplitToOraclePool'] = tblGlobalInfos['DistributionModuleSplitToOraclePool']
     tblAretourner['DistributionModuleSplitToCommunityPool'] = tblGlobalInfos['DistributionModuleSplitToCommunityPool']
 
     // ****************************

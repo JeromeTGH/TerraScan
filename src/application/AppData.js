@@ -106,7 +106,7 @@ export const tblProposals = [];
 //          BurnTaxMax,                            // taxe burn ; actuellement = 0,5 %
 //          BurnTaxSplitToBeBurn,                  // dispatching de la taxe burn ; actuellement = 80 % burn et 
 //          BurnTaxSplitToDistributionModule,      // 20 % vers module de distribution
-//          DistributionModuleSplitToStakers,           // dispatching du module de distribution ; actuellement = 50 % vers les stakers et
+//          DistributionModuleSplitToOraclePool,        // dispatching du module de distribution ; actuellement = 50 % vers le pool oracle
 //          DistributionModuleSplitToCommunityPool,     // 50 % vers le pool communautaire
 //          
 //      }

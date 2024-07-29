@@ -47,8 +47,8 @@ export const loadSomeGeneralnfos = async () => {
     // Récupération des infos concernant le split du "distribution module"
     const rawDistributionParameters = await lcd.distribution.getDistributionParameters().catch(handleError);
     if(rawDistributionParameters?.data?.params) {
-        tblGlobalInfos['DistributionModuleSplitToStakers'] = rawDistributionParameters.data.params.community_tax * 100;
-        tblGlobalInfos['DistributionModuleSplitToCommunityPool'] = 100 - tblGlobalInfos['DistributionModuleSplitToStakers'];
+        tblGlobalInfos['DistributionModuleSplitToOraclePool'] = rawDistributionParameters.data.params.community_tax * 100;
+        tblGlobalInfos['DistributionModuleSplitToCommunityPool'] = 100 - tblGlobalInfos['DistributionModuleSplitToOraclePool'];
     }
     else
         return { "erreur": "Failed to fetch [distribution parameters] ..." }

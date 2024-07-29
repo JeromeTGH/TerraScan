@@ -200,16 +200,16 @@ const BlockOverview = (props) => {
                         <div><strong>{overviewInfos ? overviewInfos['BurnTaxSplitToBeBurn'] : "..."}% burn / {overviewInfos ? overviewInfos['BurnTaxSplitToDistributionModule'] : "..."}% to DM</strong></div>
                     </div>
                     <div className={styles.descThenValue}>
-                        <div>→&nbsp;<Link to="/proposals/11513">Distribution Module split</Link> :</div>
+                        <div>→&nbsp;<Link to="/proposals/12098">Distribution Module split</Link> :</div>
                         <div></div>
                     </div>
                     <div className={styles.descThenValue}>
                         <div></div>
-                        <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToStakers'] : "..."}% to stakers / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong></div>
+                        <div><strong>{overviewInfos ? overviewInfos['DistributionModuleSplitToOraclePool'] : "..."}% to OP / {overviewInfos ? overviewInfos['DistributionModuleSplitToCommunityPool'] : "..."}% to CP</strong></div>
                     </div>
                 </div>
                 <div className={styles.comments}>
-                    <u>Note</u> : DM=Distribution&nbsp;Module / CP=Community&nbsp;Pool
+                    <u>Note</u> : DM=Distribution&nbsp;Module / CP=Community&nbsp;Pool / OP=Oracle&nbsp;Pool
                 </div>
                 <br />
                 <div className={styles.boxed}>
