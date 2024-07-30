@@ -73,10 +73,6 @@ export const loadValidators = async () => {
                     }
                     tblValidatorsAccounts[validatorInfo.terra1_account_address] = validatorInfo.operator_address;
 
-// if(validatorInfo.operator_address === "terravaloper1...") {
-//     console.log("validatorInfo", validatorInfo);
-// }
-
                 } catch(err) {
                     return { "erreur": err.toString() }
                 }
@@ -85,10 +81,11 @@ export const loadValidators = async () => {
         } else
             return { "erreur": "Failed to fetch [validators list] ..." }
 
-        // Fin du chargement
-        // console.log("Liste des validateurs chargée.");
-// console.log("tblValidators", tblValidators);
     }
+
+
+    // Action manuelle, PROVISOIRE (pb données retournées par FCD de AllNodes)
+    tblValidators["terravaloper1kx0t0nlc8x92te8zrnzsn40ucln6k0t2kej3c7"].status = "jailed";
 
 
 
