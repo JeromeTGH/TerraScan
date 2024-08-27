@@ -95,7 +95,12 @@ const TableOfProposals = (props) => {
     return (
         <>
             {donneesAafficher.length === 0 ?
-                <StyledBox title="Proposals" color="blue"><br /><div>No proposal, currently</div><br /></StyledBox>
+                <StyledBox title="Proposals" color="blue">
+                    <br />
+                    {props.category === "deposits" ? <div>No proposal in deposit state, currently</div> : null}
+                    {props.category === "voting" ? <div>No proposal in voting state, currently</div> : null}
+                    <br />
+                </StyledBox>
             : null}
             <div className={styles.tblProposals}>
                 {donneesAafficher ? donneesAafficher.map((element, index) => {
