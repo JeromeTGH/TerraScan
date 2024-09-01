@@ -99,6 +99,7 @@ const TableOfProposals = (props) => {
                     <br />
                     {props.category === "deposits" ? <div>No proposal in deposit state, currently</div> : null}
                     {props.category === "voting" ? <div>No proposal in voting state, currently</div> : null}
+                    {props.category === "deposits" && props.category !== "voting" ? <div>No proposal returned...</div> : null}
                     <br />
                 </StyledBox>
             : null}

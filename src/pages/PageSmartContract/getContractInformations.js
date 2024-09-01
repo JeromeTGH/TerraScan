@@ -34,6 +34,7 @@ export const getContractInformations = async (contractAddress) => {
     if(rawSmartcontractHistory?.data) {
 // console.log("data", rawSmartcontractHistory.data);
         if(rawSmartcontractHistory.data.entries && rawSmartcontractHistory.data.entries.length >= 1) {
+            objRetour['entries'] = rawSmartcontractHistory.data.entries;
             const msg = rawSmartcontractHistory.data.entries[0].msg ? rawSmartcontractHistory.data.entries[0].msg : null
             if(msg) {
                 objRetour['msg'] = msg;
@@ -50,6 +51,20 @@ export const getContractInformations = async (contractAddress) => {
                 objRetour['name'] = null;
                 objRetour['symbol'] = null;
             }
+
+            // ----------------------------
+            // MAJ manuelle, pour l'instant
+            // ----------------------------
+            // {
+            //   "new_info": {
+            //     "name": "Juris Protocol",
+            //     "symbol": "JURIS"
+            //   }
+            // }
+            objRetour['name'] = objRetour['name'].replace("RakoffToken", "Juris Protocol");
+            objRetour['symbol'] = objRetour['symbol'].replace("Rakoff", "JURIS");
+            // ----------------------------
+
         } else
             return { "erreur": "Failed to fetch [data.entries] from LCD response, sorry" }
     } else

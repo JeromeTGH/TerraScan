@@ -93,11 +93,18 @@ const ContractInformations = (props) => {
                                     </table>
                                 </div>
                             </StyledBox>
-                            <StyledBox title="Contract history (init)" color="orange">
+                            {/* <StyledBox title="Contract history (init)" color="orange">
                                 <div className={styles.formatedContractMsg}>
                                     <pre>{JSON.stringify(tblContractInformations.msg, null, 2)}</pre>
                                 </div>
-                            </StyledBox>
+                            </StyledBox> */}
+                            {tblContractInformations.entries.map((entry, idx) => {
+                                return <StyledBox title={"Contract history (" + (idx+1) + "/" + tblContractInformations.entries.length + ")"} color="orange" key={idx}>
+                                    <div className={styles.formatedContractMsg}>
+                                        <pre>{JSON.stringify(entry.msg, null, 2)}</pre>
+                                    </div>
+                                </StyledBox>
+                            })}
                         </>
                     :
                         <div>No infos, sorry.</div>
