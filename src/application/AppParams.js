@@ -71,7 +71,7 @@ export const tblCorrespondanceCompte = {
   terra1uml7n30kyndkmjvrgy6d63kffpn6hvztx79mnf: "Frag",
   terra1a0lhtrf5dcpdtld9k5praqw0hp5n9plgq7n7mk: "Lunaclassic.com", // Val, but shutting down
   terra16e75e62ztl6yzkulfck0p99d4cua9zjcdj0wq3: "Nova (old)",
-  terra16aumxyfeh2vrd2kr9qk2gadmwmg4jm5kw6nryp: "Burn It All!!! validator",
+  terra16aumxyfeh2vrd2kr9qk2gadmwmg4jm5kw6nryp: "Burn It All validator",
   terra13avdm9rqxpftv3vrkaqaakakgh30909x8hrruz: "GalacticShift.io validator",
   terra120ppepaj2lh5vreadx42wnjjznh55vvktwj679: "AllNodes validator",
   terra1j27nm2gjm0m4lsye8lspa46rax0rw4fge9awrs: "Luna Station 88 validator",
@@ -88,8 +88,8 @@ export const tblCorrespondanceCompte = {
   terra1lahvss98xwyhuf7lz8rcgu2rc8zecz3htj6f8y: "Lunasphere",
   terra13yxmvax7ndvaptgxmqjgqmejka48nrcfm66xaa: "LUNCwhales",
   terra1nh8sjqy87z9mevgnmyd889s82g4hfj44dy7kp7: "Project LUNCBurn (HCC)",
-  terra13yex6xefup97382jq07se35at3vzrkrt8d7h5k: "GarudaX Token Burn",
-  terra1xusghqxnaxmnflqxtuh6jlumjfvapksw5ctnm3: "Air Force Lunc Burn",
+  terra13yex6xefup97382jq07se35at3vzrkrt8d7h5k: "GarudaX Token",
+  terra1xusghqxnaxmnflqxtuh6jlumjfvapksw5ctnm3: "Air Force Lunc",
   terra1gr0xesnseevzt3h4nxr64sh5gk4dwrwgszx3nw: "LFG's wallet",
 
   // TFL accounts (vegas)
@@ -145,10 +145,10 @@ export const tblCorrespondanceMessages = {
   MsgEditValidator: "Edit Validator",
 };
 
-// Tableau de correspondance Adresse/Désignation de smart contracts
-export const tblCorrespondanceSmartContract = {
-  terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2: "Juris Protocol Token (ex Rakoff token)",
-  terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt: "Cookie Monster Token",
-  terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2: "Vegas Dao Coin",
-  terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw: "Garudax Token",
-}
+// // Tableau de correspondance Adresse/Désignation de smart contracts
+// export const tblCorrespondanceSmartContract = {
+//   terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2: "Juris Protocol Token (ex Rakoff token)",
+//   terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt: "Cookie Monster Token",
+//   terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2: "Vegas Dao Coin",
+//   terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw: "Garudax Token",
+// }
