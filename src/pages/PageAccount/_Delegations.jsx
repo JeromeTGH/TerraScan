@@ -101,7 +101,7 @@ const Delegations = (props) => {
                                             :
                                                 null
                                             }
-                                            <span>staked with validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED</span> : null}</span>
+                                            <span>staked with validator <Link to={'/validators/' + element.valoperAddress}>{element.valMoniker}</Link> {tblValidators[element.valoperAddress].status !== 'active' ? <span className='jailed'>JAILED or INACTIVE</span> : null}</span>
                                         </div>
                                         <br />
                                         <div>Pending rewards :</div>
