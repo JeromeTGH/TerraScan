@@ -57,7 +57,7 @@ const Presentation = (props) => {
                         </div>
                     : null}
                     <div className={styles.valStatus}>
-                        {tblValidators[props.valAddress].status === 'active' ? <span className='active'>Active ({tblValidators[props.valAddress].up_time}% uptime)</span> : <span className='jailed'>Jailed</span>}
+                        {tblValidators[props.valAddress].status === 'active' ? <span className='active'>Active ({tblValidators[props.valAddress].up_time}% uptime)</span> : <span className='jailed'>Jailed or Inactive</span>}
                     </div>
                 </div>
             </div>
