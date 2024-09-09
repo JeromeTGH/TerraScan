@@ -3,7 +3,7 @@ import { ContractIcon, SearchIcon } from '../../application/AppIcons';
 import styles from './PageSmartContracts.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidContractAddressFormat } from '../../application/AppUtils';
-import { appName } from '../../application/AppParams';
+import { appName, tblCorrespondanceSmartContract } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 
 const PageSmartContracts = () => {
@@ -59,12 +59,11 @@ const PageSmartContracts = () => {
                 </div>
             </StyledBox>
             <StyledBox title="Notorious Smart Contracts" color="orange">
-                <p className={styles.notoriousSmartContracts}>
-                    → <strong>Garudax Token</strong> address : <Link to="/smartcontracts/terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw">terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw</Link><br />  
-                    → <strong>Juris Protocol Token</strong> address : <Link to="/smartcontracts/terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2">terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2</Link> (ex Rakoff Token)<br />  
-                    → <strong>Cookie Monster Token</strong> address : <Link to="/smartcontracts/terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt">terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt</Link><br />  
-                    → <strong>Vegas Dao Coin</strong> address : <Link to="/smartcontracts/terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2">terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2</Link><br />  
-               </p>
+                <div className={styles.notoriousSmartContracts}>
+                    {Object.entries(tblCorrespondanceSmartContract).map((value, index) => {
+                        return <div key={index}>→ <strong>{value[1]}</strong> address : <Link to={"/smartcontracts/" + value[0]}>{value[0]}</Link></div>
+                    })}
+               </div>
             </StyledBox>
         </>
     );

@@ -145,10 +145,11 @@ export const tblCorrespondanceMessages = {
   MsgEditValidator: "Edit Validator",
 };
 
-// // Tableau de correspondance Adresse/Désignation de smart contracts
-// export const tblCorrespondanceSmartContract = {
-//   terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2: "Juris Protocol Token (ex Rakoff token)",
-//   terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt: "Cookie Monster Token",
-//   terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2: "Vegas Dao Coin",
-//   terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw: "Garudax Token",
-// }
+// Tableau de correspondance Adresse/Désignation de smart contracts
+export const tblCorrespondanceSmartContract = {
+  terra12f3f5fzfzxckc0qlv3rmwwkjfhzevpwmx77345n0zuu2678vxf0sm6vvcw: "Garudax Token",
+  terra1vhgq25vwuhdhn9xjll0rhl2s67jzw78a4g2t78y5kz89q9lsdskq2pxcj2: "Juris Protocol Token (ex Rakoff)",
+  terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt: "Cookie Monster Token",
+  terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2: "Vegas Dao Coin",
+  terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7: "Garuda Universe Hybrid Staking",
+}

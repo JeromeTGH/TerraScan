@@ -55,14 +55,19 @@ export const getContractInformations = async (contractAddress) => {
             // ----------------------------
             // MAJ manuelle, pour l'instant
             // ----------------------------
-            // {
-            //   "new_info": {
-            //     "name": "Juris Protocol",
-            //     "symbol": "JURIS"
-            //   }
-            // }
-            objRetour['name'] = objRetour['name'].replace("RakoffToken", "Juris Protocol");
-            objRetour['symbol'] = objRetour['symbol'].replace("Rakoff", "JURIS");
+            // JURIS
+                        // {
+                        //   "new_info": {
+                        //     "name": "Juris Protocol",
+                        //     "symbol": "JURIS"
+                        //   }
+                        // }
+            objRetour['name'] = objRetour['name'] ? objRetour['name'].replace("RakoffToken", "Juris Protocol") : null;
+            objRetour['symbol'] = objRetour['symbol'] ? objRetour['symbol'].replace("Rakoff", "JURIS") : null;
+            // Garuda Universe Hybrid Staking - GRDX
+            objRetour['name'] = contractAddress === "terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7" ? "Garuda Universe Hybrid Staking" : objRetour['name'];
+            objRetour['symbol'] = contractAddress === "terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7" ? "GRDX" : objRetour['symbol'];
+
             // ----------------------------
 
         } else

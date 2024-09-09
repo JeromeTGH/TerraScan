@@ -79,7 +79,7 @@ const ContractInformations = (props) => {
                                             </tr>
                                             <tr>
                                                 <td>Block height :</td>
-                                                <td>{tblContractInformations.block_height}</td>
+                                                <td>{tblContractInformations.block_height ? <Link to={"/blocks/" + tblContractInformations.block_height}>{tblContractInformations.block_height}</Link> : "(none)"}</td>
                                             </tr>
                                             <tr>
                                                 <td>Tx index :</td>
