@@ -75,6 +75,13 @@ export const getProposal = async (propID) => {
         //     proposalInfos['ipfsDatas'] = ipfsData;
         // }
         proposalInfos['ipfsDatas'] = proposalInfos['metadataField'];
+
+        if(proposalInfos['propType'].includes("MsgUpdateParams")) {
+            proposalInfos['msgParams'] = tblProposals[idxOfThisProp].messages[0]?.params ? tblProposals[idxOfThisProp].messages[0]?.params : null;
+            // console.log("msgParams", proposalInfos['msgParams']);
+        }
+
+
     } else if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
         proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0]?.content["@type"] ? tblProposals[idxOfThisProp].messages[0].content["@type"].split('.').slice(-1) : 'unknown';
         proposalInfos['contentAmount'] = tblProposals[idxOfThisProp].messages[0]?.content.amount ? coinsListToFormatedText(tblProposals[idxOfThisProp].messages[0]?.content.amount[0].amount) : null;

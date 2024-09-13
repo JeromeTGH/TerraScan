@@ -170,6 +170,13 @@ const PageProposal = () => {
                                 </div>
                             </StyledBox>
                         : null}
+                        {proposalInfos['msgParams'] ?
+                            <StyledBox title="Params" color="purple">
+                                <div className={styles.formatedMetadata}>
+                                    <pre>{JSON.stringify(proposalInfos['msgParams'], null, 2)}</pre>
+                                </div>
+                            </StyledBox>
+                        : null}
 
                         {proposalInfos['status'] === "PROPOSAL_STATUS_DEPOSIT_PERIOD" ?
                             <>
