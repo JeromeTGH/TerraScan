@@ -7,6 +7,8 @@ import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTim
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import ObjectViewer from '../../sharedComponents/ObjectViewer';
+import JsonView from 'react18-json-view';
+import 'react18-json-view/src/style.css'
 // import Chart from 'react-apexcharts';
 // import { getDelegatorsParticipation } from './getDelegatorsParticipation';
 
@@ -120,7 +122,7 @@ const PageProposal = () => {
                             <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
                         </StyledBox>
 
-                        {proposalInfos['metadataField'] && !proposalInfos['ipfsDatas'] ?
+                        {/* {proposalInfos['metadataField'] && !proposalInfos['ipfsDatas'] ?
                             <StyledBox title="Metadata" color="brown">
                                 <div className={styles.addContent}>{proposalInfos['metadataField']}</div>
                             </StyledBox>
@@ -129,6 +131,13 @@ const PageProposal = () => {
                             <StyledBox title="Metadata" color="brown">
                                 <div className={styles.formatedMetadata}>
                                     <pre>{JSON.stringify(proposalInfos['ipfsDatas'], null, 2)}</pre>
+                                </div>
+                            </StyledBox>
+                        : null} */}
+                        {proposalInfos['propMsgs'] && proposalInfos['propMsgs'].length > 0 ?
+                            <StyledBox title={proposalInfos['propMsgs'].length > 1 ? "Messages" : "Message"} color="brown">
+                                <div className={styles.addContent}>
+                                    <JsonView src={proposalInfos['propMsgs']} />
                                 </div>
                             </StyledBox>
                         : null}
@@ -167,13 +176,6 @@ const PageProposal = () => {
                                 <div className={styles.addContent}>
                                     <p><strong>Subject_client_id</strong>&nbsp;= {proposalInfos['ClientUpdateProposal'][0]}</p>
                                     <p><strong>Substitute_client_id</strong>&nbsp;= {proposalInfos['ClientUpdateProposal'][1]}</p>
-                                </div>
-                            </StyledBox>
-                        : null}
-                        {proposalInfos['msgParams'] ?
-                            <StyledBox title="Params" color="purple">
-                                <div className={styles.formatedMetadata}>
-                                    <pre>{JSON.stringify(proposalInfos['msgParams'], null, 2)}</pre>
                                 </div>
                             </StyledBox>
                         : null}

@@ -57,7 +57,9 @@ export const getProposal = async (propID) => {
 
 
     // Récupération des infos de cette proposition là en particulier
-// console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
+ console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
+
+    proposalInfos['propMsgs'] = tblProposals[idxOfThisProp].messages ? tblProposals[idxOfThisProp].messages : null;
     if((tblProposals[idxOfThisProp].metadata || tblProposals[idxOfThisProp].summary) && !tblProposals[idxOfThisProp].messages[0]?.content) {
         // SDK v0.47
         proposalInfos['propType'] = tblProposals[idxOfThisProp].messages[0] ? tblProposals[idxOfThisProp].messages[0]["@type"] ? tblProposals[idxOfThisProp].messages[0]["@type"].split('.').slice(-1) : 'unknown' : 'unknown';
@@ -75,11 +77,6 @@ export const getProposal = async (propID) => {
         //     proposalInfos['ipfsDatas'] = ipfsData;
         // }
         proposalInfos['ipfsDatas'] = proposalInfos['metadataField'];
-
-        if(proposalInfos['propType'].includes("MsgUpdateParams")) {
-            proposalInfos['msgParams'] = tblProposals[idxOfThisProp].messages[0]?.params ? tblProposals[idxOfThisProp].messages[0]?.params : null;
-            // console.log("msgParams", proposalInfos['msgParams']);
-        }
 
 
     } else if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
