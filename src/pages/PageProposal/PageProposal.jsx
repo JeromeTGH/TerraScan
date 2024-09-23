@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { EyeIcon, VoteIcon } from '../../application/AppIcons';
 import styles from './PageProposal.module.scss';
 import { getProposal } from './getProposal';
-import { expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
+import { Urlify, expanded_datetime_ago, metEnFormeAmountPartieEntiere, metEnFormeDateTime, retournePartieDecimaleFixed6 } from '../../application/AppUtils';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
 import ObjectViewer from '../../sharedComponents/ObjectViewer';
@@ -119,7 +119,9 @@ const PageProposal = () => {
 
                         <StyledBox title="Proposal" color="green">
                             <h2 className={styles.h2titles}><strong>{proposalInfos['contentTitle']}</strong></h2>
-                            <p className={styles.contentDescription}>{proposalInfos['contentDescription']}</p>
+                            <p className={styles.contentDescription}>
+                                <Urlify text={proposalInfos['contentDescription']} />
+                            </p>
                         </StyledBox>
 
                         {/* {proposalInfos['metadataField'] && !proposalInfos['ipfsDatas'] ?

@@ -506,4 +506,32 @@ export function truncateString(chaineDeCaracteres, nbMaxCaracteres) {
         return chaineDeCaracteres;
     else
         return chaineDeCaracteres.slice(0, nbMaxCaracteres) + '...';
-  }
+}
+ 
+
+
+// =================
+// Fonction "Urlify"
+// =================
+/**
+ * 
+ * @param text chaîne de caractère à analyser
+ * @returns texte traité, avec hyperlink(s) dedans
+ */
+export const Urlify = ({ text }) => {
+
+  const regex_pour_url = /(https?:\/\/[^\s]+)/g;
+
+  return (
+    <>
+      {text.split(regex_pour_url).map((segment, index) => {
+        const match = segment.match(regex_pour_url);
+        if (match)
+          return (<a key={index} href={match} target="_blank" rel="noreferrer noopener">{match}</a>);
+        else
+          return segment;
+      })}
+    </>
+  );
+
+};
