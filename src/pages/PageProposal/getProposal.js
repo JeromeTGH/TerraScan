@@ -57,7 +57,7 @@ export const getProposal = async (propID) => {
 
 
     // Récupération des infos de cette proposition là en particulier
- console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
+ //console.log("tblProposals[idxOfThisProp]", tblProposals[idxOfThisProp]);
 
     proposalInfos['propMsgs'] = tblProposals[idxOfThisProp].messages ? tblProposals[idxOfThisProp].messages : null;
     if((tblProposals[idxOfThisProp].metadata || tblProposals[idxOfThisProp].summary) && !tblProposals[idxOfThisProp].messages[0]?.content) {
