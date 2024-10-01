@@ -84,8 +84,9 @@ export const loadValidators = async () => {
     }
 
 
-    // Action manuelle, PROVISOIRE (pb données retournées par FCD de AllNodes)
-    tblValidators["terravaloper1kx0t0nlc8x92te8zrnzsn40ucln6k0t2kej3c7"].status = "jailed";
+    // Action manuelle, PROVISOIRE
+    tblValidators["terravaloper1kx0t0nlc8x92te8zrnzsn40ucln6k0t2kej3c7"].status = "jailed";     // pb données retournées par FCD de AllNodes
+    tblValidators["terravaloper1n4z8myznrfytdnteewsvtw744gyklwky2rpy5f"].description_moniker = "LunaClassic TurkishValidator";     // nom trop long, pour affichage mobile
 
 
 
