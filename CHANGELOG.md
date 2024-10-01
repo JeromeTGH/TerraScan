@@ -4,6 +4,7 @@
 
 | Version | Description |
 | - | - |
+| 1.3.6 | - Added a "SmartContracts" page |
 | 1.3.5 | - Added a "Graphs" page |
 | 1.3.4 | - Redesign of "proposals" page (added pagination too)<br />- Optimization of data loading |
 | 1.3.3 | - Full redesign of "block" page<br />- Makeover of "Staking" page |
