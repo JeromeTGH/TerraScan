@@ -67,6 +67,8 @@ export const getContractInformations = async (contractAddress) => {
             // Garuda Universe Hybrid Staking - GRDX
             objRetour['name'] = contractAddress === "terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7" ? "Garuda Universe Hybrid Staking" : objRetour['name'];
             objRetour['symbol'] = contractAddress === "terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7" ? "GRDX" : objRetour['symbol'];
+            objRetour['symbol'] = contractAddress === "terra1fdqhjvsumljna8rehljqwx3rgx4tej762fret70zvm0dhyhhz3wst2z463" ? "Juris Lockdrop Round #1" : objRetour['symbol'];
+            objRetour['symbol'] = contractAddress === "terra1pfefmmls2w67njucd2qgvv4qefcutyl95g986pd69caxdyzp7acsfp0fv8" ? "Juris Lockdrop List #1" : objRetour['symbol'];
 
             // ----------------------------
 

@@ -152,4 +152,6 @@ export const tblCorrespondanceSmartContract = {
   terra15p8su45k45axng8ue59rl6zph4at27s49u3agr6uqrx3dhcxpg3qt0ekdt: "Cookie Monster Token",
   terra1cgmv3h23t9mrg7q5w5lkfcpkdrxm2csnc03afe5q6xd9x7et0desfeawx2: "Vegas Dao Coin",
   terra1x0d9yex70ngag7z5v7zcmsx6pk7fc6el5lt5qsaeycvqd7mq8vvqpak8v7: "Garuda Universe Hybrid Staking",
+  terra1fdqhjvsumljna8rehljqwx3rgx4tej762fret70zvm0dhyhhz3wst2z463: "Juris Lockdrop Round #1",
+  terra1pfefmmls2w67njucd2qgvv4qefcutyl95g986pd69caxdyzp7acsfp0fv8: "Juris Lockdrop List #1",
 }
