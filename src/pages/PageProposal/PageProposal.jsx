@@ -24,7 +24,8 @@ const PageProposal = () => {
     const [filtre, setFiltre] = useState("DID_NOT_VOTE");
     // const [delegatorsVoteTurnout, setDelegatorsVoteTurnout] = useState("loading...");
     const [validatorVotesPagination, setValidatorVotesPagination] = useState(0);
-
+    
+    // const [metaDataInfos, setMetaDataInfos] = useState();
 
     // Autres variables, constantes
     const nbElementsParPagination = 20;
@@ -40,6 +41,20 @@ const PageProposal = () => {
         setValidatorVotesPagination(0);
         setFiltre(val);
     }
+
+    // // Fonction de récupération des metaInfos IPFS, si il y a
+    // const getMetaDatas = async (metadatas) => {
+
+    //     const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
+    //     if(ipfsRegex.test(metadatas)) {
+    //         const ipfsAdr = 'https://ipfs.io/ipfs/' + metadatas.replace('ipfs://', '');
+    //         const ipfsData = await getIpfsData(ipfsAdr);
+    //         setMetaDataInfos(ipfsData);
+    //     } else {
+    //         setMetaDataInfos("link");
+    //     }
+      
+    // }
 
 
     // Chargement au démarrage
@@ -65,6 +80,9 @@ const PageProposal = () => {
                 
                 // Et transmission des données, pour mise à jour ici
                 setProposalInfos(res);
+
+                // Chargement des infos IPFS, si il y en a
+                // getMetaDatas(res["metadataField"]);
 
                 // Chargement de données complémentaires
                 // getDelegatorsParticipation().then((res) => {
@@ -124,18 +142,27 @@ const PageProposal = () => {
                             </p>
                         </StyledBox>
 
-                        {/* {proposalInfos['metadataField'] && !proposalInfos['ipfsDatas'] ?
+
+                        {proposalInfos['metadataField'] && proposalInfos['ipfsDatas'] ?
                             <StyledBox title="Metadata" color="brown">
                                 <div className={styles.addContent}>{proposalInfos['metadataField']}</div>
                             </StyledBox>
                         : null}
-                        {proposalInfos['ipfsDatas'] ?
+                        {/* {proposalInfos['metadataField'] ?
                             <StyledBox title="Metadata" color="brown">
-                                <div className={styles.formatedMetadata}>
-                                    <pre>{JSON.stringify(proposalInfos['ipfsDatas'], null, 2)}</pre>
-                                </div>
-                            </StyledBox>
+                                {!metaDataInfos ?
+                                    <div className={styles.formatedMetadata}>Loading...</div>
+                                :
+                                    metaDataInfos === "link" ?
+                                        <div className={styles.formatedMetadata}>{proposalInfos['metadataField']}</div>
+                                    :
+                                        <div className={styles.formatedMetadata}>
+                                            <pre>{JSON.stringify(metaDataInfos, null, 2)}</pre>
+                                        </div>
+                                }
+                            </StyledBox>                         
                         : null} */}
+
                         {proposalInfos['propMsgs'] && proposalInfos['propMsgs'].length > 0 ?
                             <StyledBox title={proposalInfos['propMsgs'].length > 1 ? "Messages" : "Message"} color="brown">
                                 <div className={styles.addContent}>

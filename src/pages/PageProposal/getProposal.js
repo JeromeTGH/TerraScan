@@ -70,13 +70,15 @@ export const getProposal = async (propID) => {
         proposalInfos['contentTitle'] = tblProposals[idxOfThisProp].title ? tblProposals[idxOfThisProp].title : null;
         proposalInfos['metadataField'] = tblProposals[idxOfThisProp].metadata ? tblProposals[idxOfThisProp].metadata : null;
 
-        // const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
+        const ipfsRegex = new RegExp('^ipfs://[A-Za-z0-9]+$');
         // if(ipfsRegex.test(proposalInfos['metadataField'])) {
         //     const ipfsAdr = 'https://ipfs.io/ipfs/' + proposalInfos['metadataField'].replace('ipfs://', '');
         //     const ipfsData = await getIpfsData(ipfsAdr);
         //     proposalInfos['ipfsDatas'] = ipfsData;
         // }
-        proposalInfos['ipfsDatas'] = proposalInfos['metadataField'];
+        if(ipfsRegex.test(proposalInfos['metadataField'])) {
+            proposalInfos['ipfsDatas'] = proposalInfos['metadataField'];
+        }
 
 
     } else if(tblProposals[idxOfThisProp].messages[0]?.content && tblProposals[idxOfThisProp].messages[0]?.content["@type"]) {
