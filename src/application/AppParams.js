@@ -38,6 +38,47 @@ export const tblCorrespondanceValeurs = {
   utwd: "TWTC",
 };
 
+// Tableau de messages
+export const tblCorrespondanceMessages = {
+  MsgSend: "Send",
+  MsgDelegate: "Delegate",
+  MsgUndelegate: "Undelegate",
+  MsgTransfer: "Transfer",
+  MsgBeginRedelegate: "Begin redelegate",
+  MsgVote: "Vote",
+  MsgWithdrawDelegatorReward: "Withdraw delegator reward",
+  MsgWithdrawDelegationReward: "Withdraw delegation reward", // variante de 'MsgWithdrawDelegatorReward' (identifié au bloc #9106141, par exemple)
+  MsgWithdrawValidatorCommission: "Withdraw validator commission",
+  MsgAggregateExchangeRateVote: "Aggregate exchange rate vote",
+  MsgAggregateExchangeRatePrevote: "Aggregate exchange rate prevote",
+  MsgExecuteContract: "Execute contract",
+  MsgSubmitProposal: "Submit proposal",
+  MsgDeposit: "Deposit",
+  MsgFundCommunityPool: "Fund community pool",
+  MsgUpdateClient: "Update client",
+  MsgAcknowledgement: "Acknowledgement",
+  MsgExec: "Exec",
+  MsgExecAuthorized: "Exec authorized", // variante de 'MsgExec'
+  MsgInstantiateContract: "Instantiate contract",
+  MsgUnjail: "Unjail",
+  MsgCreateValidator: "Create validator",
+  MsgGrantAuthorization: "Grant authorization",
+  MsgGrant: "Grant", // variante de 'MsgGrantAuthorization'
+  MsgStoreCode: "Store code",
+  MsgMigrateContract: "Migrate contract",
+  MsgSetWithdrawAddress: "Set withdraw address",
+  MsgClearAdmin: "Clear admin",
+  MsgModifyWithdrawAddress: "Modify withdraw address",
+  MsgSwap: "Swap",
+  MsgUpdateAdmin: "Update admin",
+  MsgSwapSend: "Swap send",
+  MsgRevoke: "Revoke",
+  MsgRevokeAuthorization: "Revoke authorization", // variante de 'MsgRevoke'
+  MsgMultiSend: "Multi send",
+  MsgVoteWeighted: "Vote weighted",
+  MsgEditValidator: "Edit Validator",
+};
+
 // Tableau de correspondance Adresse/Désignation de compte
 export const tblCorrespondanceCompte = {
   // Terra
@@ -101,48 +142,7 @@ export const tblCorrespondanceCompte = {
   terra1kakd0l3ll92gamdz8zq7pr7lmghxhkna7jjj39: "TFL wallet 6 (vegas)",
   terra1q0phshknw0pelzrwlezmt7vnmr8jh9vjgezt3z: "TFL wallet 7 (vegas)",
   terra1x04xgtwlw72gtfzrq7nfwmr6eexla8ecljw28z: "TFL wallet 8 (vegas)",   // Project Dawn
-
-};
-
-// Tableau de messages
-export const tblCorrespondanceMessages = {
-  MsgSend: "Send",
-  MsgDelegate: "Delegate",
-  MsgUndelegate: "Undelegate",
-  MsgTransfer: "Transfer",
-  MsgBeginRedelegate: "Begin redelegate",
-  MsgVote: "Vote",
-  MsgWithdrawDelegatorReward: "Withdraw delegator reward",
-  MsgWithdrawDelegationReward: "Withdraw delegation reward", // variante de 'MsgWithdrawDelegatorReward' (identifié au bloc #9106141, par exemple)
-  MsgWithdrawValidatorCommission: "Withdraw validator commission",
-  MsgAggregateExchangeRateVote: "Aggregate exchange rate vote",
-  MsgAggregateExchangeRatePrevote: "Aggregate exchange rate prevote",
-  MsgExecuteContract: "Execute contract",
-  MsgSubmitProposal: "Submit proposal",
-  MsgDeposit: "Deposit",
-  MsgFundCommunityPool: "Fund community pool",
-  MsgUpdateClient: "Update client",
-  MsgAcknowledgement: "Acknowledgement",
-  MsgExec: "Exec",
-  MsgExecAuthorized: "Exec authorized", // variante de 'MsgExec'
-  MsgInstantiateContract: "Instantiate contract",
-  MsgUnjail: "Unjail",
-  MsgCreateValidator: "Create validator",
-  MsgGrantAuthorization: "Grant authorization",
-  MsgGrant: "Grant", // variante de 'MsgGrantAuthorization'
-  MsgStoreCode: "Store code",
-  MsgMigrateContract: "Migrate contract",
-  MsgSetWithdrawAddress: "Set withdraw address",
-  MsgClearAdmin: "Clear admin",
-  MsgModifyWithdrawAddress: "Modify withdraw address",
-  MsgSwap: "Swap",
-  MsgUpdateAdmin: "Update admin",
-  MsgSwapSend: "Swap send",
-  MsgRevoke: "Revoke",
-  MsgRevokeAuthorization: "Revoke authorization", // variante de 'MsgRevoke'
-  MsgMultiSend: "Multi send",
-  MsgVoteWeighted: "Vote weighted",
-  MsgEditValidator: "Edit Validator",
+  terra1cwnw4mxanhk47kuvunz067smvwgzwjfgpfuzjy: "TFL shuttle bridge",
 };
 
 // Tableau de correspondance Adresse/Désignation de smart contracts
