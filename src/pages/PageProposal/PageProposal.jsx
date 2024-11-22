@@ -143,11 +143,12 @@ const PageProposal = () => {
                         </StyledBox>
 
 
-                        {proposalInfos['metadataField'] && proposalInfos['ipfsDatas'] ?
+                        {/* {proposalInfos['metadataField'] && proposalInfos['ipfsDatas'] ?
                             <StyledBox title="Metadata" color="brown">
                                 <div className={styles.addContent}>{proposalInfos['metadataField']}</div>
                             </StyledBox>
-                        : null}
+                        : null} */}
+                        
                         {/* {proposalInfos['metadataField'] ?
                             <StyledBox title="Metadata" color="brown">
                                 {!metaDataInfos ?
