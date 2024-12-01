@@ -17,12 +17,12 @@ export const getTopDelegators = async (valoperAddress, nbToShow) => {
 
     // Récupération des delegators de ce validator
     const rawDelegators = await lcd.staking.getValidatorDelegators(valoperAddress, params).catch(handleError);
-    if(rawDelegators?.data) {
+    if(rawDelegators?.data) {       
         if(rawDelegators.data.delegation_responses) {
             for(const delegator of rawDelegators.data.delegation_responses) {
                 tblRetour.push({
-                    staked: parseInt(delegator.delegation.shares/1000000),
-                    percentage: ((delegator.delegation.shares/tblValidators[valoperAddress].voting_power_amount)*100).toFixed(2),
+                    staked: parseInt(delegator.balance.amount/1000000),
+                    percentage: ((delegator.balance.amount/tblValidators[valoperAddress].voting_power_amount)*100).toFixed(2),
                     delegatorAddress: delegator.delegation.delegator_address
                 })
             }
@@ -33,7 +33,6 @@ export const getTopDelegators = async (valoperAddress, nbToShow) => {
 
     // Tri du "plus gros staking" au plus faible
     tblRetour.sort((a, b) => new Date(b.staked) - new Date(a.staked));
-
 
     // Filtrage des X derniers, et renvoi
     return tblRetour.slice(0, nbToShow);
