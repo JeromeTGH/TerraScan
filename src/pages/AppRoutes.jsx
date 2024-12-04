@@ -89,7 +89,7 @@ const AppRoutes = () => {
             },
             {
                 path: "/about-disclaimer",
-                element: <PageBuilder targetPage="about-disclaimer" withHeader="yes" withFooter="yes" />
+                element: <PageBuilder targetPage="about-disclaimer" withHeader="yes" withFooter="no" />
             },
             // {
             //     path: "/donate",

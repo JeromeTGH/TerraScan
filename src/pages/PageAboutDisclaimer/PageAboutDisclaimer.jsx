@@ -11,6 +11,9 @@ const PageAboutDisclaimer = () => {
     const [versionTerrad, setVersionTerrad] = useState("...");
     const [versionCosmosSDK, setVersionCosmosSDK] = useState("...");
 
+    // Autre
+    const anneeEnCours = new Date().getFullYear();
+
     // Exécution au démarrage
     useEffect(() => {
         // Changement du "title" de la page web
@@ -72,7 +75,7 @@ const PageAboutDisclaimer = () => {
             </div>
             <br />
             <br />
-            <p>Created by <a href="https://twitter.com/jerometomski" target="_blank" rel="noreferrer noopener">Jerome TOMSKI</a>, @2023</p>
+            <p>Created by <a href="https://twitter.com/jerometomski" target="_blank" rel="noreferrer noopener">Jerome TOMSKI</a>, @2023-{anneeEnCours}</p>
             <br />
         </div>
     );

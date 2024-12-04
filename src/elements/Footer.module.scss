@@ -1,9 +1,16 @@
 @import '../style/variables';
 
 .footerContainer {
-    @media (min-width: $primary-breakpoint) {
-        display: none;
+
+    .disclamerTxt {
+        font-size: 0.85rem;
+        border: 1px #555 solid;
+        padding: 0.4rem;
     }
+
+    // @media (min-width: $primary-breakpoint) {
+    //     display: none;
+    // }
 
     .footerTwoCols {
         display: flex;
