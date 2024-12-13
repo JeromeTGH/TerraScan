@@ -40,7 +40,7 @@ const Delegators = (props) => {
 
     // Affichage
     return (
-        <StyledBox title="Top 50 delegators (updated monthly)" color="blue">
+        <StyledBox title="Top 50 delegators (not up to date)" color="blue">
             {msgErreur ?
                 <div className="erreur"><br />{msgErreur}<br /><br /></div>
             :
