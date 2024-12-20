@@ -6,7 +6,7 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
     // Constantes
     const burnWalletAddress = 'terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu';
     const tblBurns = [];
-    const nbBouclagesMaxi = 20;     // Sécurité
+    const nbBouclagesMaxi = 100;     // Sécurité
     
     // Variables
     let nextid = 0;
@@ -47,7 +47,7 @@ export const loadLatestBurns = async (minLuncToShow, minUstcToShow, nbLineToShow
                     const txCode = tx.code ? tx.code : 0;
 
                     // On ne garde que les transactions réussies de type 'MsgSend direct', en excluant les msgs multiples et send "indirects"
-                    if(txCode === 0 && tx.tx.value.msg.length === 1 && tx.tx.value.msg[0].type.includes('MsgSend')) {
+                    if(txCode === 0 && tx.tx.value.msg.length === 1 && tx.tx.value.msg[0].type.includes('MsgSend') && tx.tx.value.msg[0].value && tx.tx.value.msg[0].value.to_address === "terra1sk06e3dyexuq4shw77y3dsv480xv42mq73anxu") {
 
                         const tblAmount = []
                         
