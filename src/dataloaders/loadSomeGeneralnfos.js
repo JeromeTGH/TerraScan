@@ -36,7 +36,6 @@ export const loadSomeGeneralnfos = async () => {
     // Récupération de la taxe burn max, et des paramètres de son split
     const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);
     if(rawTreasuryParameters?.data?.params) {
-        tblGlobalInfos['BurnTaxMax'] = rawTreasuryParameters.data.params.tax_policy.rate_max * 100;
         tblGlobalInfos['BurnTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
         tblGlobalInfos['BurnTaxSplitToBeBurn'] = 100 - tblGlobalInfos['BurnTaxSplitToDistributionModule'];
     }
@@ -47,6 +46,7 @@ export const loadSomeGeneralnfos = async () => {
     // Récupération des infos concernant le split du "distribution module"
     const rawDistributionParameters = await lcd.distribution.getDistributionParameters().catch(handleError);
     if(rawDistributionParameters?.data?.params) {
+        tblGlobalInfos['BurnTaxMax'] = parseFloat(rawDistributionParameters.data.params.community_tax);
         tblGlobalInfos['DistributionModuleSplitToOraclePool'] = rawDistributionParameters.data.params.community_tax * 100;
         tblGlobalInfos['DistributionModuleSplitToCommunityPool'] = 100 - tblGlobalInfos['DistributionModuleSplitToOraclePool'];
     }
