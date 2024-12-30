@@ -1,0 +1,25 @@
+@import '../../style/variables';
+
+.burnBlock {
+    grid-area: burn;
+
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.comments {
+    font-size: 0.7rem;
+    padding-top: 0.4rem;
+    text-align: center;
+}
+
+.addressesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-column-gap: 0.4rem;
+
+    .addressLabel {
+        text-align: left;
+        margin: 0 0.4rem;
+    }
+}

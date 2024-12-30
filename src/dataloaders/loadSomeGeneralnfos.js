@@ -44,7 +44,7 @@ export const loadSomeGeneralnfos = async () => {
         return { "erreur": "Failed to fetch [burntax rate] ..." }
 
         
-    // Récupération de la taxe burn max, et des paramètres de son split
+    // Récupération des paramètres de split au niveau du Treasury
     const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);    
     if(rawTreasuryParameters?.data?.params) {
         tblGlobalInfos['BurnTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;

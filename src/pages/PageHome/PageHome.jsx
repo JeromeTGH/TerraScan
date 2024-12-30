@@ -9,6 +9,7 @@ import BlockTotalSupplies from './BlockTotalSupplies';
 import BlockAccounts from './BlockAccounts';
 import { appName } from '../../application/AppParams';
 // import BlockBurn from './BlockBurn';
+import BlockBurnTaxExemptionList from './BlockBurnTaxExemptionList';
 import { loadCommonAppDatas } from './PageHome.loader';
 
 const PageHome = () => {
@@ -37,6 +38,7 @@ const PageHome = () => {
             <div className={styles.blocksHomepage}>
                 <BlockSearch />
                 {/* <BlockBurn /> */}
+                <BlockBurnTaxExemptionList />
                 <BlockOverview totalSupplies={totalSupplies} lastblockInfos={lastblockInfos} />
                 <BlockLatestBlocks lastblockInfos={lastblockInfos} />
                 <BlockAccounts />

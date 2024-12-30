@@ -69,7 +69,8 @@ export class LCDclient {
                     getBlockInfos: '/cosmos/base/tendermint/v1beta1/blocks/***'
                 },
                 treasury : {
-                    getTreasuryParameters: '/terra/treasury/v1beta1/params'
+                    getTreasuryParameters: '/terra/treasury/v1beta1/params',
+                    getBurnTaxExemptionList : '/terra/treasury/v1beta1/burn_tax_exemption_list'
                 },
                 tx: {
                     searchTxsByEvent: '/cosmos/tx/v1beta1/txs'
