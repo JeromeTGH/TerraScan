@@ -33,8 +33,19 @@ export const loadSomeGeneralnfos = async () => {
         return { "erreur": "Failed to fetch [mint parameters] ..." }
 
 
+    // Récupération du taux de Burn Tax
+    const rawBurnTaxRate = await lcd.tax.getBurnTaxRate().catch(handleError);
+    // console.log("rawBurnTaxRate.data", rawBurnTaxRate.data);
+    if(rawBurnTaxRate?.data?.tax_rate) {
+        // tblGlobalInfos['InflationMax'] = rawMintParameters.data.params.inflation_max * 100;
+        tblGlobalInfos['BurnTaxMax'] = parseFloat(rawBurnTaxRate.data.tax_rate)*100;
+    }
+    else
+        return { "erreur": "Failed to fetch [burntax rate] ..." }
+
+        
     // Récupération de la taxe burn max, et des paramètres de son split
-    const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);
+    const rawTreasuryParameters = await lcd.treasury.getTreasuryParameters().catch(handleError);    
     if(rawTreasuryParameters?.data?.params) {
         tblGlobalInfos['BurnTaxSplitToDistributionModule'] = rawTreasuryParameters.data.params.burn_tax_split * 100;
         tblGlobalInfos['BurnTaxSplitToBeBurn'] = 100 - tblGlobalInfos['BurnTaxSplitToDistributionModule'];
@@ -46,7 +57,6 @@ export const loadSomeGeneralnfos = async () => {
     // Récupération des infos concernant le split du "distribution module"
     const rawDistributionParameters = await lcd.distribution.getDistributionParameters().catch(handleError);
     if(rawDistributionParameters?.data?.params) {
-        tblGlobalInfos['BurnTaxMax'] = parseFloat(rawDistributionParameters.data.params.community_tax);
         tblGlobalInfos['DistributionModuleSplitToOraclePool'] = rawDistributionParameters.data.params.community_tax * 100;
         tblGlobalInfos['DistributionModuleSplitToCommunityPool'] = 100 - tblGlobalInfos['DistributionModuleSplitToOraclePool'];
     }

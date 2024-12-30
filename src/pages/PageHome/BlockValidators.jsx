@@ -26,7 +26,7 @@ const BlockValidators = () => {
 
     // Affichage
     return (
-        <StyledBox title="Validators (actives)" color="blue" className={styles.validatorsBlock}>
+        <StyledBox title="Validators (actives)" color="brown" className={styles.validatorsBlock}>
             <table className={styles.tblValidators}>
                 <thead>
                     <tr>
