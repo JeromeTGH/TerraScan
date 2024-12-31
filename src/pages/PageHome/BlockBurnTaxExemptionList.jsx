@@ -43,16 +43,16 @@ const BlockBurnTaxExemptionList = () => {
                     <div className='erreur'><br />Loading from blockchain (FCD), please wait ...</div>
                 :
                     <>
+                        <div className={styles.comments}>Show all registered burn tax exemption addresses</div>
+                        <br />
                         <div className={styles.burnDiv}>
-                            <div className={styles.comments}>Show all registered burn tax exemption addresses</div>
-                            <br />
                             <div className={styles.addressesGrid}>
                                 {tblTaxExemptionAddressesList.map((adresse, index) => {
-                                    return <div key={index} className={styles.addressLabel}>
+                                    return <span key={index} className={styles.addressLabel}>
                                         <Link to={"/accounts/" + adresse}>
                                             {tblCorrespondanceCompte[adresse] ? tblCorrespondanceCompte[adresse] : adresse}
                                         </Link>
-                                    </div>
+                                    </span>
                                 })}
                             </div>
                         </div>

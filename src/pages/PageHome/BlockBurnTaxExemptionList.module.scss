@@ -5,6 +5,15 @@
 
     font-size: 0.9rem;
     text-align: center;
+
+    .burnDiv {
+        overflow-x: auto;
+        
+        @media (max-width: $primary-breakpoint) {
+            max-width: calc(100vw - 2.6rem);
+            font-size: 0.9rem;
+        }
+    }
 }
 
 .comments {
@@ -14,12 +23,13 @@
 }
 
 .addressesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    grid-column-gap: 0.4rem;
+    display: flex;
+    column-gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
     .addressLabel {
         text-align: left;
-        margin: 0 0.4rem;
+        min-width: 360px;
     }
 }
