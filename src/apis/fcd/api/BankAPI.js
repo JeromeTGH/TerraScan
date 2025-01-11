@@ -7,7 +7,7 @@ export class BankAPI {
         this.paths = paths;
     }
 
-    // Exemple d'appel : /v1/bank/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd
+    // Exemple d'appel : https://terra-classic-fcd.publicnode.com/v1/bank/terra12gw6wuav6cyezly29t66tpnty5q2ny3d2r88gd
     async getAccountDetails(accountAdr, params = new URLSearchParams()) {
         return await this.apiRequester.get(this.paths.getAccountDetails + accountAdr, params);
     }

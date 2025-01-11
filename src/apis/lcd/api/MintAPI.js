@@ -8,7 +8,7 @@ export class MintAPI {
     }
 
 
-    // Exemple d'appel : /cosmos/mint/v1beta1/params
+    // Exemple d'appel : https://terra-classic-lcd.publicnode.com/cosmos/mint/v1beta1/params
     async getMintParameters(params = new URLSearchParams()) {
         return this.apiRequester.get(this.paths.getMintParameters, params);
     }
