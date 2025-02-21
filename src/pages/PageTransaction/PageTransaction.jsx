@@ -48,7 +48,7 @@ const PageTransaction = () => {
                         <StyledBox title="Memo" color="blue">
                             <span className={styles.memo}>{txDatas['txInfos']['memo']}</span>
                         </StyledBox>
-                        {txDatas['txInfos']['transferts'] ?
+                        {txDatas['txInfos']['transferts'] && txDatas['txInfos']['transferts'].length > 0 ?
                             <StyledBox title="Transfers" color="purple">
                                 <div className={styles.addContent}>
                                 {txDatas['txInfos']['transferts'].map((valeur, index) => {
