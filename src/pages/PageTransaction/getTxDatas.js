@@ -81,7 +81,8 @@ export const getTxDatas = async (txHash) => {
                     const eventDetails = {
                         sender: "",
                         recipient: "",
-                        amount: ""
+                        amount: "",
+                        multiple_coins: ""
                     }
                     if(evenement.type && evenement.attributes)
                     {
@@ -97,12 +98,18 @@ export const getTxDatas = async (txHash) => {
                                         break;
                                     case "amount":
                                         const amountAndTicker = evenement.attributes[attributeNum].value;
-                                        const regexAmount = /^[0-9.]+/g;
-                                        const matchAmout = amountAndTicker.match(regexAmount);
-                                        if(matchAmout.length > 0) {
-                                            const rawDevise = amountAndTicker.replace(matchAmout[0], "");
-                                            const devise = tblCorrespondanceValeurs[rawDevise] ? tblCorrespondanceValeurs[rawDevise] : rawDevise;
-                                            eventDetails.amount = (parseFloat(matchAmout[0]) / 1000000).toFixed(6) + "\u00a0" + devise;
+                                        const idxComma = amountAndTicker.indexOf(",");
+                                        if (idxComma === -1) {
+                                            const regexAmount = /^[0-9.]+/g;
+                                            const matchAmout = amountAndTicker.match(regexAmount);
+                                            if(matchAmout.length > 0) {
+                                                const rawDevise = amountAndTicker.replace(matchAmout[0], "");
+                                                const devise = tblCorrespondanceValeurs[rawDevise] ? tblCorrespondanceValeurs[rawDevise] : rawDevise;
+                                                eventDetails.amount = (parseFloat(matchAmout[0]) / 1000000).toFixed(6) + "\u00a0" + devise;
+                                            }
+                                        } else {
+                                            eventDetails.amount = "multiple coins";
+                                            eventDetails.multiple_coins = amountAndTicker;
                                         }
        
                                         break;

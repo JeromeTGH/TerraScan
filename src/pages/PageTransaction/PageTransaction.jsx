@@ -52,7 +52,7 @@ const PageTransaction = () => {
                             <StyledBox title="Transfers" color="purple">
                                 <div className={styles.addContent}>
                                 {txDatas['txInfos']['transferts'].map((valeur, index) => {
-                                    return <div key={index}><Link to={"/accounts/" + valeur.sender}>{valeur.sender.substring(0, 6) + "..." + valeur.sender.substring(valeur.sender.length - 6, valeur.sender.length)}</Link>&nbsp;send&nbsp;<strong>{valeur.amount}</strong>&nbsp;to&nbsp;<Link to={"/accounts/" + valeur.recipient}>{valeur.recipient.substring(0, 6) + "..." + valeur.recipient.substring(valeur.recipient.length - 6, valeur.recipient.length)}</Link></div>
+                                    return <div key={index}><Link to={"/accounts/" + valeur.sender}>{valeur.sender.substring(0, 6) + "..." + valeur.sender.substring(valeur.sender.length - 6, valeur.sender.length)}</Link>&nbsp;send&nbsp;<strong>{valeur.amount}</strong>&nbsp;to&nbsp;<Link to={"/accounts/" + valeur.recipient}>{valeur.recipient.substring(0, 6) + "..." + valeur.recipient.substring(valeur.recipient.length - 6, valeur.recipient.length)}</Link>{valeur.multiple_coins !== "" ? <span className="comment"><br/>({valeur.multiple_coins.replaceAll(",", ", ")})</span> : null}</div>
                                 })}
                                 </div>
                             </StyledBox>
