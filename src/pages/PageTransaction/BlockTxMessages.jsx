@@ -35,6 +35,7 @@ import MsgWithdrawValidatorCommission from './Msgs/MsgWithdrawValidatorCommissio
 import MsgAggregateExchangeRatePrevote from './Msgs/MsgAggregateExchangeRatePrevote';
 import StyledBox from '../../sharedComponents/StyledBox';
 import MsgEditValidator from './Msgs/MsgEditValidator';
+import MsgGrantAllowance from './Msgs/MsgGrantAllowance';
 
 const BlockTxMessages = (props) => {
 
@@ -68,6 +69,7 @@ const BlockTxMessages = (props) => {
                     {props.txMessage['MsgType'] === 'MsgCreateValidator' ? <MsgCreateValidator txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgGrantAuthorization' ||
                      props.txMessage['MsgType'] === 'MsgGrant' ? <MsgGrantAuthorization txMessage={props.txMessage} /> : null}
+                    {props.txMessage['MsgType'] === 'MsgGrantAllowance' ? <MsgGrantAllowance txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgStoreCode' ? <MsgStoreCode txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgMigrateContract' ? <MsgMigrateContract txMessage={props.txMessage} /> : null}
                     {props.txMessage['MsgType'] === 'MsgSetWithdrawAddress' ? <MsgSetWithdrawAddress txMessage={props.txMessage} /> : null}

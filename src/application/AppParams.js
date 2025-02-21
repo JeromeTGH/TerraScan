@@ -64,6 +64,7 @@ export const tblCorrespondanceMessages = {
   MsgCreateValidator: "Create validator",
   MsgGrantAuthorization: "Grant authorization",
   MsgGrant: "Grant", // variante de 'MsgGrantAuthorization'
+  MsgGrantAllowance: "Grant Allowance", // variante de 'MsgGrantAuthorization'
   MsgStoreCode: "Store code",
   MsgMigrateContract: "Migrate contract",
   MsgSetWithdrawAddress: "Set withdraw address",

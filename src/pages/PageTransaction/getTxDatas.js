@@ -410,6 +410,12 @@ export const getTxDatas = async (txHash) => {
                 msgStructRet['granter'] = message.value.granter;
                 msgStructRet['grant'] = message.value.grant;
             }
+            
+            if(msgStructRet['MsgType'] === 'MsgGrantAllowance') {
+                msgStructRet['grantee'] = message.value.grantee;
+                msgStructRet['granter'] = message.value.granter;
+                msgStructRet['allowance'] = message.value.allowance;
+            }
 
             if(msgStructRet['MsgType'] === 'MsgStoreCode') {
                 msgStructRet['instantiate_permission'] = message.value.instantiate_permission ? message.value.instantiate_permission : "null";
