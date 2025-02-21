@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ExchangeIcon } from '../../application/AppIcons';
 import styles from './PageTransaction.module.scss';
 import BlockTxInfos from './BlockTxInfos';
@@ -7,7 +7,7 @@ import BlockTxMessages from './BlockTxMessages';
 import { getTxDatas } from './getTxDatas';
 import { appName } from '../../application/AppParams';
 import StyledBox from '../../sharedComponents/StyledBox';
-import ObjectViewer from '../../sharedComponents/ObjectViewer';
+import JsonView from 'react18-json-view';
 
 const PageTransaction = () => {
 
@@ -48,12 +48,25 @@ const PageTransaction = () => {
                         <StyledBox title="Memo" color="blue">
                             <span className={styles.memo}>{txDatas['txInfos']['memo']}</span>
                         </StyledBox>
+                        {txDatas['txInfos']['transferts'] ?
+                            <StyledBox title="Transfers" color="purple">
+                                <div className={styles.addContent}>
+                                {txDatas['txInfos']['transferts'].map((valeur, index) => {
+                                    return <div key={index}><Link to={"/accounts/" + valeur.sender}>{valeur.sender.substring(0, 6) + "..." + valeur.sender.substring(valeur.sender.length - 6, valeur.sender.length)}</Link>&nbsp;send&nbsp;<strong>{valeur.amount}</strong>&nbsp;to&nbsp;<Link to={"/accounts/" + valeur.recipient}>{valeur.recipient.substring(0, 6) + "..." + valeur.recipient.substring(valeur.recipient.length - 6, valeur.recipient.length)}</Link></div>
+                                })}
+                                </div>
+                            </StyledBox>
+                        : null}
                         {txDatas['txMessages'].map((message, index) => {
                             return <BlockTxMessages txMessage={message} key={index} idxElement={index+1} nbElements={txDatas['txMessages'].length} txHash={txHash} />
                         })}
-                        <StyledBox title="Logs" color="purple">
-                            <ObjectViewer objetAvisualiser={txDatas['txInfos']['logs']} className={styles.logs} nomChamp='logs' />
-                        </StyledBox>
+                        {txDatas['txInfos']['logs'] ?
+                            <StyledBox title="Logs" color="brown">
+                                <div className={styles.addContent}>
+                                    <JsonView src={txDatas['txInfos']['logs']} />
+                                </div>
+                            </StyledBox>
+                        : null}
                     </div>
                     : null
                 : msgErreurTxDatas ? <StyledBox title="ERROR" color="red"><span className='erreur'>{msgErreurTxDatas}</span></StyledBox>

@@ -71,7 +71,51 @@ export const getTxDatas = async (txHash) => {
 // console.log("logs", txInfos["logs"]);
 
         const tblTaxes = [];
+        const tblTransferts = [];
         for(const lgLog of logsTbl) {
+            // console.log("log #", lgLog);
+
+            if(lgLog.events) {
+                for(const eventNum in lgLog.events) {
+                    const evenement = lgLog.events[eventNum]
+                    const eventDetails = {
+                        sender: "",
+                        recipient: "",
+                        amount: ""
+                    }
+                    if(evenement.type && evenement.attributes)
+                    {
+                        if(evenement.type === "transfer") {
+                            // console.log("evenement", evenement);
+                            for(const attributeNum in evenement.attributes) {
+                                switch(evenement.attributes[attributeNum].key) {
+                                    case "recipient":
+                                        eventDetails.recipient = evenement.attributes[attributeNum].value;
+                                        break;
+                                    case "sender":
+                                        eventDetails.sender = evenement.attributes[attributeNum].value;
+                                        break;
+                                    case "amount":
+                                        const amountAndTicker = evenement.attributes[attributeNum].value;
+                                        const regexAmount = /^[0-9.]+/g;
+                                        const matchAmout = amountAndTicker.match(regexAmount);
+                                        if(matchAmout.length > 0) {
+                                            const rawDevise = amountAndTicker.replace(matchAmout[0], "");
+                                            const devise = tblCorrespondanceValeurs[rawDevise] ? tblCorrespondanceValeurs[rawDevise] : rawDevise;
+                                            eventDetails.amount = (parseFloat(matchAmout[0]) / 1000000).toFixed(6) + "\u00a0" + devise;
+                                        }
+       
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            tblTransferts.push(eventDetails)
+                        }
+                    }
+                }
+            }
+
             if(lgLog.log && lgLog.log.tax) {
                 const coins = lgLog.log.tax.split(',');
                 for (const coin of coins) {
@@ -85,6 +129,7 @@ export const getTxDatas = async (txHash) => {
             }
         }
         txInfos["taxes"] = tblTaxes;
+        txInfos["transferts"] = tblTransferts;
 
 
         // ====== Nb Messages

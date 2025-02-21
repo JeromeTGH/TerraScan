@@ -84,7 +84,7 @@ const Transactions = (props) => {
                                                     <>&nbsp;</>
                                                 }
                                             </td>
-                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash}><EyeIcon /></Link></td>
+                                            <td className={styles.view}><Link to={'/transactions/' + element.txHash} target="_blank" rel="noopener noreferrer"><EyeIcon /></Link></td>
                                         </tr>
                                     })}
                                 </tbody>

@@ -1,3 +1,4 @@
+@import '../../style/variables';
 
 .txHash {
     word-break: break-all;
@@ -7,10 +8,12 @@
     word-break: break-all;
 }
 
-.logs {
-    font-size: 0.8rem;
-    div {
-        white-space: pre-wrap;
-        word-break: break-all;
+.addContent {
+    overflow-x: auto;
+    font-size: 1rem;
+    
+    @media (max-width: $primary-breakpoint) {
+        max-width: calc(100vw - 2.6rem);
+        font-size: 0.9rem;
     }
 }
