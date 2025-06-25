@@ -7,7 +7,6 @@
     "apexcharts": "^3.41.1",
     "axios": "^1.5.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
-    "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
@@ -46,6 +45,7 @@
     "child_process": "^1.0.2",
     "dotenv": "^16.4.5",
     "path": "^0.12.7",
+    "sass": "^1.89.2",
     "url": "^0.11.3"
   }
 }

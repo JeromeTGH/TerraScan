@@ -40,10 +40,10 @@ const AppRoutes = () => {
                 path: "/validators/:valAdr",
                 element: <PageBuilder targetPage="validator" withHeader="yes" withFooter="yes" />
             },
-            {
-                path: "/graphs",
-                element: <PageBuilder targetPage="graphs" withHeader="yes" withFooter="yes" />
-            },
+            // {
+            //     path: "/graphs",
+            //     element: <PageBuilder targetPage="graphs" withHeader="yes" withFooter="yes" />
+            // },
             {
                 path: "/proposals",
                 element: <PageBuilder targetPage="proposals" withHeader="yes" withFooter="yes" />
@@ -91,10 +91,6 @@ const AppRoutes = () => {
                 path: "/about-disclaimer",
                 element: <PageBuilder targetPage="about-disclaimer" withHeader="yes" withFooter="no" />
             },
-            // {
-            //     path: "/donate",
-            //     element: <PageBuilder targetPage="donate" withHeader="yes" withFooter="yes" />
-            // },
             {
                 path: "/404",
                 element: <PageBuilder targetPage="404" withHeader="yes" withFooter="yes" />

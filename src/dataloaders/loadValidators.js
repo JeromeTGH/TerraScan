@@ -16,12 +16,22 @@ export const loadValidators = async () => {
         const fcd = FCDclient.getSingleton();
 
         // Récupération de la liste de tous les validateurs (avec infos générales, à leur sujet)
-        const rawValidatorList = await fcd.staking.getValidatorsList().catch(handleError);
-        if(rawValidatorList && rawValidatorList.data) {
+        const rawValidatorListv1 = await fcd.staking.getValidatorsListv1().catch(handleError);
 
-// console.log("rawValidatorList.data", rawValidatorList.data);
+        // const params = new URLSearchParams();
+        // params.append("status", "BOND_STATUS_BONDED");
+        // params.append("pagination.limit", "9999");
+        // const rawValidatorListv1beta1 = await fcd.staking.getValidatorsListv1beta1(params).catch(handleError);
+        //
+        // Pb : err.response.data no available nodes found for platform terra-classic-mantlemint
+        // ... erreur intermittente
+        // 
 
-            for(const validator of rawValidatorList.data) {
+        if(rawValidatorListv1 && rawValidatorListv1.data) {
+
+// console.log("rawValidatorListv1.data", rawValidatorListv1.data);
+
+            for(const validator of rawValidatorListv1.data) {
                    
                 try {
                     const validatorInfo = new Validator(validator);

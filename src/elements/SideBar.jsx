@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { appName } from '../application/AppParams';
 import styles from './SideBar.module.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, GraphBarIcon, ContractIcon } from '../application/AppIcons';
+import { BlocksIcon, CalculatorIcon, CircleQuestionIcon, ExchangeIcon, HomeIcon, LockIcon, SearchIcon, VoteIcon, AccountIcon, BurnIcon, ContractIcon } from '../application/AppIcons';
 import BtnJourNuit from './BtnJourNuit';
 
 const SideBar = () => {
@@ -12,10 +12,6 @@ const SideBar = () => {
     const location = useLocation();
     const [isProposalsPageOrChilds, setIsProposalsPageOrChilds] = useState(false);
 
-    // // Fonction de redirection "donate"
-    // const handleDon = () => {
-    //     navigate('/donate/');
-    // }
 
     // Fixation du "hover" du menu gouvernance, si la page principale ou ses enfants sont sélectionnés
     // (nota : ici, le link /proposals/voting ne permet pas de faire les choses plus simplement)
@@ -46,12 +42,12 @@ const SideBar = () => {
                             <span>Home</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to={"/graphs"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><GraphBarIcon /></span>
                             <span>Graphs</span>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to={"/blocks"} className={({ isActive }) => (isActive ? styles.sidebar_content_mnu_active : styles.sidebar_content_mnu_inactive)}>
                             <span><BlocksIcon /></span>
@@ -116,14 +112,6 @@ const SideBar = () => {
                 <div id={styles["sidebar-theme"]}>
                     Switch theme to →&nbsp;<BtnJourNuit filled="yes" />
                 </div>
-                {/* <br />
-                <br />
-                <div className={styles.don}>
-                    Want to help me ?<br />
-                    To make this app sustainable ?<br />
-                    <button onClick={() => handleDon()}><CoffeeIcon /><span>Donate</span></button><br />
-                    So please donate ! Thanks ;)<br />
-                </div> */}
             </nav>
         </div>
     );

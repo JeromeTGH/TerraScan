@@ -4,7 +4,7 @@ import Header from '../../elements/Header';
 import Footer from '../../elements/Footer';
 
 import PageHome from '../PageHome/PageHome';
-import PageGraphs from '../PageGraphs/PageGraphs';
+// import PageGraphs from '../PageGraphs/PageGraphs';
 import PageAccount from '../PageAccount/PageAccount';
 import PageAccounts from '../PageAccounts/PageAccounts';
 import PageBlock from '../PageBlock/PageBlock';
@@ -69,8 +69,8 @@ const PageBuilder = (props) => {
         switch(parametre) {
             case 'home':
                 return <PageHome />;
-            case 'graphs':
-                return <PageGraphs />;
+            // case 'graphs':
+            //     return <PageGraphs />;
             case 'account':
                 return <PageAccount />;
             case 'accounts':
@@ -109,8 +109,6 @@ const PageBuilder = (props) => {
                 return <PageSmartContract />
             case 'smartcontracts':
                 return <PageSmartContracts />
-                // case 'donate':
-            //     return <PageDonate />;
             case 'search':
                 return <PageSearch />;
             case '404':

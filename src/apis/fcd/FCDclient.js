@@ -27,7 +27,8 @@ export class FCDclient {
                 },
                 staking: {
                     getValidatorInfos: '/v1/staking/validators/',
-                    getValidatorsList: '/v1/staking/validators'
+                    getValidatorsListv1: '/v1/staking/validators',
+                    getValidatorsListv1beta1: '/cosmos/staking/v1beta1/validators'
                 },
                 tx: {
                     getAccountTxs: '/v1/txs',
