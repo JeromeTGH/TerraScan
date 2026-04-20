@@ -32,7 +32,7 @@ const PageProposals = (props) => {
     // Affichage
     return (
         <>
-            <h1><span><VoteIcon /><strong>Proposals</strong></span></h1>
+            <h1><span><VoteIcon /><strong>Proposals (last 100)</strong></span></h1>
             <div className={styles.blocksProposalPage}>
                 {msgErreur ?
                     <StyledBox title="ERROR" color="red"><div className='erreur'>{msgErreur}</div></StyledBox>
